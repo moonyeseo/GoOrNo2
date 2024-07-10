@@ -22,7 +22,7 @@ public class UsersDao {
 	SqlSessionTemplate sqlSessionTemplate;
 
 	public UsersDao() {
-		System.out.println("UsersDao »ý¼ºÀÚ");
+		System.out.println("UsersDao ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 	}
 
 	public int insertUsers(UsersBean users) {
@@ -69,5 +69,11 @@ public class UsersDao {
 	public void kakaoinsert(HashMap<String, Object> loginInfo) {
 		sqlSessionTemplate.insert(namespace + ".kakaoinsert", loginInfo);
 		
+	}
+
+	public int searchId(String inputname) {
+		int count = -1;
+		count = sqlSessionTemplate.selectOne(namespace + ".searchId", inputname);
+		return count;
 	}
 }
