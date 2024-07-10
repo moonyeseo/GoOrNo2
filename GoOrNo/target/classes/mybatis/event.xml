@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="event.model.Event">
+	<!-- 행사 추가 -->
+	<!-- 테스트 -->
+	<insert id="insertEvent" parameterType="event.model.EventBean">
+		insert into event(event_no, performance_type, title, place, event_period, img, lot, lat)
+		values(event_seq.nextval, #{performance_type}, #{title},
+		#{place}, #{event_period},
+		#{img}, #{lot},
+		#{lat})
+	</insert>
+	
+	<!-- 조회 -->
+	<select id="getAllEvents" resultType="event.model.EventBean">
+		select * from event
+		<if test="whatColumn == 'all'">
+			where performance_type like #{keyword} or title like #{keyword} or place
+			like #{keyword}
+		</if>
+		<if test="whatColumn == 'performance_type'">
+			where performance_type like #{keyword}
+		</if>
+		<if test="whatColumn == 'title'">
+			where title like #{keyword}
+		</if>
+		<if test="whatColumn == 'place'">
+			where place like #{keyword}
+		</if>
+		order by event_no asc
+	</select>
+	
+	<!-- 행사 유형 중복 제거 -->
+	<select id="getPerformanceType"
+		resultType="event.model.EventBean">
+		SELECT DISTINCT PERFORMANCE_TYPE
+		FROM event
+		ORDER BY PERFORMANCE_TYPE DESC
+	</select>
+
+	<!-- 총 이벤트 수 -->
+	<select id="getTotalCount" resultType="int">
+		select count(*) from event
+		<if test="whatColumn == 'all'">
+			where performance_type like #{keyword} or title like #{keyword} or place
+			like #{keyword}
+		</if>
+		<if test="whatColumn == 'performance_type'">
+			where performance_type like #{keyword}
+		</if>
+		<if test="whatColumn == 'title'">
+			where title like #{keyword}
+		</if>
+		<if test="whatColumn == 'place'">
+			where place like #{keyword}
+		</if>
+	</select>
+	
+	<!-- 번호로 조회 -->
+	<select id="getEventByEventNo"  resultType="event.model.EventBean">
+		SELECT *
+		FROM event
+		WHERE event_no = #{eventNo}
+		
+	</select>
+	
+	<!-- 행사 테이블 데이터 비우기 -->
+	<delete id="truncateEvent">
+		TRUNCATE TABLE event
+	</delete>
+	
+	<delete id="deleteEvent">
+		delete from event where event_no = #{event_no}
+	</delete>
+	
+	<update id="updateEvent">
+		update event set performance_type = #{performance_type}, title = #{title}, place = #{place},
+		event_period = #{event_period}, img = #{img}, lot = #{lot}, lat = #{lat}
+		where event_no = #{event_no} 
+	</update>
+</mapper>
+
+
+   

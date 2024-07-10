@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="faq">
+	<select id="getTotalCount" resultType="int">
+		select count(*) from faq
+		<if test="whatColumn == 'all'">
+			where question like #{keyword} or answer like #{keyword}
+		</if>
+		<if test="whatColumn == 'question'">
+			where question like #{keyword}
+		</if>
+		<if test="whatColumn == 'answer'">
+			where answer like #{keyword}
+		</if>
+	</select>
+	<select id="getFaqList" resultType="faq.model.FaqBean">
+		select * from faq 
+		<if test="whatColumn == 'all'">
+			where question like #{keyword} or answer like #{keyword}
+		</if>
+		<if test="whatColumn == 'question'">
+			where question like #{keyword}
+		</if>
+		<if test="whatColumn == 'answer'">
+			where answer like #{keyword}
+		</if>
+		order by faq_no desc
+	</select>
+	<insert id="insertFaq">
+		insert into faq(faq_no,question,answer) 
+		values(faq_seq.nextval, #{question}, #{answer})
+	</insert>
+	<select id="getFaqByNo" resultType="faq.model.FaqBean">
+		select * from faq where faq_no = #{faq_no}
+	</select>
+	<update id="updateReadcount">
+		update faq set readcount = readcount+1 where faq_no = #{ faq_no }
+	</update>
+	
+	<delete id="deleteFaq">
+		delete faq where faq_no = #{ faq_no }	
+	</delete>
+	<update id="updateFaq">
+		update faq set question = #{ question }, answer = #{ answer }
+		where faq_no = #{ faq_no }
+	</update>
+</mapper>

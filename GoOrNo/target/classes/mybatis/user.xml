@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+	<select id="getTotalCount" resultType="int">
+		select count(*) from users
+		<if test="whatColumn == 'all'">
+			where id like #{keyword} or email like #{keyword}
+		</if>
+		<if test="whatColumn == 'id'">
+			where id like #{keyword}
+		</if>
+		<if test="whatColumn == 'email'">
+			where email like #{keyword}
+		</if>
+	</select>
+	<select id="getUserList" resultType="users.model.UsersBean">
+		select * from users
+		<if test="whatColumn == 'all'">
+			where id like #{keyword} or email like #{keyword}
+		</if>
+		<if test="whatColumn == 'id'">
+			where id like #{keyword}
+		</if>
+		<if test="whatColumn == 'email'">
+			where email like #{keyword}
+		</if>
+		order by ref desc, user_no
+	</select>
+	<insert id="insertUser">
+		insert into users values(mem_seq.nextval, #{id}, #{pw}, #{email}, #{gender}, #{address})
+	</insert>
+	<delete id="deleteUser">
+		delete users where user_no = #{ user_no }	
+	</delete>
+	<select id="getUserByNo" resultType="users.model.UsersBean">
+		select * from users where user_no = #{user_no}
+	</select>
+	<update id="updateUser">
+		update users set pw = #{ pw }, email = #{ email }, gender = #{ gender}, address = #{ address } where user_no = #{ user_no }
+	</update>
+	<select id="getUserById" resultType="users.model.UsersBean">
+		select * from users where id = #{id}
+	</select>
+</mapper>

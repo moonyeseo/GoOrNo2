@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace = "report.model.Report">
+  	<insert id = "insertReport">
+  		insert into report values(report_seq.nextval, #{board_no},#{subject}, #{user_no}, #{why}, sysdate, 0)
+  	</insert>
+  	
+  	<select id = "getAllReport" resultType = "report.model.ReportBean">
+  		select * from report
+  		
+  		<if test = "whatColumn == 'all'">
+  			where subject like #{keyword} or why like #{keyword}
+  		</if>
+  		
+  		<if test = "whatColumn == 'subject'">
+  			where subject like #{keyword}
+  		</if>
+  		
+  		<if test = "whatColumn == 'why'">
+  			where why like #{keyword}
+  		</if>
+  		
+  		order by re_no desc
+  	</select>
+  	
+  	<select id = "getReport" resultType = "report.model.ReportBean">
+  		select r.re_no, b.board_no, b.subject, r.user_no, r.why, b.content, r.reportdate, u.id 
+  		from report r, board b, users u
+  		where #{board_no} = b.board_no and #{re_no} = r.re_no and u.user_no =#{user_no}
+  	</select>
+  	
+  	<update id = "updateCheck">
+  		update report set re_check = 1 where re_no = #{re_no} 
+  	</update>
+  	
+  	<delete id = "deleteReport">
+  		delete from report where re_no = #{re_no}
+  	</delete>
+  	
+  	<select id = "getTotalCount" resultType = "int">
+  		select count(*) from report
+  		
+  		<if test = "whatColumn == 'all'">
+  			where subject like #{keyword} or why like #{keyword}
+  		</if>
+  		
+  		<if test = "whatColumn == 'subject'">
+  			where subject like #{keyword}
+  		</if>
+  		
+  		<if test = "whatColumn == 'why'">
+  			where why like #{keyword}
+  		</if>
+  	</select>
+  </mapper>
