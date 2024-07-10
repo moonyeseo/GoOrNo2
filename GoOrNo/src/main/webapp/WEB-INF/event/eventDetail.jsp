@@ -59,7 +59,7 @@
     }
     
 </style>
-
+  
 	<!-- 챗봇 -->
 <div id="asideChatbot" class="asideChatbot " style="heigth: 80%">
 	<%@include file="../chatbot/chatbot.jsp"%>
