@@ -60,6 +60,16 @@
     
 </style>
 
+	<!-- 챗봇 -->
+<div id="asideChatbot" class="asideChatbot " style="heigth: 80%">
+	<%@include file="../chatbot/chatbot.jsp"%>
+</div>
+
+<div id="chatbotIcon" style="heigth: 20%">
+	<%@include file="../chatbot/chatbotIcon.jsp"%>
+</div>
+
+
 <section class="event-detail-container">
     <div class="event-title">
         <h2>상세정보</h2>

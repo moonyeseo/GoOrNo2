@@ -101,6 +101,16 @@
     }
 </style>
 
+	<!-- 챗봇 -->
+<div id="asideChatbot" class="asideChatbot " style="heigth: 80%">
+	<%@include file="../chatbot/chatbot.jsp"%>
+</div>
+
+<div id="chatbotIcon" style="heigth: 20%">
+	<%@include file="../chatbot/chatbotIcon.jsp"%>
+</div>
+
+
 <section>
     <h2>Event</h2>
     <div class="performance-type-container">
