@@ -147,9 +147,13 @@
 			day = todayDate;
 		}
 		
-		//alert(year + "." + month + "." + day);
+		location.href = "calendar.event?year=" + year + "&month=" + month + "&day=" + day; // ajax 사용 x
 		
-		location.href = "calendar.event?year=" + year + "&month=" + month + "&day=" + day;
+		// ajax 사용
+/* 		$.ajax({
+			
+		}); */
+		
 	}
 
 	/*
@@ -297,13 +301,13 @@
 							data-wow-duration="1s" data-wow-delay="0.5s">
 							<div class="blog-post">
 								<div class="thumb">
-									<a href="#"><img src="${eb.img }" alt="event_image"></a>
+									<a href="#"><img src="${eventLists.get(0).img }" alt="event_image"></a>
 								</div>
 								<div class="down-content">
-									<span class="category">${eb.performance_type }</span> <span
-										class="date">${eb.event_period }</span>
-									<h4 id="eventTitle">${eb.title }</h4>
-									<p>${eb.place }</p>
+									<span class="category">${eventLists.get(0).performance_type }</span> <span
+										class="date">${eventLists.get(0).event_period }</span>
+									<h4 id="eventTitle">${eventLists.get(0).title }</h4>
+									<p>${eventLists.get(0).place }</p>
 								</div>
 							</div>
 						</div>
@@ -359,7 +363,8 @@
 										<div class="day">SAT</div>
 										<div class="day">SUN</div>
 									</div>
-									<div class="dates"></div>
+									<div class="dates">
+									</div>
 								</div>
 							</div>
 						</div>
@@ -369,21 +374,24 @@
 					data-wow-delay="0.3s">
 					<div class="blog-posts">
 						<div class="row">
-							<c:forEach var="event" items="${eventLists }">
-								<div class="col-lg-12">
-									<div class="post-item">
-										<div class="thumb">
-											<a href="#"><img src="${event.img }" alt=""></a>
-										</div>
-										<div class="right-content">
-											<span class="category">${event.performance_type }</span> <span
-												class="date">${event.event_period }</span>
-											<h4>${event.title }</h4>
-											<p>${event.place }</p>
+							<c:set var = "eventListsSize" value = "${fn:length(eventLists)}"/>
+							<c:if test = "${eventListsSize > 1}">
+								<c:forEach var="i" begin = "1" end = "${eventListsSize-1 }">
+									<div class="col-lg-12">
+										<div class="post-item">
+											<div class="thumb">
+												<a href="#"><img src="${eventLists.get(i).img }" alt=""></a>
+											</div>
+											<div class="right-content">
+												<span class="category">${eventLists.get(i).performance_type }</span> <span
+													class="date">${eventLists.get(i).event_period }</span>
+												<h4>${eventLists.get(i).title }</h4>
+												<p>${eventLists.get(i).place }</p>
+											</div>
 										</div>
 									</div>
-								</div>
-							</c:forEach>
+								</c:forEach>
+							</c:if>
 						</div>
 					</div>
 				</div>

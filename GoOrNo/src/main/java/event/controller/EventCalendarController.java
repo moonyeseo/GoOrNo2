@@ -23,86 +23,87 @@ import utility.Paging;
 public class EventCalendarController {
 	private final String command = "/calendar.event";
 	private final String gotoPage = "../../main";
-	
+
 	@Autowired
 	private EventDao eventDao;
-	
+
 	@RequestMapping(command)
 	public String doAction(@RequestParam("year") int year,
-													@RequestParam("month") int month,
-													@RequestParam("day") int day,
-													HttpServletRequest request) {
-		
+			@RequestParam("month") int month,
+			@RequestParam("day") int day,
+			HttpServletRequest request) {
+
 		//System.out.println(year + "." + month + "." + day);
-		
+
 		Map<String, String> map = new HashMap<String, String>();
 		Paging pageInfo = new Paging(null, "10", 0, null, null, null);
-		
+
 		List<EventBean> lists = eventDao.getAllEvents(map, pageInfo);
-		
+
+		ArrayList<EventBean> eventLists = new ArrayList<EventBean>();
+
+		// 랜덤으로 행사 아무거나 하나 가져오기
+		int totalCount = eventDao.getTotalCount(map);
+
+		int random = (int)(Math.random() * totalCount) + 1;
+
+		System.out.println( totalCount + " /  " + random);
+
+		EventBean event = eventDao.getEventByEventNo(random);
+
+		eventLists.add(event);
+
 		//System.out.println("lists size : " + lists.size());
-		
+
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		
+
 		Date selectDate = null;
-		
+
 		try {
 			selectDate = formatter.parse(year + "-" + month + "-" + day);
-			
+
 		} catch (ParseException e1) {
 			e1.printStackTrace();
 		}
-		
+
 		//System.out.println("selectDate : " + selectDate);
-		
+
 		Date startDate = null;
 		Date endDate = null;
-		
+
 		String period = null;
 		String [] start_end = null; 
-		
-		ArrayList<EventBean> eventLists = new ArrayList<EventBean>();
-		
+
 		for(int i = 0; i < lists.size(); i++) {
 			period = lists.get(i).getEvent_period();
 			start_end = period.split("~");
-			
+
 			try {
 				startDate = formatter.parse( start_end[0]);
 				endDate = formatter.parse( start_end[1]);
-				
+
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
 
-//			System.out.println(lists.get(i).getTitle());
-//			System.out.println(lists.get(i).getEvent_period());
-//			
-//		 System.out.println("startDate : " + startDate);
-//		 System.out.println("endDate : " + endDate);
+			//			System.out.println(lists.get(i).getTitle());
+			//			System.out.println(lists.get(i).getEvent_period());
+			//			
+			//		 System.out.println("startDate : " + startDate);
+			//		 System.out.println("endDate : " + endDate);
 
-			
+
 			if(selectDate.after(startDate) || selectDate.equals(startDate)) {
 				if(selectDate.before(endDate) || selectDate.equals(endDate)) {
 					eventLists.add(lists.get(i));
 				}
 			}
 		}
-		
-// 랜덤으로 행사 아무거나 하나 가져오기
-		int totalCount = eventDao.getTotalCount(map);
-		
-		int random = (int)(Math.random() * totalCount) + 1;
-		
-		System.out.println( totalCount + " /  " + random);
-		
-		EventBean event = eventDao.getEventByEventNo(random);
-		
-		request.setAttribute("eb", event);
+
 		request.setAttribute("eventLists", eventLists);
 		request.setAttribute("calendarFlag", true);
 		request.setAttribute("date", year + "년 " + month + "월 " + day + "일");
-		
+
 		return gotoPage;
 	}							
 }
