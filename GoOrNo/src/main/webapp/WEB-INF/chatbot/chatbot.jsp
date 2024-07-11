@@ -125,7 +125,7 @@ input:focus {
 			<button  class="btn btn-outline-light"
 				style="color: black; font-size: 9pt; border: 1px solid #F6F6F6; float:right" id = "close">닫기</button>
 	</div>
-	<div id = "chatArea" style="font-size: 9pt; height: 80%; overflow-y: auto; background-color: white;">
+	<div id = "chatArea" style="font-size: 9pt; height: 80%; overflow-y: auto; background-color: white; margin-top : 10px">
 		<span class="chatbot">안녕하세요.<br>서울 행사의 모든 것을 담다, 갈까말까?
 			입니다.<br>궁금한 사항을 입력하세요😊
 		</span>
