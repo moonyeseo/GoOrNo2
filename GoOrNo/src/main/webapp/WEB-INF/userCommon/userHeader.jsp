@@ -5,7 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
- 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,16 +22,36 @@
 <!-- moonyeseo 추가 -->
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
-$(document).ready(function() {
-	$('#asideChatbot').hide();
+	$(document).ready(function() {
+		$('#asideChatbot').hide();
 
-	/* 챗봇 페이지 이동 */
-	$("#chatbot").click(function() {
-		$("#asideChatbot").toggle();
-		$("#inputText").focus();
+		/* 챗봇 페이지 이동 */
+		$("#chatbot").click(function() {
+			$("#asideChatbot").toggle();
+			$("#inputText").focus();
+		});
+		
+		$("#close").click(function(){
+			$('#asideChatbot').hide();
+		});
+		
+		// 날짜 정보 가져오기
+		date = new Date(); // 현재 날짜(로컬 기준) 가져오기
+			utc = date.getTime() + (date.getTimezoneOffset() * 60 * 1000); // uct 표준시 도출
+			kstGap = 9 * 60 * 60 * 1000; // 한국 kst 기준시간 더하기
+			today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기(오늘)
+			todayDate = today.getDate();
+			
+			$("#calendarIcon").click(function(){
+				var popupW = 900;
+		    	var popupH = 700;
+		    	var left = (document.body.offsetWidth - popupW) / 2;
+		    	var top = (window.screen.height - popupH) / 2;
+		    	
+		    	popup = window.open("calendar.event?year="+today.getFullYear()+ "&month=" + (today.getMonth()+1) + "&day=" + today.getDate(), "calendar", "width=" + popupW + ",height =" + popupH +", left=" + left + ",top=" + top + ",scrollbars=yes,resizable=no,toolbar=no,titlebar=no,menubar=no,location=no");
+			});
+
 	});
-
-});
 </script>
 
 <!-- 공통 영역 -->
@@ -130,6 +150,7 @@ https://templatemo.com/tm-568-digimedia
 				<div class="col-12">
 					<nav class="main-nav">
 						<!-- ***** Logo Start ***** -->
+
 						<a href="#" class="logo"> <img
 							src="<%=request.getContextPath()%>/resources/image/GoOrNo_logo.png"
 							alt="logo" width="80px" height="60px">
@@ -138,7 +159,7 @@ https://templatemo.com/tm-568-digimedia
 						<!-- ***** Menu Start ***** -->
 						<ul class="nav">
 							<li class="scroll-to-section"><a
-								href="<%=request.getContextPath() %>/main.jsp" class="active">Home</a></li>
+								href="<%=request.getContextPath()%>/main.jsp" class="active">Home</a></li>
 							<li class="scroll-to-section"><a href="search.bookmark">Navigation</a></li>
 							<li class="scroll-to-section"><a href="list.event">Event</a></li>
 							<li class="scroll-to-section"><a class="dropdown-toggle"

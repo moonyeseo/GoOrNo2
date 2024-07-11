@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -23,12 +24,12 @@ import utility.Paging;
 @Controller
 public class EventCalendarController {
 	private final String command = "/calendar.event";
-	private final String gotoPage = "../../main";
+	private final String gotoPage = "eventCalendar";
 
 	@Autowired
 	private EventDao eventDao;
-
-	@RequestMapping(command)
+	
+	@RequestMapping(value = command, method = RequestMethod.GET)
 //@ResponseBody
 	public String doAction(@RequestParam("year") int year,
 			@RequestParam("month") int month,
@@ -43,17 +44,6 @@ public class EventCalendarController {
 		List<EventBean> lists = eventDao.getAllEvents(map, pageInfo);
 
 		ArrayList<EventBean> eventLists = new ArrayList<EventBean>();
-
-		// 랜덤으로 행사 아무거나 하나 가져오기
-		int totalCount = eventDao.getTotalCount(map);
-
-		int random = (int)(Math.random() * totalCount) + 1;
-
-		System.out.println( totalCount + " /  " + random);
-
-		EventBean event = eventDao.getEventByEventNo(random);
-
-		eventLists.add(event);
 
 		//System.out.println("lists size : " + lists.size());
 

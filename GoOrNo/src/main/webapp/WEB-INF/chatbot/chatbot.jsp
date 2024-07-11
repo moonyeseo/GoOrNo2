@@ -40,7 +40,7 @@ body {
 	right: 0;
 	margin-top: calc(( 100vh - var(- -side-bar-height))/2);
 	/* 사이드바 위와 아래의 마진을 동일하게 지정 */
-	z-index: 1; /*사이드바 맨 앞에 보이게 설정*/
+	z-index: 2; /*사이드바 맨 앞에 보이게 설정*/
 	padding-top: 100px;
 	border-radius: 10px;
 }
@@ -120,15 +120,19 @@ input:focus {
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <aside class="side-bar" style="height: 100%; box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);">
-	<div style = "text-align:center"><strong>GoOrNo</strong></div>
-	<div id = "chatArea" style="font-size: 9pt; height: 73%; overflow-y: auto; background-color: white;">
+	<div style = "text-align:center">
+		<strong>GoOrNo</strong>
+			<button  class="btn btn-outline-light"
+				style="color: black; font-size: 9pt; border: 1px solid #F6F6F6; float:right" id = "close">닫기</button>
+	</div>
+	<div id = "chatArea" style="font-size: 9pt; height: 80%; overflow-y: auto; background-color: white;">
 		<span class="chatbot">안녕하세요.<br>서울 행사의 모든 것을 담다, 갈까말까?
 			입니다.<br>궁금한 사항을 입력하세요😊
 		</span>
 		<div id="chatting"></div>
 		<br> <br>
 	</div>
-	<div style="margin-top: 10px; padding-left : 13px">
+	<div style="margin-top:5px; padding-left : 13px">
 		<form id="chatSend">
 			<input type="text" name="inputText" id="inputText" placeholder=""
 				autocomplete="on" required>

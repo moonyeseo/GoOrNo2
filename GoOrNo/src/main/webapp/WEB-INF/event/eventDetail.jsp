@@ -69,6 +69,10 @@
 	<%@include file="../chatbot/chatbotIcon.jsp"%>
 </div>
 
+<!-- 캘린더 아이콘 -->
+<div id="calendarIcon" style="heigth: 20%">
+	<%@include file="../event/calendarIcon.jsp"%>
+</div>
 
 <section class="event-detail-container">
     <div class="event-title">
