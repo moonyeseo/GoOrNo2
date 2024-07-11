@@ -52,6 +52,10 @@
 			});
 
 	});
+	
+	function goEvent(eventNo){
+		location.href = "detail.event?eventNo=" + eventNo;
+	}
 </script>
 
 <!-- 공통 영역 -->
