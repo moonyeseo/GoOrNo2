@@ -19,6 +19,10 @@
 		location.href = "random.event";
 	}
 	
+	function goEvent(eventNo){
+		location.href = "detail.event?eventNo=" + eventNo;
+	}
+	
 </script>
 
 <!-- 챗봇 -->

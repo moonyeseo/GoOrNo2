@@ -201,6 +201,11 @@ https://templatemo.com/tm-568-digimedia
 		
 		calendarInit(selectDate);
 	});
+	
+	function goParent(eventNo){ // 이미지 클릭 시 부모 창의 goEvent() 함수 호출 후 팝업창 닫기
+		window.opener.goEvent(eventNo);
+		self.close();
+	}
 
 	
  	function getDate(date){
@@ -425,7 +430,7 @@ https://templatemo.com/tm-568-digimedia
 									<div class="col-lg-12">
 										<div class="post-item">
 											<div class="thumb">
-												<a href="detail.event?eventNo=${eventLists.get(i).event_no}"><img
+												<a href="javascript:void(0);" onClick = "goParent(${eventLists.get(i).event_no})"><img
 													src="${eventLists.get(i).img }" alt="img"></a>
 											</div>
 											<div class="right-content">
