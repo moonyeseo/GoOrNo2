@@ -44,6 +44,14 @@
 									<div class="col-lg-9 col-md-8">${report.content }</div>
 								</div>
 
+								<div class="row" style="margin-top: 50px; font-weight: bold;">
+									<div class="col-lg-3 col-md-4 label">
+										<button type="submit" class="btn btn-secondary " onClick = "location.href='list.board?isAdmin=yes&whatColumn=all&keyword=${report.content}'">글 관리</button>
+									</div>
+									<div class="col-lg-9 col-md-8">
+									</div>
+								</div>
+
 							</div>
 						</div>
 					</div>

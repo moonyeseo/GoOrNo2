@@ -96,7 +96,13 @@ input:focus {
                              		//alert(keyword);
                             		 location.href = "list.event?whatColumn=performance_type&keyword=" + keyword;
                             		}, 2000);
-                         	} 
+                         	} <%-- 
+                       	else if(data.indexOf("👌") != -1){
+                       		setTimeout(function() {
+                         		
+                        		 location.href = "<%=request.getContextPath()%>/main.jsp";
+                        		}, 2000);
+                       		} --%>
                         },
                         error : function(request, status, error) {
                          /*   alert("error : " + request.status
