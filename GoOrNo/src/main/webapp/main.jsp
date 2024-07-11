@@ -130,16 +130,30 @@
 <script type="text/javascript">
 	/*  캘린더 설정 */
 	$(document).ready(function() {
+		// 날짜 정보 가져오기
+		date = new Date(); // 현재 날짜(로컬 기준) 가져오기
+		utc = date.getTime() + (date.getTimezoneOffset() * 60 * 1000); // uct 표준시 도출
+		kstGap = 9 * 60 * 60 * 1000; // 한국 kst 기준시간 더하기
+		today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기(오늘)
+		todayDate = today.getDate();
+
+		var year = <%=request.getParameter("year")%>
+		var month = <%=request.getParameter("month")%>
+		var day = <%=request.getParameter("day")%>
 		
-		calendarInit();
+		var selectDate = new Date(year, month-1, day);
+		
+		calendarInit(selectDate);
 		
 		var calendarFlag = <%=request.getAttribute("calendarFlag")%>
+		
 		if(!calendarFlag){
 			getDate(todayDate);
 		}
 	});
 	
 	function getDate(date){
+		
 		if(date != todayDate){
 			day = $(date).text();
 		}
@@ -150,8 +164,41 @@
 		location.href = "calendar.event?year=" + year + "&month=" + month + "&day=" + day; // ajax 사용 x
 		
 		// ajax 사용
-/* 		$.ajax({
+/*   		$.ajax({
+			url : "calendar.event",
+			data : {
+				year : year,
+				month : month,
+				day : day
+			},
+			dataType : "json",
+			success : function(eventLists){
+				//alert("성공 : " + eventLists.length);
+				
+				// 랜덤 행사 출력
+				$("#r_img").append("<img src = '" +eventLists[0].img +"'>");
+				$("#r_ptype").append(eventLists[0].performance_type); 
+				$("#r_period").append(eventLists[0].event_period); 
+				$("#eventTitle").append(eventLists[0].title); 
+				$("#r_place").append(eventLists[0].place); 
 			
+				if(eventLists.length > 1){
+					$("#calendar").append('<div class="blog-posts"><div class="row">')
+					
+	               for(var i = 1; i < eventLists.length; i++){
+	                  $("#calendar").append('<div class="col-lg-12"><div class="post-item"><div class="thumb">');
+	                  $("#calendar").append('<a href="#"><img src="' + eventLists[i].img  + '"></a></div>');
+	                  $("#calendar").append('<div class="right-content">');
+	                  $("#calendar").append('<span class="category">' + eventLists[i].performance_type + '</span> <span class="date">' + eventLists[i].event_period + '</span>');
+	                  $("#calendar").append('<h4>' + eventLists[i].title + '</h4>');
+	                  $("#calendar").append('<p>' + eventLists[i].place  + '<p>');
+	                  $("#calendar").append('</div></div></div>'); 
+	               }
+
+	                  $("#calendar").append('</div></div>'); 
+					
+				} 
+			}
 		}); */
 		
 	}
@@ -164,17 +211,16 @@
 	 전월 마지막일 날짜와 요일
 	 */
 
-	function calendarInit() {
-		// 날짜 정보 가져오기
-		var date = new Date(); // 현재 날짜(로컬 기준) 가져오기
-		var utc = date.getTime() + (date.getTimezoneOffset() * 60 * 1000); // uct 표준시 도출
-		var kstGap = 9 * 60 * 60 * 1000; // 한국 kst 기준시간 더하기
-		var today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기(오늘)
+	function calendarInit(selectDate) {
 
 		var thisMonth = new Date(today.getFullYear(), today.getMonth(), today
 				.getDate());
+		
+		if(selectDate.getYear() != -1){
+			thisMonth = selectDate;
+		}
+		
 		// 달력에서 표기하는 날짜 객체
-
 		var currentYear = thisMonth.getFullYear(); // 달력에서 표기하는 연
 		var currentMonth = thisMonth.getMonth(); // 달력에서 표기하는 월
 		var currentDate = thisMonth.getDate(); // 달력에서 표기하는 일
@@ -233,22 +279,36 @@
 			// 오늘 날짜 표기
 			if (today.getMonth() == currentMonth) {
 				todayDate = today.getDate();
+				
+				if(todayDate != thisMonth.getDate()){
+					todayDate = thisMonth.getDate();
+				}
+				
 				var currentMonthDate = document
 						.querySelectorAll('.dates .current');
 				currentMonthDate[todayDate - 1].classList.add('today');
+			}
+			else{
+					var currentMonthDate = document
+					.querySelectorAll('.dates .current');
+			currentMonthDate[thisMonth.getDate() - 1].classList.add('today');
 			}
 		}
 
 		// 이전달로 이동
 		$('.go-prev').on('click', function() {
-			thisMonth = new Date(currentYear, currentMonth - 1, 1);
-			renderCalender(thisMonth);
+/* 			 thisMonth = new Date(currentYear, currentMonth - 1, 1);
+			renderCalender(thisMonth); */
+			
+			location.href = "calendar.event?year=" + currentYear + "&month=" + currentMonth + "&day=" + 1;
 		});
 
 		// 다음달로 이동
 		$('.go-next').on('click', function() {
-			thisMonth = new Date(currentYear, currentMonth + 1, 1);
+/* 			 thisMonth = new Date(currentYear, currentMonth + 1, 1);
 			renderCalender(thisMonth);
+ */
+			location.href = "calendar.event?year=" + currentYear + "&month=" + (currentMonth+2) + "&day=" + 1;
 		});
 	}
 </script>
@@ -301,13 +361,13 @@
 							data-wow-duration="1s" data-wow-delay="0.5s">
 							<div class="blog-post">
 								<div class="thumb">
-									<a href="#"><img src="${eventLists.get(0).img }" alt="event_image"></a>
+									<a href="detail.event?eventNo=${eventLists.get(0).event_no}"><span id="r_img"><img src="${eventLists.get(0).img }" alt="img"></span></a>
 								</div>
 								<div class="down-content">
-									<span class="category">${eventLists.get(0).performance_type }</span> <span
-										class="date">${eventLists.get(0).event_period }</span>
+									<span class="category" id="r_ptype">${eventLists.get(0).performance_type }</span> <span class="date"
+										id="r_period">${eventLists.get(0).event_period }</span>
 									<h4 id="eventTitle">${eventLists.get(0).title }</h4>
-									<p>${eventLists.get(0).place }</p>
+									<p id="r_place">${eventLists.get(0).place }</p>
 								</div>
 							</div>
 						</div>
@@ -330,7 +390,7 @@
 							<div class="section-heading">
 								<h6>CHECK CALENDAR</h6>
 								<h4>
-									${date } <em>행사 </em>
+									<em>행사 </em> 일정
 								</h4>
 								<div class="line-dec"></div>
 							</div>
@@ -363,28 +423,27 @@
 										<div class="day">SAT</div>
 										<div class="day">SUN</div>
 									</div>
-									<div class="dates">
-									</div>
+									<div class="dates"></div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="col-lg-6 wow fadeInUp" data-wow-duration="1s"
-					data-wow-delay="0.3s">
-					<div class="blog-posts">
+					data-wow-delay="0.3s"  id = "calendar">
+				<div class="blog-posts">
 						<div class="row">
-							<c:set var = "eventListsSize" value = "${fn:length(eventLists)}"/>
-							<c:if test = "${eventListsSize > 1}">
-								<c:forEach var="i" begin = "1" end = "${eventListsSize-1 }">
+						<c:set var="eventListsSize" value="${fn:length(eventLists)}" />
+							<c:if test="${eventListsSize > 1}">
+								<c:forEach var="i" begin="1" end="${eventListsSize-1 }">
 									<div class="col-lg-12">
 										<div class="post-item">
 											<div class="thumb">
-												<a href="#"><img src="${eventLists.get(i).img }" alt=""></a>
+												<a href="detail.event?eventNo=${eventLists.get(i).event_no}"><img src="${eventLists.get(i).img }" alt="img"></a>
 											</div>
 											<div class="right-content">
-												<span class="category">${eventLists.get(i).performance_type }</span> <span
-													class="date">${eventLists.get(i).event_period }</span>
+												<span class="category">${eventLists.get(i).performance_type }</span>
+												<span class="date">${eventLists.get(i).event_period }</span>
 												<h4>${eventLists.get(i).title }</h4>
 												<p>${eventLists.get(i).place }</p>
 											</div>

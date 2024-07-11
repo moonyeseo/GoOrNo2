@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import event.model.EventBean;
 import event.model.EventDao;
@@ -28,6 +29,7 @@ public class EventCalendarController {
 	private EventDao eventDao;
 
 	@RequestMapping(command)
+//@ResponseBody
 	public String doAction(@RequestParam("year") int year,
 			@RequestParam("month") int month,
 			@RequestParam("day") int day,
@@ -102,7 +104,6 @@ public class EventCalendarController {
 
 		request.setAttribute("eventLists", eventLists);
 		request.setAttribute("calendarFlag", true);
-		request.setAttribute("date", year + "년 " + month + "월 " + day + "일");
 
 		return gotoPage;
 	}							
