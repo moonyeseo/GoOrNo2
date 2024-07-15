@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,7 @@ import users.model.UsersDao;
 import utility.Paging;
 
 @Controller
+@ComponentScan(basePackages = {"board","users","comments", "bookmark", "favorite", "qna"})
 public class mypageController {
 
 	@Autowired
@@ -50,6 +52,7 @@ public class mypageController {
 	private final String getPage = "myPage";
 	
 	@RequestMapping(command)
+
 	public String mypage(
 						@RequestParam("user_no") int user_no,
 						Model model, HttpSession session, HttpServletRequest request) {
