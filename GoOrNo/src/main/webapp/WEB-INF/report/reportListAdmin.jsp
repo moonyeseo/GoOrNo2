@@ -59,7 +59,7 @@
 										<tr>
 											<th scope="row">${((pageInfo.pageNumber-1) * pageInfo.pageSize) + status.count}</th>
 											<td><a
-												href="detail.report?board_no=${report.board_no }&re_no=${report.re_no}&user_no=${report.user_no}&pageNumber=${pageInfo.pageNumber}&whatColumn=${pageInfo.whatColumn}&keyword=${pageInfo.keyword}">${report.subject}</a></td>
+												href="detail.report?board_no=${report.board_no }&re_no=${report.re_no}&user_no=${report.user_no}&pageNumber=${pageInfo.pageNumber}&whatColumn=${pageInfo.whatColumn}&keyword=${pageInfo.keyword}"><font color="black">${report.subject}</font></a></td>
 											<td>${report.why}</td>
 											<td><c:if test="${report.re_check eq 1 }">
 												✔
