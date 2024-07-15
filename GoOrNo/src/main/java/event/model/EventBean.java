@@ -26,7 +26,7 @@ public class EventBean {
     @NotEmpty(message="�浵�� �Է��ϼ���")
     private String lat;
     
-    public EventBean() {
+	public EventBean() {
         System.out.println("EventBean ������");
     }
     
