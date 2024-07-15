@@ -17,6 +17,23 @@
 	color: red;
 	size: 1em;
 }
+
+/* woo 추가 */
+.notifications {
+    width: 350px;
+}
+
+.notification-item a {
+    display: block;
+    color: #333;
+    padding: 5px 5px;
+    text-align: center;
+    width: fit-content;
+}
+
+.notification-item a:hover {
+    background-color: #f5f5f5;
+}
 </style>
 
 <!-- moonyeseo 추가 -->
@@ -56,6 +73,85 @@
 	function goEvent(eventNo){
 		location.href = "detail.event?eventNo=" + eventNo;
 	}
+
+	/* 알림 */
+	if ("${sessionScope.loginInfo}" != "") {
+        fetchUnreadAlarms();
+        //setInterval(fetchUnreadAlarms, 5000);
+    }
+
+	function fetchUnreadAlarms() {
+        console.log("Fetching unread alarms...");
+        $.ajax({
+            url: "${pageContext.request.contextPath}/notifications/alarms/unread",
+            method: "GET",
+            success: function(data) {
+                console.log("AJAX 응답 데이터:", data);
+                let unreadCount = data.length;
+                console.log("Unread Count:", unreadCount);
+                $('#unread-count').text(unreadCount);
+                $('#unread-count-header').text(unreadCount);
+
+                let notificationList = $('#notification-list');
+                notificationList.find('.notification-item').remove();
+
+                if (data && data.length > 0) {
+                    data.forEach(function(alarmBean) {
+                        console.log("AlarmBean:", alarmBean);
+                        console.log("alarm_no:", alarmBean.alarm_no);
+                        console.log("user_id:", alarmBean.user_id);
+                        console.log("message:", alarmBean.message);
+
+                        let notificationItem = '<li class="notification-item">'
+                            + '<a href="#" class="alarm-link" data-alarm_no="' + alarmBean.alarm_no + '" data-alarm_type="' + alarmBean.alarm_type + '" data-type_id="' + alarmBean.type_id + '">'
+                            + alarmBean.user_id + ' 님이  ' + alarmBean.message
+                            + '</a></li>'
+                            + '<li><hr class="dropdown-divider"></li>';
+                        console.log("Generated notification item:", notificationItem); // 추가된 HTML 출력 확인
+                        notificationList.append(notificationItem);
+
+                    });
+
+                 // 알림 클릭 시 읽음 상태로 변경하고 해당 글의 디테일 페이지로 이동
+                    $('.alarm-link').click(function() {
+                        let alarm_no = $(this).data('alarm_no');
+                        let alarm_type = $(this).data('alarm_type');
+                        let type_id = $(this).data('type_id');
+                        console.log("alarm_no clicked:", alarm_no);
+                        checkRead(alarm_no, alarm_type, type_id);
+                    });
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("AJAX Error: ", status, error);
+            }
+        });
+    }
+
+	function checkRead(alarm_no, alarm_type, type_id) {
+	    console.log("Marking alarm as read: " + alarm_no);
+	    $.ajax({
+	        url: "${pageContext.request.contextPath}/notifications/alarms/read",
+	        method: "POST",
+	        data: { alarm_no: alarm_no },
+	        success: function() {
+	            console.log("Alarm marked as read: " + alarm_no);
+	            // 해당 글의 디테일 페이지로 이동
+	            let detailUrl = "";
+	            if (alarm_type === "board") {
+	                detailUrl = "${pageContext.request.contextPath}/detail.board?board_no=" + type_id;
+	            } else if (alarm_type === "qna") {
+	                detailUrl = "${pageContext.request.contextPath}/detail.qna?qna_no=" + type_id;
+	            }
+	            window.location.href = detailUrl;
+	        },
+	        error: function(xhr, status, error) {
+	            console.error("AJAX Error: ", status, error);
+	        }
+	    });
+	}
+});
+
 </script>
 
 <!-- 공통 영역 -->
@@ -105,7 +201,6 @@ https://templatemo.com/tm-568-digimedia
 </head>
 
 <body>
-
 	<!-- ***** Preloader Start ***** -->
 	<div id="js-preloader" class="js-preloader">
 		<div class="preloader-inner">
@@ -116,29 +211,36 @@ https://templatemo.com/tm-568-digimedia
 		</div>
 	</div>
 	<!-- ***** Preloader End ***** -->
-
+	
 	<!-- Pre-header Starts -->
 	<div class="pre-header">
 		<div class="container">
 			<div class="row">
-				<!-- 				<div class="col-lg-8 col-sm-8 col-7">
-					<ul class="social-media">
-						<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-						<li><a href="#"><i class="fa fa-behance"></i></a></li>
-						<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-						<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-					</ul>
-				</div> -->
 				<div class="col-lg-4 col-sm-4 col-5">
 					<ul class="info">
 						<c:if test="${ loginInfo eq null }">
 							<li><a href="login.users">Login</a></li>
+							<li><a href="join.users">Join</a></li>
 						</c:if>
 						<c:if test="${ loginInfo ne null }">
 							<li><a href="#">${sessionScope.loginInfo.id }님</a></li>
 							<li><a href="Logout.jsp">Logout</a></li>
+						
+							<!-- 알림아이콘 -->
+							<li>
+								<a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+									<i class="fas fa-bell"></i>
+									<span class="badge bg-primary badge-number" id="unread-count"></span>
+								</a>
+    
+								<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications" id="notification-list">
+									<li class="dropdown-header">
+									읽지 않은 알림이 <span id="unread-count-header">0</span>개 있습니다.
+									</li>
+									<li><hr class="dropdown-divider"></li>
+								</ul>
+							</li>
 						</c:if>
-						<li><a href="join.users">Join</a></li>
 					</ul>
 				</div>
 			</div>
@@ -148,7 +250,7 @@ https://templatemo.com/tm-568-digimedia
 
 	<!-- ***** Header Area Start ***** -->
 	<header class="header-area header-sticky wow slideInDown"
-		data-wow-duration="0.75s" data-wow-delay="0s">
+		data-wow-duration="0.75s" data-wow-delay="0s" style="z-index: 1000; position: relative;">
 		<div class="container">
 			<div class="row">
 				<div class="col-12">
@@ -183,14 +285,25 @@ https://templatemo.com/tm-568-digimedia
 									<li><a class="dropdown-item" href="list.faq">FAQ</a></li>
 									<li></li>
 								</ul></li>
+								
+							<li class="scroll-to-section">
+								<div id="google_translate_element"></div>
+							</li>
+								
 							<li class="scroll-to-section"><div
 									class="border-first-button">
-									<a href="mypage.users">My Page</a>
+									<c:if test="${ loginInfo eq null }">
+										<a href="login.users">My Page</a>
+									</c:if>
+									<c:if test="${ loginInfo ne null }">
+										<a href="myPage.users?user_no=${sessionScope.loginInfo.user_no}">My Page</a>
+									</c:if>
+
 								</div></li>
 						</ul>
 						<a class='menu-trigger'> <span>Menu</span>
 						</a>
-						<!-- ***** Menu End ***** -->
+						<!-- ***** Menu End ***** --> 
 					</nav>
 				</div>
 			</div>

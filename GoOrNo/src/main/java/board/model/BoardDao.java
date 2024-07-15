@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import alarm.model.AlarmDao;
 import utility.Paging;
 
 @Component
@@ -54,9 +55,17 @@ public class BoardDao {
 	}
 
 	public int deleteBoard(int board_no) {
-		System.out.println("���� : "+board_no);
+		System.out.println("���� : "+board_no);
 		int cnt = sst.delete(namespace+".deleteBoard",board_no);
 		return cnt;
 	}
+	
+	//woo 추가 : user_no에 따른 게시판 list
+	public List<BoardBean> getBoardByUser_no(int user_no){
+		List<BoardBean> boardLists = new ArrayList<BoardBean>();
+		boardLists = sst.selectList(namespace + ".getBoardByUser_no", user_no);
+		
+		return boardLists;
+	}//getBoardByUser_no
 
 }

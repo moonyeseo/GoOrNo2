@@ -5,7 +5,23 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace = "bookmark.model.Bookmark">
+  
 	<select id = "getSearchBookmark" resultType = "bookmark.model.BookmarkBean">
-  		select * from bookmark where users_no = #{users_no}
-  	</select> 
+  		select * from bookmark where user_no = #{user_no}
+  	</select>
+  	
+	<!-- woo 추가 -->
+  	<insert id="insertBookmark">
+  		insert into bookmark (book_no, user_no, type, b_addr, b_post) 
+  		values (bookmark_seq.nextval, #{user_no}, #{type}, #{b_addr}, #{b_post})
+  	</insert>
+  	
+  	<update id="updateBookmark">
+  		update bookmark set b_addr = #{b_addr}, b_post = #{b_post} where type = #{type} and user_no = #{user_no}
+  	</update>
+  	
+  	<delete id="deleteBookmark">
+  		update bookmark set b_addr = null, b_post = null where book_no = #{book_no} and user_no = #{user_no} and type = #{type}
+  	</delete>
+  	
   </mapper>

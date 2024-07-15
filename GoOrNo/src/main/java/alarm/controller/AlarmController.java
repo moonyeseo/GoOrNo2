@@ -1,0 +1,45 @@
+package alarm.controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import alarm.model.AlarmBean;
+import users.model.UsersBean;
+
+
+@Controller
+public class AlarmController {
+
+	@Autowired
+    private AlarmService alarmService;
+	
+	@GetMapping("/alarms/unread")
+    @ResponseBody
+    public List<AlarmBean> getUnreadAlarms(HttpSession session) {
+        UsersBean loginInfo = (UsersBean) session.getAttribute("loginInfo");
+        if (loginInfo != null) {
+        	List<AlarmBean> alarms = alarmService.getUnreadAlarms(loginInfo.getUser_no());
+            
+        	System.out.println("getUnreadAlarms controller: " + alarms);
+            
+        	return alarms;
+        }
+        return new ArrayList<>();
+    }
+	
+	@PostMapping("/alarms/read")
+    @ResponseBody
+    public String checkRead(@RequestParam int alarm_no) {
+        alarmService.checkRead(alarm_no);
+        return "success";
+    }
+}

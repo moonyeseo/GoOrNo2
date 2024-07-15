@@ -24,7 +24,7 @@ import event.model.EventDao;
 
 @Controller
 public class EventApiController {
-	// DB ÀúÀå
+	// DB ï¿½ï¿½ï¿½ï¿½
 	private final String command = "api.event"; 
 	private final String gotoPage = "redirect:/list.event";
 
@@ -34,14 +34,14 @@ public class EventApiController {
 	@RequestMapping(command)
 	public String insert(EventBean event) {
 		StringBuilder urlBuilder = new StringBuilder("http://openapi.seoul.go.kr:8088");
-		urlBuilder.append("/").append(URLEncoder.encode("434472644d776a6435387a694c6e45", StandardCharsets.UTF_8)); // ÀÎÁõÅ°
-		urlBuilder.append("/").append(URLEncoder.encode("json", StandardCharsets.UTF_8)); // ¿äÃ» ÆÄÀÏ Å¸ÀÔ
-		urlBuilder.append("/").append(URLEncoder.encode("culturalEventInfo", StandardCharsets.UTF_8)); // ¼­ºñ½º¸í
-		urlBuilder.append("/").append(URLEncoder.encode("1", StandardCharsets.UTF_8)); // ¿äÃ» ½ÃÀÛ À§Ä¡
-		urlBuilder.append("/").append(URLEncoder.encode("1000", StandardCharsets.UTF_8)); // ¿äÃ» Á¾·á À§Ä¡
-		urlBuilder.append("/").append(URLEncoder.encode(" ", StandardCharsets.UTF_8)); // ºÐ·ù
-		urlBuilder.append("/").append(URLEncoder.encode(" ", StandardCharsets.UTF_8)); // °ø¿¬/Çà»ç¸í
-		urlBuilder.append("/").append(URLEncoder.encode("2024-07", StandardCharsets.UTF_8)); // ¿äÃ» ÀÏÀÚ
+		urlBuilder.append("/").append(URLEncoder.encode("434472644d776a6435387a694c6e45", StandardCharsets.UTF_8)); // ï¿½ï¿½ï¿½ï¿½Å°
+		urlBuilder.append("/").append(URLEncoder.encode("json", StandardCharsets.UTF_8)); // ï¿½ï¿½Ã» ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½
+		urlBuilder.append("/").append(URLEncoder.encode("culturalEventInfo", StandardCharsets.UTF_8)); // ï¿½ï¿½ï¿½ñ½º¸ï¿½
+		urlBuilder.append("/").append(URLEncoder.encode("1", StandardCharsets.UTF_8)); // ï¿½ï¿½Ã» ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
+		urlBuilder.append("/").append(URLEncoder.encode("1000", StandardCharsets.UTF_8)); // ï¿½ï¿½Ã» ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
+		urlBuilder.append("/").append(URLEncoder.encode(" ", StandardCharsets.UTF_8)); // ï¿½Ð·ï¿½
+		urlBuilder.append("/").append(URLEncoder.encode(" ", StandardCharsets.UTF_8)); // ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½
+		urlBuilder.append("/").append(URLEncoder.encode("2024-07", StandardCharsets.UTF_8)); // ï¿½ï¿½Ã» ï¿½ï¿½ï¿½ï¿½
 
 		URL url;
 
@@ -50,52 +50,52 @@ public class EventApiController {
 		try {
 			url = new URL(urlBuilder.toString());
 
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection(); // HTTP ¿¬°á °´Ã¼ »ý¼º
-			conn.setRequestMethod("GET"); // GET ¹æ½ÄÀ¸·Î ¿äÃ» ¼³Á¤
-			conn.setRequestProperty("Content-type", "application/json"); // ¿äÃ» ¼Ó¼º ¼³Á¤
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection(); // HTTP ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
+			conn.setRequestMethod("GET"); // GET ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã» ï¿½ï¿½ï¿½ï¿½
+			conn.setRequestProperty("Content-type", "application/json"); // ï¿½ï¿½Ã» ï¿½Ó¼ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 			BufferedReader rd;
-			// ÀÀ´ä ÄÚµå°¡ 200~300 »çÀÌÀÏ °æ¿ì Á¤»ó Ã³¸®
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½Úµå°¡ 200~300 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
 			if (conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
 				rd = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8));
 			} else {
 				rd = new BufferedReader(new InputStreamReader(conn.getErrorStream(), StandardCharsets.UTF_8));
 			}
 			String line;
-			while ((line = rd.readLine()) != null) { // ÀÀ´ä ³»¿ëÀ» ÇÑ ÁÙ¾¿ ÀÐ¾î¿Í¼­ StringBuilder¿¡ Ãß°¡
+			while ((line = rd.readLine()) != null) { // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ù¾ï¿½ ï¿½Ð¾ï¿½Í¼ï¿½ StringBuilderï¿½ï¿½ ï¿½ß°ï¿½
 				sb.append(line);
 			}
-			rd.close(); // BufferedReader ´Ý±â
-			conn.disconnect(); // HTTP ¿¬°á ´Ý±â
+			rd.close(); // BufferedReader ï¿½Ý±ï¿½
+			conn.disconnect(); // HTTP ï¿½ï¿½ï¿½ï¿½ ï¿½Ý±ï¿½
 
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
-		} // ¿Ï¼ºµÈ URL »ý¼º
+		} // ï¿½Ï¼ï¿½ï¿½ï¿½ URL ï¿½ï¿½ï¿½ï¿½
 		catch (ProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		String resultString = sb.toString(); // ÀÀ´ä ³»¿ëÀ» ¹®ÀÚ¿­·Î º¯È¯
+		String resultString = sb.toString(); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
 		System.out.println("result : " + resultString);
 
-		JsonObject jsonObject = JsonParser.parseString(resultString).getAsJsonObject(); // ¹®ÀÚ¿­À» JSON °´Ã¼·Î º¯È¯
-		JsonObject culturalEventInfo = jsonObject.getAsJsonObject("culturalEventInfo"); // Æ¯Á¤ JSON °´Ã¼ ÃßÃâ
-		JsonArray row = culturalEventInfo.getAsJsonArray("row"); // JSON ¹è¿­ ÃßÃâ
+		JsonObject jsonObject = JsonParser.parseString(resultString).getAsJsonObject(); // ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ JSON ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½È¯
+		JsonObject culturalEventInfo = jsonObject.getAsJsonObject("culturalEventInfo"); // Æ¯ï¿½ï¿½ JSON ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
+		JsonArray row = culturalEventInfo.getAsJsonArray("row"); // JSON ï¿½è¿­ ï¿½ï¿½ï¿½ï¿½
 		
 		edao.truncateEvent();
 		for (int i = 0; i < row.size(); i++) {
-			JsonObject eventJson = row.get(i).getAsJsonObject(); // ¹è¿­ ³» °¢ JSON °´Ã¼ ÃßÃâ
+			JsonObject eventJson = row.get(i).getAsJsonObject(); // ï¿½è¿­ ï¿½ï¿½ ï¿½ï¿½ JSON ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
 
 			event.setEvent_no(100);
-			event.setPerformance_type(eventJson.get("CODENAME").getAsString()); // °ø¿¬ À¯Çü ¼³Á¤
-			event.setTitle(eventJson.get("TITLE").getAsString()); // Á¦¸ñ ¼³Á¤
-			event.setPlace(eventJson.get("PLACE").getAsString()); // Àå¼Ò ¼³Á¤
-			event.setEvent_period(eventJson.get("DATE").getAsString()); // ±â°£ ¼³Á¤
-			event.setImg(eventJson.get("MAIN_IMG").getAsString()); // ÀÌ¹ÌÁö ¼³Á¤
-			event.setLot(eventJson.get("LOT").getAsString()); // À§µµ ¼³Á¤
-			event.setLat(eventJson.get("LAT").getAsString()); // °æµµ ¼³Á¤
+			event.setPerformance_type(eventJson.get("CODENAME").getAsString()); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			event.setTitle(eventJson.get("TITLE").getAsString()); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			event.setPlace(eventJson.get("PLACE").getAsString()); // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			event.setEvent_period(eventJson.get("DATE").getAsString()); // ï¿½â°£ ï¿½ï¿½ï¿½ï¿½
+			event.setImg(eventJson.get("MAIN_IMG").getAsString()); // ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			event.setLot(eventJson.get("LOT").getAsString()); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			event.setLat(eventJson.get("LAT").getAsString()); // ï¿½æµµ ï¿½ï¿½ï¿½ï¿½
 
 			System.out.println("event()============================================");
 
@@ -107,8 +107,8 @@ public class EventApiController {
 			System.out.println("DATE: " + event.getEvent_period());
 
 			System.out.println("img : " + event.getImg());
-			System.out.println("À§µµ : " + event.getLot());
-			System.out.println("°æµµ : " + event.getLat());
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ : " + event.getLot());
+			System.out.println("ï¿½æµµ : " + event.getLat());
 			System.out.println();
 
 			edao.insertEvent(event);

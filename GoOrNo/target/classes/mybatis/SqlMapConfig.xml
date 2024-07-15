@@ -13,7 +13,6 @@
   	<mappers>
   		<mapper resource="mybatis/bookmark.xml"/>
   		<mapper resource="mybatis/report.xml"/>
-
 		<mapper resource="mybatis/board.xml" />
 		<mapper resource="mybatis/user.xml" />
 		<mapper resource="mybatis/comment.xml" />
@@ -22,6 +21,9 @@
 		<mapper resource="mybatis/qna.xml" />
 		<mapper resource="mybatis/event.xml" />
 		<mapper resource="mybatis/chatbot.xml" />
+		<mapper resource="mybatis/favorite.xml" />
   		<mapper resource="mybatis/users.xml" />
+  		<mapper resource="mybatis/alarm.xml" />
+  		
   	</mappers>
   </configuration>

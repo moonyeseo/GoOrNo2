@@ -401,7 +401,6 @@ h6 {
 
 @media (max-width: 1199px) {
   .header .search-bar {
-    position: fixed;
     top: 50px;
     left: 0;
     right: 0;
@@ -598,7 +597,6 @@ h6 {
 # Sidebar
 --------------------------------------------------------------*/
 .sidebar {
-  position: fixed;
   top: 60px;
   left: 0;
   bottom: 0;
