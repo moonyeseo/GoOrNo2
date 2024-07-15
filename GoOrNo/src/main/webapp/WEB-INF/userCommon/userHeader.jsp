@@ -37,10 +37,10 @@
 		
 		// 날짜 정보 가져오기
 		date = new Date(); // 현재 날짜(로컬 기준) 가져오기
-			utc = date.getTime() + (date.getTimezoneOffset() * 60 * 1000); // uct 표준시 도출
-			kstGap = 9 * 60 * 60 * 1000; // 한국 kst 기준시간 더하기
-			today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기(오늘)
-			todayDate = today.getDate();
+		utc = date.getTime() + (date.getTimezoneOffset() * 60 * 1000); // uct 표준시 도출
+		kstGap = 9 * 60 * 60 * 1000; // 한국 kst 기준시간 더하기
+		today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기(오늘)
+		todayDate = today.getDate();
 			
 			$("#calendarIcon").click(function(){
 				var popupW = 900;
@@ -155,7 +155,7 @@ https://templatemo.com/tm-568-digimedia
 					<nav class="main-nav">
 						<!-- ***** Logo Start ***** -->
 
-						<a href="#" class="logo"> <img
+						<a href="<%=request.getContextPath()%>/main.jsp" class="logo"> <img
 							src="<%=request.getContextPath()%>/resources/image/GoOrNo_logo.png"
 							alt="logo" width="80px" height="60px">
 						</a>

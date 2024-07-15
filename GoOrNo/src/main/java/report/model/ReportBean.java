@@ -1,18 +1,23 @@
 package report.model;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 public class ReportBean {
 	private int re_no;
 	private int board_no;
 	private int user_no;
+	
+	@NotBlank(message = "ì‹ ê³  ì‚¬ìœ ë¥¼ ì…ë ¥í•´ì•¼ ì‹ ê³ ê°€ ì ‘ìˆ˜ë©ë‹ˆë‹¤.")
 	private String why;
+	
 	private String reportdate;
 	private String re_check;
 	private String subject;
 	
-	private String id; // ½Å°íÀÚ ¾ÆÀÌµğ(insert x)
+	private String id; // ï¿½Å°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½(insert x)
 	
-	// board Á¤º¸ °¡Á®¿À±â À§ÇÔ
-	private String content; // ±Û ³»¿ë
+	// board ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	private String content; // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	
 	public String getId() {
 		return id;
