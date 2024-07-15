@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="alarm.model.Alarm">
+	
+	<select id="getAlarmByUser_no" parameterType="int" resultType="alarm.model.AlarmBean">
+		select * from alarm where user_no = #{user_no} and read = 0
+	</select>
+	
+	<insert id="insertAlarm" parameterType="alarm.model.AlarmBean">
+	    insert into alarm (alarm_no, user_no, user_id, message, alarm_type, type_id, read)
+	    values (alarm_seq.nextval, #{user_no}, #{user_id}, #{message}, #{alarm_type}, #{type_id}, #{read})
+	</insert>
+	
+	<update id="checkRead" parameterType="int">
+		update alarm set read = 1 where alarm_no = #{alarm_no}
+	</update>
+	
+	<delete id="deleteAlarm">
+        delete from alarm where alarm_no = #{alarm_no}
+    </delete>
+    
+</mapper>

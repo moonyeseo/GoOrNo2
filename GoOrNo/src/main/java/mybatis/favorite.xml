@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="favorite.model.Favorite">
+	
+	<select id="getTotalCount" resultType="int">
+		select count(*) from favorite
+	</select>
+	
+	<select id="getFavoriteByUser_no" resultType="favorite.model.FavoriteBean">
+		select f.favorite_no, e.event_no, e.performance_type, e.title, e.place, e.event_period, e.img, NVL(AVG(er.rating), 0) as rating
+		from favorite f
+		join event e on f.event_no = e.event_no
+		left join event_review er on e.event_no = er.event_no
+		where f.user_no = #{user_no}
+		group by f.favorite_no, e.event_no, e.performance_type, e.title, e.place, e.event_period, e.img
+	</select>
+	
+	<insert id="insertFavorite">
+		insert into favorite (favorite_no, event_no, user_no)
+		values (favorite_seq.nextval, #{event_no}, #{user_no})
+	</insert>
+	
+	<delete id="deleteFavorite" parameterType="map">
+		delete from favorite where favorite_no = #{favorite_no} and event_no = #{event_no} and user_no = #{user_no}
+	</delete>
+	
+</mapper>

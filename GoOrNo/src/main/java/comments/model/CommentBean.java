@@ -7,8 +7,12 @@ public class CommentBean {
 	String user_id;
 	String content;
 	String regdate;
-	//´ñ±Û ÀÛ¼ºÀÚ = È¸¿ø ¾ÆÀÌµğ Ãß°¡
+	/* woo ì¶”ê°€ */
+	String board_subject;
+	
+	//ëŒ“ê¸€ ì‘ì„±ì = íšŒì› ì•„ì´ë”” ì¶”ê°€
 	String id;
+	
 	public int getComment_no() {
 		return comment_no;
 	}
@@ -50,6 +54,12 @@ public class CommentBean {
 	}
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
+	}
+	public String getBoard_subject() {
+		return board_subject;
+	}
+	public void setBoard_subject(String board_subject) {
+		this.board_subject = board_subject;
 	}
 	
 }

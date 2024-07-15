@@ -76,4 +76,39 @@ public class UsersDao {
 		count = sqlSessionTemplate.selectOne(namespace + ".searchId", inputname);
 		return count;
 	}
+	
+	/* woo 추가 */
+	//유저 수정
+	public int updateUsers(UsersBean usersBean) {
+//		System.out.println("-----updateUsers()-----");
+		
+		int cnt = -1;
+		cnt = sqlSessionTemplate.update(namespace + ".updateUsers", usersBean);
+		
+//		System.out.println("Update count: " + cnt);
+		
+		return cnt;
+	}//updateUsers
+	
+	
+	//비밀번호 수정
+	public int updatePw(UsersBean usersBean) {
+//		System.out.println("-----updatePw()-----");
+		
+		int cnt = -1;
+		cnt = sqlSessionTemplate.update(namespace + ".updatePw", usersBean);
+		
+		return cnt;
+	}
+	
+	//유저 삭제
+	public int deleteUsers(int user_no) {
+//		System.out.println("-----deleteUsers()-----");
+		
+		int cnt = -1;
+		cnt = sqlSessionTemplate.delete(namespace + ".deleteUsers", user_no);
+		
+		return cnt;
+	}//deleteUsers
+	
 }

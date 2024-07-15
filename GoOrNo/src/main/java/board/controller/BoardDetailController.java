@@ -18,7 +18,7 @@ import comments.model.CommentDao;
 import users.model.UsersDao;
 
 @Controller
-@ComponentScan(basePackages = {"board","users","comments"})
+
 public class BoardDetailController {
 	private final String command = "detail.board";
 	private final String getPage = "boardDetailView";
@@ -43,8 +43,8 @@ public class BoardDetailController {
 		BoardBean bb = boardDao.getBoardByNo(board_no);
 		model.addAttribute("board", bb);
 		
-		//´ñ±Û ¸ñ·Ï ºÒ·¯¿À±â
-		List<CommentBean> commentLists = commentDao.getAllComment(board_no); //°Ô½ÃÆÇ ¹øÈ£·Î ´ñ±Û ¸ñ·Ï °¡Á®¿È
+		//ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½
+		List<CommentBean> commentLists = commentDao.getAllComment(board_no); //ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		
 		model.addAttribute("commentLists", commentLists);
 		

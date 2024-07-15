@@ -10,6 +10,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import alarm.model.AlarmBean;
+import alarm.model.AlarmDao;
 import utility.Paging;
 
 @Component
@@ -17,6 +19,9 @@ public class QnaDao {
 	
 	@Autowired
 	SqlSessionTemplate sst;
+	
+	@Autowired
+    AlarmDao alarmDao;
 	
 	private String namespace = "qna";
 	
@@ -62,28 +67,40 @@ public class QnaDao {
 	public void updateReadcount(int qna_no) {
 		sst.update(namespace+".updateReadcount",qna_no);
 	}
-
+	
 	public int insertReply(QnaBean qna, int orgNo) {
-		//´ä±Û Ãß°¡ ¼³Á¤ ref
-		QnaBean bb = getQnaByNo(orgNo); //ÂüÁ¶±ÛÀÇ ¹øÈ£·Î ÂüÁ¶±Û Á¤º¸ °¡Á®¿À±â
-		int ref = bb.getRef(); //ÂüÁ¶±ÛÀÇ ref °¡Á®¿È
-		qna.setRef(ref); //ÂüÁ¶±ÛÀÇ ref¿Í °°À½
+		//ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½ ref
+		QnaBean bb = getQnaByNo(orgNo); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		int ref = bb.getRef(); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ref ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		qna.setRef(ref); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ refï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		
-		//°ü¸®ÀÚ¸¸ ´ä±Û ÀÛ¼º °¡´É
+		//ï¿½ï¿½ï¿½ï¿½ï¿½Ú¸ï¿½ ï¿½ï¿½ï¿½ ï¿½Û¼ï¿½ ï¿½ï¿½ï¿½ï¿½
 		qna.setUser_id("admin");
 		qna.setUser_no(1);
 		
-		//´ä±Û »ğÀÔ
+		//ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		int cnt = sst.insert(namespace+".insertReply", qna);
 		
-		//´ä±Û ÀÛ¼º½Ã ´äº¯ ¿ø±ÛÀÇ state = 1·Î ¼öÁ¤
+		//ï¿½ï¿½ï¿½ ï¿½Û¼ï¿½ï¿½ï¿½ ï¿½äº¯ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ state = 1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		if(cnt > 0) {
 			Map<String,Integer> map = new HashMap<String,Integer>();
 			map.put("state", 1);
 			map.put("no", orgNo);
 			
 			int cnt2 = sst.update(namespace+".updateState", map);
-			System.out.println("state 1·Î ¼öÁ¤ÇÑ °¹¼ö : "+cnt2);
+			System.out.println("state 1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ : "+cnt2);
+			
+			
+			//woo ìˆ˜ì • : ì•Œë¦¼ ê¸°ëŠ¥
+			AlarmBean alarm = new AlarmBean();
+            alarm.setUser_no(bb.getUser_no());
+            alarm.setUser_id(qna.getUser_id());
+            alarm.setMessage("Q&A ë‹µë³€ì„ ë‹¬ì•˜ìŠµë‹ˆë‹¤.");
+            alarm.setAlarm_type("qna");
+            alarm.setType_id(orgNo);
+            alarm.setRead(0);
+
+            alarmDao.insertAlarm(alarm);
 		}
 		return cnt;
 	}
@@ -94,21 +111,21 @@ public class QnaDao {
 	}
 
 	public int deleteQna(int qna_no) {
-		//±Û Á¤º¸ °¡Á®¿È
+		//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		QnaBean qb = getQnaByNo(qna_no);
 		
 		int cnt = sst.delete(namespace+".deleteQna",qna_no);
 
-		if(cnt > 0) {// »èÁ¦ ¼º°ø
-			//´ä±Û »èÁ¦½Ã Áú¹®±Û state = 0À¸·Î º¯°æ
+		if(cnt > 0) {// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			//ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ state = 0ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			if(qb.getQna_no() != qb.getRef()) {
 				Map<String,Integer> map = new HashMap<String,Integer>();
 				map.put("state", 0);
 				map.put("no", qb.getRef());
 				
 				int cnt2 = sst.update(namespace+".updateState", map);
-				System.out.println("state 0·Î ¼öÁ¤ÇÑ °¹¼ö : "+cnt2);
-			}else { //Áú¹®±Û »èÁ¦½Ã ´äº¯µµ °°ÀÌ »èÁ¦
+				System.out.println("state 0ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ : "+cnt2);
+			}else { //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½äº¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				int ref = qna_no;
 				sst.delete(namespace+".deleteReply",ref);
 			}
@@ -121,5 +138,21 @@ public class QnaDao {
 		qb = sst.selectOne(namespace+".getReplyByOrgNo", qna_no);
 		return qb;
 	}
+	
+	//woo ì¶”ê°€ : user_noì— ë”°ë¥¸ q&a list
+	public List<QnaBean> getQnaByUser_no(int user_no){
+		List<QnaBean> qnaLists = new ArrayList<QnaBean>();
+		qnaLists = sst.selectList(namespace + ".getQnaByUser_no", user_no);
+		
+		return qnaLists;
+	}//getQnaByUser_no
+	
+	//woo ì¶”ê°€ : ë‹µë³€ìƒíƒœ ì—…ë°ì´íŠ¸
+	public int updateQnaState(int qna_no, int state) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("qna_no", qna_no);
+		map.put("state", state);
+		return sst.update(namespace + ".updateQnaState", map);
+	}//updateQnaState
 
 }

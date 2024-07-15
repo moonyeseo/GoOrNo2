@@ -75,11 +75,11 @@ public class EventCalendarController {
 				e.printStackTrace();
 			}
 
-//			System.out.println(lists.get(i).getTitle());
-//			System.out.println(lists.get(i).getEvent_period());
-//			
-//		 System.out.println("startDate : " + startDate);
-//		 System.out.println("endDate : " + endDate);
+			System.out.println(lists.get(i).getTitle());
+			System.out.println(lists.get(i).getEvent_period());
+			
+		 System.out.println("startDate : " + startDate);
+		 System.out.println("endDate : " + endDate);
 
 			
 			if(selectDate.after(startDate) || selectDate.equals(startDate)) {

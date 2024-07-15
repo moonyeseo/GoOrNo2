@@ -208,7 +208,6 @@
 	</servlet-mapping>
 	
 	
-	
 	<!-- *.chatbot 요청에 따라 chatbot-serlvet.xml 파일로 이동 -->
 	<servlet>
 		<servlet-name>chatbot</servlet-name>
@@ -226,4 +225,43 @@
 		<servlet-name>chatbot</servlet-name>
 		<url-pattern>*.chatbot</url-pattern>
 	</servlet-mapping>
+	
+	
+	<!-- *.favorite 요청 -->
+	<servlet>
+		<servlet-name>favorite</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/favorite-servlet.xml
+			</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>favorite</servlet-name>
+		<url-pattern>*.favorite</url-pattern>
+	</servlet-mapping>
+	
+	<!-- *.alarm 요청 -->
+	<servlet>
+		<servlet-name>alarm</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/alarm-servlet.xml
+			</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+    <servlet-name>alarm</servlet-name>
+    <url-pattern>/notifications/*</url-pattern>
+</servlet-mapping>
+
+	
 </web-app>

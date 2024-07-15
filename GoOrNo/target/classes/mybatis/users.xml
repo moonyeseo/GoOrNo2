@@ -70,6 +70,21 @@
 		select count(*) from users
 		where id =#{inputname}
 	</select>
+	
+	<!-- woo 추가 -->
+	<update id="updateUsers">
+		update users set id = #{id}, pw = #{pw, jdbcType=VARCHAR}, gender = #{gender, jdbcType=VARCHAR}, email = #{email, jdbcType=VARCHAR}, name=#{name, jdbcType=VARCHAR}, profile = #{profile, jdbcType=VARCHAR}, phoneNum = #{phoneNum, jdbcType=VARCHAR}, postcode = #{postcode, jdbcType=VARCHAR}, address = #{address, jdbcType=VARCHAR}
+		where user_no = #{user_no}
+	</update>
+	
+	<update id="updatePw">
+		update users set pw = #{pw}
+		where user_no = #{user_no}
+	</update>
+	
+	<delete id="deleteUsers">
+		delete from users where user_no = #{user_no}
+	</delete>
 
 
 </mapper>
