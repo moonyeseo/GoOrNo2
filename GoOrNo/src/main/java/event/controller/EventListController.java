@@ -20,7 +20,7 @@ import utility.Paging;
 
 @Controller
 public class EventListController {
-	// Çà»ç ¸ñ·Ï
+	// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	private final String command = "/list.event";
 	private final String getPage = "eventList";
 
@@ -47,11 +47,12 @@ public class EventListController {
 		Paging pageInfo = new Paging(pageNumber, "10", totalCount, url, whatColumn, keyword);
 		pageInfo.setPageSize(10);
 		
-		/* ¸ñ·Ï */
+		/* ï¿½ï¿½ï¿½ */
 		List<EventBean> lists = edao.getAllEvents(map, pageInfo);
 		
-		/* À¯Çü */
+		/* ï¿½ï¿½ï¿½ï¿½ */
 		List<String> performanceTypeList = edao.getPerformanceType();
+		model.addAttribute("pageNumber", pageNumber);
 		model.addAttribute("whatColumn", whatColumn);
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("pageInfo", pageInfo);

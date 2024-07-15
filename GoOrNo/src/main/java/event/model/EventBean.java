@@ -6,28 +6,28 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class EventBean {
     private int event_no;
     
-    @NotBlank(message="��� ������ �����ϼ���.")
+    @NotBlank(message="유형을 선택하세요.")
     private String performance_type;
     
-    @NotEmpty(message="���/�������� �Է��ϼ���.")
+    @NotEmpty(message="제목을 입력하세요.")
     private String title;
     
-    @NotEmpty(message="��Ҹ� �Է��ϼ���")
+    @NotEmpty(message="장소를 입력하세요.")
     private String place;
     
-    @NotEmpty(message="�Ⱓ�� �Է��ϼ���")
+    @NotEmpty(message="기간을 입력하세요.")
     private String event_period;
     
     private String img;
     
-    @NotEmpty(message="������ �Է��ϼ���")
+    @NotEmpty(message="위도를 입력하세요.")
     private String lot;
     
-    @NotEmpty(message="�浵�� �Է��ϼ���")
+    @NotEmpty(message="경도를 입력하세요.")
     private String lat;
     
 	public EventBean() {
-        System.out.println("EventBean ������");
+        System.out.println("EventBean 생성자");
     }
     
     //�׽�Ʈ

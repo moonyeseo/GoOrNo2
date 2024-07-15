@@ -19,16 +19,16 @@ import users.model.UsersBean;
 
 @Controller
 public class EventUpdateController {
-	// Çà»ç ¼öÁ¤
+	// ê´€ë¦¬ì
     private final String command = "update.event";
     private final String getPage = "eventUpdateForm";
-    private final String gotoPage = "redirect:/list.event";
-    private final String mainPage = "redirect:/main.jsp";
+    private final String gotoPage = "redirect:/AdminList.event";
+    private final String mainPage = "redirect:/AdminDetail.event";
 
     @Autowired
     EventDao edao;
 
-    // »ó¼¼ ¼öÁ¤ Å¬¸¯ ½Ã, GET
+    // ê´€ë¦¬ì ìƒì„¸ë³´ê¸° ìˆ˜ì • í´ë¦­ ì‹œ, GET
     @RequestMapping(value = command, method = RequestMethod.GET)
     public String updateForm(@RequestParam("eventNo") int eventNo,
             @RequestParam(value = "whatColumn", required = false) String whatColumn,
@@ -37,19 +37,16 @@ public class EventUpdateController {
 
         UsersBean mb = (UsersBean) session.getAttribute("loginInfo");
 
-        // ·Î±×ÀÎ ¿©ºÎ È®ÀÎ
+       // ë¡œê·¸ì¸ x
         if (mb == null) {
-            // ·Î±×ÀÎÇÏÁö ¾ÊÀº °æ¿ì ·Î±×ÀÎ ÆäÀÌÁö·Î ¸®´ÙÀÌ·ºÆ®
             String destination = "redirect:/update.event?eventNo=" + eventNo + "&pageNumber=" + pageNumber
                     + "&whatColumn=" + whatColumn + "&keyword=" + keyword;
             session.setAttribute("destination", destination);
             return "redirect:/login.users";
         } else if (!"admin".equals(mb.getId())) {
-            // ·Î±×ÀÎÇßÁö¸¸ °ü¸®ÀÚ°¡ ¾Æ´Ñ °æ¿ì ¸ŞÀÎÀ¸·Î ÀÌµ¿
             return mainPage;
         }
 
-        // ÀÌº¥Æ® Á¤º¸ Á¶È¸
         EventBean event = edao.getEventByEventNo(eventNo);
         model.addAttribute("event", event);
         model.addAttribute("whatColumn", whatColumn);
@@ -60,7 +57,7 @@ public class EventUpdateController {
         return getPage;
     }
 
-    // ¼öÁ¤¹öÆ° Å¬¸¯ ½Ã, POST ¿äÃ»
+    // ì—…ëƒí¼ ìˆ˜ì • í´ë¦­ ì‹œ, POST 
     @RequestMapping(value = command, method = RequestMethod.POST)
     public ModelAndView update(
     		@ModelAttribute("event")

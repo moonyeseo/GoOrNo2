@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import event.model.EventBean;
 import event.model.EventDao;
@@ -20,12 +21,11 @@ import users.model.UsersBean;
 public class EventInsertController {
 	private final String command = "insert.event";
 	private final String getPage = "eventInsert";
-	private final String gotoPage = "redirect:/list.event";
+	private final String gotoPage = "redirect:/AdminList.event";
 	
 	@Autowired
 	EventDao edao;
-	// �̿ϼ�.
-	// ������ �߰� Ŭ��
+	// AdminList 등록 클릭 시
 	@RequestMapping(value=command, method = RequestMethod.GET)
 	public String insertForm(@RequestParam(value="whatColumn", required = false) String whatColumn,
 			@RequestParam(value="keyword", required = false) String keyword,
@@ -34,7 +34,7 @@ public class EventInsertController {
 			) {
 		UsersBean mb = (UsersBean)session.getAttribute("loginInfo");
 		
-		// �α��� x
+		// 로그인 x
 		if(mb == null) { 
 			model.addAttribute("keyword",keyword);
 			model.addAttribute("pageNumber",pageNumber);
@@ -47,12 +47,34 @@ public class EventInsertController {
 		return getPage;
 	}
 	
+	// 레코드 등록
 	@RequestMapping(value=command, method = RequestMethod.POST)
-	public String insert(
-			@ModelAttribute("event") @Valid EventBean event,
-			BindingResult result) {
+	public ModelAndView insert(
+			@ModelAttribute("event") @Valid EventBean event, BindingResult result,
+			@RequestParam(value="whatColumn", required = false) String whatColumn,
+			@RequestParam(value="keyword", required = false) String keyword,
+			@RequestParam(value="pageNumber", required = false) String pageNumber
+			) {
 		
+		ModelAndView mav = new ModelAndView();
 		
-		return gotoPage;
+        if (result.hasErrors()) {
+        	mav.addObject("whatColumn", whatColumn);
+        	mav.addObject("keyword", keyword);
+        	mav.addObject("pageNumber", pageNumber);
+        	mav.addObject("event", event);
+        	mav.setViewName(getPage);
+
+            return mav;
+        }
+
+        edao.insertEvent(event);
+        mav.addObject("whatColumn", whatColumn);
+    	mav.addObject("keyword", keyword);
+    	mav.addObject("pageNumber", pageNumber);
+    	mav.addObject("event", event);
+    	mav.setViewName(gotoPage);
+    	
+    	return mav;
 	}
 }

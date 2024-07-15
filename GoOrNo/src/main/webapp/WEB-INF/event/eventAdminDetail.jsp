@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@include file="../userCommon/userHeader.jsp"%>
-<!--  user header 부분 -->
+<%@include file="../adminCommon/adminHeader.jsp"%>
+<!--  admin header 부분 -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <title>Event Detail</title>
@@ -59,15 +59,10 @@
     }
     
 </style>
-  
-	<!-- 챗봇 -->
-<div id="asideChatbot" class="asideChatbot " style="heigth: 80%">
-	<%@include file="../chatbot/chatbot.jsp"%>
-</div>
-
-<div id="chatbotIcon" style="heigth: 20%">
-	<%@include file="../chatbot/chatbotIcon.jsp"%>
-</div>
+<input type="hidden" name="event_no" value="${eventNo }"> 
+<input type="hidden" name="whatColumn" value="${whatColumn}"> 
+<input type="hidden" name="keyword" value="${keyword}"> 
+<input type="hidden" name="pageNumber" value="${pageNumber}"> 
 
 
 <section class="event-detail-container">
@@ -96,9 +91,8 @@
                 </tr>
                 <tr>
                 	<td colspan="2">
-               			
-	  					<input type="button" class="btn btn-outline-primary btn-sm" value="목록보기" onClick="location.href='list.event?eventNo=${event.event_no }&whatColumn=${param.whatColumn}&keyword=${param.keyword}&pageNumber=${pageNumber}'">
-	  					<input type="button" class="btn btn-outline-primary btn-sm" value="길찾기" onClick="location.href='search.bookmark?lat=${event.lat}&lot=${event.lot }&place=${event.place }'">
+	  					<input type="button" class="btn btn-outline-primary btn-sm" value="목록보기" onClick="location.href='AdminList.event?eventNo=${event.event_no }&whatColumn=${param.whatColumn}&keyword=${param.keyword}&pageNumber=${param.pageNumber}'">
+	  					<input type="button" class="btn btn-outline-primary btn-sm" value="수정하기" onClick="location.href='update.event?eventNo=${event.event_no }&whatColumn=${param.whatColumn}&keyword=${param.keyword}&pageNumber=${param.pageNumber}'">
                 	</td>
                 </tr>
             </table>
@@ -106,4 +100,4 @@
     </div>
 </section>
 
-<%@include file="../userCommon/userFooter.jsp"%>
+<%@include file="../adminCommon/adminFooter.jsp"%>

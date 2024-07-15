@@ -118,7 +118,7 @@
             <input type="text" name="whatColumn" value="performance_type">
             <input type="text" name="keyword" id="keyword">
             <input type="hidden" name="isAdmin" value="yes">
-			<input type="hidden" name="pageNumber" value="${ param.pageNumber }">
+			<input type="hidden" name="pageNumber" value="${pageNumber }">
             <input type="submit" value="검색">
         </form>
         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
@@ -137,11 +137,11 @@
     <div class="event-container">
         <c:forEach var="event" items="${lists}">
             <div class="card">
-                <a href="detail.event?eventNo=${event.event_no}">
+                <a href="detail.event?eventNo=${event.event_no}&whatColumn=${whatColumn}&keyword=${keyword }&pageNumber=${pageNumber}">
                     <img src="${event.img}" class="card-img-top event-thumbnail" alt="${event.title}">
                 </a>
                 <div class="card-body">
-                    <a href="detail.event?eventNo=${event.event_no}">
+                    <a href="detail.event?eventNo=${event.event_no}&whatColumn=${whatColumn}&keyword=${keyword }&pageNumber=${pageNumber}">
                         ${event.title}
                     </a>
                     <p class="card-text">${event.performance_type}</p>

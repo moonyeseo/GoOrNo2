@@ -55,6 +55,7 @@ public class EventAdminListController {
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("pageInfo", pageInfo);
 		model.addAttribute("totalCount", totalCount);
+		model.addAttribute("pageNumber", pageNumber);
 		model.addAttribute("lists", lists);
 		model.addAttribute("performanceTypeList", performanceTypeList);
 		

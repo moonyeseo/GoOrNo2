@@ -11,12 +11,15 @@ tbody img{
 	height: 100px;
 }
 </style>
-
-
+<input type="hidden" name="event_no" value="${eventNo }"> 
+<input type="hidden" name="whatColumn" value="${whatColumn}"> 
+<input type="hidden" name="keyword" value="${keyword}"> 
+<input type="hidden" name="pageNumber" value="${pageNumber}"> 
 <main id="main" class="main">
 <div class="container mt-10">
     <div class="pagetitle">
         <h1>Event</h1>
+	현재 ${pageInfo.pageNumber }
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="mainAdmin.jsp">Event</a></li>
@@ -29,6 +32,19 @@ tbody img{
         <div class="card-body">
             <h5 class="card-title">Tables without borders</h5>
             <!-- Active Table -->
+            <form action="AdminList.event">
+            <select name="whatColumn">
+            	<option value="all">전체
+            	<option value="performance_type">유형
+            	<option value="title">제목
+            	<option value="place">장소
+            </select>
+            <input type="text" name="keyword">
+            <input type="submit" value="검색">
+            </form>
+
+            <input type="button" class="btn btn-outline-primary btn-sm" value="등록" onClick="location.href='insert.event?eventNo=${event.event_no }&whatColumn=${param.whatColumn}&keyword=${param.keyword}&pageNumber=${pageNumber}'">
+            
             <table class="table table-borderless table-striped">
                 <thead class="thead-dark">
                     <tr>
@@ -46,7 +62,7 @@ tbody img{
                         <td>${event.event_no }</td>
                         <td>${event.performance_type}</td>
                         <td>
-                        	<a href="">${event.title}</a>
+                        	<a href="AdminDetail.event?eventNo=${event.event_no}&whatColumn=${whatColumn}&keyword=${keyword }&pageNumber=${pageNumber}">${event.title}></a>
                         </td>
                         <td>${event.place}</td>
                         <td>${event.event_period}</td>
@@ -59,7 +75,7 @@ tbody img{
         <div class="paging-info">${pageInfo.pagingHtml}</div>
         </div>
     </div>
-  asdasdasd
+  
      
 </div>
 </main>
