@@ -56,6 +56,8 @@ public class LoginController {
 				if (ub.getPw().equals(users.getPw())) {
 
 					session.setAttribute("loginInfo", ub);
+					//yoon 추가
+					session.setAttribute("id", ub.getId());
 
 					if (ub.getId().equals("admin")) { //  관리자 로그인을 할 경우.
 						out.println("<script>");

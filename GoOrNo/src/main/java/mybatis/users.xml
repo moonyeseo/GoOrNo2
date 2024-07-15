@@ -29,7 +29,7 @@
 	</select>
 
 	<select id="getTotalCount" resultType="int">
-		select count(*) from member
+		select count(*) from users
 		<if test="whatColumn == 'all'">
 			where name like #{keyword} or gender like #{keyword}
 		</if>

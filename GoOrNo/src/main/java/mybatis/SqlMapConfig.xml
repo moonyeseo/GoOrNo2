@@ -23,5 +23,6 @@
 		<mapper resource="mybatis/event.xml" />
 		<mapper resource="mybatis/chatbot.xml" />
   		<mapper resource="mybatis/users.xml" />
+  		<mapper resource="mybatis/chat.xml" />
   	</mappers>
   </configuration>

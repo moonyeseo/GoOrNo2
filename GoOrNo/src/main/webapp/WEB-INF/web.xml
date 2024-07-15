@@ -207,8 +207,6 @@
 		<url-pattern>*.event</url-pattern>
 	</servlet-mapping>
 	
-	
-	
 	<!-- *.chatbot 요청에 따라 chatbot-serlvet.xml 파일로 이동 -->
 	<servlet>
 		<servlet-name>chatbot</servlet-name>
@@ -225,5 +223,21 @@
 	<servlet-mapping>
 		<servlet-name>chatbot</servlet-name>
 		<url-pattern>*.chatbot</url-pattern>
+	</servlet-mapping>
+	
+	<!-- 채팅 -->
+	 <servlet>
+		<servlet-name>chat</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/chat-context.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+		
+	<servlet-mapping>
+		<servlet-name>chat</servlet-name>
+		<url-pattern>*.chat</url-pattern>
 	</servlet-mapping>
 </web-app>
