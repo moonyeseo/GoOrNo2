@@ -295,7 +295,7 @@
 												<input id="phoneChk" class="btn" type="button"
 													style="background-color: #D8D8D8;" value="본인인증"> <input
 													id="phone2" type="text" name="phone2" class="form-control"
-													title="인증번호 입력" disabled required /> <input id="phoneChk2"
+													title="인증번호 입력" disabled required> <input id="phoneChk2"
 													type="button" class="btn"
 													style="background-color: #D8D8D8;" value=" Check ">
 												<div class="input-group has-validation">
