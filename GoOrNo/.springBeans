@@ -7,8 +7,17 @@
 	</configSuffixes>
 	<enableImports><![CDATA[true]]></enableImports>
 	<configs>
+		<config>src/main/webapp/WEB-INF/spring/appServlet/review-servlet.xml</config>
 	</configs>
 	<autoconfigs>
+		<config>src/main/webapp/WEB-INF/spring/appServlet/comments-context.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/appServlet/event-servlet.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/appServlet/notice-context.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/appServlet/qna-context.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/appServlet/faq-context.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/appServlet/board-context.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/root-context.xml</config>
 	</autoconfigs>
 	<configSets>
 	</configSets>

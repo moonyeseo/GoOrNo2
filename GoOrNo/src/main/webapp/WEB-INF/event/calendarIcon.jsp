@@ -9,7 +9,7 @@
 	border-radius: 20px;
 	z-index: 1;
 }
-</style>
+</style> 
 
 <!-- <div class="container"> 
 	<div class="row">
