@@ -1,5 +1,9 @@
 package event.controller;
 
+import java.io.File;
+import java.io.IOException;
+
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -11,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import event.model.EventBean;
@@ -23,8 +28,13 @@ public class EventInsertController {
 	private final String getPage = "eventInsert";
 	private final String gotoPage = "redirect:/AdminList.event";
 	
+	
 	@Autowired
 	EventDao edao;
+	
+	@Autowired
+	ServletContext servletContext;
+	
 	// AdminList 등록 클릭 시
 	@RequestMapping(value=command, method = RequestMethod.GET)
 	public String insertForm(@RequestParam(value="whatColumn", required = false) String whatColumn,
@@ -43,7 +53,9 @@ public class EventInsertController {
 			String destination = "redirect:/insert.event?pageNumber="+pageNumber+"&whatColumn="+whatColumn+"&keyword="+keyword;
 			session.setAttribute("destination", destination);
 			return "redirect:/login.users";
-		}
+		} else if (!"admin".equals(mb.getId())) {
+            return gotoPage;
+        }
 		return getPage;
 	}
 	
@@ -55,6 +67,18 @@ public class EventInsertController {
 			@RequestParam(value="keyword", required = false) String keyword,
 			@RequestParam(value="pageNumber", required = false) String pageNumber
 			) {
+		System.out.println("event post");
+		System.out.println("event.getImg():"+event.getImg()); // null 
+		System.out.println("event.getUpload():"+event.getUpload());
+		System.out.println("event.getTitle():"+event.getTitle());
+		System.out.println("장소 : "+event.getPerformance_type());
+		
+		MultipartFile multi = event.getUpload();
+		
+		String uploadPath = servletContext.getRealPath("/resources/uploadImage/");
+		System.out.println("uploadPath : " + uploadPath);
+		
+		
 		
 		ModelAndView mav = new ModelAndView();
 		
@@ -69,15 +93,31 @@ public class EventInsertController {
 
             return mav;
         }
-
-        edao.insertEvent(event);
-        mav.addObject("whatColumn", whatColumn);
-    	mav.addObject("keyword", keyword);
-    	mav.addObject("pageNumber", pageNumber);
-    	mav.addObject("event", event);
-    	System.out.println("in");
-    	mav.setViewName(gotoPage);
-    	
+        
+        int cnt = -1;
+        cnt = edao.insertEvent(event);
+        
+        if(cnt != -1) {
+        	mav.setViewName(gotoPage);
+        	
+        	File destination = new File(uploadPath+File.separator+multi.getOriginalFilename());
+			
+        	
+        	try {
+        		multi.transferTo(destination);
+        	} catch(IllegalStateException e) {
+        		e.printStackTrace();
+        	} catch(IOException e) {
+        		e.printStackTrace();
+        	}
+        }else {
+        	mav.addObject("whatColumn", whatColumn);
+        	mav.addObject("keyword", keyword);
+        	mav.addObject("pageNumber", pageNumber);
+        	mav.addObject("event", event);
+        	System.out.println("in");
+        	mav.setViewName(getPage);
+        }
     	return mav;
 	}
 }

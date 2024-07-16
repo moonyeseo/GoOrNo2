@@ -66,7 +66,12 @@ tbody img{
                         </td>
                         <td>${event.place}</td>
                         <td>${event.event_period}</td>
-                        <td><img src="${event.img}" alt="${event.title}"></td>
+                        
+                        	
+                        <td>
+                        	<img src = "<%=request.getContextPath() + "/resources/uploadImage/" %>${event.img}" width = "100" height = "100"/> <br><br>
+                        	<img src="${event.img}" alt="${event.title}">
+                        </td>
                     </tr>
                     </c:forEach>
                 </tbody>

@@ -70,7 +70,9 @@
         <h2>상세정보</h2>
     </div>
     <div style="display: flex; width: 100%;">
-        <img src="${event.img}" alt="${event.title}">
+    	
+    <img src = "<%=request.getContextPath() + "/resources/uploadImage/" %>${event.img}" width = "100" height = "100" alt="${event.title }"/> <br><br>
+        <%-- <img src="${event.img}" alt="${event.title}"> --%>
         <div class="event-info">
             <table>
                 <tr>

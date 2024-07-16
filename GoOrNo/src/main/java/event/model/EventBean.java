@@ -19,6 +19,7 @@ public class EventBean {
     @NotEmpty(message="기간을 입력하세요.")
     private String event_period;
     
+    @NotEmpty(message = "파일 선택 안함")
     private String img;
     
     @NotEmpty(message="위도를 입력하세요.")

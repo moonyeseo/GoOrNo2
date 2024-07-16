@@ -57,6 +57,7 @@ Admin add<br>
 			<th>사진</th>
 			<td>
 				<input type="file" name="upload" value="${event.img }">
+				<form:errors path="img" cssClass="err"/>
 			</td>
 		</tr>
 		

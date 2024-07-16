@@ -68,7 +68,10 @@ Admin add update<br>
 		<tr>
 			<th>사진</th>
 			<td>
-				<input type="file" name="img">
+				<img src = "<%=request.getContextPath() + "/resources/uploadImage/" %>${event.img}" width = "100" height = "100"/> <br><br>
+				<input type="file" name="upload" value="${event.img }">
+				<input type = "text" name="upload2" value="${event.img }"> <!-- upload2:삭제할 파일명 -->
+				<form:errors path="img" cssClass="err"/>
 			</td>
 		</tr>
 		

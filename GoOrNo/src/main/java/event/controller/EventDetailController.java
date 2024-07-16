@@ -10,11 +10,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import event.model.EventBean;
 import event.model.EventDao;
-import users.model.UsersBean;
 
 @Controller
 public class EventDetailController {
-	// 유저
+	// 상세보기
 	private final String command = "detail.event"; 
 	private final String admincmd = "AdminDetail.event"; 
 	private final String getPage = "eventDetail";
