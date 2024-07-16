@@ -32,10 +32,12 @@ function getReport(board_no, re_no, user_no){
 		dataType : "json",
 		success : function(report){
 			//alert("성공");
-
+			
 			$("#content").html(report.content);
 			$("#id").html(report.id);
 			$("#re_no").val(report.re_no);
+			
+			$("#content2").text(report.content).hide();
 			
 		},
 		error : function(request,status,error){
@@ -51,7 +53,7 @@ function deleteReport(){
 }
 
 function goBoard(){
-	var content = $("#content").text();
+	var content = $("#content2").text();
 	
 	location.href = 'list.board?isAdmin=yes&whatColumn=content&keyword=' + content;
 }
@@ -169,7 +171,9 @@ function goBoard(){
 								<tr>
 									<td id="content"></td>
 								</tr>
-								<tr></tr>
+								<tr>
+									<td id="content2"></td>
+								</tr>
 								<tr></tr>
 								<tr>
 									<th>신고자</th>
