@@ -146,17 +146,19 @@
 
 						<div>
 							<div class="starRev" id="rating">
-								<input type="hidden" id="count"> <span class="starR"
-									id="1">⭐</span> <span class="starR" id="2">⭐</span> <span
-									class="starR" id="3">⭐</span> <span class="starR" id="4">⭐</span>
+								<input type="hidden" id="count">
+								<span class="starR" id="1">⭐</span>
+								<span class="starR" id="2">⭐</span>
+								<span class="starR" id="3">⭐</span>
+								<span class="starR" id="4">⭐</span>
 								<span class="starR" id="5">⭐</span>
 							</div>
 
 							<c:if test="${ loginInfo.id ne null }">
 								<table class="table table-borderless" style="width: 70%;">
 									<tr>
-										<td align="right"><textarea name="comments"
-												id="reviewComment" class="form-control"
+										<td align="right">
+										<textarea name="comments" id="reviewComment" class="form-control"
 												placeholder="리뷰를 작성해 보세요." style="resize: none;"></textarea></td>
 									</tr>
 									<tr>
@@ -190,7 +192,8 @@
 								 <fmt:formatNumber value="${averageRating}" type="number" maxFractionDigits="1" /> / 5
 								</c:when>
 								<c:otherwise>
-								평균 별점: <span class="starR on">⭐</span> 0.0 / 5
+								평균 별점: 
+								<span class="starR on">⭐</span> 0.0 / 5
 								 </c:otherwise>
 							</c:choose>
 						</div>
@@ -218,7 +221,8 @@
 													<a onClick="return deletereview('${review.review_no}')"
 														style="cursor: pointer;"> <font size="2px">삭제</font>
 													</a>
-												</c:if></td>
+												</c:if>
+											</td>
 										</tr>
 									</c:forEach>
 								</c:if>
@@ -245,13 +249,23 @@
 	});
 
 	function commentwirte() {
+		
 		const comments = document.getElementById("reviewComment").value;
 		const rating = document.getElementById("count").value;
 		const event_no = '${event.event_no}';
 		const id = '${loginInfo.id}';
+		
+		if (count == "" || rating == "") {
+	        alert("별점을 선택해주세요.");
+	        return;
+	    }
+		
+		if (comments == "") {
+	        alert("글을 작성해주세요.");
+	        return;
+	    }
 
-		$
-				.ajax({
+		  $.ajax({
 					type : "post",
 					url : "commit.review",
 					data : {
@@ -284,7 +298,7 @@
 								output += "<td width='20%' align='left'>";
 								output += "<a onClick='return deletereview("
 										+ review_no
-										+ ")' style='cursor: pointer;'><font size='2px'>삭제 </font></a>";
+										+ ")' style='cursor: pointer;'><font size='2px'>삭제</font></a>";
 								output += "</td>";
 							}
 

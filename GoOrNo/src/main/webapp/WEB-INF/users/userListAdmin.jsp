@@ -69,7 +69,7 @@ table {
 										<c:if test="${totalCount == 0}">
 
 											<tr>
-												<td align="center">회원 정보가 없습니다.</td>
+												<td align="center" colspan="6">회원 정보가 없습니다.</td>
 											</tr>
 
 										</c:if>

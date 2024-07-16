@@ -26,10 +26,10 @@
 		<if test="whatColumn == 'all'">
 			where user_id like #{keyword} or rating like #{keyword}
 		</if>
-		<if test="whatColumn == 'name'">
+		<if test="whatColumn == 'user_id'">
 			where user_id like #{keyword}
 		</if>
-		<if test="whatColumn == 'gender'">
+		<if test="whatColumn == 'rating'">
 			where rating like #{keyword}
 		</if>
 		order by review_no

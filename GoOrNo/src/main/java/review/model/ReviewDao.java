@@ -21,7 +21,7 @@ public class ReviewDao {
 	SqlSessionTemplate sqlSessionTemplate;
 
 	public ReviewDao() {
-		System.out.println("reviewDao 생성자");
+		System.out.println("reviewDao");
 	}
 
 	public int insertReview(ReviewBean review) {
