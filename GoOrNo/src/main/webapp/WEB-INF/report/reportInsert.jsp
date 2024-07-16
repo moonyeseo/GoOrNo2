@@ -137,7 +137,18 @@ span {
 													</tr>
 													<tr>
 														<td>
-															<textarea  class="form-control" id = "why" name="why" rows="10"  placeholder="신고 사유"  style="resize: none;" >${report.why }</textarea>
+															<!-- 로그인 한 경우에만 댓글창 활성화 -->
+															<c:if test="${ loginInfo.id ne null }">
+																<table class="table table-borderless" style="width: 70%;">
+																	<textarea  class="form-control" id = "why" name="why" rows="10"  placeholder="신고 사유"  style="resize: none;" >${report.why }</textarea>
+																</table>
+															</c:if>
+															<!-- 비회원은 아예 댓글창이 막혀 있음 -->
+															<c:if test="${ loginInfo.id eq null }">
+																<table class="table table-borderless" style="width: 70%;">
+																	<textarea  class="form-control" id = "why" name="why" rows="10"  placeholder="로그인 후 이용 가능"  style="resize: none;" disabled></textarea>
+																</table>
+															</c:if>
 														</td>
 													</tr>
 													<tr>
