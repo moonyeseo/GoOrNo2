@@ -14,7 +14,7 @@ Admin add update<br>
 %>
 
 
-<form:form commandName="event" action="update.event" method="post">
+<form:form commandName="event" action="update.event" method="post" enctype="multipart/form-data">
 				<input type="hidden" name="event_no" value="${event.event_no }">
 				<input type="hidden" name="pageNumber" value="${ param.pageNumber }">
 				<input type="hidden" name="whatColumn" value="${ param.whatColumn }">

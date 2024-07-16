@@ -63,6 +63,8 @@ public class EventInsertController {
         	mav.addObject("keyword", keyword);
         	mav.addObject("pageNumber", pageNumber);
         	mav.addObject("event", event);
+        	System.err.println(event.getTitle());
+        	System.out.println("fail");
         	mav.setViewName(getPage);
 
             return mav;
@@ -73,6 +75,7 @@ public class EventInsertController {
     	mav.addObject("keyword", keyword);
     	mav.addObject("pageNumber", pageNumber);
     	mav.addObject("event", event);
+    	System.out.println("in");
     	mav.setViewName(gotoPage);
     	
     	return mav;

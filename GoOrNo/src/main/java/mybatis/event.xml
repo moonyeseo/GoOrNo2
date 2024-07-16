@@ -10,9 +10,8 @@
 	<insert id="insertEvent" parameterType="event.model.EventBean">
 		insert into event(event_no, performance_type, title, place, event_period, img, lot, lat)
 		values(event_seq.nextval, #{performance_type}, #{title},
-		#{place}, #{event_period},
-		#{img}, #{lot},
-		#{lat})
+		#{place}, #{event_period}, #{img,jdbcType=VARCHAR},
+		#{lot}, #{lat})
 	</insert>
 	
 	<!-- 조회 -->

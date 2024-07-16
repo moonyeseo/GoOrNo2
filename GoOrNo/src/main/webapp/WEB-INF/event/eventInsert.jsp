@@ -10,7 +10,7 @@ Admin add<br>
 %>
 
 
-<form:form commandName="event" action="insert.event" method="post">
+<form:form commandName="event" action="insert.event" method="post" enctype="multipart/form-data">
 				<input type="hidden" name="event_no" value="${event.event_no }">
 				<input type="hidden" name="pageNumber" value="${ param.pageNumber }">
 				<input type="hidden" name="whatColumn" value="${ param.whatColumn }">
@@ -56,7 +56,7 @@ Admin add<br>
 		<tr>
 			<th>사진</th>
 			<td>
-				<input type="file" name="img">
+				<input type="file" name="upload" value="${event.img }">
 			</td>
 		</tr>
 		

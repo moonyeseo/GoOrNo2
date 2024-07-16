@@ -2,6 +2,7 @@ package event.model;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.web.multipart.MultipartFile;
 
 public class EventBean {
     private int event_no;
@@ -26,24 +27,47 @@ public class EventBean {
     @NotEmpty(message="경도를 입력하세요.")
     private String lat;
     
+    
+    // 추가
+ 	private MultipartFile upload;
+ 	private String upload2; // 수정할때 삭제하려는 파일명
+    
+    
+    
+    
 	public EventBean() {
         System.out.println("EventBean 생성자");
     }
     
-    //�׽�Ʈ
+    public MultipartFile getUpload() {
+		return upload;
+	}
 
-//    public EventBean(int event_no, String performance_type, String title, String place, String event_period, String img, String lot, String lat) {
-//        this.event_no = event_no;
-//        this.performance_type = performance_type;
-//        this.title = title;
-//        this.place = place;
-//        this.event_period = event_period;
-//        this.img = img;
-//        this.lot = lot;
-//        this.lat = lat;
-//    }
+    public void setUpload(MultipartFile upload) {
+		System.out.println("setUpload()");
+		System.out.println("upload:" + upload); // org.springframework.web.multipart.commons.CommonsMultipartFile@51eb1299
 
-    public int getEvent_no() {
+		this.upload = upload;
+		if(this.upload != null) {
+			System.out.println(upload.getName()); // upload
+			System.out.println(upload.getOriginalFilename()); // 남자시계.jpg
+			img = upload.getOriginalFilename(); // img = 남자시계.jpg
+		}
+	}
+
+	public String getUpload2() {
+		return upload2;
+	}
+
+
+
+	public void setUpload2(String upload2) {
+		this.upload2 = upload2;
+	}
+
+
+
+	public int getEvent_no() {
         return event_no;
     }
 
