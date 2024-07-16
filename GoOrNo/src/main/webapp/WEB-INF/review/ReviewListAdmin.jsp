@@ -63,9 +63,10 @@
 										<option value="all">전체 검색</option>
 										<option value="user_id">작성자 검색</option>
 										<option value="rating">평점 검색</option>
-									</select> <input type="text" name="keyword" placeholder="Search"
-										style="height: 37px; vertical-align: middle;"> <input
-										type="submit" value="검색" class="btn btn-dark">
+									</select> 
+									<input type="text" name="keyword" placeholder="Search"
+										style="height: 37px; vertical-align: middle;"> 
+									<input type="submit" value="검색" class="btn btn-dark">
 								</div>
 							</form>
 							<br>
@@ -101,8 +102,6 @@
 												<td>
 													<button type="button" class="btn btn-dark"
 														onclick="deleteReview('${review.review_no}', '${param.whatColumn}', '${param.keyword}', '${pageInfo.pageNumber}')">삭제</button>
-
-
 												</td>
 											</tr>
 										</c:forEach>

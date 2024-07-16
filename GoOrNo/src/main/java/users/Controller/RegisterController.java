@@ -53,7 +53,7 @@ public class RegisterController {
 
 		MultipartFile multi = users.getUpload();
 
-		String uploadPath = servletContext.getRealPath("/resources/profile/");
+		String uploadPath = servletContext.getRealPath("/resources/uploadImage/");
 		System.out.println("uploadPath:" + uploadPath);
 
 		ModelAndView mav = new ModelAndView();

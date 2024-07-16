@@ -118,10 +118,6 @@
 
 						$("#phone2").attr("disabled", false);
 						$("#phoneChk2").css("display", "inline-block");
-						/* 										$(".successPhoneChk").text(
-						 "인증번호를 입력한 뒤 본인인증을 눌러주십시오.");
-						 $(".successPhoneChk").css("color",
-						 "green"); */
 						$("#phoneNum").attr("readonly", true);
 						code2 = data;
 					}
@@ -256,26 +252,27 @@
 												type="password" name="pw" value="${users.pw }"
 												class="form-control" required>
 											<div class="invalid-feedback">Please enter your
-												password!</div>
+												password!</div> 
 										</div>
-										<br> <label class="form-label">Gender</label>
+										<br> 
+										<label class="form-label">Gender</label>
 										<div class="col-12">
 											<div class="form-check form-check-inline">
 												<input class="form-check-input" type="radio" name="gender"
-													id="gender_male" value="남자"> <label
+													id="gender_male" value="남자" required> <label
 													class="form-check-label" for="gender_male">Male</label>
 											</div>
 											<div class="form-check form-check-inline">
 												<input class="form-check-input" type="radio" name="gender"
-													id="gender_female" value="여자"> <label
+													id="gender_female" value="여자" required> <label
 													class="form-check-label" for="gender_female">Female</label>
 											</div>
 											<div class="invalid-feedback">성별을 선택해 주세요.</div>
 										</div>
 										<br>
 										<div class="col-12">
-											<label class="form-label">Email</label> <input type="email"
-												name="email" value="${users.email }" class="form-control"
+											<label class="form-label">Email</label> 
+											<input type="email" name="email" value="${users.email }" class="form-control"
 												required>
 											<div class="invalid-feedback">Please enter your
 												password!</div>
@@ -298,7 +295,7 @@
 												<input id="phoneChk" class="btn" type="button"
 													style="background-color: #D8D8D8;" value="본인인증"> <input
 													id="phone2" type="text" name="phone2" class="form-control"
-													title="인증번호 입력" disabled required /> <input id="phoneChk2"
+													title="인증번호 입력" disabled required> <input id="phoneChk2"
 													type="button" class="btn"
 													style="background-color: #D8D8D8;" value=" Check ">
 												<div class="input-group has-validation">
