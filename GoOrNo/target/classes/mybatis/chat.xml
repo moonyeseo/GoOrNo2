@@ -13,7 +13,10 @@
 		values(chatMember_seq.nextval, #{ chat_no }, #{ user_no }, #{ user_id }, #{ owner })
 	</insert>
 	<select id="getChatByNo" resultType="chat.model.ChatBean">
-		select * from chat where chat_no = #{ chat_no } 
+		select c.chat_no, alias, headcount, maxcount, user_id, createdate
+		from chat c join (select * from chatMember where owner = 1) m
+		on c.chat_no = m.chat_no 
+		where c.chat_no = #{ chat_no } 
 	</select>
 	<select id="getChatByMaxNo" resultType="int">
 		select max(chat_no) from chat 
@@ -47,4 +50,13 @@
 	<update id="updateHeadcount">
 		update chat set headcount = headcount + 1 where chat_no = #{ chat_no }
 	</update>
+	<update id="downHeadcount">
+		update chat set headcount = headcount - 1 where chat_no = #{ chat_no }
+	</update>
+	<delete id="deleteChat">
+		delete from chat where chat_no = #{ chat_no }
+	</delete>
+	<delete id="deleteChatMember">
+		delete from chatMember where chat_no = #{ chat_no } and user_id = #{ user_id }
+	</delete>
 </mapper>

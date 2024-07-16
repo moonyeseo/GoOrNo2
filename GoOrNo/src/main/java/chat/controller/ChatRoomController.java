@@ -1,10 +1,8 @@
 package chat.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,16 +46,16 @@ public class ChatRoomController {
 			@RequestParam(value="isAdmin", required = false) String isAdmin,
 			@RequestParam("chat_no") int chat_no
 			) throws IOException {
-		//Ã¤ÆÃ¹æ ¸Ş½ÃÁö ¸®½ºÆ®
+		//ì±„íŒ…ë°© ë©”ì‹œì§€ ë¦¬ìŠ¤íŠ¸
 		List<ChatMessageBean> mlists = chatMessageDao.getAllMessage(chat_no);
 		
-		//Ã¤ÆÃ¹æ Á¤º¸
+		//ì±„íŒ…ë°© ì •ë³´
 		ChatBean chatInfo = chatDao.getChatByNo(chat_no);
 		
-		int headcount = chatInfo.getHeadcount(); //ÇöÀç ÀÎ¿ø¼ö
-		int max = chatInfo.getMaxcount(); //Ã¤ÆÃ¹æ Á¤¿ø
+		int headcount = chatInfo.getHeadcount(); //í˜„ì¬ ì¸ì›ìˆ˜
+		int max = chatInfo.getMaxcount(); //ì±„íŒ…ë°© ì •ì›
 		
-		//Ã¤ÆÃ¹æ ¸â¹ö ¸ñ·Ï¿¡ ½Å±Ô À¯Àú Ãß°¡
+		//ì±„íŒ…ë°© ë©¤ë²„ ëª©ë¡ì— ì‹ ê·œ ìœ ì € ì¶”ê°€
 		boolean isMember = false;
 		
 		if(isAdmin == null) {
@@ -65,7 +63,7 @@ public class ChatRoomController {
 			UsersBean users = (UsersBean)session.getAttribute("loginInfo");
 			if(memberList.size() > 0) {
 				for(ChatMemberBean member : memberList) {
-					//·Î±×ÀÎÇÑ À¯Àú°¡ Ã¤ÆÃ¹æ ¸â¹öÀÎ °æ¿ì
+					//ë¡œê·¸ì¸í•œ ìœ ì €ê°€ ì±„íŒ…ë°© ë©¤ë²„ì¸ ê²½ìš°
 					if(users.getId().equals(member.getUser_id())) {
 						isMember = true;
 						break;
@@ -73,30 +71,30 @@ public class ChatRoomController {
 				}
 			}
 			
-			if(isMember == false) { //Ã¤ÆÃ¹æ ¸â¹ö ¾Æ´Ô
-				if(headcount == max) { //Á¤¿øÀÌ ´Ù Âù °æ¿ì
+			if(isMember == false) { //ì±„íŒ…ë°© ë©¤ë²„ ì•„ë‹˜
+				if(headcount == max) { //ì •ì›ì´ ë‹¤ ì°¬ ê²½ìš°
 					model.addAttribute("isFull", "yes");
 					return getPage;
-				}else { //Á¤¿øÀÌ ³²Àº °æ¿ì
+				}else { //ì •ì›ì´ ë‚¨ì€ ê²½ìš°
 					System.out.println(chat_no+"/"+users.getUser_no()+"/"+users.getId());
 					ChatMemberBean member = new ChatMemberBean(0, chat_no, users.getUser_no(), users.getId(), 0);
 					int cnt =  chatMemberDao.insertMember(member);
 					if(cnt > 0) { 
-						//Ã¤ÆÃ¹æ ÀÔÀåÇÏ¸é ¸Ş¼¼Áö ¶ç¿ì±â
-						String content = users.getId()+"´ÔÀÌ ÀÔÀåÇß½À´Ï´Ù.";
-						ChatMessageBean message = new ChatMessageBean(0, chat_no, 1, "info", content, ""); //user_no´Â 1·Î, user_id´Â 'info'·Î ¼³Á¤
+						//ì±„íŒ…ë°© ì…ì¥í•˜ë©´ ë©”ì„¸ì§€ ë„ìš°ê¸°
+						String content = users.getId()+"ë‹˜ì´ ì…ì¥í–ˆìŠµë‹ˆë‹¤.";
+						ChatMessageBean message = new ChatMessageBean(0, chat_no, 1, "info", content, ""); //user_noëŠ” 1ë¡œ, user_idëŠ” 'info'ë¡œ ì„¤ì •
 						chatMessageDao.writeMessage(message);
 						
-						//jsp »õ·Î ÀÔÀåÇÑ´Ù°í ¾Ë¸²
+						//jsp ìƒˆë¡œ ì…ì¥í•œë‹¤ê³  ì•Œë¦¼
 						model.addAttribute("isNew", "new");
 						
-						//Ã¤ÆÃ¹æ headcount +1 ÇÏ±â
+						//ì±„íŒ…ë°© headcount +1 í•˜ê¸°
 						chatDao.updateHeadcount(chat_no);
 						chatInfo.setHeadcount(headcount+1);
 					}
 				}
 			}
-		}//°ü¸®ÀÚ ¾Æ´Ô
+		}//ê´€ë¦¬ì ì•„ë‹˜
 		
 		model.addAttribute("mlists", mlists);
 		session.setAttribute("chatInfo", chatInfo);

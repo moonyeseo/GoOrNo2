@@ -25,7 +25,6 @@ public class ChatMessageDao {
 	}
 
 	public List<ChatMessageBean> getAllMessage(int chat_no) {
-		System.out.println("chat_no : "+chat_no);
 		List<ChatMessageBean> mlists = new ArrayList<ChatMessageBean>();
 		mlists = sst.selectList(namespace+".getAllMessage", chat_no);
 		return mlists;

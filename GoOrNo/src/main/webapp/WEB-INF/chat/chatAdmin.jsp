@@ -24,7 +24,7 @@
 				<thead>
 					<!-- 채팅방 검색 -->
 					<tr>
-						<td colspan="6" align="right">
+						<td colspan="7" align="right">
 							<form action="list.chat">
 								<input type="hidden" name="isAdmin" value="yes">
 								<select name="whatColumn" class="form-select" style="width : 15%; display:inline;">
@@ -38,11 +38,12 @@
 					<!-- 컬럼 제목 -->
 					<tr>
 						<th scope="col" width="10%" style="text-align: center">번호</th>
-						<th scope="col" width="40%" style="text-align: center">채팅방명</th>
+						<th scope="col" width="30%" style="text-align: center">채팅방명</th>
 						<th scope="col" width="10%" style="text-align: center">방장</th>
 						<th scope="col" width="10%" style="text-align: center">정원</th>
 						<th scope="col" width="10%" style="text-align: center">인원수</th>
 						<th scope="col" width="20%" style="text-align: center">생성일</th>
+						<th scope="col" width="10%" style="text-align: center">삭제</th>
 					</tr>
 				</thead>
 				<!-- 글 목록 -->
@@ -50,7 +51,7 @@
 					<!-- 게시판 글 0개 -->
 					<c:if test="${ fn:length(clists) eq 0 }">
 						<tr>
-							<td colspan="6" align="center">채팅이 존재하지 않습니다.</td>
+							<td colspan="7" align="center">채팅이 존재하지 않습니다.</td>
 						</tr>
 					</c:if>
 					<!-- 게시판 글 1개 이상 -->
@@ -76,12 +77,16 @@
 									<fmt:parseDate var="parsedDate" pattern="yyyy-MM-dd">${ fn:substring(clists[i].createdate,0,10) }</fmt:parseDate>
 									<fmt:formatDate value="${ parsedDate }" pattern="yyyy/MM/dd"/>
 								</td>
+								<!-- 삭제 -->
+								<td align="center">
+									<button class="btn btn-secondary" onclick="deleteChat('${ clists[i].chat_no }')">삭제</button>
+								</td>
 							</tr>
 						</c:forEach>
 					</c:if>
 					<!-- 페이지 넘기기 -->
 					<tr>
-						<td colspan="6" align="center">${ pageInfo.pagingHtml }</td>
+						<td colspan="7" align="center">${ pageInfo.pagingHtml }</td>
 					</tr>
 				</tbody>
 			</table>
@@ -109,6 +114,12 @@ function viewChat(chat_no){
 	var name = '채팅방 입장';
 	var options = 'width = ' + _width + ', height = ' + _height + ', location = no status = no, toolbar = no, top = '+ _top + ', left = ' + _left;
 	var windowPopup = window.open(url, name, options);
+}
+
+function deleteChat(chat_no){
+	if(confirm("채팅을 삭제하시겠습니까?")){
+		location.href = "delete.chat?chat_no="+chat_no+"&isAdmin=yes";
+	}
 }
 </script>
 

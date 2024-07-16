@@ -53,20 +53,20 @@ public class ChatListController {
 		List<ChatBean> clists = chatDao.getChatList(map, pageInfo);
 		
 		
-		//¸¶Áö¸· Ã¤ÆÃ ¸Ş¼¼Áö Ãß°¡
+		//get last chat
 		for(int i = 0 ; i < clists.size() ; i++) {
-			List<ChatMessageBean> mlists = chatMessageDao.getAllMessage(clists.get(i).getChat_no()); //chat_no·Î ¸Ş¼¼Áö ¸®½ºÆ® °¡Á®¿À±â
+			List<ChatMessageBean> mlists = chatMessageDao.getAllMessage(clists.get(i).getChat_no()); //chat_noï¿½ï¿½ ï¿½Ş¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			if(mlists.size() > 0) {
 				String lastChat = mlists.get(mlists.size()-1).getContent();
-				clists.get(i).setLastChat(lastChat); //¸¶Áö¸· Ã¤ÆÃ °¡Á®¿Í¼­ clists¿¡ »ğÀÔ
+				clists.get(i).setLastChat(lastChat); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¤ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ clistsï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			}else {
-				clists.get(i).setLastChat("¸Ş¼¼Áö°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+				clists.get(i).setLastChat("ì±„íŒ…ì´ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 			}
 		}
 		
 		model.addAttribute("clists", clists);
 		
-		//°ü¸®ÀÚ ¿äÃ»½Ã °ü¸®ÀÚ ÆäÀÌÁö·Î ÀÌµ¿
+		//go to admin page
 		if( isAdmin != null ) {
 			String html = pageInfo.getPagingHtml();
 			html = html.replaceAll("\\?", "\\?isAdmin=yes&");

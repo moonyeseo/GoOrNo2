@@ -92,6 +92,9 @@ textarea:focus {
   outline: none !important;
   box-shadow: none !important;
 }
+.form-control:disabled{
+background-color : white;
+}
 </style>
 <script src="https://kit.fontawesome.com/792ff227d5.js" crossorigin="anonymous"></script>
 <body>
@@ -106,7 +109,7 @@ textarea:focus {
 			<b>${ chatInfo.alias }</b>
 			<!-- 채팅 나가기 -->
 			<div style="float: right">
-				<font size="2px"><a onclick="exitChat('${ clists[i].chat_no }')" style="cursor : pointer;">나가기</a></font>
+				<font size="2px"><a onclick="exitChat('${ param.chat_no }')" style="cursor : pointer;">나가기</a></font>
 			</div>
 		</div>
 		<!-- 채팅방 인원/정원 -->
@@ -288,8 +291,14 @@ textarea:focus {
 			sendBtn.disabled = true;    		
     	}
     }
+    
+    function exitChat(chat_no){
+		if(confirm("채팅방을 나가시겠습니까?")){
+	    	location.href = "delete.chat?chat_no="+chat_no;
+		}
+    }
 
-    //채팅방 입장시 실행
+  	//채팅방 입장시 실행
     $(function(){
 	 	// 팝업 창 크기를 HTML 크기에 맞추어 자동으로 크기를 조정하는 함수
     	window.resizeTo( 400, 700 );
@@ -311,11 +320,17 @@ textarea:focus {
     	}
     	
     	//관리자 아이디로 접속시 전송 버튼 비활성화
-    	var user_id = document.getElementById("sender").value;
-    	if(user_id == "admin"){
+    	var isAdmin = '${ param.isAdmin }';
+    	if(isAdmin == "yes"){
 	    	document.getElementById("messageinput").disabled = true;
     	}
     	
+    	//채팅방 나가기 버튼 누른후 컨트롤러에서 돌아옴
+	 	var isExit = '${ isExit }';
+	 	if(isExit == 'yes'){
+	 		window.close();
+	 	}
+    	
     });
- 
+    
 </script>
