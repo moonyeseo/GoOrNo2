@@ -276,7 +276,7 @@ https://templatemo.com/tm-568-digimedia
 								aria-expanded="false"> Community </a>
 								<ul class="dropdown-menu">
 									<li><a class="dropdown-item" href="list.board">자유게시판</a></li>
-									<li><a class="dropdown-item" href="list.chat">채팅</a></li>
+									<li><a class="dropdown-item" href="list.companion">동행게시판</a></li>
 									<li></li>
 								</ul></li>
 							<li class="scroll-to-section"><a class="dropdown-toggle"
