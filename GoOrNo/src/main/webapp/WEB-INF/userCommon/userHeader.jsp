@@ -68,17 +68,18 @@
 		    	popup = window.open("calendar.event?year="+today.getFullYear()+ "&month=" + (today.getMonth()+1) + "&day=" + today.getDate(), "calendar", "width=" + popupW + ",height =" + popupH +", left=" + left + ",top=" + top + ",scrollbars=yes,resizable=no,toolbar=no,titlebar=no,menubar=no,location=no");
 			});
 
+		/* 알림 */
+		if ("${sessionScope.loginInfo}" != "") {
+		       fetchUnreadAlarms();
+		       //setInterval(fetchUnreadAlarms, 5000);
+		  }
+	});
 
-	
 	function goEvent(eventNo){
+		alert("goEvent");
+		
 		location.href = "detail.event?eventNo=" + eventNo;
 	}
-
-	/* 알림 */
-	if ("${sessionScope.loginInfo}" != "") {
-        fetchUnreadAlarms();
-        //setInterval(fetchUnreadAlarms, 5000);
-    }
 
 	function fetchUnreadAlarms() {
         console.log("Fetching unread alarms...");
@@ -150,7 +151,7 @@
 	        }
 	    });
 	}
-});
+
 
 </script>
 
