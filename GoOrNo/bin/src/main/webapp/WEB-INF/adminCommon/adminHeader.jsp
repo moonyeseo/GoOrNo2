@@ -319,9 +319,9 @@
       </li>
       
     <li class="nav-item">
-        <a class="nav-link collapsed" href="list.chat?isAdmin=yes">
+        <a class="nav-link collapsed" href="list.companion">
           <i class="bi bi-envelope"></i>
-          <span>Chat</span>
+          <span>Companion</span>
         </a>
       </li>
       
