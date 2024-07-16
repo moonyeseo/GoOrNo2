@@ -13,7 +13,7 @@
 				<div class="container">
 					<div class="row justify-content-center">
 						<div
-							class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+							class="col-lg-20 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
 							<div class="card mb-3">
 
@@ -33,6 +33,7 @@
 											<div class="invalid-feedback">아이디를 입력하세요.</div>
 										</div>
 									</div>
+									<div class="pt-0 pb-2"></div>
 
 									<div class="col-12">
 										<label for="yourPassword" class="form-label">Password</label>
@@ -48,11 +49,8 @@
 										</div>
 									</div>
 								
-									<div class="pt-4 pb-2">
-										<p class="text-center small">
-										 </p>
-									</div>
-									
+									<div class="pt-0 pb-2"></div><!-- 버튼과 간편로그인 사이 간격조절 -->
+								
 									
 									<!-- REST API 방식 -->
 									<div class="text-center">
@@ -62,7 +60,7 @@
 
 										</a>
 									</div>
-
+									<div class="pt-0 pb-2"></div>
 									<div class="col-12" align="right">
 										<p class="small mb-0">
 											<a href="join.users">회원가입 |</a> <a href="FindPw.users">비밀번호

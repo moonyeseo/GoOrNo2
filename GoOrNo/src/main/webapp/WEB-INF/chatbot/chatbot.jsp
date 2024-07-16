@@ -13,7 +13,7 @@
 	padding: 5px;
 	border-radius: 10px;
 } 
-
+ 
 .user {
 	float: right;
 	/* background-color: #EAEAEA; */

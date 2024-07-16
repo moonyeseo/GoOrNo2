@@ -6,6 +6,90 @@
 <br>
 <br>
 <br>
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/resources/vendor/jquery/jquery.js"></script>
+<script type="text/javascript">
+	$(document)
+			.ready(
+					function() {
+
+						var use;
+						var isCheck = false;
+
+						$('#name_check')
+								.click(
+										function() {
+
+											isCheck = true;
+
+											$
+													.ajax({
+														url : "id_check_proc.users",
+														type : "post",
+														data : ({
+															inputid : $(
+																	'input[name= id]')
+																	.val()
+														}),
+														success : function(data) {
+
+															if ($(
+																	'input[name=id]')
+																	.val() == "") {
+																$(
+																		'#nameMessage')
+																		.html(
+																				"<font color = red>이름 입력 누락</font>");
+																$(
+																		'#nameMessage')
+																		.show();
+
+															} else if (data == "YES") {
+																$(
+																		'#nameMessage')
+																		.html(
+																				"<font color = green>사용가능합니다.</font>");
+																$(
+																		'#nameMessage')
+																		.show();
+																use = "possible";
+
+															} else {
+																$(
+																		'#nameMessage')
+																		.html(
+																				"<font color = red>이미 등록된 이름입니다.</font>");
+																use = "impossible";
+																$(
+																		'#nameMessage')
+																		.show();
+
+															}
+
+														}
+
+													});
+
+										});
+
+						$('input[name=id]').keydown(function() {
+							isCheck = false;
+							use = "";
+							$('#nameMessage').css('display', 'none');
+						});
+
+						$('#btnSubmit').click(function() {
+							if (use == "impossible") {
+								alert("이미 사용중인 이름입니다.");
+								return false;
+							} else if (isCheck == false) {
+								alert("중복체크 하세요.");
+								return false;
+							}
+						});
+
+					});
+</script>
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript" src="resources/js/jquery.js"></script>
@@ -34,12 +118,10 @@
 
 						$("#phone2").attr("disabled", false);
 						$("#phoneChk2").css("display", "inline-block");
-						/*
-						$(".successPhoneChk").text(
-						"인증번호를 입력한 뒤 본인인증을 눌러주십시오.");
-						$(".successPhoneChk").css("color",
-						"green");
-						 */
+						/* 										$(".successPhoneChk").text(
+						 "인증번호를 입력한 뒤 본인인증을 눌러주십시오.");
+						 $(".successPhoneChk").css("color",
+						 "green"); */
 						$("#phoneNum").attr("readonly", true);
 						code2 = data;
 					}
@@ -113,6 +195,8 @@
 </script>
 </head>
 
+<br>
+<br>
 <body>
 	<form action="join.users" method="post" enctype="multipart/form-data">
 		<main>
@@ -134,82 +218,105 @@
 									<div class="card-body">
 
 										<div class="pt-4 pb-2">
-											<h3 class="card-title text-center pb-0 fs-4">회원가입</h3>
+											<h3 class="card-title text-center pb-0 fs-15">Create an Account</h3>
+											<p class="text-center small">Enter your personal details
+												to create account</p>
 										</div>
-										<div></div>
+										<br>
 										<div class="col-12">
-											<label class="form-label">프로필</label> <input type="file"
+											<label class="form-label">Profile</label> <input type="file"
 												name="upload" value="${users.profile }" class="form-control"
 												required>
 											<div class="invalid-feedback"></div>
 										</div>
-
+										<br>
 										<div class="col-12">
-											<label class="form-label">아이디</label>
+											<label class="form-label">ID</label>
 											<div class="input-group has-validation">
 												<input type="text" name="id" value="${users.id }"
-													class="form-control" required>
+													class="form-control" required> <input type="button"
+													class="btn" id="name_check" value=" Check "
+													style="background-color: #D8D8D8;">
+												<!-- 
+												<div class="border-first-button scroll-to-section">
+													<a href="#contact">Check</a>
+												</div>
+												 -->
+
+												<div class="input-group has-validation">
+													<span id="nameMessage"></span>
+												</div>
+
 												<div class="invalid-feedback"></div>
 											</div>
 										</div>
-
+										<br>
 										<div class="col-12">
-											<label class="form-label">비밀번호</label> <input type="password"
-												name="pw" value="${users.pw }" class="form-control" required>
+											<label class="form-label">Password</label> <input
+												type="password" name="pw" value="${users.pw }"
+												class="form-control" required>
 											<div class="invalid-feedback">Please enter your
 												password!</div>
 										</div>
+										<br> <label class="form-label">Gender</label>
 										<div class="col-12">
-											<label class="form-label">성별</label>
-											<div class="input-group has-validation">
-												<input type="radio"  name="gender" value="남자">남자 <br>
-												<input type="radio" name="gender" value="여자">여자
-											<div class="invalid-feedback">Please enter your
-													password!</div>
+											<div class="form-check form-check-inline">
+												<input class="form-check-input" type="radio" name="gender"
+													id="gender_male" value="남자"> <label
+													class="form-check-label" for="gender_male">Male</label>
 											</div>
+											<div class="form-check form-check-inline">
+												<input class="form-check-input" type="radio" name="gender"
+													id="gender_female" value="여자"> <label
+													class="form-check-label" for="gender_female">Female</label>
+											</div>
+											<div class="invalid-feedback">성별을 선택해 주세요.</div>
 										</div>
+										<br>
 										<div class="col-12">
-											<label class="form-label">이메일</label> <input type="email"
+											<label class="form-label">Email</label> <input type="email"
 												name="email" value="${users.email }" class="form-control"
 												required>
 											<div class="invalid-feedback">Please enter your
 												password!</div>
 										</div>
+										<br>
 										<div class="col-12">
-											<label class="form-label">이름</label> <input type="text"
+											<label class="form-label">name</label> <input type="text"
 												name="name" value="${users.name }" class="form-control"
 												required>
 											<div class="invalid-feedback">Please enter your
 												password!</div>
 										</div>
+										<br>
 										<div class="col-12">
-											<label class="form-label">전화번호</label>
+											<label class="form-label">Phone</label>
 											<div class="input-group has-validation">
 
 												<input id="phoneNum" type="text" name="phoneNum"
 													value="${users.phoneNum }" class="form-control" required />
 												<input id="phoneChk" class="btn" type="button"
-													style="background-color: pink;" value="본인인증"> <input
+													style="background-color: #D8D8D8;" value="본인인증"> <input
 													id="phone2" type="text" name="phone2" class="form-control"
 													title="인증번호 입력" disabled required /> <input id="phoneChk2"
-													type="button" class="btn" style="background-color: pink;"
-													value="확인">
+													type="button" class="btn"
+													style="background-color: #D8D8D8;" value=" Check ">
 												<div class="input-group has-validation">
 													<span class="point successPhoneChk"></span>
 												</div>
 												<input type="hidden" id="phoneDoubleChk" />
-												<div class="invalid-feedback">Please enter your
-													password!</div>
+												<div class="invalid-feedback"></div>
 											</div>
 										</div>
+										<br>
 										<div class="col-12">
-											<label class="form-label">우편번호</label>
+											<label class="form-label">Post</label>
 											<div class="input-group has-validation">
 												<input type="text" name="postcode" id="postcode"
 													value="${users.postcode }" class="form-control"
 													placeholder="우편번호" required> <input type="button"
-													class="btn" style="background-color: pink;"
-													onclick="execDaumPostcode()" value="우편번호 찾기">
+													class="btn" style="background-color: #D8D8D8;"
+													onclick="execDaumPostcode()" value="  Search  ">
 
 												<div class="input-group has-validation">
 													<input type="text" name="address" id="address"
@@ -220,13 +327,18 @@
 													password!</div>
 											</div>
 										</div>
-										<br>
-
+										<br><br>
+									
 										<div class="col-lg-12">
 											<button class="btn w-100" style="background-color: pink;"
-												type="submit">회원가입</button>
+												type="submit" id="btnSubmit">Create account</button>
 										</div>
-
+										
+										<!-- a태그 막기
+										<div class="border-first-button scroll-to-section">
+											<a href='javascript:void(0);'>Create account</a>
+										</div>
+										-->
 									</div>
 								</div>
 
@@ -240,5 +352,8 @@
 		</main>
 	</form>
 </body>
+
+
+
 
 <%@include file="../userCommon/userFooter.jsp"%>

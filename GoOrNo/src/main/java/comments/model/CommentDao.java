@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
 import alarm.model.AlarmBean;
@@ -13,6 +14,7 @@ import board.model.BoardBean;
 import board.model.BoardDao;
 
 @Component
+@ComponentScan(basePackages = {"alarm"})
 public class CommentDao {
 	
 	@Autowired

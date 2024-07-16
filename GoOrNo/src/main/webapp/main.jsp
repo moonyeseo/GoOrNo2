@@ -23,7 +23,7 @@
 		location.href = "detail.event?eventNo=" + eventNo;
 	}
 	
-</script>
+</script> 
 
 <!-- 챗봇 -->
 <!-- 챗봇 대화 -->
