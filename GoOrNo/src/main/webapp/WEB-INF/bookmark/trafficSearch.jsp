@@ -12,6 +12,7 @@
 			
 			 eventLat = urlParams.get("lat");
 			 eventLon =  urlParams.get("lot");
+			 eventPlace =  urlParams.get("place");
 			 
 			initTmap(eventLat, eventLon);
 		});
@@ -45,16 +46,11 @@
 			$("#house").html("<img src = '<%=request.getContextPath() %>/resources/image/house_before.png' style = 'opacity:0.5'>");
 			$("#company").html("<img src = '<%=request.getContextPath() %>/resources/image/company_before.png' alt = 'company_img'>");
 			$("#star").html("<img src = '<%=request.getContextPath() %>/resources/image/star_before.png' alt = 'star_img' style = 'opacity:0.5'>");
-			
+
 		}
 
 		flag = false; // 분홍 화살표 <-> 회색 화살표
-		changeCheck = false;
 		function addrChange(obj){
-			
-			if(eventLat != null){
-				changeCheck = true;
-			}
 			
 			if(!flag){
 				$("#change").html("<img src = '<%=request.getContextPath() %>/resources/image/change_after.png'>");
@@ -167,6 +163,7 @@
 			$("#startAddr")
 					.change(
 							function() {
+								
 								tempLat = slat;
 								tempLon = slon;
 								
@@ -175,6 +172,11 @@
 
 								// 2. API 사용요청
 								var fullAddr = $("#startAddr").val();
+								
+								if(fullAddr == eventPlace){ // 상세보기 페이지에서 값이 넘어 왔다면 
+									fullAddr = "홍대입구역"; // fullAddr을 그냥 아무 주소나 넣고 그 다음에 수정!
+								}
+								
 								var headers = {};
 								headers["appKey"] = "50L76VhFwD5nr7iApd9gS7yiECxEoMnd8y4QD4Vl";
 								$
@@ -229,7 +231,7 @@
 														}
 													}
 													
-													if(changeCheck){ // eventDetail에서 값이 넘어온 상태로 출발지 목적지 변경
+													if(fullAddr == eventPlace){ // eventDetail에서 값이 넘어온 상태로 출발지 목적지 변경
 														slat = elat;
 														slon = elon;
 													}
@@ -280,6 +282,11 @@
 
 								// 2. API 사용요청
 								var fullAddr = $("#endAddr").val();
+								
+								if(fullAddr == eventPlace){ // 상세보기 페이지에서 값이 넘어 왔다면 
+									fullAddr = "홍대입구역"; // fullAddr을 그냥 아무 주소나 넣고 그 다음에 수정!
+								}
+								
 								var headers = {};
 								headers["appKey"] = "50L76VhFwD5nr7iApd9gS7yiECxEoMnd8y4QD4Vl";
 								$
@@ -334,7 +341,7 @@
 														}
 													}
 													
-													if(changeCheck){  // eventDetail에서 값이 넘어온 상태로 출발지 목적지 변경
+													if( fullAddr == eventPlace){  // eventDetail에서 값이 넘어온 상태로 출발지 목적지 변경
 														elat = tempLat;
 														elon = tempLon;
 													}
@@ -1381,7 +1388,7 @@
 
 												<fieldset>
 													<input type="text" name="endAddr" id="endAddr"
-														placeholder="목적지 입력" value="${param.place }" required="">
+														placeholder="목적지 입력" value="${param.place }" required="" >
 												</fieldset>
 											</div>
 
