@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%> 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
+	
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
- 
-<head> 
+
+<head>
 <meta charset="UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -55,15 +56,15 @@ body {
 	background-color: #FFE6EB;
 }
 
-span{
-	font-size : 13px;
-	color : gray;
+span {
+	font-size: 13px;
+	color: gray;
 }
 
-.err{
+.err {
 	font-size: 9pt;
 	font-weight: bold;
-	color : #FA64B0;
+	color: #FA64B0;
 }
 </style>
 
@@ -80,61 +81,83 @@ span{
 			self.close(); // 창 닫기
 		}
 	});
+	
+	function Check(){
+		const why = document.getElementById('why').value;
+		
+		if(why == ""){
+			if(!confirm("신고 사유를 작성하지 않으면 처리되지 않습니다. \n종료 하시겠습니까?")){
+				return false;
+			}
+		}
+	}
 </script>
 
 <body>
-	<input type = "hidden" value = "${close }" id = "close"> <!-- model 속성 close 값 확인 : sumit 후에 close 안에 'close' 저장-->
-	
+	<input type="hidden" value="${close }" id="close">
+	<!-- model 속성 close 값 확인 : sumit 후에 close 안에 'close' 저장-->
+
 	<jsp:useBean id="now" class="java.util.Date" />
 	<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="now" />
-	
-	<div id="contact" class="contact-us section" style="padding-top: 30px">
+
+	<!-- 본문 시작 -->
+	<div id="contact" class="contact-us section" style="padding-top: 20px;">
 		<div class="container">
 			<div class="row">
+				<!-- 본문 제목 -->
 				<div class="col-lg-6 offset-lg-3">
-					<div class="section-heading wow fadeIn">
-						<h4 style="color: black">REPORT</h4>
+					<div class="section-heading" style="margin-bottom: 20px;">
+						<br>
+						<h4>REPORT</h4>
 					</div>
 				</div>
-				<div class="col-lg-12 wow fadeInUp" >
-					<form:form commandName = "report" id="contact" action="insert.report" method="post" >
-						<div class="row" >
+
+				<!-- 테두리 안 본문 내용 -->
+				<div class="col-lg-12">
+					<section class="section">
+						<div class="row">
 							<div class="col-lg-12">
-								<div class="fill-form">
-									<div class="row ft_area">
-										<div class="col-lg-12">
-											<div class="col-lg-12">
-													신고 사유를 작성하지 않으면 신고가 정상적으로 처리되지 않습니다.
-													
-													<input type="hidden" name="board_no" value = "${board_no }">
-													<input type="hidden" name="subject" value = "${subject }">
-													<%-- <input type="hidden" name="user_no" value = "${loginInfo.user_no }" > --%>
-													<input type="hidden" name="user_no" value = "1" >
-													
-													<input type="text" name = "subject" value = "${subject }" disabled>
-													<input type="text"  value = "${ now}" disabled>
-													<textarea name = "why" rows="3" cols="50" style = "border-color : #FA64B0; border-style : dashed;">예) 욕설이 너무 많아요.</textarea>
-													<form:errors path = "why"  class = "err"/>
-													
-													<%-- <input type="text" id="user_no" value = "${loginInfo.id }" disabled> --%>
-													<input type="text" id="user_no" value = "moon" disabled>
-											</div>
-											<br>
-											<span>
-													신고해주셔서 감사합니다.<br> 검토 후 빠른 시일 내로 처리하도록 노력하겠습니다.
-												</span>
+								<div class="card">
+									<div class="card-body">
+
+										<!-- 글 내용 감싸는 컨테이너 -->
+										<div class="container"
+											style="width: 80%; margin-top: 30px; margin-bottom: 10px;">
+											<!-- 입력폼 시작 -->
+											<form:form commandName="report" action="insert.report" method="post">
+												<input type="hidden" name="board_no" value="${board_no }">
+												<input type="hidden" name="subject" value="${subject }">
+												<input type="hidden" name="user_no" value="${loginInfo.user_no }">
 												
-											<div class="col-lg-12">
-													<button id="form-submit" class="main-button ">신고</button>
-											</div>
+												<table class="table table-borderless" width="100%">
+													<tr>
+														<td><font size="4px"><b> 신고자 </b></font>
+															<input type="text" id="user_no" value = "${loginInfo.id }" disabled  class="form-control" style="width:80%; diaply:inline;">
+														</td>
+													</tr>
+													<tr>
+														<td>
+															<textarea  class="form-control" id = "why" name="why" rows="10"  placeholder="신고 사유"  style="resize: none;" >${report.why }</textarea>
+														</td>
+													</tr>
+													<tr>
+														<td align="center"><input type="submit" value="신고"
+															class="btn btn-secondary" onClick = "return Check()"></td>
+													</tr>
+												</table>
+											</form:form>
+											<!-- 입력폼 끝 -->
 										</div>
+
 									</div>
 								</div>
 							</div>
 						</div>
-					</form:form>
+					</section>
 				</div>
+				<!-- 테두리 끝 -->
 			</div>
 		</div>
 	</div>
+	<!-- 본문 끝 -->
 </body>

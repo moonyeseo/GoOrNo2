@@ -8,7 +8,7 @@
 	/*  캘린더 설정 */
 	$(document).ready(function() {
 		
-		var calendarFlag = <%=request.getAttribute("calendarFlag")%>
+		var  calendarFlag = <%=request.getAttribute("calendarFlag")%>;
 		
 		if(!calendarFlag){
 			getRandom();
@@ -19,11 +19,7 @@
 		location.href = "random.event";
 	}
 	
-	function goEvent(eventNo){
-		location.href = "detail.event?eventNo=" + eventNo;
-	}
-	
-</script> 
+</script>
 
 <!-- 챗봇 -->
 <!-- 챗봇 대화 -->

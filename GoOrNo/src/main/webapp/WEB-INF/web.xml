@@ -198,7 +198,6 @@
 		<url-pattern>*.users</url-pattern>
 	</servlet-mapping>
 
-
 	<!-- 행사 -->
 	<servlet>
 		<servlet-name>event</servlet-name>
@@ -216,7 +215,6 @@
 		<servlet-name>event</servlet-name>
 		<url-pattern>*.event</url-pattern>
 	</servlet-mapping>
-
 
 	<!-- *.chatbot 요청에 따라 chatbot-serlvet.xml 파일로 이동 -->
 	<servlet>
