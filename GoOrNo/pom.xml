@@ -220,11 +220,11 @@
 			<version>2.4</version>
 		</dependency>
 
-		<!-- 웹소켓 -->
+		<!-- web socket -->
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-websocket</artifactId>
-			<version>${org.springframework-version}</version>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-websocket</artifactId>
+            <version>${org.springframework-version}</version>
 		</dependency>
 		
 		<dependency>
