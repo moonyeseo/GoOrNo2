@@ -1,11 +1,11 @@
 <%@page import="org.springframework.web.context.request.RequestScope"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
-<%@ include file = "../userCommon/userHeader.jsp" %>
+<%@ include file="../userCommon/userHeader.jsp"%>
 
-	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-	<script
-		src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=50L76VhFwD5nr7iApd9gS7yiECxEoMnd8y4QD4Vl"></script>
-	<script type="text/javascript">
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script
+	src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=50L76VhFwD5nr7iApd9gS7yiECxEoMnd8y4QD4Vl"></script>
+<script type="text/javascript">
 		$(document).ready(function(){ // initTamp() 호출 -> 지도 불러오기
 			var searchParams = new URLSearchParams(location.search); // 위도, 경도 파라미터 값 가져오기
 			var urlParams = new URL(location.href).searchParams;
@@ -48,8 +48,14 @@
 			
 		}
 
-		var flag = false; // 분홍 화살표 <-> 회색 화살표
+		flag = false; // 분홍 화살표 <-> 회색 화살표
+		changeCheck = false;
 		function addrChange(obj){
+			
+			if(eventLat != null){
+				changeCheck = true;
+			}
+			
 			if(!flag){
 				$("#change").html("<img src = '<%=request.getContextPath() %>/resources/image/change_after.png'>");
 				
@@ -60,14 +66,14 @@
 				
 				flag = false;
 			}
-			
+
 			var temp = $("#startAddr").val(); // 출발지로 입력한 주소 저장
 			
 			$("#startAddr").val($("#endAddr").val()); // 출발지 주소 -> 목적지에 입력한 주소로 변경
-			 $("#startAddr").trigger("change"); // 값 변경 이벤트 강제 발생
-			
 			$("#endAddr").val(temp); // 목적지 주소 -> 출발지에 입력한 주소로 변경
-			 $("#endAddr").trigger("change");
+			$("#startAddr").trigger("change"); // 값 변경 이벤트 강제 발생
+			$("#endAddr").trigger("change");
+			
 		}
 	
 		// 지도 생성, 마커찍기
@@ -86,6 +92,8 @@
 		// 출발지, 목적지 설정
 		var slon, slat; // start : 위경도 좌표()
 		var elon, elat; // end : 위경도 좌표()
+		
+		var tempLat, tempLon; // 출발지 위경도 임시 저장
 
 		// 혼잡도 표시
 		var InfoWindow, marker;
@@ -159,6 +167,9 @@
 			$("#startAddr")
 					.change(
 							function() {
+								tempLat = slat;
+								tempLon = slon;
+								
 								marker_s.setMap(null);
 								resettingMap();
 
@@ -216,6 +227,11 @@
 															slonEntr = resultCoordinate.newLonEntr;
 															slatEntr = resultCoordinate.newLatEntr;
 														}
+													}
+													
+													if(changeCheck){ // eventDetail에서 값이 넘어온 상태로 출발지 목적지 변경
+														slat = elat;
+														slon = elon;
 													}
 
 													var markerPosition = new Tmapv2.LatLng(
@@ -317,11 +333,16 @@
 															elatEntr = resultCoordinate.newLatEntr;
 														}
 													}
+													
+													if(changeCheck){  // eventDetail에서 값이 넘어온 상태로 출발지 목적지 변경
+														elat = tempLat;
+														elon = tempLon;
+													}
 
 													var markerPosition = new Tmapv2.LatLng(
 															Number(elat),
 															Number(elon));
-
+													
 													// 마커 올리기
 													marker_e = new Tmapv2.Marker(
 															{
@@ -1245,8 +1266,8 @@
 		}
 		
 	</script>
-	
-	<!-- 챗봇 -->
+
+<!-- 챗봇 -->
 <div id="asideChatbot" class="asideChatbot " style="heigth: 80%">
 	<%@include file="../chatbot/chatbot.jsp"%>
 </div>
@@ -1260,107 +1281,129 @@
 	<%@include file="../event/calendarIcon.jsp"%>
 </div>
 
-	<div id="contact" class="contact-us section" >
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-6 offset-lg-3">
-					<div class="section-heading wow fadeIn" data-wow-duration="1s"
-						data-wow-delay="0.5s">
-						<h6>Navigation</h6>
-						<h4><em>길</em> 찾기</h4>  
-						<div class="line-dec"></div>
-					</div>
+<div id="contact" class="contact-us section">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6 offset-lg-3">
+				<div class="section-heading wow fadeIn" data-wow-duration="1s"
+					data-wow-delay="0.5s">
+					<h6>Navigation</h6>
+					<h4>
+						<em>길</em> 찾기
+					</h4>
+					<div class="line-dec"></div>
 				</div>
-				<div class="col-lg-12 wow fadeInUp" data-wow-duration="0.5s"
-					data-wow-delay="0.25s">
-					<form id="contact" onSubmit="return false">
-						<div class="row">
-							<div class="col-lg-12">
-								<div class="contact-dec">
-									<img
-										src="<%=request.getContextPath()%>/resources/assets/images/contact-dec.png"
-										alt="">
+			</div>
+			<div class="col-lg-12 wow fadeInUp" data-wow-duration="0.5s"
+				data-wow-delay="0.25s">
+				<form id="contact" onSubmit="return false">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="contact-dec">
+								<img
+									src="<%=request.getContextPath()%>/resources/assets/images/contact-dec.png"
+									alt="">
+							</div>
+						</div>
+						<div class="col-lg-5">
+							<div id="map">
+								<div id="map_wrap" class="map_wrap3">
+									<div id="map_div" class="map_wrap"></div>
 								</div>
 							</div>
-							<div class="col-lg-5">
-								<div id="map">
-									<div id="map_wrap" class="map_wrap3">
-										<div id="map_div" class="map_wrap"></div>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-7">
-								<div class="fill-form">
-									<div class="row ft_area">
-										<div class="col-lg-12">
-											<div class="ft_select_wrap">
-												<div class="ft_select">
-													<select id="selectLevel">
-														<option value="0" selected="selected">추천 경로</option>
-														<option value="1">무료 경로 우선</option>
-														<option value="2">최소 소요 시간 경로</option>
-														<!-- 														<option value="3">교통최적+초보</option> -->
-														<option value="4">고속도로 우선 경로</option>
-														<!-- 														<option value="10">최단거리+유/무료</option>
+						</div>
+						<div class="col-lg-7">
+							<div class="fill-form">
+								<div class="row ft_area">
+									<div class="col-lg-12">
+										<div class="ft_select_wrap">
+											<div class="ft_select">
+												<select id="selectLevel">
+													<option value="0" selected="selected">추천 경로</option>
+													<option value="1">무료 경로 우선</option>
+													<option value="2">최소 소요 시간 경로</option>
+													<!-- 														<option value="3">교통최적+초보</option> -->
+													<option value="4">고속도로 우선 경로</option>
+													<!-- 														<option value="10">최단거리+유/무료</option>
 														<option value="12">이륜차도로우선</option>
 														<option value="19">교통최적+어린이보호구역 회피</option> -->
-													</select> &ensp; <select id="year">
-														<option value="N" selected="selected">교통정보 표출 여부</option>
-														<option value="Y">YES</option>
-														<option value="N">NO</option>
-													</select>
-												</div>
-													<div class="col-lg-12">
-													
-														<fieldset>
-															<input type="text" name="startAddr" id="startAddr"
-																placeholder="출발지 입력" onKeyDown = "keyDown()" autocomplete="on" required>
-														</fieldset>
-														
-															<table style = "width : 90%; margin-left : 15px; margin-top : 20px; table-layout: fixed; ">
-																<tr style = "height : 13px">
-																	<td>
-																		<div onClick = "getAddr(this, '${house}')" id = "house"><img src = "<%=request.getContextPath() %>/resources/image/house_before.png" alt = "house_img" style = "opacity:0.5"></div>
-																	</td>
-																	<td></td>
-																	<td>
-																		<div onClick = "getAddr(this, '${company}')" id = "company"><img src = "<%=request.getContextPath() %>/resources/image/company_before.png"  alt = "com_img"></div>
-																	</td>
-																	<td ></td>
-																	<td>
-																		<div onClick = "getAddr(this, '${star}')" id = "star"><img src = "<%=request.getContextPath() %>/resources/image/star_before.png"  alt = "star_img" style = "opacity:0.5"></div>
-																	</td>
-																	
-																	<td style = "width : 70%"></td>
-																	<td style = "width : 7%">
-																		<div onClick = "addrChange(this)" id = "change"><img src = "<%=request.getContextPath() %>/resources/image/change_before.png" width = "100%" height = "100%" alt = "change_img"></div>
-																	</td>
-																</tr>
-															</table>
-															
-														<fieldset>
-															<input type="text" name="endAddr" id="endAddr"
-																placeholder="목적지 입력"  value = "${param.place }"  required="">
-														</fieldset>
-													</div>
-													
-												<div class="col-lg-12">
-													<fieldset>
-														<button id="btn_route">길 찾기</button>
-													</fieldset>
-												</div>
-												<div class = "col-lg-12" id = "moonyeseo_div"></div>
-												<br><br><span style = 'font-size: 13px'>※ 장소혼잡도는 지도 확대 후 클릭 시 확인 가능</span>
+												</select> &ensp; <select id="year">
+													<option value="N" selected="selected">교통정보 표출 여부</option>
+													<option value="Y">YES</option>
+													<option value="N">NO</option>
+												</select>
 											</div>
+											<div class="col-lg-12">
+
+												<fieldset>
+													<input type="text" name="startAddr" id="startAddr"
+														placeholder="출발지 입력" onKeyDown="keyDown()"
+														autocomplete="on" required>
+												</fieldset>
+
+												<table
+													style="width: 90%; margin-left: 15px; margin-top: 20px; table-layout: fixed;">
+													<tr style="height: 13px">
+														<td>
+															<div onClick="getAddr(this, '${house}')" id="house">
+																<img
+																	src="<%=request.getContextPath()%>/resources/image/house_before.png"
+																	alt="house_img" style="opacity: 0.5">
+															</div>
+														</td>
+														<td></td>
+														<td>
+															<div onClick="getAddr(this, '${company}')" id="company">
+																<img
+																	src="<%=request.getContextPath()%>/resources/image/company_before.png"
+																	alt="com_img">
+															</div>
+														</td>
+														<td></td>
+														<td>
+															<div onClick="getAddr(this, '${star}')" id="star">
+																<img
+																	src="<%=request.getContextPath()%>/resources/image/star_before.png"
+																	alt="star_img" style="opacity: 0.5">
+															</div>
+														</td>
+
+														<td style="width: 70%"></td>
+														<td style="width: 7%">
+															<div onClick="addrChange(this)" id="change">
+																<img
+																	src="<%=request.getContextPath()%>/resources/image/change_before.png"
+																	width="100%" height="100%" alt="change_img">
+															</div>
+														</td>
+													</tr>
+												</table>
+
+												<fieldset>
+													<input type="text" name="endAddr" id="endAddr"
+														placeholder="목적지 입력" value="${param.place }" required="">
+												</fieldset>
+											</div>
+
+											<div class="col-lg-12">
+												<fieldset>
+													<button id="btn_route">길 찾기</button>
+												</fieldset>
+											</div>
+											<div class="col-lg-12" id="moonyeseo_div"></div>
+											<br> <br> <span style='font-size: 13px'>※
+												장소혼잡도는 지도 확대 후 클릭 시 확인 가능</span>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</form>
-				</div>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
+</div>
 
-<%@include file = "../userCommon/userFooter.jsp" %> <!--  user header 부분 -->
+<%@include file="../userCommon/userFooter.jsp"%>
+<!--  user header 부분 -->

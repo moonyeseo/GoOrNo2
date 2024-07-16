@@ -8,7 +8,7 @@
 	/*  캘린더 설정 */
 	$(document).ready(function() {
 		
-		var calendarFlag = <%=request.getAttribute("calendarFlag")%>
+		var  calendarFlag = <%=request.getAttribute("calendarFlag")%>;
 		
 		if(!calendarFlag){
 			getRandom();
