@@ -33,6 +33,7 @@ public class mypageUpdateController {
 	
 	private final String command = "/updateMyPage.users";
 	private final String commandPw = "/updatePw.users";
+	private final String commandDPI = "/deleteProfileImage.users";
 	private final String getPage = "myPage";
 	private final String gotoPage = "redirect:/myPage.users";
 	
@@ -116,6 +117,27 @@ public class mypageUpdateController {
 		
 		return mav;
 	}//updateMyPage
+	
+	
+	@RequestMapping(value = commandDPI, method = RequestMethod.GET)
+    public String deleteProfileImage(@RequestParam("user_no") int user_no) {
+        System.out.println("-----mypageUpdateController_deleteProfileImage-----");
+        
+        UsersBean usersBean = usersDao.getByUserId(user_no);
+        
+        // 기존 프로필 이미지 파일 삭제
+        String deletePath = servletContext.getRealPath("/resources/uploadImage/");
+        File file = new File(deletePath + File.separator + usersBean.getProfile());
+        if(file.exists()) {
+            file.delete();
+        }
+        
+        // 프로필 이미지 필드 비우기
+        usersBean.setProfile(null);
+        usersDao.updateUsers(usersBean);
+        
+        return "redirect:/myPage.users?user_no=" + user_no;
+    }
 	
 	
 	@RequestMapping(value = commandPw, method = RequestMethod.POST)

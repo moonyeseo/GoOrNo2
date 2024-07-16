@@ -245,7 +245,7 @@
 		<url-pattern>*.favorite</url-pattern>
 	</servlet-mapping>
 	
-	<!-- *.alarm 요청 -->
+	<!-- 알림 -->
 	<servlet>
 		<servlet-name>alarm</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet
@@ -259,9 +259,25 @@
 	</servlet>
 
 	<servlet-mapping>
-    <servlet-name>alarm</servlet-name>
-    <url-pattern>/notifications/*</url-pattern>
-</servlet-mapping>
+	    <servlet-name>alarm</servlet-name>
+	    <url-pattern>/notifications/*</url-pattern>
+	</servlet-mapping>
 
+
+	<!-- 채팅 -->
+	<servlet>
+		<servlet-name>chat</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/chat-context.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+		
+	<servlet-mapping>
+		<servlet-name>chat</servlet-name>
+		<url-pattern>*.chat</url-pattern>
+	</servlet-mapping>
 	
 </web-app>

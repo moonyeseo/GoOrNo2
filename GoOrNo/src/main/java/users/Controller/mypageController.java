@@ -1,6 +1,8 @@
 package users.Controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -16,6 +18,8 @@ import board.model.BoardBean;
 import board.model.BoardDao;
 import bookmark.model.BookmarkBean;
 import bookmark.model.BookmarkDao;
+import chat.model.ChatBean;
+import chat.model.ChatDao;
 import comments.model.CommentBean;
 import comments.model.CommentDao;
 import favorite.model.FavoriteBean;
@@ -24,10 +28,9 @@ import qna.model.QnaBean;
 import qna.model.QnaDao;
 import users.model.UsersBean;
 import users.model.UsersDao;
-import utility.Paging;
 
 @Controller
-@ComponentScan(basePackages = {"board","users","comments", "bookmark", "favorite", "qna"})
+@ComponentScan(basePackages = {"board", "users","comments", "bookmark", "favorite", "qna", "chat"})
 public class mypageController {
 
 	@Autowired
@@ -47,6 +50,9 @@ public class mypageController {
 	
 	@Autowired
 	private QnaDao qnaDao;
+	
+	@Autowired
+	private ChatDao chatDao;
 	
 	private final String command = "/myPage.users";
 	private final String getPage = "myPage";
@@ -73,9 +79,14 @@ public class mypageController {
 			UsersBean usersBean = usersDao.getByUserId(user_no);
 			model.addAttribute("usersBean", usersBean);
 			
+			
 			//bookmark 가져오기
-			List<BookmarkBean> bookmarkList = bookmarkDao.getSearchBookmark(user_no);
-            model.addAttribute("bookmarkList", bookmarkList);
+            List<BookmarkBean> bookmarkList = bookmarkDao.getSearchBookmark(user_no);
+            Map<String, BookmarkBean> bookmarkMap = new HashMap<>();
+            for (BookmarkBean bookmark : bookmarkList) {
+                bookmarkMap.put(bookmark.getType(), bookmark);
+            }
+            model.addAttribute("bookmarkList", bookmarkMap);
 			
             
             //favoirte 가져오기
@@ -92,9 +103,22 @@ public class mypageController {
             List<BoardBean> myBoardList = boardDao.getBoardByUser_no(user_no);
             model.addAttribute("myBoardList", myBoardList);
 			
+            
             //내가 작성한 댓글 가져오기
             List<CommentBean> myCommentList = commentDao.getCommentsByUser_no(user_no);
+            
+            for (CommentBean comment : myCommentList) {
+            	System.out.println("Comment ID: " + comment.getComment_no());
+            	System.out.println("Board Subject: " + comment.getBoard_subject());
+            }
+            
             model.addAttribute("myCommentList", myCommentList);
+            
+            
+            //내채팅 가져오기
+            List<ChatBean> myChatList = chatDao.getChatByUser_no(user_no);
+            model.addAttribute("myChatList", myChatList);
+            
             
 			return getPage;
 		}

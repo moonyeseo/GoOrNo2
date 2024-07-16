@@ -68,13 +68,16 @@
 		    	popup = window.open("calendar.event?year="+today.getFullYear()+ "&month=" + (today.getMonth()+1) + "&day=" + today.getDate(), "calendar", "width=" + popupW + ",height =" + popupH +", left=" + left + ",top=" + top + ",scrollbars=yes,resizable=no,toolbar=no,titlebar=no,menubar=no,location=no");
 			});
 
-
-	
-	/* 알림 */
+			
+	/* 알림 & 채팅 */
 	if ("${sessionScope.loginInfo}" != "") {
         fetchUnreadAlarms();
+        fetchChatCount();
         //setInterval(fetchUnreadAlarms, 5000);
+        //setInterval(fetchChatCount, 5000);
     }
+	
+});
 
 	function fetchUnreadAlarms() {
         console.log("Fetching unread alarms...");
@@ -108,7 +111,7 @@
 
                     });
 
-                 // 알림 클릭 시 읽음 상태로 변경하고 해당 글의 디테일 페이지로 이동
+                 	// 알림 클릭 시 읽음 상태로 변경하고 해당 글의 디테일 페이지로 이동
                     $('.alarm-link').click(function() {
                         let alarm_no = $(this).data('alarm_no');
                         let alarm_type = $(this).data('alarm_type');
@@ -146,7 +149,27 @@
 	        }
 	    });
 	}
-});
+	
+	function fetchChatCount() {
+		const ajaxUrl = "${pageContext.request.contextPath}/notifications/chatCount";
+		console.log("Fetching chat...");
+		// URL 디버깅 출력
+	    $('#ajax-url').text(ajaxUrl);
+	    $('#ajax-url-debug').show();
+	    
+        $.ajax({
+            url: "${pageContext.request.contextPath}/notifications/chatCount",
+            method: "POST",
+            success: function(data) {
+                $('#chat-count').text(data);
+                $('#chat-count-header').text(data);
+            },
+            error: function(xhr, status, error) {
+                console.error("AJAX Error: ", status, error);
+            }
+        });
+    }
+
 </script>
 
 <!-- 공통 영역 -->
@@ -237,6 +260,24 @@ https://templatemo.com/tm-568-digimedia
 									<li><hr class="dropdown-divider"></li>
 								</ul>
 							</li>
+							
+							<!-- 채팅 아이콘 -->
+							<li>
+								<a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-dots-fill" viewBox="0 0 16 16">
+										<path d="M16 8c0 3.866-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7M5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0m4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0m3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
+									</svg>
+									<span class="badge bg-primary badge-number" id="chat-count"></span>
+								</a>
+							
+								<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow chat" id="chat-list">
+									<li class="dropdown-header">
+										현재 참여 중인 채팅이 <span id="chat-count-header">0</span>개 있습니다.
+									</li>
+									<li><hr class="dropdown-divider"></li>
+								</ul>
+					        </li>
+							
 						</c:if>
 					</ul>
 				</div>

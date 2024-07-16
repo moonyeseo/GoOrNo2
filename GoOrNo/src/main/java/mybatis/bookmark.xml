@@ -16,12 +16,16 @@
   		values (bookmark_seq.nextval, #{user_no}, #{type}, #{b_addr}, #{b_post})
   	</insert>
   	
+  	<select id="getBookmarkByUserNoAndType" parameterType="map" resultType="bookmark.model.BookmarkBean">
+  		select * from bookmark where user_no = #{user_no} and type = #{type}
+  	</select>
+  	
   	<update id="updateBookmark">
   		update bookmark set b_addr = #{b_addr}, b_post = #{b_post} where type = #{type} and user_no = #{user_no}
   	</update>
   	
   	<delete id="deleteBookmark">
-  		update bookmark set b_addr = null, b_post = null where book_no = #{book_no} and user_no = #{user_no} and type = #{type}
+  		delete from bookmark where book_no = #{book_no} and user_no = #{user_no} and type = #{type}
   	</delete>
   	
   </mapper>

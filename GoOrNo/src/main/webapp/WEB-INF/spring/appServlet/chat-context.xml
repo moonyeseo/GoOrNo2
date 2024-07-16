@@ -11,17 +11,11 @@
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/users/" />
+		<property name="prefix" value="/WEB-INF/chat" />
 		<property name="suffix" value=".jsp" />
 	</bean>
 	
-	<context:component-scan base-package="users" />
-		<!-- woo 추가 -->
-	<context:component-scan base-package="bookmark" />
-    <context:component-scan base-package="favorite" />
-    <context:component-scan base-package="qna" />
-    <context:component-scan base-package="board" />
-    <context:component-scan base-package="comments" />
-    <context:component-scan base-package="chat" />
+	<context:component-scan base-package="chat" />
+	<context:component-scan base-package="alarm" />
 
 </beans>

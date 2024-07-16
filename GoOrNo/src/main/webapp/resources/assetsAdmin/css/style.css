@@ -372,8 +372,8 @@ h6 {
 .logo span {
   font-size: 26px;
   font-weight: 700;
-  color: #8F89E9;
-  font-family: 'Poppins', sans-serif;
+  color: #012970;
+  font-family: "Nunito", sans-serif;
 }
 
 .header {
@@ -391,7 +391,7 @@ h6 {
   font-size: 32px;
   padding-left: 10px;
   cursor: pointer;
-  color: #000000;
+  color: #012970;
 }
 
 .header .search-bar {
@@ -401,6 +401,7 @@ h6 {
 
 @media (max-width: 1199px) {
   .header .search-bar {
+    position: fixed;
     top: 50px;
     left: 0;
     right: 0;
@@ -427,7 +428,7 @@ h6 {
 .header .search-form input {
   border: 0;
   font-size: 14px;
-  color: #000000;
+  color: #012970;
   border: 1px solid rgba(1, 41, 112, 0.2);
   padding: 7px 38px 7px 8px;
   border-radius: 3px;
@@ -450,7 +451,7 @@ h6 {
 }
 
 .header .search-form button i {
-  color: #000000;
+  color: #012970;
 }
 
 /*--------------------------------------------------------------
@@ -597,6 +598,7 @@ h6 {
 # Sidebar
 --------------------------------------------------------------*/
 .sidebar {
+  position: fixed;
   top: 60px;
   left: 0;
   bottom: 0;
