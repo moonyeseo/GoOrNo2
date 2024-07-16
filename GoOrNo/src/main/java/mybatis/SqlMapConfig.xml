@@ -25,6 +25,7 @@
   		<mapper resource="mybatis/users.xml" />
   		<mapper resource="mybatis/alarm.xml" />
   		<mapper resource="mybatis/review.xml"/>
+  		<mapper resource="mybatis/chat.xml"/>
   		
   	</mappers>
   </configuration>
