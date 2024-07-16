@@ -144,7 +144,7 @@ input:focus {
 		<div id="chatting"></div>
 		<br> <br>
 	</div>
-	<div style="margin-top:5px; padding-left : 13px">
+	<div style="margin-top:5px; padding-left : 17px">
 		<form id="chatSend">
 			<input type="text" name="inputText" id="inputText" placeholder=""
 				autocomplete="on" required>

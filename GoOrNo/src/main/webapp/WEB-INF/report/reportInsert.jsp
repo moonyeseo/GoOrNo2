@@ -141,7 +141,7 @@ span {
 													</tr>
 													<tr>
 														<td align="center"><input type="submit" value="신고"
-															class="btn btn-light" onClick = "return Check()"></td>
+															class="btn btn-secondary" onClick = "return Check()"></td>
 													</tr>
 												</table>
 											</form:form>

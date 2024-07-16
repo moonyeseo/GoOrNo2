@@ -49,7 +49,7 @@
 							<tbody>
 								<c:if test="${ fn:length(reportLists) eq 0 }">
 									<tr>
-										<td colspan="5" align="center">글이 존재하지 않습니다.</td>
+										<td colspan="5" align="center">신고 글이 존재하지 않습니다.</td>
 									</tr>
 								</c:if>
 								<!-- 게시판 글 1개 이상 -->
