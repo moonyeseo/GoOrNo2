@@ -78,7 +78,7 @@ function goBoard(){
 					<div class="card-body">
 						<!-- Active Table -->
 
-						<table class="table table-borderless">
+						<table class="table table-borderless" style="margin-top :10px;">
 							<thead>
 								<!-- 게시판 검색 -->
 								<tr>
