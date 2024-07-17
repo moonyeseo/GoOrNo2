@@ -6,6 +6,7 @@
 <br>
 <br>
 <br>
+
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/resources/vendor/jquery/jquery.js"></script>
 <script type="text/javascript">
@@ -115,7 +116,6 @@
 						alert("휴대폰 번호가 올바르지 않습니다.")
 
 					} else {
-
 						$("#phone2").attr("disabled", false);
 						$("#phoneChk2").css("display", "inline-block");
 						$("#phoneNum").attr("readonly", true);
@@ -128,11 +128,14 @@
 		$("#phoneChk2").click(function() {
 			var enteredCode = $("#phone2").val();
 			if (enteredCode === code2) {
+				alert("인증번호가 일치합니다.")
 				$(".successPhoneChk").text("인증번호가 일치합니다.");
 				$(".successPhoneChk").css("color", "green");
 				$("#phoneDoubleChk").val("true");
 				$("#phone2").prop("disabled", true);
+
 			} else {
+				alert("인증번호가 일치하지 않습니다.")
 				$(".successPhoneChk").text("인증번호가 일치하지 않습니다.");
 				$(".successPhoneChk").css("color", "red");
 				$("#phoneDoubleChk").val("false");
@@ -194,9 +197,9 @@
 <br>
 <br>
 <body>
-	<form action="join.users" method="post" enctype="multipart/form-data">
+	<form name="register" action="join.users" method="post"
+		enctype="multipart/form-data">
 		<main>
-
 			<div class="container">
 
 				<section
@@ -214,7 +217,8 @@
 									<div class="card-body">
 
 										<div class="pt-4 pb-2">
-											<h3 class="card-title text-center pb-0 fs-15">Create an Account</h3>
+											<h3 class="card-title text-center pb-0 fs-15">Create an
+												Account</h3>
 											<p class="text-center small">Enter your personal details
 												to create account</p>
 										</div>
@@ -231,13 +235,8 @@
 											<div class="input-group has-validation">
 												<input type="text" name="id" value="${users.id }"
 													class="form-control" required> <input type="button"
-													class="btn" id="name_check" value=" Check "
+													class="btn" id="name_check" value="  Check  "
 													style="background-color: #D8D8D8;">
-												<!-- 
-												<div class="border-first-button scroll-to-section">
-													<a href="#contact">Check</a>
-												</div>
-												 -->
 
 												<div class="input-group has-validation">
 													<span id="nameMessage"></span>
@@ -252,10 +251,9 @@
 												type="password" name="pw" value="${users.pw }"
 												class="form-control" required>
 											<div class="invalid-feedback">Please enter your
-												password!</div> 
+												password!</div>
 										</div>
-										<br> 
-										<label class="form-label">Gender</label>
+										<br> <label class="form-label">Gender</label>
 										<div class="col-12">
 											<div class="form-check form-check-inline">
 												<input class="form-check-input" type="radio" name="gender"
@@ -271,8 +269,8 @@
 										</div>
 										<br>
 										<div class="col-12">
-											<label class="form-label">Email</label> 
-											<input type="email" name="email" value="${users.email }" class="form-control"
+											<label class="form-label">Email</label> <input type="email"
+												name="email" value="${users.email }" class="form-control"
 												required>
 											<div class="invalid-feedback">Please enter your
 												password!</div>
@@ -291,20 +289,30 @@
 											<div class="input-group has-validation">
 
 												<input id="phoneNum" type="text" name="phoneNum"
-													value="${users.phoneNum }" class="form-control" required />
-												<input id="phoneChk" class="btn" type="button"
-													style="background-color: #D8D8D8;" value="본인인증"> <input
-													id="phone2" type="text" name="phone2" class="form-control"
-													title="인증번호 입력" disabled required> <input id="phoneChk2"
-													type="button" class="btn"
-													style="background-color: #D8D8D8;" value=" Check ">
+													value="${users.phoneNum }" class="form-control"
+													pattern="(010)\d{3,4}\d{4}" title="형식 01012345678"
+													placeholder="'-' 없이 작성해주세요." required /> <input
+													id="phoneChk" class="btn" type="button"
+													style="background-color: #D8D8D8;" value="본인인증">
+											</div>
+											<div class="pt-0 pb-2"></div>
+										</div>
+										<div class="col-12">
+											<div class="input-group has-validation">
+												<input id="phone2" type="text" name="phone2"
+													class="form-control" title="인증번호 입력" disabled required>
+												<input id="phoneChk2" type="button" class="btn"
+													style="background-color: #D8D8D8;" value="  Check  ">
 												<div class="input-group has-validation">
 													<span class="point successPhoneChk"></span>
 												</div>
-												<input type="hidden" id="phoneDoubleChk" />
-												<div class="invalid-feedback"></div>
+
 											</div>
+
+											<input type="hidden" id="phoneDoubleChk" />
+											<div class="invalid-feedback"></div>
 										</div>
+
 										<br>
 										<div class="col-12">
 											<label class="form-label">Post</label>
@@ -320,21 +328,24 @@
 														value="${users.address }" class="form-control"
 														placeholder="주소" required>
 												</div>
-												<div class="invalid-feedback">Please enter your
-													password!</div>
+												<div class="invalid-feedback">Please enter your post!</div>
 											</div>
 										</div>
-										<br><br>
-									
+										<br> <br>
+
 										<div class="col-lg-12">
-											<button class="btn w-100" style="background-color: pink;"
+											<button class="btn w-100"
+												style="background-color: #FA64B0; color: white;"
 												type="submit" id="btnSubmit">Create account</button>
 										</div>
-										
-										<!-- a태그 막기
-										<div class="border-first-button scroll-to-section">
-											<a href='javascript:void(0);'>Create account</a>
-										</div>
+
+										<!-- a태그 -->
+										<!--
+									    <div class="col-lg-12">
+											<div class="border-first-button scroll-to-section">
+												<a href="javascript:void(0);" id="btnSubmit" onclick="javascript:register.submit();">Create account</a>
+											</div>
+										</div> 
 										-->
 									</div>
 								</div>

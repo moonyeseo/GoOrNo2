@@ -52,7 +52,7 @@ public class FindPwController {
 				
 				out.println("<script>");
 				out.println("alert('비밀번호는" + ub.getPw() + "입니다.')");
-				out.println("location.href='" + gotoPage + "';");
+				out.println("location.href='" + command + "';");
 				out.println("</script>");
 				out.flush();
 
