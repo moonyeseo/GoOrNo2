@@ -1,9 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="../userCommon/userHeader.jsp"%>
+<script>
+        function openPopup(url) {
+            var popupWidth = 550; // 팝업창 너비
+            var popupHeight = 400; // 팝업창 높이
+            var left = (screen.width - popupWidth) / 2; // 가운데 정렬
+            var top = (screen.height - popupHeight) / 2; // 가운데 정렬
+            window.open(url, 'popupWindow', 'width=' + popupWidth + ',height=' + popupHeight + ',top=' + top + ',left=' + left);
+        }
+    </script>
+<body>
 
- <body>
- 
 	<form action="login.users" method="post">
 
 		<div class="container">
@@ -45,16 +53,17 @@
 									<div class="col-lg-12">
 										<div class="border-first-button scroll-to-section">
 											<button type="submit" id="form-submit" class="btn w-100"
-												style="background-color: pink;">Login</button>
+												style="background-color: #FA64B0; color: white;">Login</button>			
 										</div>
 									</div>
-								
-									<div class="pt-0 pb-2"></div><!-- 버튼과 간편로그인 사이 간격조절 -->
-								
-									
+
+									<div class="pt-0 pb-2"></div>
+									<!-- 버튼과 간편로그인 사이 간격조절 -->
+
 									<!-- REST API 방식 -->
 									<div class="text-center">
-										<a href="https://kauth.kakao.com/oauth/authorize?client_id=REST KEY&redirect_uri=http://localhost:8080/ex/kakaoLogin.users&response_type=code">
+										<a
+											href="https://kauth.kakao.com/oauth/authorize?client_id=REST KEY&redirect_uri=http://localhost:8080/ex/kakaoLogin.users&response_type=code">
 											<img
 											src="<%=request.getContextPath()%>/resources/image/kakao_login.png">
 
@@ -63,8 +72,7 @@
 									<div class="pt-0 pb-2"></div>
 									<div class="col-12" align="right">
 										<p class="small mb-0">
-											<a href="join.users">회원가입 |</a> <a href="FindPw.users">비밀번호
-												찾기</a>
+											<a href="join.users"> 회원가입 | </a><a href="javascript:void(0);" onclick="openPopup('FindPw.users')">비밀번호 찾기</a>
 										</p>
 									</div>
 

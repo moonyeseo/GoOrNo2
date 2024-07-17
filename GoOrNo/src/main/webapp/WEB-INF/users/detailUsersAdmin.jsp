@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@include file="../adminCommon/adminHeader.jsp"%>
 
+
 <form action="detailUsers.users" method="post">
 	<main id="main" class="main">
 
@@ -24,8 +25,7 @@
 					<div class="card">
 						<div
 							class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-
-							<img src="<%=request.getContextPath()+"/resources/profile/"%>${users.profile}" class="rounded-circle">
+							<img src="<%=request.getContextPath()+"/resources/uploadImage/"%>${users.profile}" width="290" height="290" class="rounded-circle">
 							<h2>${users.name }</h2> 
 							<div class="social-links mt-2">
 								<a href="#" class="twitter"><i class="bi bi-twitter"></i></a> <a
