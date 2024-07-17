@@ -193,130 +193,20 @@ body {
 
 
 <body>
-<%-- 
-<!-- ============ Header ============ -->
-<header id="header" class="header fixed-top d-flex align-items-center">
-	
-<!-- -----최상단----- -->
-	<nav class="header-nav ms-auto">
-		<ul class="d-flex align-items-center">
+<!-- 챗봇 -->
+<div id="asideChatbot" class="asideChatbot " style="heigth: 80%">
+	<%@include file="../chatbot/chatbot.jsp"%>
+</div>
 
-		<!-- -----채팅(채팅 아이콘) 시작----- -->
-		<li class="nav-item dropdown">
-			<a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-				<i class="bi bi-chat-left-text"></i>
-				<span class="badge bg-success badge-number">3</span>
-			</a>
-		
-		<!-- 채팅 메시지 관련 -->
-		<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
-		<li class="dropdown-header">
-			You have 3 new messages
-			<a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-		</li>
-		
-		<li><hr class="dropdown-divider"></li>
+<div id="chatbotIcon" style="heigth: 20%">
+	<%@include file="../chatbot/chatbotIcon.jsp"%>
+</div>
 
-		<li class="message-item">
-			<a href="#">
-				<img src="<%=request.getContextPath() %>/resources/assetsAdmin/img/messages-1.jpg" alt="" class="rounded-circle">
-			<div>
-				<h4>Maria Hudson</h4>
-				<p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-				<p>4 hrs. ago</p>
-			</div>
-			</a>
-		</li>
-		
-		<li><hr class="dropdown-divider"></li>
+<!-- 캘린더 아이콘 -->
+<div id="calendarIcon" style="heigth: 20%">
+	<%@include file="../event/calendarIcon.jsp"%>
+</div>
 
-		<li class="message-item">
-			<a href="#">
-				<img src="<%=request.getContextPath() %>/resources/assetsAdmin/img/messages-2.jpg" alt="" class="rounded-circle">
-			<div>
-				<h4>Anna Nelson</h4>
-				<p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-				<p>6 hrs. ago</p>
-			</div>
-			</a>
-		</li>
-            
-		<li><hr class="dropdown-divider"></li>
-
-		<li class="message-item">
-			<a href="#">
-				<img src="<%=request.getContextPath() %>/resources/assetsAdmin/img/messages-3.jpg" alt="" class="rounded-circle">
-			<div>
-				<h4>David Muldon</h4>
-				<p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-				<p>8 hrs. ago</p>
-			</div>
-			</a>
-		</li>
-
-		<li><hr class="dropdown-divider"></li>
-
-		<li class="dropdown-footer">
-			<a href="#">Show all messages</a>
-		</li>
-
-		</ul><!-- End Messages Dropdown Items -->
-
-        </li><!-- End Messages Nav -->
-		<!-- -----채팅(채팅 아이콘) 끝----- -->
-
-
-		<!-- -----프로필(프로필 아이콘) 시작----- -->
-		<li class="nav-item dropdown pe-3">	
-			<a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-				<img src="${pageContext.request.contextPath}/resources/uploadImage/${usersBean.profile}" alt="Profile" class="rounded-circle">
-				<span class="d-none d-md-block dropdown-toggle ps-2">${usersBean.id}</span>
-			</a><!-- End Profile Iamge Icon -->
-		
-		<!-- 프로필 메시지 관련 -->
-		<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-		<li class="dropdown-header">
-			<h6>${usersBean.id}</h6>
-			<span>${usersBean.name}</span>
-		</li>
-
-		<li><hr class="dropdown-divider"></li>
-
-		<li>
-			<a class="dropdown-item d-flex align-items-center" href="#profile-section">
-				<i class="bi bi-person"></i>
-				<span>My Page</span>
-			</a>
-		</li>
-
-		<li><hr class="dropdown-divider"></li>
-
-		<li>
-			<a class="dropdown-item d-flex align-items-center" href="">
-				<i class="bi bi-gear"></i>
-				<span>Account Settings</span>
-			</a>
-		</li>
-
-		<li><hr class="dropdown-divider"></li>
-
-		<li>
-			<a class="dropdown-item d-flex align-items-center" href="#">
-				<i class="bi bi-box-arrow-right"></i>
-				<span>Sign Out</span>
-			</a>
-		</li>
-
-		</ul><!-- End Profile Dropdown Items -->
-		
-        </li><!-- End Profile Nav -->
-		<!-- -----프로필(프로필 아이콘) 끝----- -->
-
-		</ul>
-	</nav><!-- End Icons Navigation -->
-</header><!-- End Header -->
- --%>
-  
 
 <!-- ============ Sidebar(사이드바) ============ -->
 	<aside id="sidebar" class="sidebar" style="z-index: 900; position: fixed;">
@@ -462,12 +352,13 @@ body {
 				<label for="profileImage" class="col-md-4 col-lg-3 col-form-label">프로필 사진</label>
 				<div class="col-md-8 col-lg-9">
 					<img src="${pageContext.request.contextPath}/resources/uploadImage/${usersBean.profile}" alt="Profile">
-					<div class="pt-2">
-						<input type="file" name="upload" id="upload" class="d-none">
-			                <label for="upload" class="btn btn-primary btn-sm" title="Upload new profile image">
+					<div class="col-md-8 col-lg-9 d-flex align-items-center pt-2">
+						<input name="currentImage" type="text" class="form-control me-3 flex-grow-1" id="currentImage" value="${usersBean.profile}" readonly>
+						<input type="file" name="upload" id="upload" class="d-none" onchange="updateImageName()">
+			                <label for="upload" class="btn btn-outline-secondary btn-sm me-2" title="Upload new profile image">
 			                    <i class="bi bi-upload"></i>
 			                </label>
-			                <label class="btn btn-danger btn-sm" title="Remove my profile image" onclick="deleteProfileImage(${usersBean.user_no})">
+			                <label class="btn btn-outline-danger btn-sm" title="Remove my profile image" onclick="deleteProfileImage(${usersBean.user_no})">
 			                	<i class="bi bi-trash"></i>
 			            	</label>
 					</div>
@@ -503,9 +394,9 @@ body {
 			
 			<div class="row mb-3">
 				<label for="postcode" class="col-md-4 col-lg-3 col-form-label">우편번호</label>
-				<div class="col-md-8 col-lg-9">
-					<input type="text" name="postcode" class="form-control" id="postcode" value="${usersBean.postcode}" placeholder="우편번호">
-					<input type="button" class="btn btn-primary" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
+				<div class="col-md-8 col-lg-9 d-flex align-items-center">
+					<input type="text" name="postcode" class="form-control me-2" id="postcode" value="${usersBean.postcode}" placeholder="우편번호">
+					<input type="button" class="btn btn-outline-secondary" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
 				</div>
 			</div>
 			
@@ -517,8 +408,8 @@ body {
 			</div>
 
 			<div class="text-center">
-				<button type="submit" class="btn btn-primary">프로필 저장</button>
-				<button type="button" class="btn btn-danger" onclick="userDelete(${usersBean.user_no})">회원탈퇴</button>
+				<button type="submit" class="btn btn-outline-secondary">프로필 저장</button>
+				<button type="button" class="btn btn-outline-danger" onclick="userDelete(${usersBean.user_no})">회원탈퇴</button>
 			</div>
 			</form:form><!-- End Profile Edit Form -->
 			</div>
@@ -554,7 +445,7 @@ body {
 			</div>
 
 			<div class="text-center">
-				<button type="submit" class="btn btn-primary">비밀번호 변경</button>
+				<button type="submit" class="btn btn-outline-secondary">비밀번호 변경</button>
 			</div>
 			</form:form><!-- End Change Password Form -->
 			</div>
@@ -696,7 +587,19 @@ body {
 				</tr>
 				<tr>
 					<td>
-						<div class="label"><b>${favorite.title}</b> [ ${favorite.performance_type} ]</div>
+						<div class="label" style="display: flex; align-items: center;">
+							<b>${favorite.title}</b> &nbsp;&nbsp; [ ${favorite.performance_type} ]
+							<div style="margin-left: 30px;">
+								<c:choose>
+									<c:when test="${avgRatingMap[favorite.event_no] != null}">
+										⭐ <fmt:formatNumber value="${avgRatingMap[favorite.event_no]}" type="number" maxFractionDigits="1" /> / 5
+									</c:when>
+									<c:otherwise>
+										⭐ 0.0 / 5
+									</c:otherwise>
+								</c:choose>
+							</div>
+						</div>
 					</td>
 				</tr>
 				<tr>
@@ -916,8 +819,8 @@ body {
 					<c:forEach var="chat" items="${myChatList}" varStatus="status">
 					<tr>
 						<td>${status.count}</td>
-						<td><a href="${pageContext.request.contextPath}/room.chat?chat_no=${chat.chat_no}">${chat.alias}</a></td>
-						<td>${chat.headcount} / ${chat.headcount}</td>
+						<td><a href="#" onclick="openChatRoom(event, ${chat.chat_no})">${chat.alias}</a></td>
+						<td>${chat.headcount} / ${chat.maxcount}</td>
 						<td>
 							<fmt:parseDate value="${chat.createdate}" var="dayFmt" pattern="yyyy-MM-dd"/>
 							<fmt:formatDate value="${dayFmt}" pattern="yyyy-MM-dd"/>
@@ -1112,6 +1015,26 @@ function deleteProfileImage(user_no) {
 	if(confirm("프로필 이미지를 삭제하시겠습니까?")) {
 		location.href = "${pageContext.request.contextPath}/deleteProfileImage.users?user_no=" + user_no;
     }
+}
+
+//이미지 선택시 파일명 변경
+function updateImageName() {
+    var fileInput = document.getElementById('upload');
+    var currentImage = document.getElementById('currentImage');
+    if (fileInput.files.length > 0) {
+        currentImage.value = fileInput.files[0].name;
+    } else {
+        currentImage.value = '${usersBean.profile}';
+    }
+}
+
+//채팅방 팝업 띄우기
+function openChatRoom(event, chat_no) {
+	event.preventDefault();
+    var url = "${pageContext.request.contextPath}/room.chat?chat_no=" + chat_no;
+    var name = "chatRoom";
+    var specs = "width=400,height=700";
+    window.open(url, name, specs);
 }
 
 </script>

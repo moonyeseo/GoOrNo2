@@ -1,6 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>  
 <%@ include file = "../userCommon/userHeader.jsp" %>
+<!-- 챗봇 -->
+<div id="asideChatbot" class="asideChatbot " style="heigth: 80%">
+	<%@include file="../chatbot/chatbot.jsp"%>
+</div>
+
+<div id="chatbotIcon" style="heigth: 20%">
+	<%@include file="../chatbot/chatbotIcon.jsp"%>
+</div>
+
+<!-- 캘린더 아이콘 -->
+<div id="calendarIcon" style="heigth: 20%">
+	<%@include file="../event/calendarIcon.jsp"%>
+</div>
+
 <!-- 본문 시작 -->
 <div id="contact" class="contact-us section">
 	<div class="container"> 

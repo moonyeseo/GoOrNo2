@@ -69,12 +69,6 @@ public class CommentDao {
 		List<CommentBean> commentsLists = new ArrayList<CommentBean>();
 		commentsLists = sst.selectList(namespace + ".getCommentsByUser_no", user_no);
 		
-		for (CommentBean comment : commentsLists) {
-			System.out.println("Comment ID: " + comment.getComment_no());
-			System.out.println("Board Subject: " + comment.getBoard_subject());
-		}
-		
-		
 		return commentsLists;
 	}//getCommentsByUser_no
 

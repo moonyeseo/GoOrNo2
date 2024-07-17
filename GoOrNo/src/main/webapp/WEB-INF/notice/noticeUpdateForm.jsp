@@ -18,7 +18,7 @@
 	rel="stylesheet">
 
 <!-- Bootstrap core CSS -->
-<link
+<link 
 	href="<%=request.getContextPath()%>/resources/vendor/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet"> 
 

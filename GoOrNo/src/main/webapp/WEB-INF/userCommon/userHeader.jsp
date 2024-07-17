@@ -8,7 +8,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
+ 
 <head>
 
 <!-- yoon 작성 -->
@@ -54,10 +54,10 @@
 		
 		// 날짜 정보 가져오기
 		date = new Date(); // 현재 날짜(로컬 기준) 가져오기
-			utc = date.getTime() + (date.getTimezoneOffset() * 60 * 1000); // uct 표준시 도출
-			kstGap = 9 * 60 * 60 * 1000; // 한국 kst 기준시간 더하기
-			today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기(오늘)
-			todayDate = today.getDate();
+		utc = date.getTime() + (date.getTimezoneOffset() * 60 * 1000); // uct 표준시 도출
+		kstGap = 9 * 60 * 60 * 1000; // 한국 kst 기준시간 더하기
+		today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기(오늘)
+		todayDate = today.getDate();
 			
 			$("#calendarIcon").click(function(){
 				var popupW = 900;
@@ -68,7 +68,6 @@
 		    	popup = window.open("calendar.event?year="+today.getFullYear()+ "&month=" + (today.getMonth()+1) + "&day=" + today.getDate(), "calendar", "width=" + popupW + ",height =" + popupH +", left=" + left + ",top=" + top + ",scrollbars=yes,resizable=no,toolbar=no,titlebar=no,menubar=no,location=no");
 			});
 
-			
 	/* 알림 & 채팅 */
 	if ("${sessionScope.loginInfo}" != "") {
         fetchUnreadAlarms();
@@ -78,6 +77,13 @@
     }
 	
 });
+
+
+	function goEvent(eventNo){
+		alert("goEvent");
+		
+		location.href = "detail.event?eventNo=" + eventNo;
+	}
 
 	function fetchUnreadAlarms() {
         console.log("Fetching unread alarms...");
@@ -149,27 +155,25 @@
 	        }
 	    });
 	}
-	
+
+	/* 채팅 알림(?)
 	function fetchChatCount() {
-		const ajaxUrl = "${pageContext.request.contextPath}/notifications/chatCount";
 		console.log("Fetching chat...");
-		// URL 디버깅 출력
-	    $('#ajax-url').text(ajaxUrl);
-	    $('#ajax-url-debug').show();
-	    
         $.ajax({
-            url: "${pageContext.request.contextPath}/notifications/chatCount",
-            method: "POST",
+            url: "${pageContext.request.contextPath}/chatCount.chat",
+            method: "GET",
             success: function(data) {
-                $('#chat-count').text(data);
-                $('#chat-count-header').text(data);
+            	console.log("AJAX 응답 데이터:", data);
+            	let chatCount = data.length;
+            	$('#chat-count').text(data);
+            	$('#chat-count-header').text(data);
             },
             error: function(xhr, status, error) {
                 console.error("AJAX Error: ", status, error);
             }
         });
     }
-
+	*/
 </script>
 
 <!-- 공통 영역 -->
@@ -260,8 +264,8 @@ https://templatemo.com/tm-568-digimedia
 									<li><hr class="dropdown-divider"></li>
 								</ul>
 							</li>
-							
-							<!-- 채팅 아이콘 -->
+							<!-- 
+							채팅 아이콘
 							<li>
 								<a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
 									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-dots-fill" viewBox="0 0 16 16">
@@ -277,7 +281,7 @@ https://templatemo.com/tm-568-digimedia
 									<li><hr class="dropdown-divider"></li>
 								</ul>
 					        </li>
-							
+							-->
 						</c:if>
 					</ul>
 				</div>
@@ -295,7 +299,7 @@ https://templatemo.com/tm-568-digimedia
 					<nav class="main-nav">
 						<!-- ***** Logo Start ***** -->
 
-						<a href="#" class="logo"> <img
+						<a href="<%=request.getContextPath()%>/main.jsp" class="logo"> <img
 							src="<%=request.getContextPath()%>/resources/image/GoOrNo_logo.png"
 							alt="logo" width="80px" height="60px">
 						</a>
@@ -311,7 +315,7 @@ https://templatemo.com/tm-568-digimedia
 								aria-expanded="false"> Community </a>
 								<ul class="dropdown-menu">
 									<li><a class="dropdown-item" href="list.board">자유게시판</a></li>
-									<li><a class="dropdown-item" href="list.companion">동행게시판</a></li>
+									<li><a class="dropdown-item" href="list.chat">채팅</a></li>
 									<li></li>
 								</ul></li>
 							<li class="scroll-to-section"><a class="dropdown-toggle"

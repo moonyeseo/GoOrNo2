@@ -22,7 +22,7 @@ public class UsersDao {
 	SqlSessionTemplate sqlSessionTemplate;
 
 	public UsersDao() {
-		System.out.println("UsersDao ������");
+		System.out.println("UsersDao");
 	}
 
 	public int insertUsers(UsersBean users) {

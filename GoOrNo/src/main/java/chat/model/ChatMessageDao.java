@@ -7,7 +7,6 @@ import javax.servlet.http.HttpSession;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -26,7 +25,6 @@ public class ChatMessageDao {
 	}
 
 	public List<ChatMessageBean> getAllMessage(int chat_no) {
-		System.out.println("chat_no : "+chat_no);
 		List<ChatMessageBean> mlists = new ArrayList<ChatMessageBean>();
 		mlists = sst.selectList(namespace+".getAllMessage", chat_no);
 		return mlists;

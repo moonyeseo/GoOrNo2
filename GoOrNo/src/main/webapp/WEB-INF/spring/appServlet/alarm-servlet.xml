@@ -15,5 +15,4 @@
 		</bean>
 	
 		<context:component-scan base-package="alarm" />
-		<context:component-scan base-package="chat" />
 </beans>

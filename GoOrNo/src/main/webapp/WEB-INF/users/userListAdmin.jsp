@@ -52,50 +52,48 @@ table {
 								</div>
 							</form>
 							<br>
-							<table class="table table-borderless">
-								<thead>
-									<tr>
-										<th>번호</th>
-										<th>이름</th>
-										<th>아이디</th>
-										<th>성별</th>
-										<th>이메일</th>
-										<th>상세보기</th>
-									</tr>
-								</thead>
-
-								<tbody>
-									<%-- 
-															
-							<c:if test="${totalCount == 0}">
-
-									<tr>
-										<td align="center">회원 정보가 없습니다.</td>
-									</tr>
-
-							</c:if> 
-							
-							--%>
-
-									<c:forEach var="users" items="${usersList }">
+							<div style="text-align: center;">
+								<table class="table table-borderless">
+									<thead>
 										<tr>
-											<td>${users.user_no }</td>
-											<td>${users.name }</td>
-											<td>${users.id }</td>
-											<td>${users.gender }</td>
-											<td>${users.email }</td>
-											<td>
-												<button type="button" class="btn btn-dark"
-													onclick="update('${users.user_no }','${param.whatColumn}', '${param.keyword}', '${pageInfo.pageNumber}')">확
-													인</button>
-											</td>
+											<th>번호</th>
+											<th>이름</th>
+											<th>아이디</th>
+											<th>성별</th>
+											<th>이메일</th>
+											<th>상세보기</th>
 										</tr>
-									</c:forEach>
+									</thead>
 
-								</tbody>
+									<tbody>
+										<c:if test="${totalCount == 0}">
 
-							</table>
-							${pageInfo.pagingHtml }
+											<tr>
+												<td align="center" colspan="6">회원 정보가 없습니다.</td>
+											</tr>
+
+										</c:if>
+										<c:forEach var="users" items="${usersList }">
+
+											<tr>
+												<td>${users.user_no }</td>
+												<td>${users.name }</td>
+												<td>${users.id }</td>
+												<td>${users.gender }</td>
+												<td>${users.email }</td>
+												<td>
+													<button type="button" class="btn btn-dark"
+														onclick="update('${users.user_no }','${param.whatColumn}', '${param.keyword}', '${pageInfo.pageNumber}')">확
+														인</button>
+												</td>
+											</tr>
+										</c:forEach>
+
+									</tbody>
+
+								</table>
+							</div>
+							<center>${pageInfo.pagingHtml }</center>
 						</div>
 					</div>
 

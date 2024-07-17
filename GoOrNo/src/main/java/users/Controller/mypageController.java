@@ -26,11 +26,12 @@ import favorite.model.FavoriteBean;
 import favorite.model.FavoriteDao;
 import qna.model.QnaBean;
 import qna.model.QnaDao;
+import review.model.ReviewDao;
 import users.model.UsersBean;
 import users.model.UsersDao;
 
 @Controller
-@ComponentScan(basePackages = {"board", "users","comments", "bookmark", "favorite", "qna", "chat"})
+@ComponentScan(basePackages = {"board", "users","comments", "bookmark", "favorite", "qna", "chat", "review"})
 public class mypageController {
 
 	@Autowired
@@ -53,6 +54,9 @@ public class mypageController {
 	
 	@Autowired
 	private ChatDao chatDao;
+	
+	@Autowired
+	private ReviewDao reviewDao;
 	
 	private final String command = "/myPage.users";
 	private final String getPage = "myPage";
@@ -91,7 +95,13 @@ public class mypageController {
             
             //favoirte 가져오기
             List<FavoriteBean> favoriteList = favoriteDao.getFavoriteByUser_no(user_no);
+            Map<Integer, Double> avgRatingMap = new HashMap<>();
+            for (FavoriteBean favorite : favoriteList) {
+            	double avgRating = reviewDao.getAverageRating(favorite.getEvent_no());
+            	avgRatingMap.put(favorite.getEvent_no(), avgRating);
+            }
             model.addAttribute("favoriteList", favoriteList);
+            model.addAttribute("avgRatingMap", avgRatingMap);
             
             
 			//나의 qna 가져오기
@@ -106,12 +116,6 @@ public class mypageController {
             
             //내가 작성한 댓글 가져오기
             List<CommentBean> myCommentList = commentDao.getCommentsByUser_no(user_no);
-            
-            for (CommentBean comment : myCommentList) {
-            	System.out.println("Comment ID: " + comment.getComment_no());
-            	System.out.println("Board Subject: " + comment.getBoard_subject());
-            }
-            
             model.addAttribute("myCommentList", myCommentList);
             
             

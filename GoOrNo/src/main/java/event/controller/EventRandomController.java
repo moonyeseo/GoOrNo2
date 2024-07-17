@@ -33,7 +33,7 @@ public class EventRandomController {
 	public String doAction(HttpServletRequest request) {
 
 		Map<String, String> map = new HashMap<String, String>();
-
+		
 		// 랜덤으로 행사 아무거나 하나 가져오기
 		int totalCount = eventDao.getTotalCount(map);
 

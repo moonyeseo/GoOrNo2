@@ -258,7 +258,7 @@ public class Paging {
 					+ added_param + "'><font color='black'> << </font></a>&nbsp;" ;
 			result += "&nbsp;<a href='" + url 
 					+ "?pageNumber=" + (this.beginPage - 1 ) + "&pageSize=" + this.pageSize 
-					+ added_param + "'><font color='black'>����</font></a>&nbsp;" ;
+					+ added_param + "'><font color='black'>이전</font></a>&nbsp;" ;
 		}
 		
 		//���
@@ -282,7 +282,7 @@ public class Paging {
 			
 			result += "&nbsp;<a href='" + url  
 					+ "?pageNumber=" + (this.endPage + 1 ) + "&pageSize=" + this.pageSize 
-					+ added_param + "'><font color='black'>����</font></a>&nbsp;" ;
+					+ added_param + "'><font color='black'>다음</font></a>&nbsp;" ;
 			
 			result += "&nbsp;<a href='" + url  
 					+ "?pageNumber=" + (this.totalPage ) + "&pageSize=" + this.pageSize 

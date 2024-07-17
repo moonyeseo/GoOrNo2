@@ -24,9 +24,6 @@ public class AlarmController {
 	@Autowired
     private AlarmService alarmService;
 	
-	@Autowired
-    private ChatDao chatDao;
-	
 	@GetMapping("/alarms/unread")
     @ResponseBody
     public List<AlarmBean> getUnreadAlarms(HttpSession session) {
@@ -48,13 +45,4 @@ public class AlarmController {
         return "success";
     }
 	
-	@PostMapping("/notifications/chatCount")
-    @ResponseBody
-    public int getChatCount(HttpSession session) {
-        UsersBean loginInfo = (UsersBean) session.getAttribute("loginInfo");
-        if (loginInfo != null) {
-            return chatDao.getChatCountByUser_no(loginInfo.getUser_no());
-        }
-        return 0;
-    }
 }

@@ -27,6 +27,7 @@
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
+		<async-supported>true</async-supported>
 	</servlet>
 
 	<servlet-mapping>
@@ -71,88 +72,96 @@
 		<servlet-name>bookmark</servlet-name>
 		<url-pattern>*.bookmark</url-pattern>
 	</servlet-mapping>
-	
+
 	<!-- 서블릿매핑 -->
-	 <!-- 공지사항 -->
-	 <servlet>
+	<!-- 공지사항 -->
+	<servlet>
 		<servlet-name>notice</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/spring/appServlet/notice-context.xml</param-value>
+			<param-value>/WEB-INF/spring/appServlet/notice-context.xml
+			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-		
+
 	<servlet-mapping>
 		<servlet-name>notice</servlet-name>
 		<url-pattern>*.notice</url-pattern>
 	</servlet-mapping>
-	
-	 <!-- FAQ -->
-	 <servlet>
+
+	<!-- FAQ -->
+	<servlet>
 		<servlet-name>faq</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>/WEB-INF/spring/appServlet/faq-context.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-		
+
 	<servlet-mapping>
 		<servlet-name>faq</servlet-name>
 		<url-pattern>*.faq</url-pattern>
 	</servlet-mapping>
-	
-	 <!-- Q&A -->
-	 <servlet>
+
+	<!-- Q&A -->
+	<servlet>
 		<servlet-name>qna</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>/WEB-INF/spring/appServlet/qna-context.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-		
+
 	<servlet-mapping>
 		<servlet-name>qna</servlet-name>
 		<url-pattern>*.qna</url-pattern>
 	</servlet-mapping>
-	
+
 	<!-- 자유게시판 -->
-	 <servlet>
+	<servlet>
 		<servlet-name>board</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/spring/appServlet/board-context.xml</param-value>
+			<param-value>/WEB-INF/spring/appServlet/board-context.xml
+			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-		
+
 	<servlet-mapping>
 		<servlet-name>board</servlet-name>
 		<url-pattern>*.board</url-pattern>
 	</servlet-mapping>
-	
-	 <!-- 댓글  -->
-	 <servlet>
+
+	<!-- 댓글 -->
+	<servlet>
 		<servlet-name>comments</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/spring/appServlet/comments-context.xml</param-value>
+			<param-value>/WEB-INF/spring/appServlet/comments-context.xml
+			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-		
+
 	<servlet-mapping>
 		<servlet-name>comments</servlet-name>
 		<url-pattern>*.comments</url-pattern>
 	</servlet-mapping>
-	
+
 	<!-- *.report 요청에 따라 report-serlvet.xml 파일로 이동 -->
 	<servlet>
 		<servlet-name>report</servlet-name>
@@ -190,24 +199,24 @@
 		<url-pattern>*.users</url-pattern>
 	</servlet-mapping>
 
-	
 	<!-- 행사 -->
 	<servlet>
 		<servlet-name>event</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/spring/appServlet/event-servlet.xml</param-value>
+			<param-value>/WEB-INF/spring/appServlet/event-servlet.xml
+			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-		
+
 	<servlet-mapping>
 		<servlet-name>event</servlet-name>
 		<url-pattern>*.event</url-pattern>
 	</servlet-mapping>
-	
-	
+
 	<!-- *.chatbot 요청에 따라 chatbot-serlvet.xml 파일로 이동 -->
 	<servlet>
 		<servlet-name>chatbot</servlet-name>
@@ -225,8 +234,8 @@
 		<servlet-name>chatbot</servlet-name>
 		<url-pattern>*.chatbot</url-pattern>
 	</servlet-mapping>
-	
-	
+
+
 	<!-- *.favorite 요청 -->
 	<servlet>
 		<servlet-name>favorite</servlet-name>
@@ -244,6 +253,7 @@
 		<servlet-name>favorite</servlet-name>
 		<url-pattern>*.favorite</url-pattern>
 	</servlet-mapping>
+	
 	
 	<!-- 알림 -->
 	<servlet>
@@ -278,6 +288,25 @@
 	<servlet-mapping>
 		<servlet-name>chat</servlet-name>
 		<url-pattern>*.chat</url-pattern>
+	</servlet-mapping>
+		
+		
+	<!-- *.review 요청에 따라 review-servlet.xml 파일로 이동 -->
+	<servlet>
+		<servlet-name>review</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/review-servlet.xml
+			</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>review</servlet-name>
+		<url-pattern>*.review</url-pattern>
 	</servlet-mapping>
 	
 </web-app>
