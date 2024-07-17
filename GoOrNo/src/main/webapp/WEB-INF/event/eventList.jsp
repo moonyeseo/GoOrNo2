@@ -60,6 +60,7 @@
     }
 
     .event-container .card-body {
+    	font-size: 0.8em;
         padding: 15px;
         display: flex;
         flex-direction: column;
@@ -138,7 +139,18 @@
         <c:forEach var="event" items="${lists}">
             <div class="card">
                 <a href="detail.event?eventNo=${event.event_no}&whatColumn=${whatColumn}&keyword=${keyword }&pageNumber=${pageNumber}">
-                    <img src="${event.img}" class="card-img-top event-thumbnail" alt="${event.title}">
+                    <%-- <img src="${event.img}" class="card-img-top event-thumbnail" alt="${event.title}"> --%>
+                    <c:choose>
+					    <c:when test="${not empty event.fimg}">
+					        <!-- 업로드된 이미지가 있으면 해당 이미지를 사용 -->
+					        <img src="${pageContext.request.contextPath}/resources/uploadImage/${event.fimg}"
+					            class="card-img-top event-thumbnail" alt="${event.title}" />
+					    </c:when>
+					    <c:otherwise>
+					        <!-- 업로드된 이미지가 없으면 API 이미지를 사용 -->
+					        <img src="${event.img}" class="card-img-top event-thumbnail" alt="${event.title}" />
+					    </c:otherwise>
+					</c:choose>
                 </a>
                 <div class="card-body">
                     <a href="detail.event?eventNo=${event.event_no}&whatColumn=${whatColumn}&keyword=${keyword }&pageNumber=${pageNumber}">

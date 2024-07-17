@@ -58,6 +58,10 @@
         margin-bottom: 20px;
     }
     
+    #btnList{
+    	text-align: center;
+    }
+    
 </style>
   
 	<!-- 챗봇 -->
@@ -75,7 +79,18 @@
         <h2>상세정보</h2>
     </div>
     <div style="display: flex; width: 100%;">
-        <img src="${event.img}" alt="${event.title}">
+        <%-- <img src="${event.img}" alt="${event.title}"> --%>
+		<c:choose>
+		    <c:when test="${not empty event.fimg}">
+		        <!-- 업로드된 이미지가 있으면 해당 이미지를 사용 -->
+		        <img src="${pageContext.request.contextPath}/resources/uploadImage/${event.fimg}"
+		            width="100" height="100" alt="${event.title}" />
+		    </c:when>
+		    <c:otherwise>
+		        <!-- 업로드된 이미지가 없으면 API 이미지를 사용 -->
+		        <img src="${event.img}" width="100" height="100" alt="${event.title}" />
+		    </c:otherwise>
+		</c:choose>
         <div class="event-info">
             <table>
                 <tr>
@@ -95,7 +110,7 @@
                     <td>${event.place}</td>
                 </tr>
                 <tr>
-                	<td colspan="2">
+                	<td id="btnList"colspan="2">
                			
 	  					<input type="button" class="btn btn-outline-primary btn-sm" value="목록보기" onClick="location.href='list.event?eventNo=${event.event_no }&whatColumn=${param.whatColumn}&keyword=${param.keyword}&pageNumber=${pageNumber}'">
 	  					<input type="button" class="btn btn-outline-primary btn-sm" value="길찾기" onClick="location.href='search.bookmark?lat=${event.lat}&lot=${event.lot }&place=${event.place }'">

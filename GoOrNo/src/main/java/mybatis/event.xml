@@ -5,14 +5,24 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="event.model.Event">
-	<!-- 행사 추가 -->
-	<!-- 테스트 -->
+	<!-- 행사 api 추가 -->
 	<insert id="insertEvent" parameterType="event.model.EventBean">
 		insert into event(event_no, performance_type, title, place, event_period, img, lot, lat)
 		values(event_seq.nextval, #{performance_type}, #{title},
 		#{place}, #{event_period}, #{img,jdbcType=VARCHAR},
 		#{lot}, #{lat})
 	</insert>
+	
+	
+	
+	<!-- 업로드 파일 -->
+	<insert id="insertFimg" parameterType="event.model.EventBean">
+		insert into event(event_no, performance_type, title, place, event_period, fimg, lot, lat)
+		values(event_seq.nextval, #{performance_type}, #{title},
+		#{place}, #{event_period}, #{fimg,jdbcType=VARCHAR},
+		#{lot}, #{lat})
+	</insert>
+	
 	
 	<!-- 조회 -->
 	<select id="getAllEvents" resultType="event.model.EventBean">
@@ -30,7 +40,7 @@
 		<if test="whatColumn == 'place'">
 			where place like #{keyword}
 		</if>
-		order by event_no asc
+		order by event_no desc
 	</select>
 	
 	<!-- 행사 유형 중복 제거 -->
@@ -76,9 +86,11 @@
 		delete from event where event_no = #{event_no}
 	</delete>
 	
+	
+	<!-- 행사 업뎃 -->
 	<update id="updateEvent">
 		update event set performance_type = #{performance_type}, title = #{title}, place = #{place},
-		event_period = #{event_period}, img = #{img}, lot = #{lot}, lat = #{lat}
+		event_period = #{event_period}, fimg = #{fimg}, lot = #{lot}, lat = #{lat}
 		where event_no = #{event_no} 
 	</update>
 </mapper>

@@ -19,10 +19,20 @@ public class EventBean {
     @NotEmpty(message="기간을 입력하세요.")
     private String event_period;
     
-    @NotEmpty(message = "파일 선택 안함")
     private String img;
     
-    @NotEmpty(message="위도를 입력하세요.")
+    @NotEmpty(message = "파일 선택 안함")
+    private String fimg; // 업로드 파일 이미지
+    
+    public String getFimg() {
+		return fimg;
+	}
+
+	public void setFimg(String fimag) {
+		this.fimg = fimag;
+	}
+
+	@NotEmpty(message="위도를 입력하세요.")
     private String lot;
     
     @NotEmpty(message="경도를 입력하세요.")
@@ -52,7 +62,7 @@ public class EventBean {
 		if(this.upload != null) {
 			System.out.println(upload.getName()); // upload
 			System.out.println(upload.getOriginalFilename()); // 남자시계.jpg
-			img = upload.getOriginalFilename(); // img = 남자시계.jpg
+			fimg = upload.getOriginalFilename(); // img = 남자시계.jpg
 		}
 	}
 

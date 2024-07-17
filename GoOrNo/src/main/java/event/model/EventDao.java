@@ -88,4 +88,12 @@ public class EventDao {
     	cnt = sqlSessionTemplate.delete(namespace + ".deleteEvent", eventNo);
     	return cnt;
     }
+    
+    // 업로드 파일
+	public int insertFimg(EventBean event) {
+		int cnt = -1;
+    	cnt = sqlSessionTemplate.insert(namespace + ".insertFimg", event);
+    	System.out.println("test2");
+    	return cnt;
+	}
 }

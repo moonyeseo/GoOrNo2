@@ -81,8 +81,8 @@ public class EventUpdateController {
         	mav.addObject("pageNumber", pageNumber);
         	mav.addObject("event", event);
         	mav.setViewName(getPage);
-        	if (event.getImg() == null || event.getImg().equals("")) {
-                event.setImg(event.getUpload2());
+        	if (event.getFimg() == null || event.getFimg().equals("")) {
+                event.setFimg(event.getUpload2());
             }
             return mav;
         }
@@ -99,7 +99,7 @@ public class EventUpdateController {
     	String uploadPath = servletContext.getRealPath("/resources/uploadImage/");
     	
     	if(cnt != -1 && multi != null && !multi.isEmpty()) {
-    		System.out.println("qweqweqweqwe");
+    		System.out.println("test");
     		String deletePath = servletContext.getRealPath("/resources/uploadImage/");
     		File file = new File(deletePath + File.separator + event.getUpload2());
     		System.out.println("File : " + file);

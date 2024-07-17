@@ -1,8 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file = "../adminCommon/adminHeader.jsp" %> <!--  admin header 부분 -->
-<%@ include file = "../common/common.jsp" %>
+<style type="text/css">
+	body{
+		margin-top: 200px;
+		margin-left: 50%;
+		
+	}
 
+</style>
 
 Admin add<br>
 <%
@@ -56,8 +62,8 @@ Admin add<br>
 		<tr>
 			<th>사진</th>
 			<td>
-				<input type="file" name="upload" value="${event.img }">
-				<form:errors path="img" cssClass="err"/>
+				<input type="file" name="upload" value="${event.fimg }">
+				<form:errors path="fimg" cssClass="err"/>
 			</td>
 		</tr>
 		
@@ -85,3 +91,4 @@ Admin add<br>
 	</table>
 </form:form>
 <%@include file = "../adminCommon/adminFooter.jsp" %> <!--  admin footer 부분 -->
+
