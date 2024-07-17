@@ -1,6 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>  
 <%@ include file = "../userCommon/userHeader.jsp" %>
+<!-- 챗봇 -->
+<div id="asideChatbot" class="asideChatbot " style="heigth: 80%">
+	<%@include file="../chatbot/chatbot.jsp"%>
+</div>
+
+<div id="chatbotIcon" style="heigth: 20%">
+	<%@include file="../chatbot/chatbotIcon.jsp"%>
+</div>
+
 <!-- 본문 시작 -->
 <div id="contact" class="contact-us section">
 	<div class="container">
@@ -10,9 +19,9 @@
 				<div class="section-heading wow fadeIn" data-wow-duration="1s"
 					data-wow-delay="0.5s">
 					<br>
-					<h6>community</h6>
+					<h6>Notice</h6>
 					<h4>
-						<a href="list.qna" style="color:inherit;"><em>Q&A</em></a>
+						<a href="list.qna" style="color:inherit;">Q<em>&</em>A</a>
 					</h4>
 					<div class="line-dec"></div>
 				</div>
@@ -47,7 +56,7 @@
 											<!-- 글 작성 버튼 -->
 											<tr>
 												<td colspan="5" align="right">
-													<input type="button" onClick="location.href='insert.qna?pageNumber=${pageInfo.pageNumber}&whatColumn=${ pageInfo.whatColumn }&keyword=${ pageInfo.keyword }'" value="글쓰기" class="btn btn-secondary">
+													<input type="button" onClick="return writeQna()" value="글쓰기" class="btn btn-secondary">
 												</td>
 											</tr>
 											<!-- 컬럼 제목 -->
@@ -114,5 +123,17 @@
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+const id = '${ sessionScope.id }';
+
+function writeQna(){
+	if(id == ''){
+		alert("로그인한 회원만 글을 작성할 수 있습니다.");
+		return false;
+	}else{
+		location.href='insert.qna?pageNumber=${pageInfo.pageNumber}&whatColumn=${ pageInfo.whatColumn }&keyword=${ pageInfo.keyword }';
+	}
+}
+</script>
 <!-- 본문 끝 -->
 <%@include file = "../userCommon/userFooter.jsp" %> <!--  user header 부분 -->

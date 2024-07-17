@@ -1,6 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>  
 <%@ include file = "../userCommon/userHeader.jsp" %>
+<!-- 챗봇 -->
+<div id="asideChatbot" class="asideChatbot " style="heigth: 80%">
+	<%@include file="../chatbot/chatbot.jsp"%>
+</div>
+
+<div id="chatbotIcon" style="heigth: 20%">
+	<%@include file="../chatbot/chatbotIcon.jsp"%>
+</div>
+
 <!-- 본문 시작 -->
 <div id="contact" class="contact-us section">
 	<div class="container"> 
@@ -10,9 +19,9 @@
 				<div class="section-heading wow fadeIn" data-wow-duration="1s"
 					data-wow-delay="0.5s">
 					<br>
-					<h6>community</h6>
+					<h6>Notice</h6>
 					<h4>
-						<a href="list.qna" style="color:inherit;"><em>자유</em>게시판</a>
+						<a href="list.qna" style="color:inherit;">Q<em>&</em>A</a>
 					</h4>
 					<div class="line-dec"></div>
 				</div>

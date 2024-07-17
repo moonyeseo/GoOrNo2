@@ -114,7 +114,6 @@ function popChatRoom(chat_no){
 	var options = 'width = ' + _width + ', height = ' + _height + ', location = no status = no, toolbar = no, top = '+ _top + ', left = ' + _left;
 	var windowPopup = window.open(url, name, options);
 }
-
 </script>
 <!-- 본문 끝 -->
 <%@include file = "../userCommon/userFooter.jsp" %> <!--  user header 부분 -->

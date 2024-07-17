@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" 
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -18,7 +18,7 @@
 	rel="stylesheet">
 
 <!-- Bootstrap core CSS -->
-<link
+<link 
 	href="<%=request.getContextPath()%>/resources/vendor/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet">
 
@@ -115,13 +115,13 @@ span{
 											<tr>
 												<td>
 													<font size="4px"><b>질문</b></font>
-													<input type="text" name="question" value="${ faq.question }" class="form-control" style="width:80%; diaply:inline;">
+													<input type="text" name="question" value="${ faq.question }" class="form-control" style="width:80%; diaply:inline;" maxlength="30">
 													<form:errors path="question" cssClass="err"></form:errors>
 												</td>
 											</tr>
 											<tr>
 												<td>
-													<textarea rows="10" style="resize:none;" name="answer" class="form-control">${ faq.answer }</textarea>
+													<textarea rows="10" style="resize:none;" name="answer" class="form-control" maxlength="300">${ faq.answer }</textarea>
 													<form:errors path="answer" cssClass="err"></form:errors>
 												</td>	
 											</tr>

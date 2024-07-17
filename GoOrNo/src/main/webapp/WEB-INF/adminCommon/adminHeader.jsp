@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" 
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%> 
 
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
  <%@ taglib prefix = "fn" uri = "http://java.sun.com/jsp/jstl/functions" %>
@@ -286,7 +286,7 @@
   </header><!-- End Header -->
   
     <!-- ======= Sidebar ======= -->
-  <aside id="sidebar" class="sidebar">
+  <aside id="sidebar" class="sidebar" style="position: fixed;">
 
     <ul class="sidebar-nav" id="sidebar-nav">  
       
@@ -298,7 +298,7 @@
       </li>
       
       <li class="nav-item">
-        <a class="nav-link collapsed" href="list.reivew">
+        <a class="nav-link collapsed" href="list.review">
           <i class="bi bi-card-list"></i>
           <span>Reivew</span>
         </a>

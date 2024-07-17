@@ -1,6 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" 
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>  
 <%@ include file = "../userCommon/userHeader.jsp" %>
+<!-- 챗봇 -->
+<div id="asideChatbot" class="asideChatbot " style="heigth: 80%">
+	<%@include file="../chatbot/chatbot.jsp"%>
+</div>
+
+<div id="chatbotIcon" style="heigth: 20%">
+	<%@include file="../chatbot/chatbotIcon.jsp"%>
+</div>
+
 <!-- 본문 시작 -->
 <div id="contact" class="contact-us section">
 	<div class="container">
@@ -51,7 +60,9 @@
 										</tr>
 										<tr>
 											<!-- 글 내용 -->
-											<td colspan="3" style="padding:20px; text-align:left;">${ board.content }</td>
+											<td colspan="3" style="padding:20px; text-align:left; overflow:hidden; word-break:break-all;">
+												${ board.content }
+											</td>
 										</tr>
 										<tr>
 											<td colspan="3" align="right" style="border-bottom:none;">
@@ -71,7 +82,7 @@
 										<!-- 로그인 한 경우에만 댓글창 활성화 -->
 										<c:if test="${ loginInfo.id ne null }">
 											<table class="table table-borderless" style="width: 70%;">
-												<tr><td align="right"><textarea id="commentContents" class="form-control" placeholder="내용" style="resize:none;"></textarea></td></tr>
+												<tr><td align="right"><textarea id="commentContents" class="form-control" placeholder="내용" style="resize:none; overflow:hidden; word-break:break-all;" maxlength="90"></textarea></td></tr>
 												<tr><td align="right"><button onclick="commentWrite()" class="btn btn-secondary">댓글작성</button></td></tr>
 											</table>
 										</c:if>
@@ -100,7 +111,7 @@
 														<!-- 작성자 -->
 														<td width="15%" align="center">${ comment.user_id }</td>
 														<!-- 내용 -->
-														<td width="65%" align="left">${ comment.content }</td>
+														<td width="65%" align="left" style="overflow:hidden; word-break:break-all;">${ comment.content }</td>
 														<!-- 작성일 -->
 														<!-- 숫자폭을 일정하게 하기 위해 Noto Sans 글꼴 적용 -->
 														<td id="commentRegdate" width="20%" align="right" style="font-family:'Noto Sans';">

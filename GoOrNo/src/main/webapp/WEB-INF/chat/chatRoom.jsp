@@ -95,12 +95,52 @@ textarea:focus {
 .form-control:disabled{
 background-color : white;
 }
+#confirmPopup {
+  position:absolute;
+  border: 1px solid #F6F6F6;
+  border-radius: 10px;
+  height: 150px;
+  width: 300px;
+  text-align: center;
+  top:10%;
+  left:10%;
+  padding-top:20px;
+  background-color: white;
+}
+#modal_background{
+  position: fixed;
+  top:0; left: 0; bottom: 0; right: 0;
+  background: rgba(0, 0, 0, 0.2);
+}
 </style>
 <script src="https://kit.fontawesome.com/792ff227d5.js" crossorigin="anonymous"></script>
+
 <body>
 <jsp:useBean id="now" class="java.util.Date"/>
 <fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:mm:ss" var="now" />
-<!-- 본문 시작 -->
+
+<!-- 모달 배경 -->
+<div id="modal_background" style="display: none;">
+	<!-- 모달창 -->
+	<div id="confirmPopup" class="popup-wrap" aria-modal="true" >
+	  <div class="popup-inner">
+	    <div class="popup-header" style="height: 30%">
+	      <h3 class="popup-title">${ chatInfo.alias }</h3>
+	    </div>
+	    <div class="popup-body" style="height: 40%">
+	      <p>채팅방을 나가시겠습니까?</p>
+	    </div>
+	    <div class="popup-footer" style="height: 30%">
+	      <div class="btn-area">
+	        <button type="button" class="btn btn-light btn-sm" id="btn-close">취소</button>
+	        <button type="button" class="btn btn-secondary btn-sm" id="btn-confirm">나가기</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+</div>
+
+<!-- 본문 -->
 <div class="container">
 	<!-- 상단부 -->
 	<div class="row" id="top">
@@ -109,7 +149,7 @@ background-color : white;
 			<b>${ chatInfo.alias }</b>
 			<!-- 채팅 나가기 -->
 			<div style="float: right">
-				<font size="2px"><a onclick="exitChat('${ param.chat_no }')" style="cursor : pointer;">나가기</a></font>
+				<font size="2px"><a id="btn-showPopup" style="cursor : pointer;">나가기</a></font>
 			</div>
 		</div>
 		<!-- 채팅방 인원/정원 -->
@@ -150,11 +190,19 @@ background-color : white;
 								</c:if>
 								<!-- 상대가 보낸 메시지 -->
 								<c:if test="${ message.user_id ne 'info' }">
-									<td align="left">
-										<font size="1px"><b>${ message.user_id }</b> ${ fSendTime }</font><br>
-										<div id="you"><font>${ message.content }</font></div>
-										
-									</td>
+									<!-- 탈퇴한 회원인 경우 -->
+									<c:if test="${ message.user_no eq '' }">
+										<td align="left">
+											<font size="1px"><b>탈퇴한 회원</b> ${ fSendTime }</font><br>
+											<div id="you"><font>${ message.content }</font></div>
+										</td>
+									</c:if>
+									<c:if test="${ message.user_no ne '' }">
+										<td align="left">
+											<font size="1px"><b>${ message.user_id }</b> ${ fSendTime }</font><br>
+											<div id="you"><font>${ message.content }</font></div>
+										</td>
+									</c:if>
 								</c:if>
 							</c:if>
 						</tr>
@@ -170,7 +218,7 @@ background-color : white;
         <!-- 채팅 입력창 -->
 		<div class="col-lg-10">
 	        <input type="text" id="sender" value="${sessionScope.id}" style="display: none;">
-	        <textarea onkeyup="validate()" class="form-control border-0 focus-ring-0" id="messageinput" rows="2" style="resize : none;"></textarea>
+	        <textarea onkeyup="validate()" class="form-control border-0 focus-ring-0" id="messageinput" rows="2" style="resize : none;" maxlength="60"></textarea>
 		</div>
 		<!-- 전송 버튼 -->
 		<div class="col-lg-2">
@@ -179,6 +227,7 @@ background-color : white;
 	</div>					
 </div>
 <!-- 본문 끝 -->
+
 </body>
 
 <!-- websocket javascript -->
@@ -188,7 +237,23 @@ background-color : white;
     var messages = document.getElementById("messages");
     var isFull = '${ isFull }';
     var input = document.getElementById("messageinput");
+    var chat_no = '${ param.chat_no }';
+    
+    //모달
+    $("#btn-showPopup").on("click", () => {
+      $("#modal_background").show();
+    })
+
+    $("#btn-close").on("click", () => {
+      $("#modal_background").hide();
+    })
 	
+    $("#btn-confirm").on("click", () => {
+      // 채팅창 나가기 실행
+      location.href = "delete.chat?chat_no="+chat_no;
+      $("#modal_background").hide();
+    })
+    
     //엔터키 눌러도 메세지 전송
     input.addEventListener("keyup", function (event) {
       if (event.keyCode === 13) {
@@ -292,10 +357,9 @@ background-color : white;
     	}
     }
     
+    //채팅방 나가기
     function exitChat(chat_no){
-		if(confirm("채팅방을 나가시겠습니까?")){
-	    	location.href = "delete.chat?chat_no="+chat_no;
-		}
+       	location.href = "delete.chat?chat_no="+chat_no;
     }
 
   	//채팅방 입장시 실행
@@ -323,6 +387,8 @@ background-color : white;
     	var isAdmin = '${ param.isAdmin }';
     	if(isAdmin == "yes"){
 	    	document.getElementById("messageinput").disabled = true;
+	    	document.getElementById("btn-showPopup").style.display = "none";
+	    	document.getElementById("messageinput").value = "관리자 페이지에서는 채팅을 할 수 없습니다.";
     	}
     	
     	//채팅방 나가기 버튼 누른후 컨트롤러에서 돌아옴

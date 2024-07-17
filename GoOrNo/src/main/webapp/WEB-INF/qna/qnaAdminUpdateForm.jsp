@@ -1,5 +1,5 @@
  <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%> 
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -121,7 +121,7 @@ span{
 											</tr>
 											<tr>
 												<td>
-													<textarea class="form-control" placeholder="내용" style="resize:none;" name="content" rows="5">${ qna.content }</textarea>
+													<textarea class="form-control" placeholder="내용" style="resize:none;" name="content" rows="5" maxlength="300">${ qna.content }</textarea>
 													<form:errors path="content" cssClass="err"></form:errors>
 												</td>	
 											</tr>

@@ -55,12 +55,12 @@ public class ChatListController {
 		
 		//get last chat
 		for(int i = 0 ; i < clists.size() ; i++) {
-			List<ChatMessageBean> mlists = chatMessageDao.getAllMessage(clists.get(i).getChat_no()); //chat_no�� �޼��� ����Ʈ ��������
+			List<ChatMessageBean> mlists = chatMessageDao.getAllMessage(clists.get(i).getChat_no()); //get messageList
 			if(mlists.size() > 0) {
 				String lastChat = mlists.get(mlists.size()-1).getContent();
-				clists.get(i).setLastChat(lastChat); //������ ä�� �����ͼ� clists�� ����
-			}else {
-				clists.get(i).setLastChat("채팅이 존재하지 않습니다.");
+				clists.get(i).setLastChat(lastChat); //save lastChat
+			}else {// no messages
+				clists.get(i).setLastChat("no last message.");
 			}
 		}
 		

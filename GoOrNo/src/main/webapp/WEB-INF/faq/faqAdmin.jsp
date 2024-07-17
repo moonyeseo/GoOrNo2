@@ -1,4 +1,4 @@
- <%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file = "../adminCommon/adminHeader.jsp" %> <!--  admin header 부분 -->
 	<main id="main" class="main">
@@ -106,7 +106,7 @@
 								<th>글내용</th>
 							</tr>
 							<tr>
-								<td id="answer"></td>
+								<td id="answer" style="overflow:hidden; word-break:break-all;"></td>
 							</tr>
 						</table>
 					</form>
