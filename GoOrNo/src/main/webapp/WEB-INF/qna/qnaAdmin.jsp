@@ -40,7 +40,8 @@
 					<!-- 컬럼 제목 -->
 					<tr>
 						<th scope="col" width="10%" style="text-align: center">글번호</th>
-						<th scope="col" width="50%" style="text-align: center">제목</th>
+						<th scope="col" width="40%" style="text-align: center">제목</th>
+						<th scope="col" width="10%" style="text-align: center">작성자</th>
 						<th scope="col" width="20%" style="text-align: center">작성일</th>
 						<th scope="col" width="10%" style="text-align: center">조회수</th>
 						<th scope="col" width="10%" style="text-align: center">답변</th>
@@ -63,6 +64,13 @@
 									<!-- 제목. 클릭 시 옆에 내용 띄어짐 -->
 									<td align="left">
 										<a onclick="viewQna('${ qlists[i].content }','${ qlists[i].qna_no }','${ status.index }')" style="cursor : pointer;" id="clicked${ status.index }">${ qlists[i].subject }</a> &nbsp;
+									</td>
+									<!-- 작성자 -->
+									<td align="center">
+										${ qlists[i].user_id }
+										<c:if test="${ qlists[i].user_no eq '' }">
+											<font color="gray">(탈퇴)</font>
+										</c:if>
 									</td>
 									<!-- 작성일 -->
 									<td align="center">

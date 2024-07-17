@@ -49,9 +49,16 @@
 										</tr>
 										<tr>
 											<!-- 작성자 ID -->
-											<td align="left" style="width: 10%">${ board.user_id }</td>
+											<td align="left" style="width: 20%">
+												<c:if test="${ board.user_no eq '' }">
+													<font color="gray">탈퇴한 회원</font>
+												</c:if>
+												<c:if test="${ board.user_no ne '' }">
+													${ board.user_id }
+												</c:if>
+											</td>
 											<!-- 작성일  -->
-											<td align="left" style="width: 80%">
+											<td align="left" style="width: 70%">
 												<fmt:parseDate var="parsedDate" pattern="yyyy-MM-dd">${ fn:substring(board.regdate,0,10) }</fmt:parseDate>
 												<fmt:formatDate value="${ parsedDate }" pattern="yyyy-MM-dd"/>
 											</td>
@@ -109,7 +116,14 @@
 												<c:forEach var="comment" items="${ commentLists }">
 													<tr>
 														<!-- 작성자 -->
-														<td width="15%" align="center">${ comment.user_id }</td>
+														<td width="15%" align="center">
+															<c:if test="${ comment.user_no eq '' }">
+																<font color="gray">탈퇴한 회원</font>
+															</c:if>
+															<c:if test="${ comment.user_no ne '' }">
+																${ comment.user_id }
+															</c:if>
+														</td>
 														<!-- 내용 -->
 														<td width="65%" align="left" style="overflow:hidden; word-break:break-all;">${ comment.content }</td>
 														<!-- 작성일 -->
@@ -173,7 +187,7 @@ function commentWrite(){
 			for(let i in commentLists){
 				output += "<tr>";
 				output += "<td width='15%' align='center'>"+commentLists[i].user_id+"</td>";
-				output += "<td width='65%' align='left'>"+commentLists[i].content+"</td>";
+				output += "<td width='65%' align='left' style='overflow:hidden; word-break:break-all;'>"+commentLists[i].content+"</td>";
 				output += "<td id='commentRegdate' width='20%' align='right'><font size='2px' style='white-space: nowrap;'>";
 				if(commentLists[i].user_id == id){
 					comment_no = commentLists[i].comment_no;

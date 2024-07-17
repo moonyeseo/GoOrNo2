@@ -93,7 +93,14 @@
 															<a href="detail.qna?qna_no=${ qlists[i].qna_no }&pageNumber=${param.pageNumber}&whatColumn=${ param.whatColumn }&keyword=${ param.keyword }"><font color="black">${ qlists[i].subject }</font></a> &nbsp;
 														</td>
 														<!-- 작성자 -->
-														<td align="center">${ qlists[i].user_id }</td>
+														<td align="center">
+															<c:if test="${ qlists[i].user_no eq '' }">
+																<font color="gray">탈퇴한 회원</font>
+															</c:if>
+															<c:if test="${ qlists[i].user_no ne '' }">
+																${ qlists[i].user_id }
+															</c:if>	
+														</td>
 														<!-- 작성일 -->
 														<td align="center">
 															<fmt:parseDate var="parsedDate" pattern="yyyy-MM-dd">${ fn:substring(qlists[i].regdate,0,10) }</fmt:parseDate>

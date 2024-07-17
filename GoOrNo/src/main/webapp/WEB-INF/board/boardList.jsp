@@ -94,7 +94,14 @@
 															</c:if>
 														</td>
 														<!-- 작성자 -->
-														<td align="center">${ blists[i].user_id }</td>
+														<td align="center">
+															<c:if test="${ blists[i].user_no eq '' }">
+																<font color="gray">탈퇴한 회원</font>
+															</c:if>
+															<c:if test="${ blists[i].user_no ne '' }">
+																${ blists[i].user_id }
+															</c:if>
+														</td>
 														<!-- 작성일 -->
 														<td align="center">
 															<fmt:parseDate var="parsedDate" pattern="yyyy-MM-dd">${ fn:substring(blists[i].regdate,0,10) }</fmt:parseDate>

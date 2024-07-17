@@ -394,7 +394,13 @@ background-color : white;
     	//채팅방 나가기 버튼 누른후 컨트롤러에서 돌아옴
 	 	var isExit = '${ isExit }';
 	 	if(isExit == 'yes'){
-	 		window.close();
+	 		setTimeout(function() {
+	    		var text = document.getElementById("sender").value+"님이 나갔습니다.,info";
+	    		ws.send(text);
+  			}, 100);
+	 		setTimeout(function() {
+	 			window.close();
+  			}, 150);
 	 	}
     	
     });

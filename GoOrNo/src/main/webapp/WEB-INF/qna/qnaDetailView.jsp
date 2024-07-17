@@ -47,9 +47,16 @@
 										</tr>
 										<tr>
 											<!-- 작성자 ID -->
-											<td align="left" style="width: 10%">${ qna.user_id }</td>
+											<td align="left" style="width: 20%">
+												<c:if test="${ qna.user_no eq '' }">
+													<font color="gray">탈퇴한 회원</font>
+												</c:if>
+												<c:if test="${ qna.user_no ne '' }">
+													${ qna.user_id }
+												</c:if>	
+											</td>
 											<!-- 작성일  -->
-											<td align="left" style="width: 80%">
+											<td align="left" style="width: 70%">
 												<fmt:parseDate var="parsedDate" pattern="yyyy-MM-dd">${ fn:substring(qna.regdate,0,10) }</fmt:parseDate>
 												<fmt:formatDate value="${ parsedDate }" pattern="yyyy-MM-dd"/>
 											</td>
