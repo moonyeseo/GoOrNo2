@@ -45,7 +45,7 @@ public class ReportInsertController {
 		cnt = reportDao.insertReport(report);
 		
 		if(cnt > 0) {
-			model.addAttribute("close", "close"); // ½Å°í insert ¼º°ø ÈÄ close ¾È¿¡ 'close' ÀúÀåÇØ¼­ ´Ù½Ã ÆË¾÷Ã¢À¸·Î
+			model.addAttribute("close", "close"); // ï¿½Å°ï¿½ insert ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ close ï¿½È¿ï¿½ 'close' ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½Ù½ï¿½ ï¿½Ë¾ï¿½Ã¢ï¿½ï¿½ï¿½ï¿½
 		}
 		
 		return gotoPage;

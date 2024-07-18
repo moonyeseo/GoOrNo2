@@ -18,6 +18,7 @@ public class UsersBean {
 	private String address;
 
 	private MultipartFile upload;
+	private String upload2;
 
 	public UsersBean() {
 
@@ -38,6 +39,14 @@ public class UsersBean {
 			profile = upload.getOriginalFilename();
 		}
 
+	}
+	
+	public String getUpload2() {
+		return upload2;
+	}
+
+	public void setUpload2(String upload2) {
+		this.upload2 = upload2;
 	}
 
 	public int getUser_no() {

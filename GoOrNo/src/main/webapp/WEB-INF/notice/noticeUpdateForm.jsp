@@ -18,7 +18,7 @@
 	rel="stylesheet">
 
 <!-- Bootstrap core CSS -->
-<link
+<link 
 	href="<%=request.getContextPath()%>/resources/vendor/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet"> 
 
@@ -115,13 +115,13 @@ span{
 											<tr>
 												<td>
 													<font size="4px"><b> 제목 </b></font>
-													<input type="text" name="subject" value="${ notice.subject }" class="form-control" style="width:80%; diaply:inline;">
+													<input type="text" name="subject" value="${ notice.subject }" class="form-control" style="width:80%; diaply:inline;" maxlength="30">
 													<form:errors path="subject" cssClass="err"></form:errors>
 												</td>
 											</tr>
 											<tr>
 												<td>
-													<textarea rows="10" style="resize:none;" name="content" class="form-control">${ notice.content }</textarea>
+													<textarea rows="10" style="resize:none;" name="content" class="form-control" maxlength="300">${ notice.content }</textarea>
 													<form:errors path="content" cssClass="err"></form:errors>
 												</td>	
 											</tr>
@@ -147,5 +147,3 @@ span{
 </div>
 <!-- 본문 끝 -->
 </body>
-
-

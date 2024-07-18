@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-
+    pageEncoding="UTF-8"%> 
+ 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -115,13 +115,13 @@ span{
 											<tr>
 												<td>
 													<font size="4px"><b> 질문 </b></font>
-													<input type="text" name="question" value="${ faq.question }" class="form-control" style="width:80%; diaply:inline;">
+													<input type="text" name="question" value="${ faq.question }" class="form-control" style="width:80%; diaply:inline;" maxlength="30">
 													<form:errors path="question" cssClass="err"></form:errors>
 												</td>
 											</tr>
 											<tr>
 												<td>
-													<textarea class="form-control" placeholder="답변" style="resize:none;" name="answer" rows="10">${ faq.answer }</textarea>
+													<textarea class="form-control" placeholder="답변" style="resize:none;" name="answer" rows="10" maxlength="300">${ faq.answer }</textarea>
 													<form:errors path="answer" cssClass="err"></form:errors>
 												</td>	
 											</tr>
@@ -147,4 +147,3 @@ span{
 </div>
 <!-- 본문 끝 -->
 </body>
-

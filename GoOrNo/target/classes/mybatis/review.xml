@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="review.model.Review">
+
+	<insert id="insertReview">
+		insert into
+		review(review_no,event_no,user_no,user_id,comments,rating)
+		values(review_seq.nextval,#{event_no},#{user_no},#{user_id},#{comments},#{rating})
+		
+	</insert>
+
+	<select id="getAllReview" resultType="review.model.ReviewBean">
+		select * from review where
+		event_no = #{event_no} order by review_no
+	</select>
+
+	<delete id="deleteReview">
+		delete from review where review_no = #{review_no}
+	</delete>
+
+	<select id="getReviewList" resultType="review.model.ReviewBean">
+		select * from review
+		<if test="whatColumn == 'all'">
+			where user_id like #{keyword} or rating like #{keyword}
+		</if>
+		<if test="whatColumn == 'user_id'">
+			where user_id like #{keyword}
+		</if>
+		<if test="whatColumn == 'rating'">
+			where rating like #{keyword}
+		</if>
+		order by review_no
+	</select>
+
+	<select id="getTotalCount" resultType="int">
+		select count(*) from review
+		<if test="whatColumn == 'all'">
+			where user_id like #{keyword} or rating like #{keyword}
+		</if>
+		<if test="whatColumn == 'user_id'">
+			where user_id like #{keyword}
+		</if>
+		<if test="whatColumn == 'rating'">
+			where rating like #{keyword}
+		</if>
+	</select>
+
+	<select id="getAverageRating" resultType="double">
+		select avg(rating) from review where event_no = #{event_no}
+	</select>
+
+</mapper>

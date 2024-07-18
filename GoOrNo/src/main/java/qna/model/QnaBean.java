@@ -7,14 +7,15 @@ public class QnaBean {
 	private int qna_no;
 	private int user_no;
 	private String user_id;
-	@NotBlank(message = "Á¦¸ñÀÌ ´©¶ôµÇ¾ú½À´Ï´Ù.")
+	@NotBlank(message = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.")
 	private String subject;
-	@NotBlank(message = "³»¿ëÀÌ ´©¶ôµÇ¾ú½À´Ï´Ù.")
+	@NotBlank(message = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.")
 	private String content;
 	private int readcount;
 	private String regdate;
 	private int ref;
 	private int state;
+	
 	public int getQna_no() {
 		return qna_no;
 	}

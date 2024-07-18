@@ -16,6 +16,14 @@
 	</bean>
 
 	<context:component-scan base-package="users" />
+	<!-- woo 추가 -->
+	<context:component-scan base-package="bookmark" />
+    <context:component-scan base-package="favorite" />
+    <context:component-scan base-package="qna" />
+    <context:component-scan base-package="board" />
+    <context:component-scan base-package="comments" />
+    <context:component-scan base-package="alarm" />
+    <context:component-scan base-package="chat" />
 
 	<!-- 파일 업로드 할때 필요한 코드 -->
 	<bean id="multipartResolver"

@@ -17,10 +17,10 @@ public class ReportDeleteController {
 	private ReportDao reportDao;
 	
 	@RequestMapping(command)
-	public String doAction(@RequestParam("re_no") int re_no,
-													@RequestParam("whatColumn") String whatColumn,
-													@RequestParam( "keyword") String keyword,
-													@RequestParam("pageNumber") String pageNumber,
+	public String doAction(@RequestParam(value = "re_no") int re_no,
+													@RequestParam(value = "whatColumn", required = false) String whatColumn,
+													@RequestParam( value = "keyword", required = false) String keyword,
+													@RequestParam(value = "pageNumber", required = false) String pageNumber,
 													Model model) {
 		
 		reportDao.deleteReport(re_no);

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import report.model.ReportBean;
 import report.model.ReportDao;
@@ -12,19 +13,20 @@ import report.model.ReportDao;
 @Controller
 public class ReportDetailController {
 	private final String command = "/detail.report";
-	private final String gotoPage = "reportDetailAdmin";
+	//private final String gotoPage = "redirect:/list.report";
 	
 	@Autowired
 	private ReportDao reportDao;
 	
 	@RequestMapping(command)
-	public String doAction(@RequestParam("board_no") int board_no,
+	@ResponseBody
+	public ReportBean doAction(@RequestParam("board_no") int board_no,
 													@RequestParam("re_no") int re_no, 
 													@RequestParam("user_no") int user_no,
 													Model model,
-													@RequestParam(value = "whatColumn") String whatColumn,
-													@RequestParam(value = "keyword") String keyword,
-													@RequestParam(value = "pageNumber") String pageNumber) {
+													@RequestParam(value = "whatColumn", required = false) String whatColumn,
+													@RequestParam(value = "keyword", required = false) String keyword,
+													@RequestParam(value = "pageNumber", required = false) String pageNumber) {
 		
 		ReportBean rb = new ReportBean();
 		rb.setBoard_no(board_no);
@@ -40,6 +42,6 @@ public class ReportDetailController {
 		model.addAttribute("whatColumn", whatColumn);
 		model.addAttribute("keyword", keyword);
 		
-		return gotoPage;
+		return report;
 	}
 }

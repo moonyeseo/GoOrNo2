@@ -16,5 +16,10 @@
 	</bean>
 	
 	<context:component-scan base-package="board"/>
+	
+	<!-- woo 추가 -->
+	<context:component-scan base-package="alarm" />
+	<!-- woo 추가 : 게시판 실행이 안돼서 임시로 넣음 -->
+	<context:component-scan base-package="comments" />
 
 </beans>

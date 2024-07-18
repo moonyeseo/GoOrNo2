@@ -45,4 +45,14 @@
 	<update id="updateBoard">
 		update board set subject = #{ subject }, content = #{ content } where board_no = #{ board_no }
 	</update>
+	
+	<!-- woo 추가 : user_no에 따른 게시판 list -->
+	<select id="getBoardByUser_no" resultType="board.model.BoardBean">
+		select b.*, 
+               (select count(*) from comments where board_no = b.board_no) as commentCount
+          from board b 
+         where user_no = #{user_no} 
+         order by board_no desc
+	</select>
+	
 </mapper>

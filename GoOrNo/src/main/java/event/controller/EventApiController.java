@@ -110,6 +110,8 @@ public class EventApiController {
 			System.out.println("img : " + event.getImg());
 			System.out.println("lot : " + event.getLot());
 			System.out.println("lat : " + event.getLat());
+			System.out.println("���� : " + event.getLot());
+			System.out.println("�浵 : " + event.getLat());
 			System.out.println();
 
 			edao.insertEvent(event);

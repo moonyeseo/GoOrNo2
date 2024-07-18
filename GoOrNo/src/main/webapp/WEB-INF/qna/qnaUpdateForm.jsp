@@ -11,9 +11,9 @@
 				<div class="section-heading wow fadeIn" data-wow-duration="1s"
 					data-wow-delay="0.5s">
 					<br>
-					<h6>community</h6>
+					<h6>Notice</h6>
 					<h4>
-						<a href="list.qna" style="color:inherit;"><em>자유</em>게시판</a>
+						<a href="list.qna" style="color:inherit;">Q<em>&</em>A</a>
 					</h4>
 					<div class="line-dec"></div>
 				</div>
@@ -47,7 +47,7 @@
 											</tr>
 											<tr>
 												<td>
-													<textarea rows="10" style="resize:none;" name="content" class="form-control">${ qna.content }</textarea>
+													<textarea rows="10" style="resize:none;" name="content" class="form-control" maxlength="300">${ qna.content }</textarea>
 													<form:errors path="content" cssClass="err"></form:errors>
 												</td>	
 											</tr>
@@ -75,4 +75,3 @@
 <!-- 본문 끝 -->
 
 <%@include file = "../userCommon/userFooter.jsp" %> <!--  user header 부분 -->
-

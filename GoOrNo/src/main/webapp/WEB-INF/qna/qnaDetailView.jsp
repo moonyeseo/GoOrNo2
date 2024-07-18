@@ -1,6 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>  
 <%@ include file = "../userCommon/userHeader.jsp" %>
+<!-- 챗봇 -->
+<div id="asideChatbot" class="asideChatbot " style="heigth: 80%">
+	<%@include file="../chatbot/chatbot.jsp"%>
+</div>
+
+<div id="chatbotIcon" style="heigth: 20%">
+	<%@include file="../chatbot/chatbotIcon.jsp"%>
+</div>
+
+<!-- 캘린더 아이콘 -->
+<div id="calendarIcon" style="heigth: 20%">
+	<%@include file="../event/calendarIcon.jsp"%>
+</div>
+
 <!-- 본문 시작 -->
 <div id="contact" class="contact-us section">
 	<div class="container"> 
@@ -10,9 +24,9 @@
 				<div class="section-heading wow fadeIn" data-wow-duration="1s"
 					data-wow-delay="0.5s">
 					<br>
-					<h6>community</h6>
+					<h6>Notice</h6>
 					<h4>
-						<a href="list.qna" style="color:inherit;"><em>자유</em>게시판</a>
+						<a href="list.qna" style="color:inherit;">Q<em>&</em>A</a>
 					</h4>
 					<div class="line-dec"></div>
 				</div>
@@ -38,9 +52,16 @@
 										</tr>
 										<tr>
 											<!-- 작성자 ID -->
-											<td align="left" style="width: 10%">${ qna.user_id }</td>
+											<td align="left" style="width: 20%">
+												<c:if test="${ qna.user_no eq '' }">
+													<font color="gray">탈퇴한 회원</font>
+												</c:if>
+												<c:if test="${ qna.user_no ne '' }">
+													${ qna.user_id }
+												</c:if>	
+											</td>
 											<!-- 작성일  -->
-											<td align="left" style="width: 80%">
+											<td align="left" style="width: 70%">
 												<fmt:parseDate var="parsedDate" pattern="yyyy-MM-dd">${ fn:substring(qna.regdate,0,10) }</fmt:parseDate>
 												<fmt:formatDate value="${ parsedDate }" pattern="yyyy-MM-dd"/>
 											</td>

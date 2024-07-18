@@ -1,5 +1,5 @@
  <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%> 
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -110,7 +110,8 @@ span{
 										<tr>
 											<td align="right">
 												<input type="hidden" id="isSuccess" value="${ isSuccess }">
-												<button onClick="location.href='delete.qna?isAdmin=yes&qna_no=${ qna.qna_no}'" class="btn btn-light">삭제</button>
+												<button onClick="location.href='detail.qna?qna_no=${ qna.qna_no}'" class="btn btn-light">글 바로가기</button>
+												<button onClick="location.href='delete.qna?isAdmin=yes&qna_no=${ qna.qna_no}'" class="btn btn-secondary">삭제</button>
 												<button onClick="location.href='update.qna?isAdmin=yes&qna_no=${ qna.qna_no}'" class="btn btn-light">수정</button>
 											</td>
 										</tr>
@@ -120,7 +121,7 @@ span{
 											</td>
 										</tr>
 										<tr>
-											<td>${ qna.content }</td>	
+											<td style="overflow:hidden; word-break:break-all;">${ qna.content }</td>	
 										</tr>
 									</table>
 									<!-- 테이블 끝 -->
@@ -139,4 +140,3 @@ span{
 </div>
 <!-- 본문 끝 -->
 </body>
-

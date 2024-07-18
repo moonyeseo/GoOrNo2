@@ -1,6 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>  
 <%@ include file = "../userCommon/userHeader.jsp" %>
+<!-- 챗봇 -->
+<div id="asideChatbot" class="asideChatbot " style="heigth: 80%">
+	<%@include file="../chatbot/chatbot.jsp"%>
+</div>
+
+<div id="chatbotIcon" style="heigth: 20%">
+	<%@include file="../chatbot/chatbotIcon.jsp"%>
+</div>
+
+<!-- 캘린더 아이콘 -->
+<div id="calendarIcon" style="heigth: 20%">
+	<%@include file="../event/calendarIcon.jsp"%>
+</div>
+
 <!-- 본문 시작 -->
 <div id="contact" class="contact-us section">
 	<div class="container">
@@ -10,9 +24,9 @@
 				<div class="section-heading wow fadeIn" data-wow-duration="1s"
 					data-wow-delay="0.5s">
 					<br>
-					<h6>community</h6>
+					<h6>Notice</h6>
 					<h4>
-						<a href="list.qna" style="color:inherit;"><em>Q&A</em></a>
+						<a href="list.qna" style="color:inherit;">Q<em>&</em>A</a>
 					</h4>
 					<div class="line-dec"></div>
 				</div>
@@ -47,7 +61,7 @@
 											<!-- 글 작성 버튼 -->
 											<tr>
 												<td colspan="5" align="right">
-													<input type="button" onClick="location.href='insert.qna?pageNumber=${pageInfo.pageNumber}&whatColumn=${ pageInfo.whatColumn }&keyword=${ pageInfo.keyword }'" value="글쓰기" class="btn btn-secondary">
+													<input type="button" onClick="return writeQna()" value="글쓰기" class="btn btn-secondary">
 												</td>
 											</tr>
 											<!-- 컬럼 제목 -->
@@ -84,7 +98,14 @@
 															<a href="detail.qna?qna_no=${ qlists[i].qna_no }&pageNumber=${param.pageNumber}&whatColumn=${ param.whatColumn }&keyword=${ param.keyword }"><font color="black">${ qlists[i].subject }</font></a> &nbsp;
 														</td>
 														<!-- 작성자 -->
-														<td align="center">${ qlists[i].user_id }</td>
+														<td align="center">
+															<c:if test="${ qlists[i].user_no eq '' }">
+																<font color="gray">탈퇴한 회원</font>
+															</c:if>
+															<c:if test="${ qlists[i].user_no ne '' }">
+																${ qlists[i].user_id }
+															</c:if>	
+														</td>
 														<!-- 작성일 -->
 														<td align="center">
 															<fmt:parseDate var="parsedDate" pattern="yyyy-MM-dd">${ fn:substring(qlists[i].regdate,0,10) }</fmt:parseDate>
@@ -114,5 +135,17 @@
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+const id = '${ sessionScope.id }';
+
+function writeQna(){
+	if(id == ''){
+		alert("로그인한 회원만 글을 작성할 수 있습니다.");
+		return false;
+	}else{
+		location.href='insert.qna?pageNumber=${pageInfo.pageNumber}&whatColumn=${ pageInfo.whatColumn }&keyword=${ pageInfo.keyword }';
+	}
+}
+</script>
 <!-- 본문 끝 -->
 <%@include file = "../userCommon/userFooter.jsp" %> <!--  user header 부분 -->
