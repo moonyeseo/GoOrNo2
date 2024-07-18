@@ -50,8 +50,9 @@ public class QnaDeleteController {
 		if(isAdmin == null) {
 			return gotoPage;
 		}else {
+			model.addAttribute("isAdmin", "yes");
 			model.addAttribute("isSuccess", "yes");
-			return "qnaAdminDetailView";
+			return gotoPage;
 		}
 	}
 

@@ -26,7 +26,10 @@
 					<tr>
 						<td colspan="5" align="right">
 							<form action="list.faq">
+								<!-- 글작성 및 바로가기 버튼 -->
 								<button onclick="insertFaq()" class="btn btn-secondary" style="float: left;">글작성</button>
+								<input type="button" class="btn btn-light" value="FAQ 바로가기" onclick="return listFaq()" style="float: left;">
+								
 								<input type="hidden" name="isAdmin" value="yes">
 								<select name="whatColumn" class="form-select" style="width : 15%; display:inline;">
 									<option value="all">전체 검색</option>
@@ -106,7 +109,7 @@
 								<th>글내용</th>
 							</tr>
 							<tr>
-								<td id="answer"></td>
+								<td id="answer" style="overflow:hidden; word-break:break-all;"></td>
 							</tr>
 						</table>
 					</form>
@@ -133,6 +136,12 @@ function viewAnswer(answer, no, index){
 	document.getElementById("deleteBtn").disabled = false;
 	document.getElementById("updateBtn").disabled = false;
 }
+
+//FAQ 바로가기
+function listFaq(){
+	location.href="list.faq?faq_no="+faq_no;
+}
+
 //게시글 삭제
 function deleteFaq(){
 	if(!confirm('삭제하면 복구할수 없습니다.\n정말로 삭제하시겠습니까?')){
@@ -153,8 +162,8 @@ function updateFaq(){
 	var name = 'FAQ 수정';
 	var options = 'width = ' + _width + ', height = ' + _height + ', location = no, top = '+ _top + ', left = ' + _left;
 	var windowPopup = window.open(url, name, options);
-	
 }
+
 //게시글 작성
 function insertFaq(){
 	// 팝업창을 중앙에 생성하기
@@ -164,9 +173,7 @@ function insertFaq(){
 	var name = 'FAQ 작성';
 	var options = 'width = ' + _width + ', height = ' + _height + ', location = no, top = '+ _top + ', left = ' + _left;
 	var windowPopup = window.open(url, name, options);
-	
 }
-
 </script>
 
 <%@include file = "../adminCommon/adminFooter.jsp" %> <!--  admin footer 부분 -->

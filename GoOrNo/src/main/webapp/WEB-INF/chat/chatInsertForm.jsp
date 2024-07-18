@@ -97,7 +97,7 @@ span{
 											<tr>
 												<td colspan="2">
 													<font size="3px"><b>채팅방 이름</b></font>
-													<input type="text" name="alias" value="${ chat.alias }" class="form-control" style="width:100%; diaply:inline;">
+													<input type="text" name="alias" value="${ chat.alias }" class="form-control" style="width:100%; diaply:inline;" maxlength="30">
 													<form:errors path="alias" cssClass="err"></form:errors>
 												</td>
 											</tr>

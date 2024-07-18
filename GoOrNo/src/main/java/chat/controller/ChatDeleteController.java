@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import chat.model.ChatBean;
 import chat.model.ChatDao;
 import chat.model.ChatMemberDao;
+import chat.model.ChatMessageBean;
+import chat.model.ChatMessageDao;
 import users.model.UsersBean;
 import users.model.UsersDao;
 
@@ -28,6 +30,9 @@ public class ChatDeleteController {
 	ChatMemberDao chatMemberDao;
 	
 	@Autowired
+	ChatMessageDao chatMessageDao;
+	
+	@Autowired
 	UsersDao usersDao;
 	
 
@@ -39,7 +44,7 @@ public class ChatDeleteController {
 			@RequestParam("chat_no") int chat_no
 			) {
 		System.out.println("==============================");
-		System.out.println("여기 chat_no : "+chat_no);
+		System.out.println("ChatDeleteController chat_no : "+chat_no);
 		
 		//admin delete chat
 		if(isAdmin != null) {
@@ -66,6 +71,13 @@ public class ChatDeleteController {
 			chatInfo.setUser_id(id);
 			int cnt2 = chatDao.deleteChatMember(chatInfo);
 			System.out.println("cnt2 : "+cnt2);
+			
+			if(cnt2 > 0) {
+				//save exit message in DB
+				String content = id+" is exit.";
+				ChatMessageBean message = new ChatMessageBean(0, chat_no, 1, "info", content, ""); //user_no, user_id, 'info'
+				chatMessageDao.writeMessage(message);
+			}
 		}
 		
 		model.addAttribute("isExit", "yes");

@@ -84,8 +84,8 @@ public class ChatRoomController {
 					int cnt =  chatMemberDao.insertMember(member);
 					if(cnt > 0) { 
 						//save endtered message in DB
-						String content = users.getId()+"is entered.";
-						ChatMessageBean message = new ChatMessageBean(0, chat_no, 1, "info", content, ""); //user_no占쎈뮉 1嚥∽옙, user_id占쎈뮉 'info'嚥∽옙 占쎄퐬占쎌젟
+						String content = users.getId()+" is entered.";
+						ChatMessageBean message = new ChatMessageBean(0, chat_no, 1, "info", content, ""); //user_no, user_id, 'info'
 						chatMessageDao.writeMessage(message);
 						
 						//send entered message to WebSoket 

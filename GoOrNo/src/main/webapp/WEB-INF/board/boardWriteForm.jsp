@@ -41,13 +41,13 @@
 											<tr>
 												<td>
 													<font size="4px"><b> 제목 </b></font>
-													<input type="text" name="subject" value="${ board.subject }" class="form-control" style="width:80%; diaply:inline;">
+													<input type="text" name="subject" value="${ board.subject }" class="form-control" style="width:80%; diaply:inline;" maxlength="30">
 													<form:errors path="subject" cssClass="err"></form:errors>
 												</td>
 											</tr>
 											<tr>
 												<td>
-													<textarea class="form-control" placeholder="내용" style="resize:none;" name="content" rows="10"></textarea>
+													<textarea class="form-control" placeholder="내용" style="resize:none;" name="content" rows="10" maxlength="300"></textarea>
 													<form:errors path="content" cssClass="err"></form:errors>
 												</td>	
 											</tr>

@@ -1,7 +1,9 @@
 package qna.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -67,11 +69,13 @@ public class QnaUpdateController {
 			@ModelAttribute("qna") @Valid QnaBean qna,
 			BindingResult result,
 			Model model,
+			HttpServletResponse response,
 			@RequestParam(value="isAdmin", required = false) String isAdmin,
 			@RequestParam(value = "pageNumber", required = false) String pageNumber,
 			@RequestParam(value = "whatColumn", required = false) String whatColumn,
 			@RequestParam(value = "keyword", required = false) String keyword
 			) throws IOException {
+		response.setContentType("text/html; charset=UTF-8");
 		
 		if (result.hasErrors()) {
 			if(isAdmin == null) {
@@ -91,7 +95,18 @@ public class QnaUpdateController {
 		if(isAdmin == null) {
 			return gotoPage+"?qna_no="+qna.getQna_no()+"&pageNumber="+pageNumber+"&keyword="+keyword+"&whatColumn="+whatColumn;
 		}else {
-			model.addAttribute("isSuccess", "yes");
+			PrintWriter out = response.getWriter();
+			
+			if(cnt > 0) {
+				out.append("<script>alert('수정되었습니다.')</script>");
+				//reload parents page
+				model.addAttribute("isSuccess", "yes");
+			}else {
+				out.append("<script>alert('수정에 실패하였습니다.')</script>");
+			}
+			
+			out.flush();
+			
 			return "qnaAdminUpdateForm";
 		}
 	}

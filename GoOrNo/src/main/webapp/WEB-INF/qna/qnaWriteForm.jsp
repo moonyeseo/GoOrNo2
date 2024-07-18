@@ -11,9 +11,9 @@
 				<div class="section-heading wow fadeIn" data-wow-duration="1s"
 					data-wow-delay="0.5s">
 					<br> 
-					<h6>community</h6>
+					<h6>Notice</h6>
 					<h4> 
-						<a href="list.qna" style="color:inherit;"><em>자유</em>게시판</a>
+						<a href="list.qna" style="color:inherit;">Q<em>&</em>A</a>
 					</h4>
 					<div class="line-dec"></div>
 				</div>
@@ -41,13 +41,13 @@
 											<tr>
 												<td>
 													<font size="4px"><b> 제목 </b></font>
-													<input type="text" name="subject" value="${ qna.subject }" class="form-control" style="width:80%; diaply:inline;">
+													<input type="text" name="subject" value="${ qna.subject }" class="form-control" style="width:80%; diaply:inline;" maxlength="30">
 													<form:errors path="subject" cssClass="err"></form:errors>
 												</td>
 											</tr>
 											<tr>
 												<td>
-													<textarea class="form-control" placeholder="내용" style="resize:none;" name="content" rows="10"></textarea>
+													<textarea class="form-control" placeholder="내용" style="resize:none;" name="content" rows="10" maxlength="300"></textarea>
 													<form:errors path="content" cssClass="err"></form:errors>
 												</td>	
 											</tr>
