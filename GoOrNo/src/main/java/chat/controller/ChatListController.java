@@ -54,8 +54,8 @@ public class ChatListController {
 		String url = request.getContextPath()+this.command;
 		Paging pageInfo = new Paging(pageNumber,"12",totalCount,url,null,keyword);
 		
+		//chatList
 		List<ChatBean> clists = chatDao.getChatList(map, pageInfo);
-		
 		
 		//get last chat
 		for(int i = 0 ; i < clists.size() ; i++) {
@@ -84,8 +84,8 @@ public class ChatListController {
 		return getPage;
 	}
 	
-	/* woo 추가� */
-	//로그인한 유저가 참여 중인 채팅방 개수 추가
+	/* woo 異붽�占� */
+	//濡쒓렇�씤�븳 �쑀��媛� 李몄뿬 以묒씤 梨꾪똿諛� 媛쒖닔 異붽�
 	@RequestMapping(value = "/chatCount.chat", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public int getChatCount(HttpSession session) {
