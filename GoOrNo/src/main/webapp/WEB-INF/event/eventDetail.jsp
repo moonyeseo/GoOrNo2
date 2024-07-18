@@ -146,11 +146,12 @@
 
 						<div>
 							<div class="starRev" id="rating">
-								<input type="hidden" id="count"> <span class="starR"
-									id="1">⭐</span> <span class="starR" id="2">⭐</span> <span
-									class="starR" id="3">⭐</span> <span class="starR" id="4">⭐</span>
+								<input type="hidden" id="count">
+								<span class="starR" id="1">⭐</span>
+								<span class="starR" id="2">⭐</span>
+								<span class="starR" id="3">⭐</span>
+								<span class="starR" id="4">⭐</span>
 								<span class="starR" id="5">⭐</span>
-
 							</div>
 
 							<c:if test="${ loginInfo.id ne null }">
@@ -224,7 +225,7 @@
 												</c:if>
 											</td>
 										</tr>
-									</c:forEach>
+									</c:forEach> 
 								</c:if>
 							</table>
 						</div>

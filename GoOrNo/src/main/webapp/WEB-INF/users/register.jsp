@@ -235,7 +235,7 @@
 											<label class="form-label">ID</label>
 											<div class="input-group has-validation">
 												<input type="text" name="id" value="${users.id }"
-													class="form-control" required> <input type="button"
+													class="form-control" maxlength="10" required> <input type="button"
 													class="btn" id="name_check" value="  Check  "
 													style="background-color: #D8D8D8;">
 
@@ -250,7 +250,7 @@
 										<div class="col-12">
 											<label class="form-label">Password</label> <input
 												type="password" name="pw" value="${users.pw }"
-												class="form-control" required>
+												class="form-control" maxlength="10" required>
 											<div class="invalid-feedback">Please enter your
 												password!</div>
 										</div>
@@ -271,7 +271,7 @@
 										<br>
 										<div class="col-12">
 											<label class="form-label">Email</label> <input type="email"
-												name="email" value="${users.email }" class="form-control"
+												name="email" value="${users.email }" class="form-control" maxlength="15"
 												required>
 											<div class="invalid-feedback">Please enter your
 												password!</div>
@@ -279,7 +279,7 @@
 										<br>
 										<div class="col-12">
 											<label class="form-label">name</label> <input type="text"
-												name="name" value="${users.name }" class="form-control"
+												name="name" value="${users.name }" class="form-control" maxlength="10"
 												required>
 											<div class="invalid-feedback">Please enter your
 												password!</div>
