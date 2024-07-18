@@ -22,8 +22,8 @@ table {
 		<h1>User</h1>
 		<nav>
 			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><a href="mainAdmin.jsp">Home</a></li>
-				<li class="breadcrumb-item active">Users</li>
+				<li class="breadcrumb-item"><a href="#">User</a></li>
+				<li class="breadcrumb-item active">List</li>
 			</ol>
 		</nav>
 	</div>
@@ -37,31 +37,31 @@ table {
 
 					<div class="card">
 						<div class="card-body">
-							<h5 class="card-title">UserList</h5>
-
-							<form action="list.users" method="post" align="center">
-								<div class="search-bar">
-									<select name="whatColumn"
-										style="height: 37px; vertical-align: middle;">
-										<option value="all">전체 검색</option>
-										<option value="name">이름 검색</option>
-										<option value="gender">성별 검색</option>
-									</select> <input type="text" name="keyword" placeholder="Search"
-										style="height: 37px; vertical-align: middle;"> <input
-										type="submit" value="검색" class="btn btn-dark">
-								</div>
-							</form>
-							<br>
 							<div style="text-align: center;">
-								<table class="table table-borderless">
+								<table class="table table-borderless"  style="margin-top :10px;">
 									<thead>
+											<!-- 게시판 검색 -->
+											<tr>
+												<td colspan="6" align="right">
+													<form  action="list.users" method="post" >
+														<select name="whatColumn" class="form-select" style="width : 15%; display:inline;">
+															<option value="all">전체 검색</option>
+															<option value="name">이름</option>
+															<option value="gender">성별</option>
+														</select>
+														<input type="text" name="keyword" class="form-control" style="width : 15%; display:inline;">
+														<input type="submit" value="검색" class="btn btn-secondary">
+													</form>
+												</td>
+											</tr>
 										<tr>
-											<th>번호</th>
-											<th>이름</th>
-											<th>아이디</th>
-											<th>성별</th>
-											<th>이메일</th>
-											<th>상세보기</th>
+										<tr>
+											<th  scope="col" width="10%" style="text-align: center">번호</th>
+											<th  scope="col" width="10%" style="text-align: center">이름</th>
+											<th  scope="col" width="10%" style="text-align: center">아이디</th>
+											<th  scope="col" width="10%" style="text-align: center">성별</th>
+											<th  scope="col" width="10%" style="text-align: center">이메일</th>
+											<th  scope="col" width="10%" style="text-align: center">상세보기</th>
 										</tr>
 									</thead>
 
@@ -82,7 +82,7 @@ table {
 												<td>${users.gender }</td>
 												<td>${users.email }</td>
 												<td>
-													<button type="button" class="btn btn-dark"
+													<button type="button"  class="btn btn-secondary"
 														onclick="update('${users.user_no }','${param.whatColumn}', '${param.keyword}', '${pageInfo.pageNumber}')">확
 														인</button>
 												</td>

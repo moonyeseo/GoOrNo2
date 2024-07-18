@@ -6,7 +6,7 @@
       <h1>Chat</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Chat</a></li>
+          <li class="breadcrumb-item"><a href="#">Chat</a></li>
           <li class="breadcrumb-item active">List</li>
         </ol>
       </nav>

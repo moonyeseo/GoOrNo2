@@ -6,7 +6,7 @@
       <h1>Comunity</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Board</a></li>
+          <li class="breadcrumb-item"><a href="#">Board</a></li>
           <li class="breadcrumb-item active">List</li>
         </ol>
       </nav>

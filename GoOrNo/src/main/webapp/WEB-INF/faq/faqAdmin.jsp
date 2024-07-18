@@ -6,7 +6,7 @@
       <h1>Faq</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">FAQ</a></li>
+          <li class="breadcrumb-item"><a href="#">FAQ</a></li>
           <li class="breadcrumb-item active">List</li>
         </ol>
       </nav>

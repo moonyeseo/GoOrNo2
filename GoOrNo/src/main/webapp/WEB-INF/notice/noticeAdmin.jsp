@@ -6,7 +6,7 @@
       <h1>Notice</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">공지사항</a></li>
+          <li class="breadcrumb-item"><a href="#">Notice</a></li>
           <li class="breadcrumb-item active">List</li>
         </ol>
       </nav>
