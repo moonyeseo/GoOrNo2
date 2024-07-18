@@ -71,12 +71,18 @@ public class ChatDao {
 		return cnt;
 	}
 	
-	/* woo 추가 */
+	/* woo */
 	public List<ChatBean> getChatByUser_no(int user_no){
-		return sst.selectList(namespace + ".getChatByUser_no", user_no);
+		System.out.println("getChatByUser_no : " + user_no);
+		List<ChatBean> chatList = sst.selectList(namespace + ".getChatByUser_no", user_no);
+		return chatList; 
 	}
 	
 	public int getChatCountByUser_no(int user_no) {
 		return sst.selectOne(namespace + ".getChatCountByUser_no", user_no);
+	}
+
+	public void downHeadcount(ChatBean chat) {
+		sst.update(namespace+".downHeadcount", chat);
 	}
 }

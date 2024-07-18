@@ -61,11 +61,11 @@ public class ChatRoomController {
 		
 		if(isAdmin == null) {
 			//get chatMemberList
-			List<ChatMemberBean> memberList = chatMemberDao.getMemberList(chat_no);
+			List<ChatMemberBean> memberListNow = chatMemberDao.getMemberList(chat_no);
 			UsersBean users = (UsersBean)session.getAttribute("loginInfo");
 			
-			if(memberList.size() > 0) {
-				for(ChatMemberBean member : memberList) {
+			if(memberListNow.size() > 0) {
+				for(ChatMemberBean member : memberListNow) {
 					//already chatMember
 					if(users.getId().equals(member.getUser_id())) {
 						isMember = true;
@@ -97,6 +97,9 @@ public class ChatRoomController {
 					}
 				}
 			}
+			//for member list in chatRoom
+			List<ChatMemberBean> memberList = chatMemberDao.getMemberList(chat_no);
+			model.addAttribute("memberList", memberList);
 		}//users
 		
 		model.addAttribute("mlists", mlists);
