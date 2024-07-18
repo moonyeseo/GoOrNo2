@@ -55,9 +55,9 @@
 										<c:forEach var="chat" items="${ clists }">
 										  <div class="col">
 										    <div class="card h-100">
-										     <div class="card-header bg-transparent">${ chat.alias }</div>
+										     <div class="card-header bg-transparent" style="text-overflow: ellipsis; white-space : nowrap; overflow : hidden;">${ chat.alias }</div>
 										      <div class="card-body">
-										        <p class="card-text">${ chat.lastChat }</p>
+										        <p class="card-text" style="text-overflow: ellipsis; white-space : nowrap; overflow : hidden;">${ chat.lastChat }</p>
 										      </div>
 										      <div class="card-footer text-center bg-transparent border-white">
 										      	<a onClick="popChatRoom('${ chat.chat_no }')" class="btn" style="background-color: #FA64B0; color: white;">채팅방 입장</a>

@@ -107,7 +107,7 @@
 								<th>글내용</th>
 							</tr>
 							<tr>
-								<td id="content"></td>
+								<td id="content" style="overflow:hidden; word-break:break-all;"></td>
 							</tr>
 						</table>
 					</form>

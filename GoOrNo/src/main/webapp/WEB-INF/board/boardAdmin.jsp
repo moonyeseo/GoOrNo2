@@ -72,7 +72,12 @@
 									</c:if>
 								</td>
 								<!-- 작성자 -->
-								<td align="center">${ blists[i].user_id }</td>
+								<td align="center">
+									${ blists[i].user_id }
+									<c:if test="${ blists[i].user_no eq '' }">
+										<font color="gray">(탈퇴)</font>
+									</c:if>
+								</td>
 								<!-- 작성일 -->
 								<td align="center">
 									<fmt:parseDate var="parsedDate" pattern="yyyy-MM-dd">${ fn:substring(blists[i].regdate,0,10) }</fmt:parseDate>
@@ -115,7 +120,7 @@
 								<th>글내용</th>
 							</tr>
 							<tr>
-								<td id="content"></td>
+								<td id="content" style="overflow:hidden; word-break:break-all;"></td>
 							</tr>
 						</table>
 					</form>
@@ -170,7 +175,7 @@ function getCommentList(board_no){
 			for(let i in commentLists){
 				output += "<tr>";
 				output += "<td width='15%' align='center'>"+commentLists[i].user_id+"</td>";
-				output += "<td width='65%' align='left'>"+commentLists[i].content+"</td>";
+				output += "<td width='65%' align='left' style='overflow:hidden; word-break:break-all;'>"+commentLists[i].content+"</td>";
 				output += "<td id='commentRegdate' width='20%' align='right'><font size='2px' style='white-space: nowrap;'>";
 				output += commentLists[i].regdate.substr(0,19)+"</font></td>";
 				output += "</tr>";

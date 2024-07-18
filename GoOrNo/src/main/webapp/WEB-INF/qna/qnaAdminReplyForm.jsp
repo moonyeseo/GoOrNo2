@@ -120,7 +120,7 @@ span{
 											</tr>
 											<tr>
 												<td>
-													<textarea class="form-control" placeholder="내용" style="resize:none;" name="content" rows="10">${ qna.content }</textarea>
+													<textarea class="form-control" placeholder="내용" style="resize:none;" name="content" rows="10" maxlength="300">${ qna.content }</textarea>
 													<form:errors path="content" cssClass="err"></form:errors>
 												</td>	
 											</tr>
@@ -146,4 +146,3 @@ span{
 </div>
 <!-- 본문 끝 -->
 </body>
-

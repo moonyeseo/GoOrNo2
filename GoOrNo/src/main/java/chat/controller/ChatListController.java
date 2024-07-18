@@ -84,7 +84,7 @@ public class ChatListController {
 		return getPage;
 	}
 	
-	/* woo 추가 */
+	/* woo 추가� */
 	//로그인한 유저가 참여 중인 채팅방 개수 추가
 	@RequestMapping(value = "/chatCount.chat", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody

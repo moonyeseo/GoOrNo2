@@ -30,14 +30,14 @@ public class QnaDetailController {
 			@RequestParam(value="keyword", required = false) String keyword
 			) {
 		
-		System.out.println("여기 QnaDetailController");
+		System.out.println("======QnaDetailController");
 		
-		if(isAdmin == null) { //����� ��û
+		if(isAdmin == null) { //users
 			qnaDao.updateReadcount(qna_no);
 			QnaBean qna = qnaDao.getQnaByNo(qna_no);
 			model.addAttribute("qna", qna);
 			return getPage;
-		}else { //������ ��û
+		}else { //admin
 			QnaBean qna = qnaDao.getReplyByOrgNo(qna_no);
 			model.addAttribute("qna", qna);
 			return "qnaAdminDetailView";
