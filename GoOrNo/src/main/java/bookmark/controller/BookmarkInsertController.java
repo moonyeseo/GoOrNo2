@@ -17,7 +17,7 @@ import bookmark.model.BookmarkDao;
 import users.model.UsersBean;
 
 @Controller
-public class BookmarkUpdateController {
+public class BookmarkInsertController {
 	
 	@Autowired
 	private BookmarkDao bookmarkDao;
@@ -25,14 +25,14 @@ public class BookmarkUpdateController {
 	@Autowired
 	ServletContext servletContext;
 	
-	private final String command = "/bookmarkUpdate.bookmark";
+	private final String command = "/bookmarkInsert.bookmark";
 	private final String gotoPage = "/myPage.users";
 	
 	@RequestMapping(value = command, method = RequestMethod.POST)
-	public ModelAndView bookmarkUpdate(@ModelAttribute("bookmarkBean") @Valid BookmarkBean bookmarkBean,
+	public ModelAndView bookmarkInsert(@ModelAttribute("bookmarkBean") @Valid BookmarkBean bookmarkBean,
 										HttpSession session) {
 		
-		System.out.println("-----BookmarkUpdateController()-----");
+		System.out.println("-----BookmarkInsertController()-----");
 		System.out.println("Received bookmarkBean: " + bookmarkBean);
 		
 		UsersBean loginInfo = (UsersBean) session.getAttribute("loginInfo");
@@ -46,10 +46,18 @@ public class BookmarkUpdateController {
 		
 		ModelAndView mav = new ModelAndView();
 		
-		int cnt = -1;
-		cnt = bookmarkDao.updateBookmark(bookmarkBean);
+		//기존 북마크 있는지 확인
+		BookmarkBean existBookmark = bookmarkDao.getBookmarkByUserNoAndType(bookmarkBean.getUser_no(), bookmarkBean.getType());
 		
-		System.out.println("Update cnt : " + cnt);
+		//있으면 삭제
+		if(existBookmark != null) {
+			bookmarkDao.deleteBookmark(existBookmark.getBook_no() , bookmarkBean.getUser_no(), bookmarkBean.getType());
+		}
+		
+		int cnt = -1;
+		cnt = bookmarkDao.insertBookmark(bookmarkBean);
+		
+		System.out.println("insert cnt : " + cnt);
 		
 		String contextPath = servletContext.getContextPath();
 		RedirectView redirectView = new RedirectView(contextPath + gotoPage + "?user_no=" + bookmarkBean.getUser_no());

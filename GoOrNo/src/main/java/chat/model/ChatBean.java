@@ -7,7 +7,7 @@ public class ChatBean {
 	private int maxcount;
 	private String createdate;
 	
-	//�߰�
+	//Ãß°¡
 	private String lastChat;
 	private String user_id;
 	

@@ -207,130 +207,6 @@ body {
 	<%@include file="../event/calendarIcon.jsp"%>
 </div>
 
-<%-- 
-<!-- ============ Header ============ -->
-<header id="header" class="header fixed-top d-flex align-items-center">
-	
-<!-- -----최상단----- -->
-	<nav class="header-nav ms-auto">
-		<ul class="d-flex align-items-center">
-
-		<!-- -----채팅(채팅 아이콘) 시작----- -->
-		<li class="nav-item dropdown">
-			<a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-				<i class="bi bi-chat-left-text"></i>
-				<span class="badge bg-success badge-number">3</span>
-			</a>
-		
-		<!-- 채팅 메시지 관련 -->
-		<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
-		<li class="dropdown-header">
-			You have 3 new messages
-			<a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-		</li>
-		
-		<li><hr class="dropdown-divider"></li>
-
-		<li class="message-item">
-			<a href="#">
-				<img src="<%=request.getContextPath() %>/resources/assetsAdmin/img/messages-1.jpg" alt="" class="rounded-circle">
-			<div>
-				<h4>Maria Hudson</h4>
-				<p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-				<p>4 hrs. ago</p>
-			</div>
-			</a>
-		</li>
-		
-		<li><hr class="dropdown-divider"></li>
-
-		<li class="message-item">
-			<a href="#">
-				<img src="<%=request.getContextPath() %>/resources/assetsAdmin/img/messages-2.jpg" alt="" class="rounded-circle">
-			<div>
-				<h4>Anna Nelson</h4>
-				<p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-				<p>6 hrs. ago</p>
-			</div>
-			</a>
-		</li>
-            
-		<li><hr class="dropdown-divider"></li>
-
-		<li class="message-item">
-			<a href="#">
-				<img src="<%=request.getContextPath() %>/resources/assetsAdmin/img/messages-3.jpg" alt="" class="rounded-circle">
-			<div>
-				<h4>David Muldon</h4>
-				<p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-				<p>8 hrs. ago</p>
-			</div>
-			</a>
-		</li>
-
-		<li><hr class="dropdown-divider"></li>
-
-		<li class="dropdown-footer">
-			<a href="#">Show all messages</a>
-		</li>
-
-		</ul><!-- End Messages Dropdown Items -->
-
-        </li><!-- End Messages Nav -->
-		<!-- -----채팅(채팅 아이콘) 끝----- -->
-
-
-		<!-- -----프로필(프로필 아이콘) 시작----- -->
-		<li class="nav-item dropdown pe-3">	
-			<a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-				<img src="${pageContext.request.contextPath}/resources/uploadImage/${usersBean.profile}" alt="Profile" class="rounded-circle">
-				<span class="d-none d-md-block dropdown-toggle ps-2">${usersBean.id}</span>
-			</a><!-- End Profile Iamge Icon -->
-		
-		<!-- 프로필 메시지 관련 -->
-		<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-		<li class="dropdown-header">
-			<h6>${usersBean.id}</h6>
-			<span>${usersBean.name}</span>
-		</li>
-
-		<li><hr class="dropdown-divider"></li>
-
-		<li>
-			<a class="dropdown-item d-flex align-items-center" href="#profile-section">
-				<i class="bi bi-person"></i>
-				<span>My Page</span>
-			</a>
-		</li>
-
-		<li><hr class="dropdown-divider"></li>
-
-		<li>
-			<a class="dropdown-item d-flex align-items-center" href="">
-				<i class="bi bi-gear"></i>
-				<span>Account Settings</span>
-			</a>
-		</li>
-
-		<li><hr class="dropdown-divider"></li>
-
-		<li>
-			<a class="dropdown-item d-flex align-items-center" href="#">
-				<i class="bi bi-box-arrow-right"></i>
-				<span>Sign Out</span>
-			</a>
-		</li>
-
-		</ul><!-- End Profile Dropdown Items -->
-		
-        </li><!-- End Profile Nav -->
-		<!-- -----프로필(프로필 아이콘) 끝----- -->
-
-		</ul>
-	</nav><!-- End Icons Navigation -->
-</header><!-- End Header -->
- --%>
-  
 
 <!-- ============ Sidebar(사이드바) ============ -->
 	<aside id="sidebar" class="sidebar" style="z-index: 900; position: fixed;">
@@ -355,10 +231,17 @@ body {
 
 			<li class="nav-item">
 				<a class="nav-link collapsed" href="#board-section">
-					<i class="bi bi-person"></i>
+					<i class="bi bi-clipboard-minus"></i>
 					<span>MyBoard</span>
 				</a>
 			</li><!-- End MyBoard Page Nav -->
+			
+			<li class="nav-item">
+				<a class="nav-link collapsed" href="#chat-section">
+					<i class="bi bi-chat-dots"></i>
+					<span>MyChat</span>
+				</a>
+			</li><!-- End MyChat Page Nav -->
 
 		</ul>
 
@@ -469,17 +352,15 @@ body {
 				<label for="profileImage" class="col-md-4 col-lg-3 col-form-label">프로필 사진</label>
 				<div class="col-md-8 col-lg-9">
 					<img src="${pageContext.request.contextPath}/resources/uploadImage/${usersBean.profile}" alt="Profile">
-					<div class="pt-2">
-						<%-- 
-						<input type="file" name="upload" class="btn btn-primary btn-sm" title="Upload new profile image" value="${usersBean.profile}">
-						<a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
-						 --%>
-						<input type="file" name="upload" id="upload" class="d-none">
-                <label for="upload" class="btn btn-primary btn-sm" title="Upload new profile image">
-                    <i class="bi bi-upload"></i>
-                </label>
-						
-						<a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
+					<div class="col-md-8 col-lg-9 d-flex align-items-center pt-2">
+						<input name="currentImage" type="text" class="form-control me-3 flex-grow-1" id="currentImage" value="${usersBean.profile}" readonly>
+						<input type="file" name="upload" id="upload" class="d-none" onchange="updateImageName()">
+			                <label for="upload" class="btn btn-outline-secondary btn-sm me-2" title="Upload new profile image">
+			                    <i class="bi bi-upload"></i>
+			                </label>
+			                <label class="btn btn-outline-danger btn-sm" title="Remove my profile image" onclick="deleteProfileImage(${usersBean.user_no})">
+			                	<i class="bi bi-trash"></i>
+			            	</label>
 					</div>
 				</div>
 			</div>
@@ -487,7 +368,7 @@ body {
 			<div class="row mb-3">
 				<label for="id" class="col-md-4 col-lg-3 col-form-label">아이디</label>
 				<div class="col-md-8 col-lg-9">
-					<input name="id" type="text" class="form-control" id="id" value="${usersBean.id}">
+					<input name="id" type="text" class="form-control" id="id" value="${usersBean.id}" readonly>
 				</div>
 			</div>
 			<div class="row mb-3">
@@ -513,9 +394,9 @@ body {
 			
 			<div class="row mb-3">
 				<label for="postcode" class="col-md-4 col-lg-3 col-form-label">우편번호</label>
-				<div class="col-md-8 col-lg-9">
-					<input type="text" name="postcode" class="form-control" id="postcode" value="${usersBean.postcode}" placeholder="우편번호">
-					<input type="button" class="btn btn-primary" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
+				<div class="col-md-8 col-lg-9 d-flex align-items-center">
+					<input type="text" name="postcode" class="form-control me-2" id="postcode" value="${usersBean.postcode}" placeholder="우편번호">
+					<input type="button" class="btn btn-outline-secondary" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
 				</div>
 			</div>
 			
@@ -527,8 +408,8 @@ body {
 			</div>
 
 			<div class="text-center">
-				<button type="submit" class="btn btn-primary">프로필 저장</button>
-				<button type="button" class="btn btn-danger" onclick="userDelete(${usersBean.user_no})">회원탈퇴</button>
+				<button type="submit" class="btn btn-outline-secondary">프로필 저장</button>
+				<button type="button" class="btn btn-outline-danger" onclick="userDelete(${usersBean.user_no})">회원탈퇴</button>
 			</div>
 			</form:form><!-- End Profile Edit Form -->
 			</div>
@@ -564,7 +445,7 @@ body {
 			</div>
 
 			<div class="text-center">
-				<button type="submit" class="btn btn-primary">비밀번호 변경</button>
+				<button type="submit" class="btn btn-outline-secondary">비밀번호 변경</button>
 			</div>
 			</form:form><!-- End Change Password Form -->
 			</div>
@@ -616,62 +497,62 @@ body {
 			<div class="tab-content pt-2">
 			<div class="tab-pane fade show active bookmark-spot" id="bookmark-spot">
 				
-				<form:form id="bookmark-house-form" method="post" action="${pageContext.request.contextPath}/bookmarkUpdate.bookmark">
+				<form:form id="bookmark-house-form" method="post" action="${pageContext.request.contextPath}/bookmarkInsert.bookmark">
 				<div class="bookmark-item">
 					<div class="bookmark-info">
 						<i class="bi bi-house"></i>
 						<div>
 						<div class="col-lg-3 col-md-4 label">집</div>
-						<input type="text" name="b_addr" id="houseAddr" value="${bookmarkList[0] != null && bookmarkList[0].type == 'house' ? bookmarkList[0].b_addr : ''}" placeholder="내 장소를 추가해보세요." class="form-control" readonly>
-						<input type="hidden" name="book_no" value="${bookmarkList[0] != null && bookmarkList[0].type == 'house' ? bookmarkList[0].book_no : 0}">
+						<input type="text" name="b_addr" id="houseAddr" value="${bookmarkList['house'] != null ? bookmarkList['house'].b_addr : ''}" placeholder="내 장소를 추가해보세요." class="form-control" readonly>
+						<input type="hidden" name="book_no" value="${bookmarkList['house'] != null ? bookmarkList['house'].book_no : 0}">
 						<input type="hidden" name="type" value="house">
-						<input type="hidden" name="b_post" id="housePost" value="${bookmarkList[0] != null && bookmarkList[0].type == 'house' ? bookmarkList[0].b_post : ''}">
+						<input type="hidden" name="b_post" id="housePost" value="${bookmarkList['house'] != null ? bookmarkList['house'].b_post : ''}">
 						</div>
 					</div>
 				<div class="bookmark-actions">
 					<button type="button" onclick="execDaumPostcode('house')"><i class="bi bi-pencil"></i></button>
 					<button type="submit"><i class="bi bi-save"></i></button>
-					<button type="button" onclick="bookmarkDelete('${bookmarkList[0].book_no}','${usersBean.user_no}','house')"><i class="bi bi-trash"></i></button>
+					<button type="button" onclick="bookmarkDelete('${bookmarkList['house'].book_no}','${usersBean.user_no}','house')"><i class="bi bi-trash"></i></button>
 				</div>
 				</div>
 				</form:form>
 				
-				<form:form id="bookmark-company-form" method="post" action="${pageContext.request.contextPath}/bookmarkUpdate.bookmark">
+				<form:form id="bookmark-company-form" method="post" action="${pageContext.request.contextPath}/bookmarkInsert.bookmark">
 				<div class="bookmark-item">
 					<div class="bookmark-info">
 						<i class="bi bi-building"></i>
 						<div>
 						<div class="col-lg-3 col-md-4 label">회사/학교</div>
-						<input type="text" name="b_addr" id="companyAddr" value="${bookmarkList[1] != null && bookmarkList[1].type == 'company' ? bookmarkList[1].b_addr : ''}" placeholder="내 장소를 추가해보세요." class="form-control" readonly>
-						<input type="hidden" name="book_no" value="${bookmarkList[1] != null ? bookmarkList[1].book_no : 0}">
+						<input type="text" name="b_addr" id="companyAddr" value="${bookmarkList['company'] != null ? bookmarkList['company'].b_addr : ''}" placeholder="내 장소를 추가해보세요." class="form-control" readonly>
+						<input type="hidden" name="book_no" value="${bookmarkList['company'] != null ? bookmarkList['company'].book_no : 0}">
 						<input type="hidden" name="type" value="company">
-						<input type="hidden" name="b_post" id="companyPost" value="${bookmarkList[1].type == 'company' ? bookmarkList[1].b_post : ''}">
+						<input type="hidden" name="b_post" id="companyPost" value="${bookmarkList['company'] != null ? bookmarkList['company'].b_post : ''}">
 						</div>
 					</div>
 				<div class="bookmark-actions">
 					<button type="button" onclick="execDaumPostcode('company')"><i class="bi bi-pencil"></i></button>
 					<button type="submit"><i class="bi bi-save"></i></button>
-					<button type="button" onclick="bookmarkDelete('${bookmarkList[1].book_no}','${usersBean.user_no}','company')"><i class="bi bi-trash"></i></button>
+					<button type="button" onclick="bookmarkDelete('${bookmarkList['company'].book_no}','${usersBean.user_no}','company')"><i class="bi bi-trash"></i></button>
 				</div>
 				</div>
 				</form:form>
 				
-				<form:form id="bookmark-star-form" method="post" action="${pageContext.request.contextPath}/bookmarkUpdate.bookmark">
+				<form:form id="bookmark-star-form" method="post" action="${pageContext.request.contextPath}/bookmarkInsert.bookmark">
 				<div class="bookmark-item">
 					<div class="bookmark-info">
 						<i class="bi bi-star"></i>
 						<div>
 						<div class="col-lg-3 col-md-4 label">자주가는곳</div>
-						<input type="text" name="b_addr" id="starAddr" value="${bookmarkList[2] != null && bookmarkList[2].type == 'star' ? bookmarkList[2].b_addr : ''}" placeholder="내 장소를 추가해보세요." class="form-control" readonly>
-						<input type="hidden" name="book_no" value="${bookmarkList[2] != null && bookmarkList[2].type == 'star' ? bookmarkList[2].book_no : 0}">
+						<input type="text" name="b_addr" id="starAddr" value="${bookmarkList['star'] != null ? bookmarkList['star'].b_addr : ''}" placeholder="내 장소를 추가해보세요." class="form-control" readonly>
+						<input type="hidden" name="book_no" value="${bookmarkList['star'] != null ? bookmarkList['star'].book_no : 0}">
 						<input type="hidden" name="type" value="star">
-						<input type="hidden" name="b_post" id="starPost" value="${bookmarkList[2] != null && bookmarkList[2].type == 'star' ? bookmarkList[2].b_post : ''}">
+						<input type="hidden" name="b_post" id="starPost" value="${bookmarkList['star'] != null ? bookmarkList['star'].b_post : ''}">
 						</div>
 					</div>
 				<div class="bookmark-actions">
 					<button type="button" onclick="execDaumPostcode('star')"><i class="bi bi-pencil"></i></button>
 					<button type="submit"><i class="bi bi-save"></i></button>
-					<button type="button" onclick="bookmarkDelete('${bookmarkList[2].book_no}','${usersBean.user_no}','star')"><i class="bi bi-trash"></i></button>
+					<button type="button" onclick="bookmarkDelete('${bookmarkList['star'].book_no}','${usersBean.user_no}','star')"><i class="bi bi-trash"></i></button>
 				</div>
 				</div>
 				</form:form>
@@ -706,7 +587,19 @@ body {
 				</tr>
 				<tr>
 					<td>
-						<div class="label"><b>${favorite.title}</b> [ ${favorite.performance_type} ]</div>
+						<div class="label" style="display: flex; align-items: center;">
+							<b>${favorite.title}</b> &nbsp;&nbsp; [ ${favorite.performance_type} ]
+							<div style="margin-left: 30px;">
+								<c:choose>
+									<c:when test="${avgRatingMap[favorite.event_no] != null}">
+										⭐ <fmt:formatNumber value="${avgRatingMap[favorite.event_no]}" type="number" maxFractionDigits="1" /> / 5
+									</c:when>
+									<c:otherwise>
+										⭐ 0.0 / 5
+									</c:otherwise>
+								</c:choose>
+							</div>
+						</div>
 					</td>
 				</tr>
 				<tr>
@@ -739,7 +632,7 @@ body {
 	<div class="pagetitle" id="board-section">
 		<nav>
 			<ol class="breadcrumb">
-			<li class="breadcrumb-item active">Baord</li>
+			<li class="breadcrumb-item active">Board</li>
 			</ol>
 		</nav>
 	</div>
@@ -804,7 +697,6 @@ body {
 						</td>
 					</tr>
 					</c:forEach>
-					
 				</table>
 				
 				</div>
@@ -879,6 +771,76 @@ body {
 	
 </section>
 <!-- -----내가쓴글 페이지 메인 내용 끝----- -->
+
+
+
+<!-- -----채팅 페이지 소제목 시작----- -->
+<section class="section chat" id="chat-section">
+	<div class="pagetitle" id="board-section">
+		<nav>
+			<ol class="breadcrumb">
+			<li class="breadcrumb-item active">Chat</li>
+			</ol>
+		</nav>
+	</div>
+<!-- -----채팅 페이지 소제목 끝----- -->
+
+<!-- -----채팅 페이지 메인 내용 시작----- -->
+		<!-- -----상세 탭----- -->
+	<div class="row">
+		<div class="col-xl-8">
+			<div class="card">
+			<div class="card-body pt-3">
+		
+			<!-- Bordered Tabs -->
+			<ul class="nav nav-tabs nav-tabs-bordered">
+
+			<li class="nav-item">
+				<button class="nav-link active" data-bs-toggle="tab" data-bs-target="#myChats">내채팅</button>
+			</li>
+
+			</ul>
+                
+                
+			<!-- -----내채팅 상세 내용----- -->
+			<div class="tab-content pt-2">
+			<div class="tab-pane fade show active profile-overview scrollable" id="myChats">
+
+				<div>
+				
+				<table class="table table-borderless" style="text-align: center;">
+					<tr>
+						<th>번호</th>
+						<th>제목</th>
+						<th>인원수</th>
+						<th>생성일</th>
+					</tr>
+					
+					<c:forEach var="chat" items="${myChatList}" varStatus="status">
+					<tr>
+						<td>${status.count}</td>
+						<td><a href="#" onclick="openChatRoom(event, ${chat.chat_no})">${chat.alias}</a></td>
+						<td>${chat.headcount} / ${chat.maxcount}</td>
+						<td>
+							<fmt:parseDate value="${chat.createdate}" var="dayFmt" pattern="yyyy-MM-dd"/>
+							<fmt:formatDate value="${dayFmt}" pattern="yyyy-MM-dd"/>
+						</td>
+					</tr>
+					</c:forEach>
+				</table>
+				
+				</div>
+				
+			</div>
+			
+			</div>
+			</div>
+			</div>
+		</div>
+	</div>
+	
+</section>
+<!-- -----채팅 페이지 메인 내용 끝----- -->
 
 </main><!-- End #main -->
 
@@ -1042,13 +1004,38 @@ document.querySelectorAll('form[id^="bookmark-"]').forEach(form => {
 });
 
 function userDelete(user_no) {
-	alert('userDelete');
+	//alert('userDelete');
 	if (confirm('회원탈퇴를 하시겠습니까?')) {
         location.href = "${pageContext.request.contextPath}/delete.users?user_no=" + user_no;
     }
 }
 
+function deleteProfileImage(user_no) {
+	//alert('deleteProfileImage');
+	if(confirm("프로필 이미지를 삭제하시겠습니까?")) {
+		location.href = "${pageContext.request.contextPath}/deleteProfileImage.users?user_no=" + user_no;
+    }
+}
 
+//이미지 선택시 파일명 변경
+function updateImageName() {
+    var fileInput = document.getElementById('upload');
+    var currentImage = document.getElementById('currentImage');
+    if (fileInput.files.length > 0) {
+        currentImage.value = fileInput.files[0].name;
+    } else {
+        currentImage.value = '${usersBean.profile}';
+    }
+}
+
+//채팅방 팝업 띄우기
+function openChatRoom(event, chat_no) {
+	event.preventDefault();
+    var url = "${pageContext.request.contextPath}/room.chat?chat_no=" + chat_no;
+    var name = "chatRoom";
+    var specs = "width=400,height=700";
+    window.open(url, name, specs);
+}
 
 </script>
 

@@ -48,7 +48,11 @@
 	
 	<!-- woo 추가 : user_no에 따른 게시판 list -->
 	<select id="getBoardByUser_no" resultType="board.model.BoardBean">
-		select * from board where user_no = #{user_no} order by board_no desc
+		select b.*, 
+               (select count(*) from comments where board_no = b.board_no) as commentCount
+          from board b 
+         where user_no = #{user_no} 
+         order by board_no desc
 	</select>
 	
 </mapper>

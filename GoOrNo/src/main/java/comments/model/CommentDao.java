@@ -35,11 +35,12 @@ public class CommentDao {
 		// 알림 생성
 		if (cnt > 0) {
             BoardBean board = boardDao.getBoardByNo(comment.getBoard_no());
+            
             if (board != null && board.getUser_no() != comment.getUser_no()) {
                 AlarmBean alarm = new AlarmBean();
                 alarm.setUser_no(board.getUser_no());
                 alarm.setUser_id(comment.getUser_id());
-                alarm.setMessage(comment.getBoard_subject() + " 에 댓글을 달았습니다.");
+                alarm.setMessage("'" + board.getSubject() + "' 에 댓글을 달았습니다.");
                 alarm.setAlarm_type("board");
                 alarm.setType_id(comment.getBoard_no());
                 alarm.setRead(0);

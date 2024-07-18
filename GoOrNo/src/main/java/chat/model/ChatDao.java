@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
 import utility.Paging;
@@ -68,5 +69,14 @@ public class ChatDao {
 			sst.update(namespace+".downHeadcount", chatInfo);
 		}
 		return cnt;
+	}
+	
+	/* woo 추가 */
+	public List<ChatBean> getChatByUser_no(int user_no){
+		return sst.selectList(namespace + ".getChatByUser_no", user_no);
+	}
+	
+	public int getChatCountByUser_no(int user_no) {
+		return sst.selectOne(namespace + ".getChatCountByUser_no", user_no);
 	}
 }

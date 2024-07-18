@@ -146,19 +146,18 @@
 
 						<div>
 							<div class="starRev" id="rating">
-								<input type="hidden" id="count">
-								<span class="starR" id="1">⭐</span>
-								<span class="starR" id="2">⭐</span>
-								<span class="starR" id="3">⭐</span>
-								<span class="starR" id="4">⭐</span>
+								<input type="hidden" id="count"> <span class="starR"
+									id="1">⭐</span> <span class="starR" id="2">⭐</span> <span
+									class="starR" id="3">⭐</span> <span class="starR" id="4">⭐</span>
 								<span class="starR" id="5">⭐</span>
+
 							</div>
 
 							<c:if test="${ loginInfo.id ne null }">
 								<table class="table table-borderless" style="width: 70%;">
 									<tr>
-										<td align="right">
-										<textarea name="comments" id="reviewComment" class="form-control"
+										<td align="right"><textarea name="comments"
+												id="reviewComment" class="form-control"
 												placeholder="리뷰를 작성해 보세요." style="resize: none;"></textarea></td>
 									</tr>
 									<tr>
@@ -188,8 +187,9 @@
 							<c:choose>
 								<c:when test="${averageRating != null and averageRating != 0}">
 								평균 별점:
-								 <span class="starR on">⭐</span> 
-								 <fmt:formatNumber value="${averageRating}" type="number" maxFractionDigits="1" /> / 5
+								 <span class="starR on">⭐</span>
+									<fmt:formatNumber value="${averageRating}" type="number"
+										maxFractionDigits="1" /> / 5
 								</c:when>
 								<c:otherwise>
 								평균 별점: 
@@ -249,23 +249,24 @@
 	});
 
 	function commentwirte() {
-		
+
 		const comments = document.getElementById("reviewComment").value;
 		const rating = document.getElementById("count").value;
 		const event_no = '${event.event_no}';
 		const id = '${loginInfo.id}';
-		
-		if (count == "" || rating == "") {
-	        alert("별점을 선택해주세요.");
-	        return;
-	    }
-		
-		if (comments == "") {
-	        alert("글을 작성해주세요.");
-	        return;
-	    }
 
-		  $.ajax({
+		if (count == "" || rating == "") {
+			alert("별점을 선택해주세요.");
+			return;
+		}
+
+		if (comments == "") {
+			alert("글을 작성해주세요.");
+			return;
+		}
+
+		$
+				.ajax({
 					type : "post",
 					url : "commit.review",
 					data : {
@@ -283,8 +284,8 @@
 							output += "<tr>";
 							output += "<td width='15%' align='left'>"
 									+ reviewLists[i].user_id + "</td>";
-
 							output += "<td width='25%' align='left'>";
+
 							for (let j = 1; j <= reviewLists[i].rating; j++) {
 								output += "<span class='starR on' id='" + j + "'>⭐</span>";
 							}
@@ -315,7 +316,10 @@
 						document.getElementById("reviewView").innerHTML = output;
 						document.getElementById("reviewComment").value = '';
 						document.getElementById("averageRating").innerHTML = "평균 별점: "
-								+ starIcon +"  "+ averageRating.toFixed(1) + " / 5";
+								+ starIcon
+								+ "  "
+								+ averageRating.toFixed(1)
+								+ " / 5";
 					},
 					error : function(request, status, error) {
 						alert("code:" + request.status + "\n" + "message:"

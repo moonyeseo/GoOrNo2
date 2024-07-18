@@ -23,6 +23,7 @@
     <context:component-scan base-package="board" />
     <context:component-scan base-package="comments" />
     <context:component-scan base-package="alarm" />
+    <context:component-scan base-package="chat" />
 
 	<!-- 파일 업로드 할때 필요한 코드 -->
 	<bean id="multipartResolver"

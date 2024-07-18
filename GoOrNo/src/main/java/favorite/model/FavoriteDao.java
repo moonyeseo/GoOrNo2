@@ -64,4 +64,10 @@ public class FavoriteDao {
 		
 		return cnt;
 	}
+	
+	//getAverageRating
+	public double getAverageRating(int event_no) {
+		Double avgRating = sqlSessionTemplate.selectOne(namespace + ".getAverageRating", event_no);
+		return (avgRating == null) ? 0.0 : avgRating;
+	}
 }

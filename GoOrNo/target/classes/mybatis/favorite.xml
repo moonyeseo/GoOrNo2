@@ -27,4 +27,8 @@
 		delete from favorite where favorite_no = #{favorite_no} and event_no = #{event_no} and user_no = #{user_no}
 	</delete>
 	
+	<select id="getAverageRating" resultType="double">
+		select avg(rating) from review where event_no = #{event_no}
+	</select>
+	
 </mapper>

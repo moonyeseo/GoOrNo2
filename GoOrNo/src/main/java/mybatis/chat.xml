@@ -59,4 +59,17 @@
 	<delete id="deleteChatMember">
 		delete from chatMember where chat_no = #{ chat_no } and user_id = #{ user_id }
 	</delete>
+	
+		<!-- woo 추가 -->
+	<select id="getChatByUser_no" resultType="chat.model.ChatBean">
+		select c.chat_no, c.alias, c.headcount, c.maxcount, c.createdate
+		from chat c
+		join chatMember cm on c.chat_no = cm.chat_no
+		where cm.user_no = #{user_no}
+		order by c.chat_no desc
+	</select>
+	
+	<select id="getChatCountByUser_no" resultType="int">
+		select count(*) from chatMember where user_no = #{user_no}
+	</select>
 </mapper>
