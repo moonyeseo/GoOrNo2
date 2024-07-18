@@ -185,8 +185,22 @@ body {
   overflow-y: auto;
 }
 
-</style>
+@media (min-width: 1200px) {
+  .logo {
+    width: 140px;
+  }
+}
 
+.logo img {
+  max-height: 100px;
+  margin-right: 6px;
+}
+
+.sidebar-nav {
+  padding-top: 80px;
+}
+
+</style>
 
 </head>
 
@@ -208,7 +222,7 @@ body {
 </div>
 
 <!-- ============ Sidebar(사이드바) ============ -->
-	<aside id="sidebar" class="sidebar" style="z-index: 900; position: fixed;">
+	<aside id="sidebar" class="sidebar" style="z-index: 0; position: fixed;">
 
 		<ul class="sidebar-nav" id="sidebar-nav">
 
@@ -845,7 +859,7 @@ body {
 
 <%@include file = "../userCommon/userFooter.jsp" %>
 
-  <!-- Vendor JS Files -->
+  <%-- <!-- Vendor JS Files -->
   <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="../../../assets/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="<%=request.getContextPath() %>/resources/assetsAdmin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="<%=request.getContextPath() %>/resources/assetsAdmin/vendor/chart.js/chart.umd.js"></script>
@@ -860,7 +874,7 @@ body {
 
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"89915ded48d16860","version":"2024.4.1","token":"68c5ca450bae485a842ff76066d69420"}' crossorigin="anonymous"></script>
 
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> --%>
 <script>
 //주소 수정
 function execDaumPostcode(type) {
