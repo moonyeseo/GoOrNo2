@@ -13,6 +13,10 @@
 
 <style type="text/css">
 
+header{
+   font-family : 'Poppins', sans-serif;   
+}
+
 body {
     padding-top: 180px; /* pre-header와 header-area 높이 합과 일치하도록 설정 */
 }
