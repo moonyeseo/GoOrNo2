@@ -112,6 +112,23 @@ background-color : white;
   top:0; left: 0; bottom: 0; right: 0;
   background: rgba(0, 0, 0, 0.2);
 }
+#memberPopup {
+  position:absolute;
+  border: 2px solid #BDBDBD;
+  width: 100px;
+  padding-top : 10px;
+  padding-bottom : 10px;
+  text-align: center;
+  top:8%;
+  left:5%;
+  /* padding-top:20px; */
+  background-color: white;
+}
+#modal2_background{
+  position: fixed;
+  top:0; left: 0; bottom: 0; right: 0;
+  background: rgba(0, 0, 0, 0);
+}
 </style>
 <script src="https://kit.fontawesome.com/792ff227d5.js" crossorigin="anonymous"></script>
 
@@ -119,8 +136,8 @@ background-color : white;
 <jsp:useBean id="now" class="java.util.Date"/>
 <fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:mm:ss" var="now" />
 
-<!-- 모달 배경 -->
-<div id="modal_background" style="display: none;">
+<!-- 채팅방 나가기 모달 -->
+<div id="modal_background" style="display: none;"><!-- 모달 배경 -->
 	<!-- 모달창 -->
 	<div id="confirmPopup" class="popup-wrap" aria-modal="true" >
 	  <div class="popup-inner">
@@ -140,6 +157,20 @@ background-color : white;
 	</div>
 </div>
 
+<!-- 멤버 리스트 모달 -->
+<div id="modal2_background" style="display: none;"><!-- 모달 배경 -->
+	<!-- 모달창 -->
+	<div id="memberPopup" class="popup-wrap" aria-modal="true" >
+	  <div class="popup-inner">
+	    <div class="popup-body">
+	      <c:forEach var="member" items="${ memberList }">
+	      	<div>${ member.user_id }</div>
+	      </c:forEach>
+	    </div>
+	  </div>
+	</div>
+</div>
+
 <!-- 본문 -->
 <div class="container">
 	<!-- 상단부 -->
@@ -154,10 +185,12 @@ background-color : white;
 		</div>
 		<!-- 채팅방 인원/정원 -->
 		<div class="col-lg-12" style="margin-top: -5px;">
-			<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-			  <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-			</svg>
-			<font size="2px">${ chatInfo.headcount } / ${ chatInfo.maxcount }</font>
+			<div id="btn-memberPopup">
+				<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+				  <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+				</svg>
+				<font size="2px">${ chatInfo.headcount } / ${ chatInfo.maxcount }</font>
+			</div>
 		</div>
 	</div>
 	
@@ -239,19 +272,28 @@ background-color : white;
     var input = document.getElementById("messageinput");
     var chat_no = '${ param.chat_no }';
     
-    //모달
+    //채팅방 나가기 모달
     $("#btn-showPopup").on("click", () => {
       $("#modal_background").show();
     })
-
     $("#btn-close").on("click", () => {
       $("#modal_background").hide();
     })
-	
     $("#btn-confirm").on("click", () => {
       // 채팅창 나가기 실행
       location.href = "delete.chat?chat_no="+chat_no;
       $("#modal_background").hide();
+    })
+    
+    //채팅 멤버 리스트 모달
+    $("#btn-memberPopup").on("click", () => {
+      $("#modal2_background").show();
+    })
+    $("#modal2_background").on("click", (e) => {
+    	//모달 외부 클릭시 모달창 닫힘
+		if(e.currentTarget == e.target){
+			$("#modal2_background").hide();
+		}
     })
     
     //엔터키 눌러도 메세지 전송
