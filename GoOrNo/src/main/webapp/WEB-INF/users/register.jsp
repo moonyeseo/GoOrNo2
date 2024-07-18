@@ -86,6 +86,9 @@
 							} else if (isCheck == false) {
 								alert("중복체크 하세요.");
 								return false;
+							} else if ($('#phoneDoubleChk').val() != "true") {
+								alert("본인인증을 완료해주세요.");
+								return false;
 							}
 						});
 
@@ -128,14 +131,12 @@
 		$("#phoneChk2").click(function() {
 			var enteredCode = $("#phone2").val();
 			if (enteredCode === code2) {
-				alert("인증번호가 일치합니다.")
 				$(".successPhoneChk").text("인증번호가 일치합니다.");
 				$(".successPhoneChk").css("color", "green");
 				$("#phoneDoubleChk").val("true");
 				$("#phone2").prop("disabled", true);
 
 			} else {
-				alert("인증번호가 일치하지 않습니다.")
 				$(".successPhoneChk").text("인증번호가 일치하지 않습니다.");
 				$(".successPhoneChk").css("color", "red");
 				$("#phoneDoubleChk").val("false");
