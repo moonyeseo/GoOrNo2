@@ -112,8 +112,8 @@
                 <tr>
                 	<td id="btnList"colspan="2">
                			
-	  					<input type="button" class="btn btn-outline-primary btn-sm" value="목록보기" onClick="location.href='list.event?eventNo=${event.event_no }&whatColumn=${param.whatColumn}&keyword=${param.keyword}&pageNumber=${pageNumber}'">
-	  					<input type="button" class="btn btn-outline-primary btn-sm" value="길찾기" onClick="location.href='search.bookmark?lat=${event.lat}&lot=${event.lot }&place=${event.place }'">
+	  					<input type="button" class="btn btn-secondary" value="목록보기" onClick="location.href='list.event?eventNo=${event.event_no }&whatColumn=${param.whatColumn}&keyword=${param.keyword}&pageNumber=${pageNumber}'">
+	  					<input type="button" class="btn btn-secondary" value="길찾기" onClick="location.href='search.bookmark?lat=${event.lat}&lot=${event.lot }&place=${event.place }'">
                 	</td>
                 </tr>
             </table>
