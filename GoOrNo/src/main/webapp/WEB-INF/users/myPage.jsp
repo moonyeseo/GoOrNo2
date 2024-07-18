@@ -185,8 +185,22 @@ body {
   overflow-y: auto;
 }
 
-</style>
+@media (min-width: 1200px) {
+  .logo {
+    width: 140px;
+  }
+}
 
+.logo img {
+  max-height: 100px;
+  margin-right: 6px;
+}
+
+.sidebar-nav {
+  padding-top: 80px;
+}
+
+</style>
 
 </head>
 
@@ -207,9 +221,8 @@ body {
 	<%@include file="../event/calendarIcon.jsp"%>
 </div>
 
-
 <!-- ============ Sidebar(사이드바) ============ -->
-	<aside id="sidebar" class="sidebar" style="z-index: 900; position: fixed;">
+	<aside id="sidebar" class="sidebar" style="z-index: 0; position: fixed;">
 
 		<ul class="sidebar-nav" id="sidebar-nav">
 
@@ -365,37 +378,37 @@ body {
 				</div>
 			</div>
 
-			<div class="row mb-3">
+			<div class="row mb-3"> 
 				<label for="id" class="col-md-4 col-lg-3 col-form-label">아이디</label>
 				<div class="col-md-8 col-lg-9">
 					<input name="id" type="text" class="form-control" id="id" value="${usersBean.id}" readonly>
 				</div>
 			</div>
 			<div class="row mb-3">
-				<label for="id" class="col-md-4 col-lg-3 col-form-label">이름</label>
+				<label for="name" class="col-md-4 col-lg-3 col-form-label">이름</label>
 				<div class="col-md-8 col-lg-9">
-					<input name="name" type="text" class="form-control" id="name" value="${usersBean.name}">
+					<input name="name" type="text" class="form-control" id="name" value="${usersBean.name}" required>
 				</div>
 			</div>
 
 			<div class="row mb-3">
 				<label for="email" class="col-md-4 col-lg-3 col-form-label">이메일</label>
 				<div class="col-md-8 col-lg-9">
-					<input name="email" type="text" class="form-control" id="email" value="${usersBean.email}">
+					<input name="email" type="email" class="form-control" id="email" value="${usersBean.email}" required>
 				</div>
 			</div>
 
 			<div class="row mb-3">
 				<label for="phoneNum" class="col-md-4 col-lg-3 col-form-label">휴대폰번호</label>
 				<div class="col-md-8 col-lg-9">
-					<input name="phoneNum" type="text" class="form-control" id="phoneNum" value="${usersBean.phoneNum}">
+					<input name="phoneNum" type="text" class="form-control" pattern="(010)\d{3,4}\d{4}" title="형식 01012345678" id="phoneNum" value="${usersBean.phoneNum}" placeholder="'-' 없이 작성해주세요." required>
 				</div>
 			</div>
 			
 			<div class="row mb-3">
 				<label for="postcode" class="col-md-4 col-lg-3 col-form-label">우편번호</label>
 				<div class="col-md-8 col-lg-9 d-flex align-items-center">
-					<input type="text" name="postcode" class="form-control me-2" id="postcode" value="${usersBean.postcode}" placeholder="우편번호">
+					<input type="text" name="postcode" class="form-control me-2" id="postcode" value="${usersBean.postcode}" placeholder="우편번호" required>
 					<input type="button" class="btn btn-outline-secondary" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
 				</div>
 			</div>
@@ -426,21 +439,21 @@ body {
 			<div class="row mb-3">
 				<label for="currentPw" class="col-md-4 col-lg-3 col-form-label">현재 비밀번호</label>
 				<div class="col-md-8 col-lg-9">
-					<input name="currentPw" type="password" class="form-control" id="currentPw">
+					<input name="currentPw" type="password" class="form-control" id="currentPw" required>
 				</div>
 			</div>
 
 			<div class="row mb-3">
 				<label for="newPw" class="col-md-4 col-lg-3 col-form-label">새로운 비밀번호</label>
 				<div class="col-md-8 col-lg-9">
-					<input name="newPw" type="password" class="form-control" id="newPw">
+					<input name="newPw" type="password" class="form-control" id="newPw" required>
 				</div>
 			</div>
 
 			<div class="row mb-3">
 				<label for="reNewPw" class="col-md-4 col-lg-3 col-form-label">새로운 비밀번호 확인</label>
 				<div class="col-md-8 col-lg-9">
-					<input name="reNewPw" type="password" class="form-control" id="reNewPw">
+					<input name="reNewPw" type="password" class="form-control" id="reNewPw" required>
 				</div>
 			</div>
 
@@ -846,7 +859,7 @@ body {
 
 <%@include file = "../userCommon/userFooter.jsp" %>
 
-  <!-- Vendor JS Files -->
+  <%-- <!-- Vendor JS Files -->
   <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="../../../assets/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="<%=request.getContextPath() %>/resources/assetsAdmin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="<%=request.getContextPath() %>/resources/assetsAdmin/vendor/chart.js/chart.umd.js"></script>
@@ -861,7 +874,7 @@ body {
 
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"89915ded48d16860","version":"2024.4.1","token":"68c5ca450bae485a842ff76066d69420"}' crossorigin="anonymous"></script>
 
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> --%>
 <script>
 //주소 수정
 function execDaumPostcode(type) {
@@ -929,7 +942,6 @@ function execDaumPostcode(type) {
 
 <!-- bookmark, favorite -->
 <script type="text/javascript">
-
 function bookmarkDelete(book_no, user_no, type) {
     event.preventDefault(); // 기본 동작 방지
     if (confirm('북마크를 삭제하시겠습니까?')) {
@@ -1028,13 +1040,20 @@ function updateImageName() {
     }
 }
 
+
 //채팅방 팝업 띄우기
 function openChatRoom(event, chat_no) {
 	event.preventDefault();
     var url = "${pageContext.request.contextPath}/room.chat?chat_no=" + chat_no;
     var name = "chatRoom";
-    var specs = "width=400,height=700";
-    window.open(url, name, specs);
+    var _width = 400;
+	var _height = 700;
+	var _top = Math.ceil(( window.screen.height - _height )/2-50);
+	var _left = Math.ceil(( window.screen.width - _width )/2);
+    
+    var options = 'width = ' + _width + ', height = ' + _height + ', location = no status = no, toolbar = no, top = '+ _top + ', left = ' + _left;
+	
+    window.open(url, name, options);
 }
 
 </script>
