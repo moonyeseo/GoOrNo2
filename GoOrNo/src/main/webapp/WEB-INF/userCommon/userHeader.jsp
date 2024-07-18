@@ -156,24 +156,25 @@
 	    });
 	}
 
-	/* 채팅 알림(?)
+	
 	function fetchChatCount() {
 		console.log("Fetching chat...");
         $.ajax({
             url: "${pageContext.request.contextPath}/chatCount.chat",
-            method: "GET",
+            method: "POST",
+            dataType: "json",
             success: function(data) {
             	console.log("AJAX 응답 데이터:", data);
             	let chatCount = data.length;
             	$('#chat-count').text(data);
             	$('#chat-count-header').text(data);
             },
-            error: function(xhr, status, error) {
-                console.error("AJAX Error: ", status, error);
-            }
+            error : function(request,status,error){
+                //alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+             }
         });
     }
-	*/
+	
 </script>
 
 <!-- 공통 영역 -->
@@ -265,7 +266,6 @@ https://templatemo.com/tm-568-digimedia
 								</ul>
 							</li>
 							<!-- 
-							채팅 아이콘
 							<li>
 								<a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
 									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-dots-fill" viewBox="0 0 16 16">
@@ -281,7 +281,7 @@ https://templatemo.com/tm-568-digimedia
 									<li><hr class="dropdown-divider"></li>
 								</ul>
 					        </li>
-							-->
+							 -->
 						</c:if>
 					</ul>
 				</div>
