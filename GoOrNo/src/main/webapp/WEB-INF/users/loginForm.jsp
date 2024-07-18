@@ -40,7 +40,7 @@ a:hover{
 									<div class="pt-4 pb-2">
 										<h5 class="card-title text-center pb-0 fs-3">Login</h5>
 										<p class="text-center small">Enter your id & password to
-											login</p>
+											login</p>  
 									</div>
 
 									<div class="col-12">
