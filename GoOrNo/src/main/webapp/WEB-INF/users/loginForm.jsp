@@ -46,7 +46,7 @@ a:hover{
 									<div class="col-12">
 										<label for="yourUsername" class="form-label">ID</label>
 										<div class="input-group has-validation">
-											<input type="text" name="id" class="form-control" id="id"
+											<input type="text" name="id" class="form-control" id="id" maxlength="20"
 												required >
 											<div class="invalid-feedback">아이디를 입력하세요.</div>
 										</div>
@@ -55,7 +55,7 @@ a:hover{
 
 									<div class="col-12">
 										<label for="yourPassword" class="form-label">Password</label>
-										<input type="password" name="pw" class="form-control" id="pw"
+										<input type="password" name="pw" class="form-control" id="pw" maxlength="20"
 											required>
 										<div class="invalid-feedback">비밀번호를 입력하세요.</div>
 									</div>
