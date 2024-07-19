@@ -24,7 +24,7 @@
         from comments c 
         join board b on c.board_no = b.board_no
         where c.user_no = #{user_no}
-        order by c.regdate asc
+        order by c.regdate desc
 	</select>
 	
 </mapper>
