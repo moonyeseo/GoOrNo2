@@ -11,25 +11,24 @@ import org.springframework.stereotype.Component;
 import utility.Paging;
 
 
-@Component("MyEventDao") // �� Ŭ������ Spring�� ������Ʈ�� �νĵǵ��� ��
+@Component("MyEventDao")
 public class EventDao {
-	// Ŀ�� �׽�Ʈ
-	@Autowired // ������ ������ ���� SqlSessionTemplate ��ü�� �ڵ����� ����
+	@Autowired
     SqlSessionTemplate sqlSessionTemplate;
-    private final String namespace = "event.model.Event"; // MyBatis ���� ���ӽ����̽� ����
+    private final String namespace = "event.model.Event";
     
     public EventDao() {
-        System.out.println("EventDao ������"); // ������: ��ü ���� �� �޽��� ���
+        System.out.println("EventDao ������"); 
     }
     
-    // ��� ���̺� ����
+    // 행사 테이블 비우기
     public int truncateEvent() {
     	int cnt = sqlSessionTemplate.delete(namespace + ".truncateEvent");
     	System.out.println("truncate = " + cnt);
     	return cnt;
     }
     
-    // �̺�Ʈ �߰�
+    // 행사 등록
     public int insertEvent(EventBean event) {
     	System.out.println("test1");
     	int cnt = -1;
@@ -45,7 +44,7 @@ public class EventDao {
     	
     }
 
-    // �̺�Ʈ ��ȸ
+    // 목록
     public List<EventBean> getAllEvents(Map<String, String> map, Paging pageInfo) {
     	RowBounds rowBounds = new RowBounds(pageInfo.getOffset(), pageInfo.getLimit());
         List<EventBean> lists = sqlSessionTemplate.selectList(namespace + ".getAllEvents", map, rowBounds);
@@ -54,35 +53,35 @@ public class EventDao {
         return lists;
     }
     
-    // �̺�Ʈ �� ���� ��ȸ
+    // 카테고리
     public List<String> getPerformanceType() {
 		List<String> lists = sqlSessionTemplate.selectList(namespace + ".getPerformanceType");
         System.out.println("lists.size() : " + lists.size());
         return lists;
     }
     
-    // �̺�Ʈ �� ��ȸ
+    // 번호로 조회
     public EventBean getEventByEventNo(int eventNo) {
     	EventBean event = null;
     	event = sqlSessionTemplate.selectOne(namespace + ".getEventByEventNo", eventNo);
     	return event;
     }
     
-    // �� �̺�Ʈ �� ��ȸ
+    // 전체 글
     public int getTotalCount(Map<String, String> map) {
     	int cnt = -1;
     	cnt = sqlSessionTemplate.selectOne(namespace + ".getTotalCount", map);
     	return cnt;
     }
     
-    // �̺�Ʈ ����
+    // 행사 수정
     public int updateEvent(EventBean event) {
     	int cnt = -1;
     	cnt = sqlSessionTemplate.update(namespace + ".updateEvent", event);
     	return cnt;
     }
     
-    // �ش� ��ȣ ����
+    // 행사 삭제
     public int deleteEvent(int eventNo) {
     	int cnt = -1;
     	cnt = sqlSessionTemplate.delete(namespace + ".deleteEvent", eventNo);
@@ -96,4 +95,7 @@ public class EventDao {
     	System.out.println("test2");
     	return cnt;
 	}
+	
+	
+	
 }

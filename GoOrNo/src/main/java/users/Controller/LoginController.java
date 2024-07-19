@@ -45,9 +45,9 @@ public class LoginController {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
 
-			if (ub == null) { // �뾾�뒗 �븘�씠�뵒 �씪 寃쎌슦.
+			if (ub == null) { // 존재하지 않는 아이디 일 경우.
 				out.println("<script>");
-				out.println("alert('議댁옱�븯吏� �븡�뒗 �븘�씠�뵒 �엯�땲�떎.');");
+				out.println("alert('존재하지 않는 아이디 입니다.');");
 				out.println("</script>");
 				out.flush();
 				return new ModelAndView(getPage);
@@ -58,14 +58,14 @@ public class LoginController {
 					session.setAttribute("loginInfo", ub);
 					session.setAttribute("id", ub.getId());
 
-					if (ub.getId().equals("admin")) { //  愿�由ъ옄 濡쒓렇�씤�쓣 �븷 寃쎌슦.
+					if (ub.getId().equals("admin")) { // 관리자로 로그인할 경우.
 						out.println("<script>");
-						out.println("alert('愿�由ъ옄�럹�씠吏�濡� �씠�룞�빀�땲�떎.');");
+						out.println("alert('관리자페이지로 이동합니다.');");
 						out.println("</script>");
 						out.flush();
 						return new ModelAndView(goPage2);
 
-					} else { // 愿�由ъ옄媛� �븘�땶 �씪諛� 濡쒓렇�씤�씤 寃쎌슦.
+					} else { // 관리자가 아닌 일반 사용자로 로그인할 경우.
 //						out.println("<script>");
 //						out.println("alert('諛섍컩�뒿�땲�떎! " + ub.getName() + "�떂')");
 //						out.println("</script>");
@@ -73,9 +73,9 @@ public class LoginController {
 						return new ModelAndView(goPage1);
 					}
 
-				} else { // �쉶�썝�� �엳吏�留�, 鍮꾨�踰덊샇媛� ���졇�쓣 寃쎌슦.
+				} else { // 회원이 존재하지만, 비밀번호가 틀렸을 경우.
 					out.println("<script>");
-					out.println("alert('鍮꾨�踰덊샇瑜� �떎�떆 �엯�젰�빐二쇱꽭�슂.');");
+					out.println("alert('비밀번호를 다시 입력해주세요.');");
 					out.println("</script>");
 					out.flush();
 					return new ModelAndView(getPage);

@@ -15,7 +15,6 @@ import event.model.EventBean;
 import event.model.EventDao;
 import review.model.ReviewBean;
 import review.model.ReviewDao;
-import users.model.UsersBean;
 import users.model.UsersDao;
 
 @Controller
