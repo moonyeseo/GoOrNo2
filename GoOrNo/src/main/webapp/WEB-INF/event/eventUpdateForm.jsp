@@ -55,7 +55,7 @@ https://templatemo.com/tm-568-digimedia
 body {
 	background-color: #FFE6EB;
 }
-
+   
 span{
 	font-size : 13px;
 	color : gray;
