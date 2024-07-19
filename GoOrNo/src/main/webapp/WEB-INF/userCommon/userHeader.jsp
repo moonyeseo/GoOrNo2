@@ -22,9 +22,6 @@ body {
 }
 
 .pre-header {
-    background-color: #efefef;
-    height: 60px;
-    padding: 15px 0px;
     position: fixed;
     top: 0;
     width: 100%;
@@ -34,7 +31,6 @@ body {
 .header-area {
     position: fixed;
     top: 60px; /* pre-header 높이만큼 내림 */
-    width: 100%;
     z-index: 1000;
 }
 
@@ -318,7 +314,7 @@ https://templatemo.com/tm-568-digimedia
 
 	<!-- ***** Header Area Start ***** -->
 	<header class="header-area header-sticky wow slideInDown"
-		data-wow-duration="0.75s" data-wow-delay="0s" style="z-index: 1000;">
+		data-wow-duration="0.75s" data-wow-delay="0s">
 		<div class="container">
 			<div class="row">
 				<div class="col-12">
