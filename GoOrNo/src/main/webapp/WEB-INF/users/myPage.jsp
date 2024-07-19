@@ -197,7 +197,17 @@ body {
 }
 
 .sidebar-nav {
-  padding-top: 80px;
+  padding-top: 10px;
+}
+
+.mypage {
+  font-family: "Open Sans", sans-serif;
+  font-size: 25px;
+  font-weight: 600;
+  color: #000000;
+  margin-left: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 </style>
@@ -223,10 +233,11 @@ body {
 
 <!-- ============ Sidebar(사이드바) ============ -->
 	<aside id="sidebar" class="sidebar" style="z-index: 0; position: fixed;">
+		<div class="mypage" id="mypage">
+			<b>MY PAGE</b>
+		</div>
 
 		<ul class="sidebar-nav" id="sidebar-nav">
-
-			<li class="nav-heading">MY PAGE</li>
 
 			<li class="nav-item">
 				<a class="nav-link" href="#profile-section">
