@@ -15,6 +15,10 @@
 			 eventPlace =  urlParams.get("place");
 			 
 			initTmap(eventLat, eventLon);
+			
+			if(eventLat != null){ // event 상세보기에서 바로 길찾기로 넘어온 경우
+				$("#endAddr").trigger("change");
+			}
 		});
 		
 		function getAddr(obj, addr){ // 집, 회사, 즐겨찾기 아이콘 클릭
@@ -131,35 +135,14 @@
 						iconSize : new Tmapv2.Size(64, 78),
 						map : map
 					});
-
+			
 			marker_e = new Tmapv2.Marker(
 					{
 						icon : "<%=request.getContextPath()%>/resources/image/destination_marker.png",
 						iconSize : new Tmapv2.Size(64, 78),
 						map : map
 					});
-
 			
-			if(eventLat != null){ // event 상세보기에서 바로 길찾기로 넘어온 경우
-				elat = eventLat;
-				elon = eventLon;
-
-				var markerPosition = new Tmapv2.LatLng(
-						Number(elat),
-						Number(elon));
-				
-				marker_e = new Tmapv2.Marker(
-						{
-							position : markerPosition,
-							icon : "<%=request.getContextPath()%>/resources/image/destination_marker.png",
-							iconSize : new Tmapv2.Size(64, 78),
-							map : map
-						});
-
-				map
-						.setCenter(markerPosition);
-			}
-
 			$("#startAddr")
 					.change(
 							function() {
