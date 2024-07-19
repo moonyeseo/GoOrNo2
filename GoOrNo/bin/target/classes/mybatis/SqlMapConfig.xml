@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+  
+  <configuration> 
+  
+  <typeAliases>
+		<typeAlias alias="MyUsers" type="users.model.UsersBean" />
+	</typeAliases>
+  
+  	<mappers>
+  		<mapper resource="mybatis/bookmark.xml"/>
+  		<mapper resource="mybatis/report.xml"/>
+		<mapper resource="mybatis/board.xml" />
+		<mapper resource="mybatis/user.xml" />
+		<mapper resource="mybatis/comment.xml" />
+		<mapper resource="mybatis/notice.xml" />
+		<mapper resource="mybatis/faq.xml" />
+		<mapper resource="mybatis/qna.xml" />
+		<mapper resource="mybatis/event.xml" />
+		<mapper resource="mybatis/chatbot.xml" />
+		<mapper resource="mybatis/favorite.xml" />
+  		<mapper resource="mybatis/users.xml" />
+  		<mapper resource="mybatis/alarm.xml" />
+  		<mapper resource="mybatis/review.xml"/>
+  		
+  	</mappers>
+  </configuration>

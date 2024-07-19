@@ -11,8 +11,34 @@
  
 <head>
 
-<!-- yoon 작성 -->
 <style type="text/css">
+
+header{
+   font-family : 'Poppins', sans-serif;   
+}
+
+body {
+    padding-top: 180px; /* pre-header와 header-area 높이 합과 일치하도록 설정 */
+}
+
+.pre-header {
+    background-color: #efefef;
+    height: 60px;
+    padding: 15px 0px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1001;
+}
+
+.header-area {
+    position: fixed;
+    top: 60px; /* pre-header 높이만큼 내림 */
+    width: 100%;
+    z-index: 1000;
+}
+
+
 .err {
 	color: red;
 	size: 1em;
@@ -68,12 +94,16 @@
 		    	popup = window.open("calendar.event?year="+today.getFullYear()+ "&month=" + (today.getMonth()+1) + "&day=" + today.getDate(), "calendar", "width=" + popupW + ",height =" + popupH +", left=" + left + ",top=" + top + ",scrollbars=yes,resizable=no,toolbar=no,titlebar=no,menubar=no,location=no");
 			});
 
-		/* 알림 */
-		if ("${sessionScope.loginInfo}" != "") {
-		       fetchUnreadAlarms();
-		       //setInterval(fetchUnreadAlarms, 5000);
-		  }
-	});
+	/* 알림 & 채팅 */
+	if ("${sessionScope.loginInfo}" != "") {
+        fetchUnreadAlarms();
+        fetchChatCount();
+        //setInterval(fetchUnreadAlarms, 5000);
+        //setInterval(fetchChatCount, 5000);
+    }
+	
+});
+
 
 	function goEvent(eventNo){
 		alert("goEvent");
@@ -113,7 +143,7 @@
 
                     });
 
-                 // 알림 클릭 시 읽음 상태로 변경하고 해당 글의 디테일 페이지로 이동
+                 	// 알림 클릭 시 읽음 상태로 변경하고 해당 글의 디테일 페이지로 이동
                     $('.alarm-link').click(function() {
                         let alarm_no = $(this).data('alarm_no');
                         let alarm_type = $(this).data('alarm_type');
@@ -129,7 +159,7 @@
         });
     }
 
-	function checkRead(alarm_no, alarm_type, type_id) {
+	function checkRead(alarm_no, alarm_type, type_id, user_id) {
 	    console.log("Marking alarm as read: " + alarm_no);
 	    $.ajax({
 	        url: "${pageContext.request.contextPath}/notifications/alarms/read",
@@ -152,7 +182,25 @@
 	    });
 	}
 
-
+	
+	function fetchChatCount() {
+		console.log("Fetching chat...");
+        $.ajax({
+            url: "${pageContext.request.contextPath}/chatCount.chat",
+            method: "POST",
+            dataType: "json",
+            success: function(data) {
+            	console.log("AJAX 응답 데이터:", data);
+            	let chatCount = data.length;
+            	$('#chat-count').text(data);
+            	$('#chat-count-header').text(data);
+            },
+            error : function(request,status,error){
+                //alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+             }
+        });
+    }
+	
 </script>
 
 <!-- 공통 영역 -->
@@ -243,6 +291,23 @@ https://templatemo.com/tm-568-digimedia
 									<li><hr class="dropdown-divider"></li>
 								</ul>
 							</li>
+							<!-- 
+							<li>
+								<a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-dots-fill" viewBox="0 0 16 16">
+										<path d="M16 8c0 3.866-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7M5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0m4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0m3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
+									</svg>
+									<span class="badge bg-primary badge-number" id="chat-count"></span>
+								</a>
+							
+								<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow chat" id="chat-list">
+									<li class="dropdown-header">
+										현재 참여 중인 채팅이 <span id="chat-count-header">0</span>개 있습니다.
+									</li>
+									<li><hr class="dropdown-divider"></li>
+								</ul>
+					        </li>
+							 -->
 						</c:if>
 					</ul>
 				</div>
@@ -253,7 +318,7 @@ https://templatemo.com/tm-568-digimedia
 
 	<!-- ***** Header Area Start ***** -->
 	<header class="header-area header-sticky wow slideInDown"
-		data-wow-duration="0.75s" data-wow-delay="0s" style="z-index: 1000; position: relative;">
+		data-wow-duration="0.75s" data-wow-delay="0s" style="z-index: 1000;">
 		<div class="container">
 			<div class="row">
 				<div class="col-12">
@@ -276,7 +341,7 @@ https://templatemo.com/tm-568-digimedia
 								aria-expanded="false"> Community </a>
 								<ul class="dropdown-menu">
 									<li><a class="dropdown-item" href="list.board">자유게시판</a></li>
-									<li><a class="dropdown-item" href="list.companion">동행게시판</a></li>
+									<li><a class="dropdown-item" href="list.chat">채팅</a></li>
 									<li></li>
 								</ul></li>
 							<li class="scroll-to-section"><a class="dropdown-toggle"
@@ -299,7 +364,14 @@ https://templatemo.com/tm-568-digimedia
 										<a href="login.users">My Page</a>
 									</c:if>
 									<c:if test="${ loginInfo ne null }">
-										<a href="myPage.users?user_no=${sessionScope.loginInfo.user_no}">My Page</a>
+										<c:choose>
+											<c:when test="${loginInfo.id eq 'admin'}">
+												<a href="<%=request.getContextPath()%>/mainAdmin.jsp">My Page</a>
+											</c:when>
+											<c:otherwise>
+												<a href="myPage.users?user_no=${sessionScope.loginInfo.user_no}">My Page</a>
+											</c:otherwise>
+										</c:choose>
 									</c:if>
 
 								</div></li>

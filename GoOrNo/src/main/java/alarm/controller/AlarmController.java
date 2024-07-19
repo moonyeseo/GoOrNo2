@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import alarm.model.AlarmBean;
+import chat.model.ChatDao;
 import users.model.UsersBean;
 
 
@@ -42,4 +44,5 @@ public class AlarmController {
         alarmService.checkRead(alarm_no);
         return "success";
     }
+	
 }

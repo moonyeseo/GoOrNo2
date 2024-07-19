@@ -6,7 +6,7 @@
       <h1>Q&A</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Q&A</a></li>
+          <li class="breadcrumb-item"><a href="#">Q&A</a></li>
           <li class="breadcrumb-item active">List</li>
         </ol>
       </nav>
@@ -40,7 +40,8 @@
 					<!-- 컬럼 제목 -->
 					<tr>
 						<th scope="col" width="10%" style="text-align: center">글번호</th>
-						<th scope="col" width="50%" style="text-align: center">제목</th>
+						<th scope="col" width="40%" style="text-align: center">제목</th>
+						<th scope="col" width="10%" style="text-align: center">작성자</th>
 						<th scope="col" width="20%" style="text-align: center">작성일</th>
 						<th scope="col" width="10%" style="text-align: center">조회수</th>
 						<th scope="col" width="10%" style="text-align: center">답변</th>
@@ -63,6 +64,13 @@
 									<!-- 제목. 클릭 시 옆에 내용 띄어짐 -->
 									<td align="left">
 										<a onclick="viewQna('${ qlists[i].content }','${ qlists[i].qna_no }','${ status.index }')" style="cursor : pointer;" id="clicked${ status.index }">${ qlists[i].subject }</a> &nbsp;
+									</td>
+									<!-- 작성자 -->
+									<td align="center">
+										${ qlists[i].user_id }
+										<c:if test="${ qlists[i].user_no eq '' }">
+											<font color="gray">(탈퇴)</font>
+										</c:if>
 									</td>
 									<!-- 작성일 -->
 									<td align="center">
@@ -102,13 +110,14 @@
 				<div class="card-body">
 					<form action="delete.qna">
 						<input type="hidden" name="qna_no" id="qna_no">
-						<input type="hidden" name="isAdmin" value="yes">
+						<input type="hidden" name="isAdmin" id="isAdmin" value="yes">
 						<input type="hidden" name="pageNumber" value="${ pageInfo.pageNumber }">
 						<input type="hidden" name="whatColumn" value="${ pageInfo.whatColumn }">
 						<input type="hidden" name="keyword" value="${ pageInfo.keyword }">
 						<table class="table table-borderless" style="margin-top :10px;">
 							<tr>
 								<td align="right">
+									<input type="button" class="btn btn-light" id="detailBtn" value="글 바로가기" onclick="return detailBaord()" disabled>
 									<input type="submit" class="btn btn-secondary" id="deleteBtn" value="글삭제" onclick="return deleteQna()" disabled>
 								</td>
 							</tr>
@@ -116,7 +125,7 @@
 								<th>글내용</th>
 							</tr>
 							<tr>
-								<td id="content"></td>
+								<td id="content" style="overflow:hidden; word-break:break-all;"></td>
 							</tr>
 						</table>
 					</form>
@@ -140,8 +149,16 @@ function viewQna(content, no, index){
 	qna_no = no;
 	$('td a').css("color", "black");
 	$('#clicked' + index).css("color", "#8F89E9");
+	document.getElementById("detailBtn").disabled = false;
 	document.getElementById("deleteBtn").disabled = false;
 }
+
+//게시글 바로가기
+function detailBaord(){
+	document.getElementById("isAdmin").value = "";
+	location.href="detail.qna?qna_no="+qna_no;
+}
+
 //게시글 삭제
 function deleteQna(){
 	if(!confirm('삭제하면 복구할수 없습니다.\n정말로 삭제하시겠습니까?')){
@@ -161,8 +178,8 @@ function replyQna(no){
 	var name = 'Q&A 답글 작성';
 	var options = 'width = ' + _width + ', height = ' + _height + ', location = no, top = '+ _top + ', left = ' + _left;
 	var windowPopup = window.open(url, name, options);
-	
 }
+
 //답글 보기
 function detailQna(no){
 	_width = 600;
@@ -175,9 +192,7 @@ function detailQna(no){
 	var name = 'Q&A 답글 확인';
 	var options = 'width = ' + _width + ', height = ' + _height + ', location = no, top = '+ _top + ', left = ' + _left;
 	var windowPopup = window.open(url, name, options);
-	
 }
-
 </script>
 
 <%@include file = "../adminCommon/adminFooter.jsp" %> <!--  admin footer 부분 -->

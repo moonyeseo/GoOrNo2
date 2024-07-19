@@ -39,6 +39,18 @@ public class BookmarkDao {
 		return cnt;
 	}
 	
+	//getBookmarkByUserNoAndType
+	public BookmarkBean getBookmarkByUserNoAndType(int user_no, String type) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("user_no", user_no);
+		map.put("type", type);
+		
+		BookmarkBean bookmarkBean = sqlSessionTemplate.selectOne(namespace+".getBookmarkByUserNoAndType", map);
+		
+		return bookmarkBean;
+	}
+	
 	//updateBookmark
 	public int updateBookmark(BookmarkBean bookmarkBean) {
 		
@@ -72,7 +84,7 @@ public class BookmarkDao {
 
 		
 		int cnt = -1;
-		cnt = sqlSessionTemplate.update(namespace + ".deleteBookmark", map);
+		cnt = sqlSessionTemplate.delete(namespace + ".deleteBookmark", map);
 		
 //		System.out.println("delete cnt : " + cnt);
 		

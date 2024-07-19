@@ -7,11 +7,10 @@
 	<main id="main" class="main">
 
 		<div class="pagetitle">
-			<h1>Profile</h1>
+			<h1>User</h1>
 			<nav>
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a href="mainAdmin.jsp">Home</a></li>
-					<li class="breadcrumb-item"><a href="list.users">Users</a></li>
+					<li class="breadcrumb-item"><a href="#">Users</a></li>
 					<li class="breadcrumb-item active">Detail</li>
 				</ol>
 			</nav>
@@ -27,12 +26,12 @@
 							class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 							<img src="<%=request.getContextPath()+"/resources/uploadImage/"%>${users.profile}" width="290" height="290" class="rounded-circle">
 							<h2>${users.name }</h2> 
-							<div class="social-links mt-2">
+<!-- 							<div class="social-links mt-2">
 								<a href="#" class="twitter"><i class="bi bi-twitter"></i></a> <a
 									href="#" class="facebook"><i class="bi bi-facebook"></i></a> <a
 									href="#" class="instagram"><i class="bi bi-instagram"></i></a>
 								<a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-							</div>
+							</div> -->
 						</div>
 					</div>
 

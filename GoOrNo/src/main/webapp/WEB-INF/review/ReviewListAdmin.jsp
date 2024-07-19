@@ -5,9 +5,11 @@
 
 <script type="text/javascript">
 	function deleteReview(review_no, whatColumn, keyword, pageNumber) {
-		location.href = "deleteReview.review?review_no=" + review_no
-				+ "&whatColumn=" + whatColumn + "&keyword=" + keyword
-				+ "&pageNumber=" + pageNumber;
+		if(confirm('삭제하면 복구할수 없습니다.\n정말로 삭제하시겠습니까?')){
+			location.href = "deleteReview.review?review_no=" + review_no
+			+ "&whatColumn=" + whatColumn + "&keyword=" + keyword
+			+ "&pageNumber=" + pageNumber;
+		}
 	}
 </script>
 
@@ -39,8 +41,8 @@
 		<h1>Review</h1>
 		<nav>
 			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><a href="mainAdmin.jsp">Home</a></li>
-				<li class="breadcrumb-item active">Review</li>
+				<li class="breadcrumb-item"><a href="#">Review</a></li>
+				<li class="breadcrumb-item active">List</li>
 			</ol>
 		</nav>
 	</div>
@@ -51,34 +53,31 @@
 		<section class="section">
 			<div class="row">
 				<div class="col-lg-12">
-
 					<div class="card">
 						<div class="card-body">
-							<h5 class="card-title">ReviewList</h5>
-
-							<form action="list.review" method="post" align="center">
-								<div class="search-bar">
-									<select name="whatColumn"
-										style="height: 37px; vertical-align: middle;">
-										<option value="all">전체 검색</option>
-										<option value="user_id">작성자 검색</option>
-										<option value="rating">평점 검색</option>
-									</select> 
-									<input type="text" name="keyword" placeholder="Search"
-										style="height: 37px; vertical-align: middle;"> 
-									<input type="submit" value="검색" class="btn btn-dark">
-								</div>
-							</form>
-							<br>
 							<div style="text-align: center;">
-								<table class="table table-borderless">
+								<table class="table table-borderless" style="margin-top :10px;">
 									<thead>
+											<!-- 게시판 검색 -->
+											<tr>
+												<td colspan="5" align="right">
+													<form action="list.review" method = "post">
+														<select name="whatColumn" class="form-select" style="width : 15%; display:inline;">
+															<option value="all">전체 검색</option>
+															<option value="user_id">작성자</option>
+															<option value="rating">평점</option>
+														</select>
+														<input type="text" name="keyword" class="form-control" style="width : 15%; display:inline;">
+														<input type="submit" value="검색" class="btn btn-secondary">
+													</form>
+												</td>
+											</tr>
 										<tr>
-											<th>번호</th>
-											<th>작성자</th>
-											<th>별점</th>
-											<th>내용</th>
-											<th>삭제</th>
+											<th  scope="col" width="10%" style="text-align: center">번호</th>
+											<th  scope="col" width="10%" style="text-align: center">작성자</th>
+											<th  scope="col" width="10%" style="text-align: center">별점</th>
+											<th  scope="col" width="10%" style="text-align: center">내용</th>
+											<th  scope="col" width="10%" style="text-align: center">삭제</th>
 										</tr>
 									</thead>
 
@@ -100,7 +99,7 @@
 													</c:forEach></td>
 												<td>${review.comments }</td>
 												<td>
-													<button type="button" class="btn btn-dark"
+													<button type="button"  class="btn btn-secondary"
 														onclick="deleteReview('${review.review_no}', '${param.whatColumn}', '${param.keyword}', '${pageInfo.pageNumber}')">삭제</button>
 												</td>
 											</tr>

@@ -14,7 +14,7 @@ Admin add update<br>
 %>
 
 
-<form:form commandName="event" action="update.event" method="post">
+<form:form commandName="event" action="update.event" method="post" enctype="multipart/form-data">
 				<input type="hidden" name="event_no" value="${event.event_no }">
 				<input type="hidden" name="pageNumber" value="${ param.pageNumber }">
 				<input type="hidden" name="whatColumn" value="${ param.whatColumn }">
@@ -68,7 +68,20 @@ Admin add update<br>
 		<tr>
 			<th>사진</th>
 			<td>
-				<input type="file" name="img">
+				<c:choose>
+                     <c:when test="${not empty event.fimg}">
+                         <!-- 업로드된 이미지가 있으면 해당 이미지를 사용 -->
+                         <img src="${pageContext.request.contextPath}/resources/uploadImage/${event.fimg}"
+                             width="100" height="100" alt="${event.title}" /><br>
+                     </c:when>
+                     <c:otherwise>
+                         <!-- 업로드된 이미지가 없으면 API 이미지를 사용 -->
+                         <img src="${event.img}" width="100" height="100" alt="${event.title}" /><br>
+                     </c:otherwise>
+                 </c:choose>
+				<input type="file" name="upload" value="${event.img }">
+                 <%-- <input type = "text" name="upload2" value="${event.img }"> <!-- upload2:삭제할 파일명 --> --%>
+				<form:errors path="fimg" cssClass="err"/>
 			</td>
 		</tr>
 		

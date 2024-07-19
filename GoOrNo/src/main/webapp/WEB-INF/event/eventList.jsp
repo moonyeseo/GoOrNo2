@@ -60,6 +60,7 @@
     }
 
     .event-container .card-body {
+    	font-size: 0.8em;
         padding: 15px;
         display: flex;
         flex-direction: column;
@@ -122,7 +123,7 @@
             <input type="text" name="whatColumn" value="performance_type">
             <input type="text" name="keyword" id="keyword">
             <input type="hidden" name="isAdmin" value="yes">
-			<input type="hidden" name="pageNumber" value="${ param.pageNumber }">
+			<input type="hidden" name="pageNumber" value="${pageNumber }">
             <input type="submit" value="검색">
         </form>
         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
@@ -141,11 +142,22 @@
     <div class="event-container">
         <c:forEach var="event" items="${lists}">
             <div class="card">
-                <a href="detail.event?eventNo=${event.event_no}">
-                    <img src="${event.img}" class="card-img-top event-thumbnail" alt="${event.title}">
+                <a href="detail.event?eventNo=${event.event_no}&whatColumn=${whatColumn}&keyword=${keyword }&pageNumber=${pageNumber}">
+                    <%-- <img src="${event.img}" class="card-img-top event-thumbnail" alt="${event.title}"> --%>
+                    <c:choose>
+					    <c:when test="${not empty event.fimg}">
+					        <!-- 업로드된 이미지가 있으면 해당 이미지를 사용 -->
+					        <img src="${pageContext.request.contextPath}/resources/uploadImage/${event.fimg}"
+					            class="card-img-top event-thumbnail" alt="${event.title}" />
+					    </c:when>
+					    <c:otherwise>
+					        <!-- 업로드된 이미지가 없으면 API 이미지를 사용 -->
+					        <img src="${event.img}" class="card-img-top event-thumbnail" alt="${event.title}" />
+					    </c:otherwise>
+					</c:choose>
                 </a>
                 <div class="card-body">
-                    <a href="detail.event?eventNo=${event.event_no}">
+                    <a href="detail.event?eventNo=${event.event_no}&whatColumn=${whatColumn}&keyword=${keyword }&pageNumber=${pageNumber}">
                         ${event.title}
                     </a>
                     <p class="card-text">${event.performance_type}</p>

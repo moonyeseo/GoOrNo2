@@ -286,12 +286,12 @@
   </header><!-- End Header -->
   
     <!-- ======= Sidebar ======= -->
-  <aside id="sidebar" class="sidebar">
+  <aside id="sidebar" class="sidebar" style="position: fixed;">
 
     <ul class="sidebar-nav" id="sidebar-nav">  
       
       <li class="nav-item">
-        <a class="nav-link collapsed" href="list.event">
+        <a class="nav-link collapsed" href="AdminList.event">
          <i class="bi bi-menu-button-wide"></i>
           <span>Event</span>
         </a>
@@ -319,9 +319,9 @@
       </li>
       
     <li class="nav-item">
-        <a class="nav-link collapsed" href="list.companion">
+        <a class="nav-link collapsed" href="list.chat?isAdmin=yes">
           <i class="bi bi-envelope"></i>
-          <span>Companion</span>
+          <span>Chat</span>
         </a>
       </li>
       

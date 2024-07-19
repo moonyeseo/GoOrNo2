@@ -74,7 +74,6 @@ span{
 		var isSuccess = document.getElementById("isSuccess").value;
 		if(isSuccess == 'yes'){
 			window.opener.parent.location.reload();
-			window.close();
 		}
 	});
 </script>
@@ -121,7 +120,7 @@ span{
 											</tr>
 											<tr>
 												<td>
-													<textarea class="form-control" placeholder="내용" style="resize:none;" name="content" rows="5">${ qna.content }</textarea>
+													<textarea class="form-control" placeholder="내용" style="resize:none;" name="content" rows="5" maxlength="300">${ qna.content }</textarea>
 													<form:errors path="content" cssClass="err"></form:errors>
 												</td>	
 											</tr>

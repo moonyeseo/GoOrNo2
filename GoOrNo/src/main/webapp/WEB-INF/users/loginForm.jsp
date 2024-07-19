@@ -1,6 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="../userCommon/userHeader.jsp"%>
+<style type="text/css">
+a {
+	color : black;
+}
+
+a:hover{
+	color : #FA64B0
+}
+</style>
+
 <script>
         function openPopup(url) {
             var popupWidth = 550; // 팝업창 너비
@@ -30,7 +40,7 @@
 									<div class="pt-4 pb-2">
 										<h5 class="card-title text-center pb-0 fs-3">Login</h5>
 										<p class="text-center small">Enter your id & password to
-											login</p>
+											login</p>  
 									</div>
 
 									<div class="col-12">
@@ -72,7 +82,7 @@
 									<div class="pt-0 pb-2"></div>
 									<div class="col-12" align="right">
 										<p class="small mb-0">
-											<a href="join.users"> 회원가입 | </a><a href="javascript:void(0);" onclick="openPopup('FindPw.users')">비밀번호 찾기</a>
+											<a href="join.users"> 회원가입</a> | <a href="javascript:void(0);" onclick="openPopup('FindPw.users')">비밀번호 찾기</a>
 										</p>
 									</div>
 

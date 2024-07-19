@@ -46,6 +46,16 @@
 	border: 1px solid #dddddd;
 }
 
+    .event-title {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    
+    #btnList{
+    	text-align: center;
+    }
+    
 .event-info td {
 	padding: 15px;
 	text-align: left;
@@ -79,6 +89,7 @@
 .starR.on {
 	text-shadow: 0 0 0 #ffbc00;
 }
+>>>>>>> refs/remotes/origin/master
 </style>
 
 <!-- 챗봇 -->
@@ -96,6 +107,50 @@
 </div>
 
 <section class="event-detail-container">
+    <div class="event-title">
+        <h2>상세정보</h2>
+    </div>
+    <div style="display: flex; width: 100%;">
+        <%-- <img src="${event.img}" alt="${event.title}"> --%>
+		<c:choose>
+		    <c:when test="${not empty event.fimg}">
+		        <!-- 업로드된 이미지가 있으면 해당 이미지를 사용 -->
+		        <img src="${pageContext.request.contextPath}/resources/uploadImage/${event.fimg}"
+		            width="100" height="100" alt="${event.title}" />
+		    </c:when>
+		    <c:otherwise>
+		        <!-- 업로드된 이미지가 없으면 API 이미지를 사용 -->
+		        <img src="${event.img}" width="100" height="100" alt="${event.title}" />
+		    </c:otherwise>
+		</c:choose>
+        <div class="event-info">
+            <table>
+                <tr>
+                    <th>분류</th>
+                    <td>${event.performance_type}</td>
+                </tr>
+                <tr>
+                    <th>행사/공연</th>
+                    <td>${event.title}</td>
+                </tr>
+                <tr>
+                    <th>기간</th>
+                    <td>${event.event_period}</td>
+                </tr>
+                <tr>
+                    <th>장소</th>
+                    <td>${event.place}</td>
+                </tr>
+                <tr>
+                	<td id="btnList"colspan="2">
+               			
+	  					<input type="button" class="btn btn-secondary" value="목록보기" onClick="location.href='list.event?eventNo=${event.event_no }&whatColumn=${param.whatColumn}&keyword=${param.keyword}&pageNumber=${pageNumber}'">
+	  					<input type="button" class="btn btn-secondary" value="길찾기" onClick="location.href='search.bookmark?lat=${event.lat}&lot=${event.lot }&place=${event.place }'">
+                	</td>
+                </tr>
+            </table>
+        </div>
+    </div>
 	<div class="event-title">
 		<h2>상세정보</h2>
 	</div>

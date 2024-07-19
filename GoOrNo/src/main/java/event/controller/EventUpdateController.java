@@ -1,5 +1,9 @@
 package event.controller;
 
+import java.io.File;
+import java.io.IOException;
+
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -11,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import event.model.EventBean;
@@ -19,16 +24,19 @@ import users.model.UsersBean;
 
 @Controller
 public class EventUpdateController {
-	// Çà»ç ¼öÁ¤
+	// ê´€ë¦¬ì
     private final String command = "update.event";
     private final String getPage = "eventUpdateForm";
-    private final String gotoPage = "redirect:/list.event";
-    private final String mainPage = "redirect:/main.jsp";
+    private final String gotoPage = "redirect:/AdminList.event";
+    private final String mainPage = "redirect:/AdminDetail.event";
 
     @Autowired
     EventDao edao;
+    
+    @Autowired
+	ServletContext servletContext;
 
-    // »ó¼¼ ¼öÁ¤ Å¬¸¯ ½Ã, GET
+    // ê´€ë¦¬ì ìƒì„¸ë³´ê¸° ìˆ˜ì • í´ë¦­ ì‹œ, GET
     @RequestMapping(value = command, method = RequestMethod.GET)
     public String updateForm(@RequestParam("eventNo") int eventNo,
             @RequestParam(value = "whatColumn", required = false) String whatColumn,
@@ -37,19 +45,16 @@ public class EventUpdateController {
 
         UsersBean mb = (UsersBean) session.getAttribute("loginInfo");
 
-        // ·Î±×ÀÎ ¿©ºÎ È®ÀÎ
+       // ë¡œê·¸ì¸ x
         if (mb == null) {
-            // ·Î±×ÀÎÇÏÁö ¾ÊÀº °æ¿ì ·Î±×ÀÎ ÆäÀÌÁö·Î ¸®´ÙÀÌ·ºÆ®
             String destination = "redirect:/update.event?eventNo=" + eventNo + "&pageNumber=" + pageNumber
                     + "&whatColumn=" + whatColumn + "&keyword=" + keyword;
             session.setAttribute("destination", destination);
             return "redirect:/login.users";
         } else if (!"admin".equals(mb.getId())) {
-            // ·Î±×ÀÎÇßÁö¸¸ °ü¸®ÀÚ°¡ ¾Æ´Ñ °æ¿ì ¸ŞÀÎÀ¸·Î ÀÌµ¿
             return mainPage;
         }
 
-        // ÀÌº¥Æ® Á¤º¸ Á¶È¸
         EventBean event = edao.getEventByEventNo(eventNo);
         model.addAttribute("event", event);
         model.addAttribute("whatColumn", whatColumn);
@@ -60,7 +65,7 @@ public class EventUpdateController {
         return getPage;
     }
 
-    // ¼öÁ¤¹öÆ° Å¬¸¯ ½Ã, POST ¿äÃ»
+    // ì—…ëƒí¼ ìˆ˜ì • í´ë¦­ ì‹œ, POST 
     @RequestMapping(value = command, method = RequestMethod.POST)
     public ModelAndView update(
     		@ModelAttribute("event")
@@ -68,7 +73,6 @@ public class EventUpdateController {
             @RequestParam(value = "whatColumn", required = false) String whatColumn,
             @RequestParam(value = "pageNumber", required = false) String pageNumber,
             @RequestParam(value = "keyword", required = false) String keyword) {
-
     	ModelAndView mav = new ModelAndView();
     	
         if (result.hasErrors()) {
@@ -77,17 +81,53 @@ public class EventUpdateController {
         	mav.addObject("pageNumber", pageNumber);
         	mav.addObject("event", event);
         	mav.setViewName(getPage);
-
+        	if (event.getFimg() == null || event.getFimg().equals("")) {
+                event.setFimg(event.getUpload2());
+            }
             return mav;
         }
-
-        edao.updateEvent(event);
+        int cnt = -1;
+        cnt = edao.updateEvent(event);
+        
+        
         mav.addObject("whatColumn", whatColumn);
     	mav.addObject("keyword", keyword);
     	mav.addObject("pageNumber", pageNumber);
     	mav.addObject("event", event);
     	mav.setViewName(gotoPage);
+    	MultipartFile multi = event.getUpload();
+    	String uploadPath = servletContext.getRealPath("/resources/uploadImage/");
     	
+    	if(cnt != -1 && multi != null && !multi.isEmpty()) {
+    		System.out.println("test");
+    		String deletePath = servletContext.getRealPath("/resources/uploadImage/");
+    		File file = new File(deletePath + File.separator + event.getUpload2());
+    		System.out.println("File : " + file);
+    		
+    		if(file.exists()) {
+    			file.delete();
+    		}
+    		
+    		mav.setViewName(gotoPage);
+    		File destination = new File(uploadPath + File.separator + multi.getOriginalFilename());
+    		try {
+    			multi.transferTo(destination);
+    		} catch (IllegalStateException e) {
+    			e.printStackTrace();
+    		} catch (IOException e) {
+    			e.printStackTrace();
+    		}
+    	}
+    	
+    	else {
+    		mav.setViewName(getPage);
+    	}
+    	
+    	mav.addObject("whatColumn", whatColumn);
+    	mav.addObject("keyword", keyword);
+    	mav.addObject("pageNumber", pageNumber);
+    	mav.addObject("event", event);
+    	mav.setViewName(gotoPage);
     	return mav;
     }
 }

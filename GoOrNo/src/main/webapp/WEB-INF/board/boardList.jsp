@@ -61,7 +61,7 @@
 											<!-- 글 작성 버튼 -->
 											<tr>
 												<td colspan="5" align="right">
-													<input type="button" onClick="location.href='insert.board?pageNumber=${pageInfo.pageNumber}&whatColumn=${ pageInfo.whatColumn }&keyword=${ pageInfo.keyword }'" value="글쓰기" class="btn btn-secondary">
+													<input type="button" onClick="return writeBoard()" value="글쓰기" class="btn btn-secondary">
 												</td>
 											</tr>
 											<!-- 컬럼 제목 -->
@@ -99,7 +99,14 @@
 															</c:if>
 														</td>
 														<!-- 작성자 -->
-														<td align="center">${ blists[i].user_id }</td>
+														<td align="center">
+															<c:if test="${ blists[i].user_no eq '' }">
+																<font color="gray">탈퇴한 회원</font>
+															</c:if>
+															<c:if test="${ blists[i].user_no ne '' }">
+																${ blists[i].user_id }
+															</c:if>
+														</td>
 														<!-- 작성일 -->
 														<td align="center">
 															<fmt:parseDate var="parsedDate" pattern="yyyy-MM-dd">${ fn:substring(blists[i].regdate,0,10) }</fmt:parseDate>
@@ -130,4 +137,16 @@
 	</div>
 </div>
 <!-- 본문 끝 -->
+<script type="text/javascript">
+const id = '${ sessionScope.id }';
+
+function writeBoard(){
+	if(id == ''){
+		alert("로그인한 회원만 글을 작성할 수 있습니다.");
+		return false;
+	}else{
+		location.href='insert.board?pageNumber=${pageInfo.pageNumber}&whatColumn=${ pageInfo.whatColumn }&keyword=${ pageInfo.keyword }'
+	}
+}
+</script>
 <%@include file = "../userCommon/userFooter.jsp" %> <!--  user header 부분 -->

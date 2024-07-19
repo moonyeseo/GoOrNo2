@@ -22,5 +22,6 @@
     <context:component-scan base-package="qna" />
     <context:component-scan base-package="board" />
     <context:component-scan base-package="comments" />
+    <context:component-scan base-package="chat" />
 
 </beans>
