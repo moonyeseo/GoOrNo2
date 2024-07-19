@@ -197,7 +197,7 @@ body {
 }
 
 .sidebar-nav {
-  padding-top: 10px;
+  padding-top: 35px;
 }
 
 .mypage {
@@ -206,8 +206,24 @@ body {
   font-weight: 600;
   color: #000000;
   margin-left: 10px;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 40px;
+  margin-bottom: -10px;
+}
+
+.sidebar {
+  top: 0px;
+}
+
+.pre-header {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1001;
+}
+
+.header-area {
+    top: 60px; /* pre-header 높이만큼 내림 */
+    z-index: 1000;
 }
 
 </style>
@@ -233,6 +249,11 @@ body {
 
 <!-- ============ Sidebar(사이드바) ============ -->
 	<aside id="sidebar" class="sidebar" style="z-index: 0; position: fixed;">
+		<a href="<%=request.getContextPath()%>/main.jsp"> 
+			<img src="<%=request.getContextPath()%>/resources/image/GoOrNo_logo.png"
+			alt="logo" style="width: 140px; height: 60px; margin-left: 60px;">
+		</a>
+		<hr style="margin: 10px 0; border: 0; border-top: 1px solid #ccc;">
 		<div class="mypage" id="mypage">
 			<b>MY PAGE</b>
 		</div>
