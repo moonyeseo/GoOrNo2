@@ -111,7 +111,7 @@ public class EventInsertController {
 			System.out.println("in");
 			mav.setViewName(getPage);
 		}
-    	
+
 		PrintWriter out = null;
 		try {
 			out = response.getWriter();
@@ -121,16 +121,13 @@ public class EventInsertController {
 		}
 		
 		if(cnt > 0) {
-			/* out.append("<script>alert('행사 정보가 등록되었습니다.')</script>"); */
-	    	mav.addObject("isInsert", "yes");
-	    	
+			mav.addObject("isSuccess", "yes");
+			mav.setViewName(getPage);
 		}else {
 			out.append("<script>alert('행사 정보 등록 실패했습니다.')</script>");
 		}
 		
 		out.flush();
-    	mav.setViewName(getPage);
-    	
 		return mav;
 	}
 }

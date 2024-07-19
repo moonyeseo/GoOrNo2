@@ -55,7 +55,7 @@ https://templatemo.com/tm-568-digimedia
 body {
 	background-color: #FFE6EB;
 }
-
+   
 span{
 	font-size : 13px;
 	color : gray;
@@ -67,16 +67,16 @@ span{
 }
 </style>
 
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="<%= request.getContextPath() %>/resources/vendor/jquery/jquery.js"></script>
 <script type="text/javascript">
-$(document).ready(function(){
-	var isUpdate =  $("#isUpdate").val();
-	
-	if(isUpdate == 'yes'){
-		window.opener.parent.location.reload();
-		self.close();
-	}
-});
+	$(document).ready(function(){
+		var isSuccess = $("#isSuccess").val();
+		
+		if(isSuccess == 'yes'){
+			window.opener.parent.location.reload();
+			self.close();
+		}
+	});
 </script>
 
 <%
@@ -110,7 +110,11 @@ $(document).ready(function(){
 									<div class="container" style="width: 80%; margin-top: 30px; margin-bottom:10px;">
 									<!-- 입력폼 시작 -->
 									<form:form commandName="event" action="update.event" method="post" enctype="multipart/form-data">
+<<<<<<< HEAD
 										<input type="hidden" id="isUpdate" value="${ isUpdate }" id = "isUpdate">
+=======
+										<input type="hidden" name="isSuccess" value="${isSuccess}" id = "isSuccess">
+>>>>>>> refs/heads/moon
 										<input type="hidden" name="pageNumber" value="${ param.pageNumber }">
 										<input type="hidden" name="whatColumn" value="${ param.whatColumn }">
 										<input type="hidden" name="keyword" value="${ param.keyword }">

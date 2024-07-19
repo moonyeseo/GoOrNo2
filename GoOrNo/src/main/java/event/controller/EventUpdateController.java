@@ -129,7 +129,6 @@ public class EventUpdateController {
     	mav.addObject("keyword", keyword);
     	mav.addObject("pageNumber", pageNumber);
     	mav.addObject("event", event);
-    	
 		PrintWriter out = null;
 		try {
 			out = response.getWriter();
@@ -139,15 +138,13 @@ public class EventUpdateController {
 		}
 		
 		if(cnt > 0) {
-			out.append("<script>alert('행사 정보가 수정되었습니다.')</script>");
-	    	mav.addObject("isUpdate", "yes");
-	    	
+			mav.addObject("isSuccess", "yes");
+			mav.setViewName(getPage);
 		}else {
 			out.append("<script>alert('행사 정보 수정 실패했습니다.')</script>");
 		}
 		
 		out.flush();
-    	mav.setViewName(getPage);
     	return mav;
     }
 }
