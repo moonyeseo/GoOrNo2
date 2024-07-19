@@ -102,8 +102,9 @@ background-color : white;
   height: 150px;
   width: 300px;
   text-align: center;
-  top:10%;
-  left:10%;
+  top:20%;
+  left:50%;
+  transform: translate(-50%, -20%);
   padding-top:20px;
   background-color: white;
 }
@@ -115,7 +116,7 @@ background-color : white;
 #memberPopup {
   position:absolute;
   border: 2px solid #BDBDBD;
-  width: 100px;
+  width: 150px;
   padding-top : 10px;
   padding-bottom : 10px;
   text-align: center;
