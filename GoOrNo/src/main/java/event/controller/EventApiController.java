@@ -85,6 +85,7 @@ public class EventApiController {
 		JsonArray row = culturalEventInfo.getAsJsonArray("row"); // JSON �迭 ����
 		
 		edao.truncateEvent();
+		
 		for (int i = 0; i < row.size(); i++) {
 			JsonObject eventJson = row.get(i).getAsJsonObject(); // �迭 �� �� JSON ��ü ����
 
@@ -107,6 +108,8 @@ public class EventApiController {
 			System.out.println("DATE: " + event.getEvent_period());
 
 			System.out.println("img : " + event.getImg());
+			System.out.println("lot : " + event.getLot());
+			System.out.println("lat : " + event.getLat());
 			System.out.println("���� : " + event.getLot());
 			System.out.println("�浵 : " + event.getLat());
 			System.out.println();

@@ -291,7 +291,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">  
       
       <li class="nav-item">
-        <a class="nav-link collapsed" href="list.event">
+        <a class="nav-link collapsed" href="AdminList.event">
          <i class="bi bi-menu-button-wide"></i>
           <span>Event</span>
         </a>

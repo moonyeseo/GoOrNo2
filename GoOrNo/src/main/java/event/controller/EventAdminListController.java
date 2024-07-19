@@ -15,14 +15,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import event.model.EventBean;
 import event.model.EventDao;
-import users.model.UsersBean;
 import utility.Paging;
 
 @Controller
-public class EventListController {
-	// ��� ���
-	private final String command = "/list.event";
-	private final String getPage = "eventList";
+public class EventAdminListController {
+	// 관리자 리스트
+	private final String command = "/AdminList.event";
+	private final String getPage = "eventAdminList";
 
 	@Autowired
 	private EventDao edao;
@@ -35,6 +34,7 @@ public class EventListController {
 			@RequestParam(value = "keyword", required = false) String keyword, HttpServletRequest request,
 			HttpSession session, Model model) {
 		
+		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("whatColumn", whatColumn);
 		map.put("keyword", "%" + keyword + "%");
@@ -44,23 +44,21 @@ public class EventListController {
 		int totalCount = edao.getTotalCount(map);
 
 		String url = request.getContextPath() + this.command;
-		Paging pageInfo = new Paging(pageNumber, "10", totalCount, url, whatColumn, keyword);
-		pageInfo.setPageSize(10);
+		Paging pageInfo = new Paging(pageNumber, null, totalCount, url, whatColumn, keyword);
 		
-		/* ��� */
+		// 목록 조회
 		List<EventBean> lists = edao.getAllEvents(map, pageInfo);
 		
-		/* ���� */
+		// 유형
 		List<String> performanceTypeList = edao.getPerformanceType();
-		model.addAttribute("pageNumber", pageNumber);
 		model.addAttribute("whatColumn", whatColumn);
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("pageInfo", pageInfo);
 		model.addAttribute("totalCount", totalCount);
+		model.addAttribute("pageNumber", pageNumber);
 		model.addAttribute("lists", lists);
 		model.addAttribute("performanceTypeList", performanceTypeList);
 		
 		return getPage;
 	}
-
 }
