@@ -90,22 +90,22 @@ $(document).ready(function() {
                  	alert("정확한 주소를 입력하세요.");
                 } 
                 else {
-                    var slon, slat;
+                    var lon, lat;
 
                     var resultCoordinate = resultInfo.coordinate[0];
                     if (resultCoordinate.lon.length > 0) {
                         // 구주소
-                        slon = resultCoordinate.lon;
-                        slat = resultCoordinate.lat;
+                        lon = resultCoordinate.lon;
+                        lat = resultCoordinate.lat;
                     } else {
                         // 신주소
-                        slon = resultCoordinate.newLon;
-                        slat = resultCoordinate.newLat;
+                        lon = resultCoordinate.newLon;
+                        lat = resultCoordinate.newLat;
                     }
 
                     // 위도와 경도 필드를 업데이트
-                    $("#lot").val(slat);
-                    $("#lat").val(slon);
+                    $("#lot").val(lon);
+                    $("#lat").val(lat);
                 }
             },
             error: function(request, status, error) {

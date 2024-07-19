@@ -13,6 +13,8 @@
 			 eventLat = urlParams.get("lat");
 			 eventLon =  urlParams.get("lot");
 			 eventPlace =  urlParams.get("place");
+
+			 check = false;
 			 
 			initTmap(eventLat, eventLon);
 			
@@ -45,12 +47,24 @@
 			 $("#startAddr").trigger("change"); // 값 변경 이벤트 강제 발생
 		}
 		
-		function keyDown(){
-			// 출발지 입력 시, 아이콘 모두 회색으로 변경
-			$("#house").html("<img src = '<%=request.getContextPath() %>/resources/image/house_before.png' style = 'opacity:0.5'>");
-			$("#company").html("<img src = '<%=request.getContextPath() %>/resources/image/company_before.png' alt = 'company_img'>");
-			$("#star").html("<img src = '<%=request.getContextPath() %>/resources/image/star_before.png' alt = 'star_img' style = 'opacity:0.5'>");
-
+		function keyDown(obj){
+			var id = $(obj).attr('id');
+			
+			if(id == 'startAddr'){
+				// 출발지 입력 시, 아이콘 모두 회색으로 변경
+				$("#house").html("<img src = '<%=request.getContextPath() %>/resources/image/house_before.png' style = 'opacity:0.5'>");
+				$("#company").html("<img src = '<%=request.getContextPath() %>/resources/image/company_before.png' alt = 'company_img'>");
+				$("#star").html("<img src = '<%=request.getContextPath() %>/resources/image/star_before.png' alt = 'star_img' style = 'opacity:0.5'>");	
+				
+/* 				tempLat = null;
+				tempLon = null; */
+			}
+			else{
+/* 				eventLat = null;
+				eventLon = null;
+				eventPlace = null; */
+			}
+			check = false;
 		}
 
 		flag = false; // 분홍 화살표 <-> 회색 화살표
@@ -69,6 +83,7 @@
 
 			var temp = $("#startAddr").val(); // 출발지로 입력한 주소 저장
 			
+			check = true;
 			$("#startAddr").val($("#endAddr").val()); // 출발지 주소 -> 목적지에 입력한 주소로 변경
 			$("#endAddr").val(temp); // 목적지 주소 -> 출발지에 입력한 주소로 변경
 			$("#startAddr").trigger("change"); // 값 변경 이벤트 강제 발생
@@ -197,24 +212,8 @@
 														slon = resultCoordinate.newLon;
 														slat = resultCoordinate.newLat;
 													}
-
-													var slonEntr, slatEntr;
-
-													if (resultCoordinate.lonEntr == undefined
-															&& resultCoordinate.newLonEntr == undefined) {
-														slonEntr = 0;
-														slatEntr = 0;
-													} else {
-														if (resultCoordinate.lonEntr.length > 0) {
-															slonEntr = resultCoordinate.lonEntr;
-															slatEntr = resultCoordinate.latEntr;
-														} else {
-															slonEntr = resultCoordinate.newLonEntr;
-															slatEntr = resultCoordinate.newLatEntr;
-														}
-													}
 													
-													if(fullAddr == eventPlace){ // eventDetail에서 값이 넘어온 상태로 출발지 목적지 변경
+													if(check){ // eventDetail에서 값이 넘어온 상태로 출발지 목적지 변경
 														slat = elat;
 														slon = elon;
 													}
@@ -307,26 +306,17 @@
 														elon = resultCoordinate.newLon;
 														elat = resultCoordinate.newLat;
 													}
-
-													var elonEntr, elatEntr;
-
-													if (resultCoordinate.lonEntr == undefined
-															&& resultCoordinate.newLonEntr == undefined) {
-														elonEntr = 0;
-														elatEntr = 0;
-													} else {
-														if (resultCoordinate.lonEntr.length > 0) {
-															elonEntr = resultCoordinate.lonEntr;
-															elatEntr = resultCoordinate.latEntr;
-														} else {
-															elonEntr = resultCoordinate.newLonEntr;
-															elatEntr = resultCoordinate.newLatEntr;
-														}
-													}
 													
-													if( fullAddr == eventPlace){  // eventDetail에서 값이 넘어온 상태로 출발지 목적지 변경
+													if(check){  // eventDetail에서 값이 넘어온 상태로 출발지 목적지 변경
+														
 														elat = tempLat;
 														elon = tempLon;
+													}
+													
+													if(fullAddr == '홍대입구역' && !check){
+														
+														elat = eventLat;
+														elon = eventLon;
 													}
 
 													var markerPosition = new Tmapv2.LatLng(
@@ -1327,7 +1317,7 @@
 
 												<fieldset>
 													<input type="text" name="startAddr" id="startAddr"
-														placeholder="출발지 입력" onKeyDown="keyDown()"
+														placeholder="출발지 입력" onKeyDown="keyDown(this)"
 														autocomplete="on" required>
 												</fieldset>
 
@@ -1371,7 +1361,7 @@
 
 												<fieldset>
 													<input type="text" name="endAddr" id="endAddr"
-														placeholder="목적지 입력" value="${param.place }" required="" >
+														placeholder="목적지 입력" value="${param.place }" required="" onKeyDown="keyDown(this)">
 												</fieldset>
 											</div>
 
