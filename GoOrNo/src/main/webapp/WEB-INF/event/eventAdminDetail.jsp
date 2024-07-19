@@ -99,7 +99,7 @@
 								<!-- 업로드된 이미지가 있으면 해당 이미지를 사용 -->
 								<img
 									src="${pageContext.request.contextPath}/resources/uploadImage/${event.fimg}"
-									alt="${event.title}" />
+									alt="${event.title}" height = "80%" width = "70%"/>
 							</c:when>
 							<c:otherwise>
 								<!-- 업로드된 이미지가 없으면 API 이미지를 사용 -->

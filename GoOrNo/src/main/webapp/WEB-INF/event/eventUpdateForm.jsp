@@ -58,9 +58,18 @@ span{
 <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=50L76VhFwD5nr7iApd9gS7yiECxEoMnd8y4QD4Vl"></script>
 <script type="text/javascript">
 $(document).ready(function() {
+	var isSuccess = $("#isSuccess").val();
+	
+	if(isSuccess == 'yes'){
+		window.opener.parent.location.reload();
+		self.close();
+	}
+	
     $("#fullAddr").change(function() {
+    	
         // 2. API 사용요청
         var fullAddr = $("#fullAddr").val(); 
+        
         var headers = {};
         headers["appKey"] = "50L76VhFwD5nr7iApd9gS7yiECxEoMnd8y4QD4Vl";
         $.ajax({
@@ -78,8 +87,9 @@ $(document).ready(function() {
 
                 // 검색 결과 정보가 없을 때 처리
                 if (resultInfo.coordinate.length == 0) {
-                    $("#result").text("요청 데이터가 올바르지 않습니다.");
-                } else {
+                 	alert("정확한 주소를 입력하세요.");
+                } 
+                else {
                     var slon, slat;
 
                     var resultCoordinate = resultInfo.coordinate[0];
@@ -96,25 +106,13 @@ $(document).ready(function() {
                     // 위도와 경도 필드를 업데이트
                     $("#lot").val(slat);
                     $("#lat").val(slon);
-
-                    var slonEntr, slatEntr;
-                    if (resultCoordinate.lonEntr == undefined && resultCoordinate.newLonEntr == undefined) {
-                        slonEntr = 0;
-                        slatEntr = 0;
-                    } else {
-                        if (resultCoordinate.lonEntr.length > 0) {
-                            slonEntr = resultCoordinate.lonEntr;
-                            slatEntr = resultCoordinate.latEntr;
-                        } else {
-                            slonEntr = resultCoordinate.newLonEntr;
-                            slatEntr = resultCoordinate.newLatEntr;
-                        }
-                    }
                 }
             },
             error: function(request, status, error) {
                 console.log(request);
                 console.log("code:" + request.status + "\n message:" + request.responseText + "\n error:" + error);
+                
+             	alert("정확한 주소를 입력하세요.");
             }
         });
     });
@@ -152,10 +150,16 @@ $(document).ready(function() {
 									<div class="container" style="width: 80%; margin-top: 30px; margin-bottom:10px;">
 									<!-- 입력폼 시작 -->
 									<form:form commandName="event" action="update.event" method="post" enctype="multipart/form-data">
+									
+										<input type="hidden" name=isSuccess value="${ isSuccess}" id = "isSuccess">
 										<input type="hidden" name="event_no" value="${event.event_no }">
 										<input type="hidden" name="pageNumber" value="${ param.pageNumber }">
 										<input type="hidden" name="whatColumn" value="${ param.whatColumn }">
 										<input type="hidden" name="keyword" value="${ param.keyword }">
+										
+										
+										<input type="hidden" name="lot" id="lot" class="form-control">
+										<input type="hidden" name="lat" id="lat" class="form-control">
 										
 										<table class="table table-borderless" width="100%">
 											<tr>
@@ -180,7 +184,7 @@ $(document).ready(function() {
 											<tr>
 												<td>
 													<font size="4px"><b> 장소</b></font>
-														<input type="text" name="place" id="fullAddr" value="${event.place }" class="form-control">
+														<input type="text" name="place" id="place" value="${event.place }" class="form-control">
 														<form:errors path="place" cssClass="err"/>
 												</td>	
 											</tr>
@@ -212,16 +216,15 @@ $(document).ready(function() {
 											</tr>
 											<tr>
 												<td>
-													<font size="4px"><b>위도</b></font>
-														<input type="text" name="lot" id="lot" value="${event.lot }" class="form-control">
-														<form:errors path="lot" cssClass="err"/>
-												</td>	
-											</tr>
-											<tr>
-												<td>
-													<font size="4px"><b>경도</b></font>
-														<input type="text" name="lat" id="lat" value="${event.lat }" class="form-control">
-														<form:errors path="lat" cssClass="err"/>
+													<font size="4px"><b>주소</b></font>
+														<c:choose>
+										                     <c:when test = "${event.fullAddr != null }">
+															<input type="text" name="fullAddr" id="fullAddr" value="${event.fullAddr }" class="form-control">
+														</c:when>
+														<c:otherwise>
+															<input type="text" name="fullAddr" id="fullAddr" class="form-control">
+														</c:otherwise>
+														</c:choose>
 												</td>	
 											</tr>
 											<tr>

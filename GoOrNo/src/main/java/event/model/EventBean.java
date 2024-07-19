@@ -38,7 +38,19 @@ public class EventBean {
     @NotEmpty(message="경도를 입력하세요.")
     private String lat;
     
-    // 추가
+    // moonyeseo 추가
+    @NotEmpty(message="주소를 입력하세요.")
+    private String fullAddr;
+    
+    public String getFullAddr() {
+		return fullAddr;
+	}
+
+	public void setFullAddr(String fullAddr) {
+		this.fullAddr = fullAddr;
+	}
+
+	// 추가
  	private MultipartFile upload;
  	private String upload2; // 수정할때 삭제하려는 파일명
     
