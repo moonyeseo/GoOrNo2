@@ -111,6 +111,23 @@ public class EventInsertController {
 			System.out.println("in");
 			mav.setViewName(getPage);
 		}
+
+		PrintWriter out = null;
+		try {
+			out = response.getWriter();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if(cnt > 0) {
+			mav.addObject("isSuccess", "yes");
+			mav.setViewName(getPage);
+		}else {
+			out.append("<script>alert('행사 정보 등록 실패했습니다.')</script>");
+		}
+		
+		out.flush();
 		return mav;
 	}
 }

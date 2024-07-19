@@ -2,8 +2,10 @@ package event.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -72,7 +74,7 @@ public class EventUpdateController {
             @Valid EventBean event, BindingResult result,
             @RequestParam(value = "whatColumn", required = false) String whatColumn,
             @RequestParam(value = "pageNumber", required = false) String pageNumber,
-            @RequestParam(value = "keyword", required = false) String keyword) {
+            @RequestParam(value = "keyword", required = false) String keyword, HttpServletResponse response) {
     	ModelAndView mav = new ModelAndView();
     	
         if (result.hasErrors()) {
@@ -127,7 +129,22 @@ public class EventUpdateController {
     	mav.addObject("keyword", keyword);
     	mav.addObject("pageNumber", pageNumber);
     	mav.addObject("event", event);
-    	mav.setViewName(gotoPage);
+		PrintWriter out = null;
+		try {
+			out = response.getWriter();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if(cnt > 0) {
+			mav.addObject("isSuccess", "yes");
+			mav.setViewName(getPage);
+		}else {
+			out.append("<script>alert('행사 정보 수정 실패했습니다.')</script>");
+		}
+		
+		out.flush();
     	return mav;
     }
 }
