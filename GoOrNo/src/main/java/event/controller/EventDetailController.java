@@ -13,13 +13,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import event.model.EventBean;
 import event.model.EventDao;
+import favorite.model.FavoriteBean;
+import favorite.model.FavoriteDao;
 import review.model.ReviewBean;
 import review.model.ReviewDao;
 import users.model.UsersBean;
 import users.model.UsersDao;
 
 @Controller
-@ComponentScan(basePackages = {"review","users"})
+@ComponentScan(basePackages = {"review","users","favorite"})
 public class EventDetailController {
 	// 상세보기
 	private final String command = "detail.event"; 
@@ -35,6 +37,9 @@ public class EventDetailController {
 	
 	@Autowired
 	UsersDao usersDao;
+	
+	@Autowired
+	FavoriteDao favoriteDao;
 	
 	@RequestMapping(command)
 	public String detail(
@@ -57,6 +62,14 @@ public class EventDetailController {
            
             model.addAttribute("averageRating", averageRating);
             model.addAttribute("reviewLists", reviewLists);
+            
+            //favorite(관심목록) 여부 확인
+            UsersBean loginInfo = (UsersBean) session.getAttribute("loginInfo");
+            if (loginInfo != null) {
+                FavoriteBean favorite = favoriteDao.getFavorite(eventNo, loginInfo.getUser_no());
+                boolean favoriteStatus = (favorite != null);
+                model.addAttribute("favoriteStatus", favoriteStatus);
+            }
             
 			return getPage;
 	}

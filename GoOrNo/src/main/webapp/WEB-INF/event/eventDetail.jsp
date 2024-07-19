@@ -108,10 +108,6 @@
 	transition: color 0.3s;
 }
 
-.icon-button i#heart-f {
-	display: none;
-}
-
 </style>
 
 <!-- 챗봇 -->
@@ -162,7 +158,7 @@
 										<table class="table table-borderless"
 											style="text-align: center; width: 100%; margin-top: 50px;">
 											<tr>
-												<td rowspan="4" width="40%">
+												<td rowspan="4" width="40%"">
 													<%-- <img src="${event.img}" alt="${event.title}"> --%> 
 													<c:choose>
 														<c:when test="${not empty event.fimg}">
@@ -171,6 +167,16 @@
 																src="${pageContext.request.contextPath}/resources/uploadImage/${event.fimg}"
 																width="100" height="100" alt="${event.title}" />
 															<button type="button" onclick="favoriteInsert(${event.event_no}, ${sessionScope.loginInfo.user_no})" class="icon-button">
+																<i id="heart-f" style="${favoriteStatus ? 'display: inline-block;' : 'display: none;'}">
+																	<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+																		<path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
+																	</svg>
+																</i>
+																<i id="heart-o" style="${!favoriteStatus ? 'display: inline-block;' : 'display: none;'}">
+																	<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+																		<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+																	</svg>
+																</i>
 															</button>
 														</c:when>
 														<c:otherwise>
@@ -178,10 +184,16 @@
 															<img src="${event.img}" width="100" height="100"
 																alt="${event.title}" />
 															<button type="button" onclick="favoriteInsert(${event.event_no}, ${sessionScope.loginInfo.user_no})" class="icon-button">
-																<i class="fas fa-heart" id="heart-f" style="display: none;"></i>
-																<i id="heart-o"><svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-																	<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
-																</svg></i>
+																<i id="heart-f" style="${favoriteStatus ? 'display: inline-block;' : 'display: none;'}">
+																	<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+																		<path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
+																	</svg>
+																</i>
+																<i id="heart-o" style="${!favoriteStatus ? 'display: inline-block;' : 'display: none;'}">
+																	<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+																		<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+																	</svg>
+																</i>
 															</button>
 														</c:otherwise>
 													</c:choose>
@@ -425,30 +437,30 @@
 	}
 	
 	function favoriteInsert(event_no, user_no) {
-		$.ajax({
-			type: "post",
-			url: "${pageContext.request.contextPath}/favoriteInsert.favorite",
-			data: { event_no: event_no, user_no: user_no },
-			success: function(response) {
-				const heartFilled = document.getElementById("heart-f");
-				const heartOutline = document.getElementById("heart-o");
-				
-				if (response.status === 'added') {
-					alert('관심행사로 등록합니다.');
-					heartFilled.style.display = 'inline-block';
-					heartOutline.style.display = 'none';
-				} else if (response.status === 'removed') {
-					alert('관심행사에서 삭제합니다.');
-					heartFilled.style.display = 'none';
-					heartOutline.style.display = 'inline-block';
-				}
-				location.reload();
-			},
-			error: function(request, status, error) {
-				alert("로그인이 필요한 서비스입니다.");
-			}
-		});
+	    $.ajax({
+	        type: "post",
+	        url: "${pageContext.request.contextPath}/favoriteInsert.favorite",
+	        data: { event_no: event_no, user_no: user_no },
+	        success: function(response) {
+	            const heartFilled = document.getElementById("heart-f");
+	            const heartOutline = document.getElementById("heart-o");
+
+	            if (response.status === 'added') {
+	                alert('관심행사로 등록합니다.');
+	                heartFilled.style.display = 'inline-block';
+	                heartOutline.style.display = 'none';
+	            } else if (response.status === 'removed') {
+	                alert('관심행사에서 삭제합니다.');
+	                heartFilled.style.display = 'none';
+	                heartOutline.style.display = 'inline-block';
+	            }
+	        },
+	        error: function(request, status, error) {
+	            alert("로그인이 필요한 서비스입니다.");
+	        }
+	    });
 	}
+
 	
 </script>
 

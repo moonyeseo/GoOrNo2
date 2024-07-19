@@ -28,10 +28,15 @@ public class favoriteInsertController {
     public Map<String, String> toggleFavorite(HttpSession session,
                                               @RequestParam("event_no") int event_no,
                                               @RequestParam("user_no") int user_no) {
+    	
+    	System.out.println("-----favoriteInsertController()-----");
 
     	Map<String, String> response = new HashMap<>();
 
         FavoriteBean favorite = favoriteDao.getFavorite(event_no, user_no);
+        
+        System.out.println("event_no: " + event_no);
+		System.out.println("user_no: " + user_no);
 
         if (favorite != null) {
             favoriteDao.deleteFavorite(favorite.getFavorite_no(), event_no, user_no);
