@@ -200,9 +200,25 @@
 </script>
 </head>
 
-<br>
-<br>
+<!-- 챗봇 -->
+<!-- 챗봇 대화 -->
+<div id="asideChatbot" class="asideChatbot " style="heigth: 80%">
+	<%@include file="../chatbot/chatbot.jsp"%>
+</div>
+
+<!-- 캘린더 아이콘 -->
+<div id="calendarIcon" style="heigth: 20%; bottom : 100px">
+	<%@include file="../event/calendarIcon.jsp"%>
+</div>
+<!-- 챗봇 대화 아이콘 -->
+<div id="chatbotIcon" style="heigth: 20%; bottom : 100px">
+	<%@include file="../chatbot/chatbotIcon.jsp"%>
+</div>
+
+<br><br>
+
 <body>
+
 	<form name="register" action="join.users" method="post"
 		enctype="multipart/form-data">
 		<main>

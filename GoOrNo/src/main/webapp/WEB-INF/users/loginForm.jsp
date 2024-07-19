@@ -19,7 +19,23 @@ a:hover{
             var top = (screen.height - popupHeight) / 2; // 가운데 정렬
             window.open(url, 'popupWindow', 'width=' + popupWidth + ',height=' + popupHeight + ',top=' + top + ',left=' + left);
         }
-    </script>
+</script>
+    
+<!-- 챗봇 -->
+<!-- 챗봇 대화 -->
+<div id="asideChatbot" class="asideChatbot " style="heigth: 80%">
+	<%@include file="../chatbot/chatbot.jsp"%>
+</div>
+
+<!-- 캘린더 아이콘 -->
+<div id="calendarIcon" style="heigth: 20%; bottom : 100px">
+	<%@include file="../event/calendarIcon.jsp"%>
+</div>
+<!-- 챗봇 대화 아이콘 -->
+<div id="chatbotIcon" style="heigth: 20%; bottom : 100px">
+	<%@include file="../chatbot/chatbotIcon.jsp"%>
+</div>
+    
 <body>
 
 	<form action="login.users" method="post">
