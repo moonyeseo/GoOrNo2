@@ -60,7 +60,7 @@
 										</tr>
 										<tr>
 											<!-- 글 내용 -->
-											<td colspan="3" style="padding:20px; text-align:left;">${ notice.content }</td>
+											<td colspan="3" style="padding:20px; text-align:left; overflow:hidden; word-break:break-all;">${ notice.content }</td>
 										</tr>
 										<tr>
 											<td colspan="3" align="right" style="border-bottom:none;">

@@ -13,7 +13,7 @@
 	margin: 100px auto;
 	max-width: 1200px;
 	width: 100%;
-	padding-top: 20px; /* 메뉴바에 가리지 않도록 패딩 추가 */
+	padding-top: 50px; /* 메뉴바에 가리지 않도록 패딩 추가 */
 }
 
 .event-detail-container img {
@@ -110,7 +110,7 @@
 	<div class="container">
 		<div class="row">
 			<!-- 본문 제목 -->
-			<div class="col-lg-6 offset-lg-3">
+			<div class="col-lg-6 offset-lg-3" style = "padding-top : 40px;">
 				<div class="section-heading wow fadeIn" data-wow-duration="1s"
 					data-wow-delay="0.5s">
 					<br>
@@ -120,7 +120,7 @@
 					</h4>
 					<div class="line-dec"></div>
 				</div>
-			</div>
+				</div>
 
 			<!-- 테두리 안 본문 내용 -->
 			<div class="col-lg-12 wow fadeInUp" data-wow-duration="0.5s"
@@ -284,10 +284,6 @@
 	</div>
 </div>
 <!-- 본문 끝 -->
-
-
-
-
 <script type="text/javascript"
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">

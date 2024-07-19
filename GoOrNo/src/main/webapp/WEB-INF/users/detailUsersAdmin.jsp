@@ -10,7 +10,7 @@
 			<h1>User</h1>
 			<nav>
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a href="#">Users</a></li>
+					<li class="breadcrumb-item"><a href="list.users">User</a></li>
 					<li class="breadcrumb-item active">Detail</li>
 				</ol>
 			</nav>
@@ -48,40 +48,40 @@
 								<div class="tab-pane fade show active profile-overview"
 									id="profile-overview">							
 
-									<h5 class="card-title">Profile Details</h5>
+									<h5 class="card-title"><b>개인정보</b></h5>
 
 									<div class="row">
-										<div class="col-lg-3 col-md-4 label ">ID</div>
+										<div class="col-lg-3 col-md-4 label ">아이디</div>
 										<div class="col-lg-9 col-md-8">${users.id }</div>
 									</div>
 
 									<div class="row">
-										<div class="col-lg-3 col-md-4 label">PassWord</div>
+										<div class="col-lg-3 col-md-4 label">비밀번호</div>
 										<div class="col-lg-9 col-md-8">${users.pw }</div>
 									</div>
 
 									<div class="row">
-										<div class="col-lg-3 col-md-4 label">Gender</div>
+										<div class="col-lg-3 col-md-4 label">성별</div>
 										<div class="col-lg-9 col-md-8">${users.gender }</div>
 									</div>
 
 									<div class="row">
-										<div class="col-lg-3 col-md-4 label">Email</div>
+										<div class="col-lg-3 col-md-4 label">이메일</div>
 										<div class="col-lg-9 col-md-8">${users.email }</div>
 									</div>
 
 									<div class="row">
-										<div class="col-lg-3 col-md-4 label">Phone</div>
+										<div class="col-lg-3 col-md-4 label">전화번호</div>
 										<div class="col-lg-9 col-md-8">${users.phoneNum }</div>
 									</div>
 
 									<div class="row">
-										<div class="col-lg-3 col-md-4 label">Postcode</div>
+										<div class="col-lg-3 col-md-4 label">우편번호</div>
 										<div class="col-lg-9 col-md-8">${users.postcode }</div>
 									</div>
 
 									<div class="row">
-										<div class="col-lg-3 col-md-4 label">Address</div>
+										<div class="col-lg-3 col-md-4 label">주소</div>
 										<div class="col-lg-9 col-md-8">${users.address }</div>
 									</div>
 

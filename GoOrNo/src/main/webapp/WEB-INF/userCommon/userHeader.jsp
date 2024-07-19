@@ -11,8 +11,30 @@
  
 <head>
 
-<!-- yoon 작성 -->
 <style type="text/css">
+
+header{
+   font-family : 'Poppins', sans-serif;   
+}
+
+body {
+    padding-top: 180px; /* pre-header와 header-area 높이 합과 일치하도록 설정 */
+}
+
+.pre-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1001;
+}
+
+.header-area {
+    position: fixed;
+    top: 60px; /* pre-header 높이만큼 내림 */
+    z-index: 1000;
+}
+
+
 .err {
 	color: red;
 	size: 1em;
@@ -133,7 +155,7 @@
         });
     }
 
-	function checkRead(alarm_no, alarm_type, type_id) {
+	function checkRead(alarm_no, alarm_type, type_id, user_id) {
 	    console.log("Marking alarm as read: " + alarm_no);
 	    $.ajax({
 	        url: "${pageContext.request.contextPath}/notifications/alarms/read",
@@ -292,7 +314,7 @@ https://templatemo.com/tm-568-digimedia
 
 	<!-- ***** Header Area Start ***** -->
 	<header class="header-area header-sticky wow slideInDown"
-		data-wow-duration="0.75s" data-wow-delay="0s" style="z-index: 1000; position: relative;">
+		data-wow-duration="0.75s" data-wow-delay="0s">
 		<div class="container">
 			<div class="row">
 				<div class="col-12">
@@ -338,7 +360,14 @@ https://templatemo.com/tm-568-digimedia
 										<a href="login.users">My Page</a>
 									</c:if>
 									<c:if test="${ loginInfo ne null }">
-										<a href="myPage.users?user_no=${sessionScope.loginInfo.user_no}">My Page</a>
+										<c:choose>
+											<c:when test="${loginInfo.id eq 'admin'}">
+												<a href="<%=request.getContextPath()%>/mainAdmin.jsp">My Page</a>
+											</c:when>
+											<c:otherwise>
+												<a href="myPage.users?user_no=${sessionScope.loginInfo.user_no}">My Page</a>
+											</c:otherwise>
+										</c:choose>
 									</c:if>
 
 								</div></li>

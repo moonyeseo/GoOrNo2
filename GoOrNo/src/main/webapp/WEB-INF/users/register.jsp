@@ -102,7 +102,12 @@
 		var code2 = "";
 
 		$("#phoneChk").click(function() {
-			alert("인증번호 발송이 완료되었습니다.\n인증번호 확인을 해주십시오.");
+			if ($('input[name=phoneNum]').val() != "") {
+				alert("인증번호 발송이 완료되었습니다.\n인증번호 확인을 해주십시오.");
+			} else {
+				alert("전화번호를 입력해주세요.");
+				return false;
+			}
 
 			var phoneNum = $("#phoneNum").val();
 
@@ -235,8 +240,8 @@
 											<label class="form-label">ID</label>
 											<div class="input-group has-validation">
 												<input type="text" name="id" value="${users.id }"
-													class="form-control" required> <input type="button"
-													class="btn" id="name_check" value="  Check  "
+													class="form-control" maxlength="10" required> <input
+													type="button" class="btn" id="name_check" value="  Check  "
 													style="background-color: #D8D8D8;">
 
 												<div class="input-group has-validation">
@@ -250,7 +255,7 @@
 										<div class="col-12">
 											<label class="form-label">Password</label> <input
 												type="password" name="pw" value="${users.pw }"
-												class="form-control" required>
+												class="form-control" maxlength="10" required>
 											<div class="invalid-feedback">Please enter your
 												password!</div>
 										</div>
@@ -272,7 +277,7 @@
 										<div class="col-12">
 											<label class="form-label">Email</label> <input type="email"
 												name="email" value="${users.email }" class="form-control"
-												required>
+												maxlength="15" required>
 											<div class="invalid-feedback">Please enter your
 												password!</div>
 										</div>
@@ -280,7 +285,7 @@
 										<div class="col-12">
 											<label class="form-label">name</label> <input type="text"
 												name="name" value="${users.name }" class="form-control"
-												required>
+												maxlength="10" required>
 											<div class="invalid-feedback">Please enter your
 												password!</div>
 										</div>
@@ -292,7 +297,7 @@
 												<input id="phoneNum" type="text" name="phoneNum"
 													value="${users.phoneNum }" class="form-control"
 													pattern="(010)\d{3,4}\d{4}" title="형식 01012345678"
-													placeholder="'-' 없이 작성해주세요." required /> <input
+													placeholder="'-' 없이 작성해주세요." maxlength="15" required /> <input
 													id="phoneChk" class="btn" type="button"
 													style="background-color: #D8D8D8;" value="본인인증">
 											</div>
@@ -300,7 +305,7 @@
 										</div>
 										<div class="col-12">
 											<div class="input-group has-validation">
-												<input id="phone2" type="text" name="phone2"
+												<input id="phone2" type="text" name="phone2" maxlength="6"
 													class="form-control" title="인증번호 입력" disabled required>
 												<input id="phoneChk2" type="button" class="btn"
 													style="background-color: #D8D8D8;" value="  Check  ">
