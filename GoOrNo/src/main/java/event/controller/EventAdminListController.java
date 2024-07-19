@@ -21,7 +21,7 @@ import utility.Paging;
 public class EventAdminListController {
 	// 관리자 리스트
 	private final String command = "/AdminList.event";
-	private final String getPage = "eventAdminList";
+	private final String getPage = "../../mainAdmin";
 
 	@Autowired
 	private EventDao edao;
@@ -58,6 +58,8 @@ public class EventAdminListController {
 		model.addAttribute("pageNumber", pageNumber);
 		model.addAttribute("lists", lists);
 		model.addAttribute("performanceTypeList", performanceTypeList);
+		
+		model.addAttribute("eventListFlag", true);
 		
 		return getPage;
 	}

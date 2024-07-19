@@ -116,8 +116,21 @@
 	<%@include file="../event/calendarIcon.jsp"%>
 </div>
 
-<section>
-    <h2>Event</h2>
+<div id="contact" class="contact-us section">
+	<div class="container">
+		<div class="row">
+			<!-- 본문 제목 -->
+			<div class="col-lg-6 offset-lg-3">
+				<div class="section-heading wow fadeIn" data-wow-duration="1s"
+					data-wow-delay="0.5s">
+					<br>
+					<h6>Event</h6>
+					<h4>
+						<a href="#" style="color: inherit;">전체<em> 행사</em></a>
+					</h4>
+					<div class="line-dec"></div>
+				</div>
+			</div>
     <div class="performance-type-container">
         <form action="list.event" method="get" class="form" id="performanceTypeForm">
             <input type="text" name="whatColumn" value="performance_type">
@@ -126,7 +139,7 @@
 			<input type="hidden" name="pageNumber" value="${pageNumber }">
             <input type="submit" value="검색">
         </form>
-        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist" style = "margin:auto">
             <li class="nav-item" role="presentation">
                 <button class="nav-link <c:if test='${pageInfo.keyword eq "" || pageInfo.keyword eq null}'>active</c:if>"
                     id="전체" type="button">전체</button>
@@ -139,7 +152,7 @@
             </c:forEach>
         </ul>
     </div>
-    <div class="event-container">
+    <div class="event-container" style = "padding-left : 37px;width :85%">
         <c:forEach var="event" items="${lists}">
             <div class="card">
                 <a href="detail.event?eventNo=${event.event_no}&whatColumn=${whatColumn}&keyword=${keyword }&pageNumber=${pageNumber}">
@@ -165,8 +178,12 @@
             </div>
         </c:forEach>
     </div>
-    <div class="paging-info">${pageInfo.pagingHtml}</div>
-</section>
+    <center>
+    	<div class="paging-info">${pageInfo.pagingHtml}</div>
+    </center>
+</div>
+</div>
+</div>
 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
