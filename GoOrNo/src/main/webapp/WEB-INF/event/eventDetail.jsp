@@ -159,7 +159,7 @@
 									<tr>
 										<td align="right"><textarea name="comments"
 												id="reviewComment" class="form-control"
-												placeholder="리뷰를 작성해 보세요." style="resize: none;"></textarea></td>
+												placeholder="리뷰를 작성해 보세요." style="resize: none;" maxlength="50" required></textarea></td>
 									</tr>
 									<tr>
 										<td align="right"><button onclick="commentwirte()"

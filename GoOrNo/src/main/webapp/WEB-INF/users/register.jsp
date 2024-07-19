@@ -292,7 +292,7 @@
 												<input id="phoneNum" type="text" name="phoneNum"
 													value="${users.phoneNum }" class="form-control"
 													pattern="(010)\d{3,4}\d{4}" title="형식 01012345678"
-													placeholder="'-' 없이 작성해주세요." required /> <input
+													placeholder="'-' 없이 작성해주세요." maxlength="15" required /> <input
 													id="phoneChk" class="btn" type="button"
 													style="background-color: #D8D8D8;" value="본인인증">
 											</div>
@@ -300,7 +300,7 @@
 										</div>
 										<div class="col-12">
 											<div class="input-group has-validation">
-												<input id="phone2" type="text" name="phone2"
+												<input id="phone2" type="text" name="phone2" maxlength="6"
 													class="form-control" title="인증번호 입력" disabled required>
 												<input id="phoneChk2" type="button" class="btn"
 													style="background-color: #D8D8D8;" value="  Check  ">
