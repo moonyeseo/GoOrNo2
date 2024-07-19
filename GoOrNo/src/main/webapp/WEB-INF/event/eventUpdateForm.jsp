@@ -220,9 +220,11 @@ $(document).ready(function() {
 														<c:choose>
 										                     <c:when test = "${event.fullAddr != null }">
 															<input type="text" name="fullAddr" id="fullAddr" value="${event.fullAddr }" class="form-control">
+															<form:errors path="fullAddr" cssClass="err"/>
 														</c:when>
 														<c:otherwise>
 															<input type="text" name="fullAddr" id="fullAddr" class="form-control">
+															<form:errors path="fullAddr" cssClass="err"/>
 														</c:otherwise>
 														</c:choose>
 												</td>	
