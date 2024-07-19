@@ -7,31 +7,21 @@
 
 <head>
 <meta charset="UTF-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-	href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <!-- Bootstrap core CSS -->
-<link
-	href="<%=request.getContextPath()%>/resources/vendor/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet">
-
+<link href="<%=request.getContextPath()%>/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Additional CSS Files --> 
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/resources/assets/css/fontawesome.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/resources/assets/css/templatemo-digimedia-v1.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/resources/assets/css/animated.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/resources/assets/css/owl.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/assets/css/fontawesome.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/assets/css/templatemo-digimedia-v1.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/assets/css/animated.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/assets/css/owl.css">
 <!--
 
 TemplateMo 568 DigiMedia
@@ -43,9 +33,7 @@ https://templatemo.com/tm-568-digimedia
 <!-- 한글 글씨체(추가) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-	href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
 
 <title>event update</title>
 </head>
@@ -67,6 +55,73 @@ span{
 </style>
 
 <script type="text/javascript" src="<%= request.getContextPath() %>/resources/vendor/jquery/jquery.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=50L76VhFwD5nr7iApd9gS7yiECxEoMnd8y4QD4Vl"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#fullAddr").change(function() {
+        // 2. API 사용요청
+        var fullAddr = $("#fullAddr").val(); 
+        var headers = {};
+        headers["appKey"] = "50L76VhFwD5nr7iApd9gS7yiECxEoMnd8y4QD4Vl";
+        $.ajax({
+            method: "GET",
+            headers: headers,
+            url: "https://apis.openapi.sk.com/tmap/geo/fullAddrGeo?version=1&format=json&callback=result",
+            async: false,
+            data: {
+                "coordType": "WGS84GEO",
+                "fullAddr": fullAddr
+            },
+            success: function(response) {
+                var resultInfo = response.coordinateInfo;
+                console.log(resultInfo);
+
+                // 검색 결과 정보가 없을 때 처리
+                if (resultInfo.coordinate.length == 0) {
+                    $("#result").text("요청 데이터가 올바르지 않습니다.");
+                } else {
+                    var slon, slat;
+
+                    var resultCoordinate = resultInfo.coordinate[0];
+                    if (resultCoordinate.lon.length > 0) {
+                        // 구주소
+                        slon = resultCoordinate.lon;
+                        slat = resultCoordinate.lat;
+                    } else {
+                        // 신주소
+                        slon = resultCoordinate.newLon;
+                        slat = resultCoordinate.newLat;
+                    }
+
+                    // 위도와 경도 필드를 업데이트
+                    $("#lot").val(slat);
+                    $("#lat").val(slon);
+
+                    var slonEntr, slatEntr;
+                    if (resultCoordinate.lonEntr == undefined && resultCoordinate.newLonEntr == undefined) {
+                        slonEntr = 0;
+                        slatEntr = 0;
+                    } else {
+                        if (resultCoordinate.lonEntr.length > 0) {
+                            slonEntr = resultCoordinate.lonEntr;
+                            slatEntr = resultCoordinate.latEntr;
+                        } else {
+                            slonEntr = resultCoordinate.newLonEntr;
+                            slatEntr = resultCoordinate.newLatEntr;
+                        }
+                    }
+                }
+            },
+            error: function(request, status, error) {
+                console.log(request);
+                console.log("code:" + request.status + "\n message:" + request.responseText + "\n error:" + error);
+            }
+        });
+    });
+});
+</script>
+
 <script type="text/javascript">
 	$(document).ready(function(){
 		var isSuccess = $("#isSuccess").val();
@@ -138,7 +193,7 @@ span{
 											<tr>
 												<td>
 													<font size="4px"><b> 장소</b></font>
-														<input type="text" name="place" value="${event.place }"  class="form-control">
+														<input type="text" name="place" id="fullAddr" value="${event.place }" class="form-control">
 														<form:errors path="place" cssClass="err"/>
 												</td>	
 											</tr>
@@ -160,14 +215,14 @@ span{
 											<tr>
 												<td>
 													<font size="4px"><b>위도</b></font>
-														<input type="text" name="lot" value="${event.lot }" class="form-control">
+														<input type="text" name="lot" id="lot" value="${event.lot }" class="form-control">
 														<form:errors path="lot" cssClass="err"/>
 												</td>	
 											</tr>
 											<tr>
 												<td>
 													<font size="4px"><b>경도</b></font>
-														<input type="text" name="lat" value="${event.lat }" class="form-control">
+														<input type="text" name="lat" id="lat" value="${event.lat }" class="form-control">
 														<form:errors path="lat" cssClass="err"/>
 												</td>	
 											</tr>

@@ -16,10 +16,10 @@ public class EventBean {
     @NotEmpty(message="장소를 입력하세요.")
     private String place;
     
-    @NotEmpty(message="기간을 입력하세요.")
+    @NotEmpty(message="날짜를 선택하세요.")
     private String event_period;
     
-    private String img;
+    private String img; // Api 이미지
     
     @NotEmpty(message = "파일 선택 안함")
     private String fimg; // 업로드 파일 이미지
@@ -38,13 +38,9 @@ public class EventBean {
     @NotEmpty(message="경도를 입력하세요.")
     private String lat;
     
-    
     // 추가
  	private MultipartFile upload;
  	private String upload2; // 수정할때 삭제하려는 파일명
-    
-    
-    
     
 	public EventBean() {
         System.out.println("EventBean 생성자");
@@ -61,8 +57,8 @@ public class EventBean {
 		this.upload = upload;
 		if(this.upload != null) {
 			System.out.println(upload.getName()); // upload
-			System.out.println(upload.getOriginalFilename()); // 남자시계.jpg
-			fimg = upload.getOriginalFilename(); // img = 남자시계.jpg
+			System.out.println(upload.getOriginalFilename()); 
+			fimg = upload.getOriginalFilename(); 
 		}
 	}
 
@@ -70,13 +66,9 @@ public class EventBean {
 		return upload2;
 	}
 
-
-
 	public void setUpload2(String upload2) {
 		this.upload2 = upload2;
 	}
-
-
 
 	public int getEvent_no() {
         return event_no;

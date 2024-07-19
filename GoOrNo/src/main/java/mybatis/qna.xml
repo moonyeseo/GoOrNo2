@@ -100,7 +100,7 @@
 	<select id="getQnaByUser_no" resultType="qna.model.QnaBean">
 		select * from qna
 		where user_no = #{user_no} and qna_no = ref
-		order by regdate asc
+		order by regdate desc
 	</select>
 	
 	<!-- woo 추가 : 답변상태 업데이트 -->
