@@ -5,6 +5,10 @@
 
 <mapper namespace="favorite.model.Favorite">
 	
+	<select id="getFavorite" resultType="favorite.model.FavoriteBean" parameterType="map">
+        select * from favorite where event_no = #{event_no} and user_no = #{user_no}
+    </select>
+	
 	<select id="getTotalCount" resultType="int">
 		select count(*) from favorite
 	</select>

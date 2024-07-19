@@ -89,6 +89,29 @@
 .starR.on {
 	text-shadow: 0 0 0 #ffbc00;
 }
+
+
+/* 관심목록 */
+.icon-button {
+	border: none;
+	background: none;
+	padding: 0;
+	cursor: pointer;
+	position: absolute;
+	top: 10px;
+	left: 10px;
+}
+
+.icon-button i {
+	font-size: 24px;
+	color: #fa64b0; /* 채워진 하트 색상 */
+	transition: color 0.3s;
+}
+
+.icon-button i#heart-f {
+	display: none;
+}
+
 </style>
 
 <!-- 챗봇 -->
@@ -140,17 +163,26 @@
 											style="text-align: center; width: 100%; margin-top: 50px;">
 											<tr>
 												<td rowspan="4" width="40%">
-													<%-- <img src="${event.img}" alt="${event.title}"> --%> <c:choose>
+													<%-- <img src="${event.img}" alt="${event.title}"> --%> 
+													<c:choose>
 														<c:when test="${not empty event.fimg}">
 															<!-- 업로드된 이미지가 있으면 해당 이미지를 사용 -->
 															<img
 																src="${pageContext.request.contextPath}/resources/uploadImage/${event.fimg}"
 																width="100" height="100" alt="${event.title}" />
+															<button type="button" onclick="favoriteInsert(${event.event_no}, ${sessionScope.loginInfo.user_no})" class="icon-button">
+															</button>
 														</c:when>
 														<c:otherwise>
 															<!-- 업로드된 이미지가 없으면 API 이미지를 사용 -->
 															<img src="${event.img}" width="100" height="100"
 																alt="${event.title}" />
+															<button type="button" onclick="favoriteInsert(${event.event_no}, ${sessionScope.loginInfo.user_no})" class="icon-button">
+																<i class="fas fa-heart" id="heart-f" style="display: none;"></i>
+																<i id="heart-o"><svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+																	<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+																</svg></i>
+															</button>
 														</c:otherwise>
 													</c:choose>
 												</td>
@@ -391,7 +423,33 @@
 					+ "&whatColumn=" + whatColumn + "&keyword=" + keyword;
 		}
 	}
+	
+	function favoriteInsert(event_no, user_no) {
+		$.ajax({
+			type: "post",
+			url: "${pageContext.request.contextPath}/favoriteInsert.favorite",
+			data: { event_no: event_no, user_no: user_no },
+			success: function(response) {
+				const heartFilled = document.getElementById("heart-f");
+				const heartOutline = document.getElementById("heart-o");
+				
+				if (response.status === 'added') {
+					alert('관심행사로 등록합니다.');
+					heartFilled.style.display = 'inline-block';
+					heartOutline.style.display = 'none';
+				} else if (response.status === 'removed') {
+					alert('관심행사에서 삭제합니다.');
+					heartFilled.style.display = 'none';
+					heartOutline.style.display = 'inline-block';
+				}
+				location.reload();
+			},
+			error: function(request, status, error) {
+				alert("로그인이 필요한 서비스입니다.");
+			}
+		});
+	}
+	
 </script>
-
 
 <%@include file="../userCommon/userFooter.jsp"%>
