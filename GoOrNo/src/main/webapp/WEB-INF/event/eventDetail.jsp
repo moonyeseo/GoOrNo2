@@ -13,7 +13,7 @@
 	margin: 100px auto;
 	max-width: 1200px;
 	width: 100%;
-	padding-top: 20px; /* 메뉴바에 가리지 않도록 패딩 추가 */
+	padding-top: 50px; /* 메뉴바에 가리지 않도록 패딩 추가 */
 }
 
 .event-detail-container img {
@@ -46,16 +46,16 @@
 	border: 1px solid #dddddd;
 }
 
-    .event-title {
-        width: 100%;
-        text-align: center;
-        margin-bottom: 20px;
-    }
-    
-    #btnList{
-    	text-align: center;
-    }
-    
+.event-title {
+	width: 100%;
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+#btnList {
+	text-align: center;
+}
+
 .event-info td {
 	padding: 15px;
 	text-align: left;
@@ -89,7 +89,6 @@
 .starR.on {
 	text-shadow: 0 0 0 #ffbc00;
 }
->>>>>>> refs/remotes/origin/master
 </style>
 
 <!-- 챗봇 -->
@@ -106,192 +105,185 @@
 	<%@include file="../event/calendarIcon.jsp"%>
 </div>
 
-<section class="event-detail-container">
-    <div class="event-title">
-        <h2>상세정보</h2>
-    </div>
-    <div style="display: flex; width: 100%;">
-        <%-- <img src="${event.img}" alt="${event.title}"> --%>
-		<c:choose>
-		    <c:when test="${not empty event.fimg}">
-		        <!-- 업로드된 이미지가 있으면 해당 이미지를 사용 -->
-		        <img src="${pageContext.request.contextPath}/resources/uploadImage/${event.fimg}"
-		            width="100" height="100" alt="${event.title}" />
-		    </c:when>
-		    <c:otherwise>
-		        <!-- 업로드된 이미지가 없으면 API 이미지를 사용 -->
-		        <img src="${event.img}" width="100" height="100" alt="${event.title}" />
-		    </c:otherwise>
-		</c:choose>
-        <div class="event-info">
-            <table>
-                <tr>
-                    <th>분류</th>
-                    <td>${event.performance_type}</td>
-                </tr>
-                <tr>
-                    <th>행사/공연</th>
-                    <td>${event.title}</td>
-                </tr>
-                <tr>
-                    <th>기간</th>
-                    <td>${event.event_period}</td>
-                </tr>
-                <tr>
-                    <th>장소</th>
-                    <td>${event.place}</td>
-                </tr>
-                <tr>
-                	<td id="btnList"colspan="2">
-               			
-	  					<input type="button" class="btn btn-secondary" value="목록보기" onClick="location.href='list.event?eventNo=${event.event_no }&whatColumn=${param.whatColumn}&keyword=${param.keyword}&pageNumber=${pageNumber}'">
-	  					<input type="button" class="btn btn-secondary" value="길찾기" onClick="location.href='search.bookmark?lat=${event.lat}&lot=${event.lot }&place=${event.place }'">
-                	</td>
-                </tr>
-            </table>
-        </div>
-    </div>
-	<div class="event-title">
-		<h2>상세정보</h2>
-	</div>
-	<div style="display: flex; width: 100%;">
-		<img src="${event.img}" alt="${event.title}">
-		<div class="event-info">
-			<table>
-				<tr>
-					<th>분류</th>
-					<td>${event.performance_type}</td>
-				</tr>
-				<tr>
-					<th>행사/공연</th>
-					<td>${event.title}</td>
-				</tr>
-				<tr>
-					<th>기간</th>
-					<td>${event.event_period}</td>
-				</tr>
-				<tr>
-					<th>장소</th>
-					<td>${event.place}</td>
-				</tr>
-				<tr>
-					<td colspan="2"><input type="button"
-						class="btn btn-outline-primary btn-sm" value="목록보기"
-						onClick="location.href='list.event?eventNo=${event.event_no }&whatColumn=${param.whatColumn}&keyword=${param.keyword}&pageNumber=${param.pageNumber}'">
-						<input type="button" class="btn btn-outline-primary btn-sm"
-						value="길찾기"
-						onClick="location.href='search.bookmark?lat=${event.lat}&lot=${event.lot }&place=${event.place }'">
-					</td>
-				</tr>
-			</table>
-		</div>
-	</div>
-</section>
-
-<!-- 리뷰  -->
-<div class="col-lg-12" align="center">
-	<section class="section">
+<!-- 본문 시작 -->
+<div id="contact" class="contact-us section">
+	<div class="container">
 		<div class="row">
-			<div class="col-lg-12">
-				<div class="card">
-					<div class="card-body">
-						<h2>Review</h2>
-						<div class="pt-3 pb-2"></div>
-						<p>별점을 선택해주세요.</p>
-
-						<div>
-							<div class="starRev" id="rating">
-								<input type="hidden" id="count">
-								<span class="starR" id="1">⭐</span>
-								<span class="starR" id="2">⭐</span>
-								<span class="starR" id="3">⭐</span>
-								<span class="starR" id="4">⭐</span>
-								<span class="starR" id="5">⭐</span>
-							</div>
-
-							<c:if test="${ loginInfo.id ne null }">
-								<table class="table table-borderless" style="width: 70%;">
-									<tr>
-										<td align="right"><textarea name="comments"
-												id="reviewComment" class="form-control"
-												placeholder="리뷰를 작성해 보세요." style="resize: none;" maxlength="50" required></textarea></td>
-									</tr>
-									<tr>
-										<td align="right"><button onclick="commentwirte()"
-												class="btn btn-secondary">작성하기</button></td>
-									</tr>
-								</table>
-							</c:if>
-
-							<c:if test="${ loginInfo.id eq null }">
-								<table class="table table-borderless" style="width: 70%;">
-									<tr>
-										<td align="right"><textarea name="comments"
-												id="reviewComment" class="form-control"
-												placeholder="로그인한 회원만 리뷰를 작성할 수 있습니다." disabled="disabled"
-												style="resize: none;"></textarea></td>
-									</tr>
-									<tr>
-										<td align="right"><button disabled="disabled"
-												class="btn btn-secondary">작성하기</button></td>
-									</tr>
-								</table>
-							</c:if>
-						</div>
-
-						<div id="averageRating">
-							<c:choose>
-								<c:when test="${averageRating != null and averageRating != 0}">
-								평균 별점:
-								 <span class="starR on">⭐</span>
-									<fmt:formatNumber value="${averageRating}" type="number"
-										maxFractionDigits="1" /> / 5
-								</c:when>
-								<c:otherwise>
-								평균 별점: 
-								<span class="starR on">⭐</span> 0.0 / 5
-								 </c:otherwise>
-							</c:choose>
-						</div>
-
-						<div class="pt-1 pb-2"></div>
-						<div id="reviewView">
-							<table class="table table-borderless" style="width: 70%;">
-								<c:if test="${fn:length(reviewLists) < 1}">
-									<tr>
-										<td align="center">첫 리뷰를 작성해주세요.</td>
-									</tr>
-								</c:if>
-								<c:if test="${fn:length(reviewLists) > 0}">
-									<c:forEach var="review" items="${reviewLists}">
-										<tr>
-											<td width="15%" align="left">${review.user_id}</td>
-											<td width="25%" align="left"><c:forEach begin="1"
-													end="${review.rating}" var="i">
-													<span class="starR on" id="${i}">⭐</span>
-												</c:forEach></td>
-											<td width="40%" align="left">${review.comments}</td>
-											<td width="20%" align="left"
-												style="font-family: 'Noto Sans';"><c:if
-													test="${loginInfo.id eq review.user_id}">
-													<a onClick="return deletereview('${review.review_no}')"
-														style="cursor: pointer;"> <font size="2px">삭제</font>
-													</a>
-												</c:if>
-											</td>
-										</tr>
-									</c:forEach> 
-								</c:if>
-							</table>
-						</div>
-					</div>
+			<!-- 본문 제목 -->
+			<div class="col-lg-6 offset-lg-3" style = "padding-top : 40px;">
+				<div class="section-heading wow fadeIn" data-wow-duration="1s"
+					data-wow-delay="0.5s">
+					<br>
+					<h6>Event</h6>
+					<h4>
+						<a href="#" style="color: inherit;"><em>상세</em> 정보</a>
+					</h4>
+					<div class="line-dec"></div>
 				</div>
+				</div>
+
+			<!-- 테두리 안 본문 내용 -->
+			<div class="col-lg-12 wow fadeInUp" data-wow-duration="0.5s"
+				data-wow-delay="0.25s" align="center">
+				<section class="section">
+					<div class="row">
+						<div class="col-lg-12" style="display: inline">
+							<div class="card">
+								<div class="card-body">
+
+									<!-- 글 내용 감싸는 테두리 -->
+									<div class="container border border-secondary-subtle rounded"
+										style="width: 100%; margin-top: 30px; margin-bottom: 10px;">
+
+										<!-- 글 내용 시작 -->
+										<table class="table table-borderless"
+											style="text-align: center; width: 100%; margin-top: 50px;">
+											<tr>
+												<td rowspan="4" width="40%">
+													<%-- <img src="${event.img}" alt="${event.title}"> --%> <c:choose>
+														<c:when test="${not empty event.fimg}">
+															<!-- 업로드된 이미지가 있으면 해당 이미지를 사용 -->
+															<img
+																src="${pageContext.request.contextPath}/resources/uploadImage/${event.fimg}"
+																width="100" height="100" alt="${event.title}" />
+														</c:when>
+														<c:otherwise>
+															<!-- 업로드된 이미지가 없으면 API 이미지를 사용 -->
+															<img src="${event.img}" width="100" height="100"
+																alt="${event.title}" />
+														</c:otherwise>
+													</c:choose>
+												</td>
+												<!-- 행사 제목 -->
+												<td width="30%" style="text-align: left;" colspan="2"><font
+													size="4px"><b>${event.title}</b></font></td>
+											</tr>
+											<tr>
+												<!-- 행사 분류 -->
+												<td align="left" style="width: 10%; color: gray">카테고리</td>
+												<td align="left" style="width: 40%" colspan="2">${event.performance_type}</td>
+											</tr>
+											<tr>
+												<!-- 행사 기간 -->
+												<td align="left" style="width: 10%; color: gray">기간</td>
+												<td align="left" style="width: 40%" colspan="2">${event.event_period}</td>
+											</tr>
+											<tr>
+												<!-- 행사 장소 -->
+												<td align="left" style="width: 10%; color: gray">장소</td>
+												<td align="left" style="width: 40%" colspan="2">${event.place}</td>
+											</tr>
+											<tr>
+												<td colspan="3" align="right" style="border-bottom: none;">
+													<input type="button" class="btn btn-secondary"
+													onClick="location.href='list.event?eventNo=${event.event_no }&whatColumn=${param.whatColumn}&keyword=${param.keyword}&pageNumber=${pageNumber}'"
+													value="글목록" style="background-color: white; color: black;">
+													<input type="button" class="btn btn-secondary" value="길찾기"
+													style="background-color: white; color: black;"
+													onClick="location.href='search.bookmark?lat=${event.lat}&lot=${event.lot }&place=${event.place }'">
+												</td>
+											</tr>
+										</table>
+									</div>
+									<!-- 리뷰  -->
+										<div class="pt-3 pb-2" style = "margin-top:50px"></div>
+										<p>별점을 선택해주세요.</p>
+
+										<div>
+											<div class="starRev" id="rating">
+												<input type="hidden" id="count"> <span class="starR"
+													id="1">⭐</span> <span class="starR" id="2">⭐</span> <span
+													class="starR" id="3">⭐</span> <span class="starR" id="4">⭐</span>
+												<span class="starR" id="5">⭐</span>
+
+											</div>
+
+											<c:if test="${ loginInfo.id ne null }">
+												<table class="table table-borderless" style="width: 70%;">
+													<tr>
+														<td align="right"><textarea name="comments"
+																id="reviewComment" class="form-control"
+																placeholder="리뷰를 작성해 보세요." style="resize: none;"></textarea></td>
+													</tr>
+													<tr>
+														<td align="right"><button onclick="commentwirte()"
+																class="btn btn-secondary">작성하기</button></td>
+													</tr>
+												</table>
+											</c:if>
+
+											<c:if test="${ loginInfo.id eq null }">
+												<table class="table table-borderless" style="width: 70%;">
+													<tr>
+														<td align="right"><textarea name="comments"
+																id="reviewComment" class="form-control"
+																placeholder="로그인한 회원만 리뷰를 작성할 수 있습니다."
+																disabled="disabled" style="resize: none;"></textarea></td>
+													</tr>
+													<tr>
+														<td align="right"><button disabled="disabled"
+																class="btn btn-secondary">작성하기</button></td>
+													</tr>
+												</table>
+											</c:if>
+										</div>
+
+										<div id="averageRating">
+											<c:choose>
+												<c:when
+													test="${averageRating != null and averageRating != 0}">
+											평균 별점:
+											 <span class="starR on">⭐</span>
+													<fmt:formatNumber value="${averageRating}" type="number"
+														maxFractionDigits="1" /> / 5
+											</c:when>
+												<c:otherwise>
+											평균 별점: 
+											<span class="starR on">⭐</span> 0.0 / 5
+											 </c:otherwise>
+											</c:choose>
+										</div>
+
+										<div class="pt-1 pb-2"></div>
+										<div id="reviewView">
+											<table class="table table-borderless" style="width: 70%;">
+												<c:if test="${fn:length(reviewLists) < 1}">
+													<tr>
+														<td align="center">첫 리뷰를 작성해주세요.</td>
+													</tr>
+												</c:if>
+												<c:if test="${fn:length(reviewLists) > 0}">
+													<c:forEach var="review" items="${reviewLists}">
+														<tr>
+															<td width="15%" align="left">${review.user_id}</td>
+															<td width="25%" align="left"><c:forEach begin="1"
+																	end="${review.rating}" var="i">
+																	<span class="starR on" id="${i}">⭐</span>
+																</c:forEach></td>
+															<td width="40%" align="left">${review.comments}</td>
+															<td width="20%" align="left"
+																style="font-family: 'Noto Sans';"><c:if
+																	test="${loginInfo.id eq review.user_id}">
+																	<a onClick="return deletereview('${review.review_no}')"
+																		style="cursor: pointer;"> <font size="2px">삭제</font>
+																	</a>
+																</c:if></td>
+														</tr>
+													</c:forEach>
+												</c:if>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+				</section>
 			</div>
+			<!-- 테두리 끝 -->
 		</div>
-	</section>
+	</div>
 </div>
-
-
+<!-- 본문 끝 -->
 <script type="text/javascript"
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
