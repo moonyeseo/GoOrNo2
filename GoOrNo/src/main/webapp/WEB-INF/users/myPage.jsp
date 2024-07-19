@@ -624,9 +624,9 @@ body {
 								<img src="${favorite.img}" alt="이미지">
 							</a>
 							<button type="button" onclick="favoriteDelete(${favorite.favorite_no}, ${favorite.event_no}, ${usersBean.user_no})" class="icon-button">
-							<i class="bi bi-heart-fill"></i>
-							<i class="bi bi-heart"></i>
-						</button>
+								<i class="bi bi-heart-fill"></i>
+								<i class="bi bi-heart"></i>
+							</button>
 						</div>
 					</td>
 				</tr>
@@ -891,7 +891,7 @@ body {
 
 <%@include file = "../userCommon/userFooter.jsp" %>
 
-  <%-- <!-- Vendor JS Files -->
+<%-- <!-- Vendor JS Files -->
   <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="../../../assets/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="<%=request.getContextPath() %>/resources/assetsAdmin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="<%=request.getContextPath() %>/resources/assetsAdmin/vendor/chart.js/chart.umd.js"></script>
@@ -899,14 +899,14 @@ body {
   <script src="<%=request.getContextPath() %>/resources/assetsAdmin/vendor/quill/quill.js"></script>
   <script src="<%=request.getContextPath() %>/resources/assetsAdmin/vendor/simple-datatables/simple-datatables.js"></script>
   <script src="<%=request.getContextPath() %>/resources/assetsAdmin/vendor/tinymce/tinymce.min.js"></script>
-  <script src="<%=request.getContextPath() %>/resources/assetsAdmin/vendor/php-email-form/validate.js"></script>
+  <script src="<%=request.getContextPath() %>/resources/assetsAdmin/vendor/php-email-form/validate.js"></script> --%>
 
   <!-- Template Main JS File -->
   <script src="<%=request.getContextPath() %>/resources/assetsAdmin/js/main.js"></script>
 
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"89915ded48d16860","version":"2024.4.1","token":"68c5ca450bae485a842ff76066d69420"}' crossorigin="anonymous"></script>
 
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> --%>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> 
 <script>
 //주소 수정
 function execDaumPostcode(type) {

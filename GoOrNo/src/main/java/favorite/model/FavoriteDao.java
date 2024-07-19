@@ -21,6 +21,18 @@ public class FavoriteDao {
 	
 	private String namespace = "favorite.model.Favorite";
 	
+	//getFavorite
+	public FavoriteBean getFavorite(int event_no, int user_no) {
+		
+        Map<String, Object> map = new HashMap<>();
+        
+        map.put("event_no", event_no);
+        map.put("user_no", user_no);
+        
+        return sqlSessionTemplate.selectOne(namespace + ".getFavorite", map);
+    }
+	
+	
 	//getFavoriteByUser_no
 	public List<FavoriteBean> getFavoriteByUser_no(int user_no){
 		
