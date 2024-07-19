@@ -17,6 +17,10 @@
 		delete from comments where comment_no = #{ comment_no }
 	</delete>
 	
+	<update id="updateComment">
+		update comments set content = #{ content } where comment_no = #{ comment_no } 
+	</update>
+	
 	<!-- woo 추가 : user_no에 따른 댓글 list -->
 	<select id="getCommentsByUser_no" resultType="comments.model.CommentBean">
 		select c.comment_no, c.board_no, c.user_no, c.user_id, c.content, c.regdate,
