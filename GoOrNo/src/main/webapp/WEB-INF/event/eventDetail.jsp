@@ -16,7 +16,7 @@
 	padding-top: 50px; /* 메뉴바에 가리지 않도록 패딩 추가 */
 }
 
-.event-detail-container img {
+td>img {
 	width: 50%;
 	height: 400px;
 	margin-right: 20px;

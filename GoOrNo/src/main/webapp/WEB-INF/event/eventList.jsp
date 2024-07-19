@@ -179,7 +179,7 @@
         </c:forEach>
     </div>
     <center>
-    	<div class="paging-info">${pageInfo.pagingHtml}</div>
+    	<div class="paging-info"  style = "margin-top: 50px">${pageInfo.pagingHtml}</div>
     </center>
 </div>
 </div>

@@ -69,9 +69,18 @@
 							data-wow-duration="1s" data-wow-delay="0.5s">
 							<div class="blog-post">
 								<div class="thumb">
-									<a href="detail.event?eventNo=${event.event_no}"><span
-										id="r_img"><img src="${event.img }"
-											alt="img"></span></a>
+									<a href="detail.event?eventNo=${event.event_no}"><span id="r_img">
+										<c:choose>
+										    <c:when test="${not empty event.fimg}">
+										        <!-- 업로드된 이미지가 있으면 해당 이미지를 사용 -->
+										        <img src="${pageContext.request.contextPath}/resources/uploadImage/${event.fimg}"  alt="${event.title}" />
+										    </c:when>
+										    <c:otherwise>
+										        <!-- 업로드된 이미지가 없으면 API 이미지를 사용 -->
+										        <img src="${event.img}"  alt="${event.title}" />
+										    </c:otherwise>
+										</c:choose>
+									</span></a>
 								</div>
 								<div class="down-content">
 									<span class="category" id="r_ptype">${event.performance_type }</span>
