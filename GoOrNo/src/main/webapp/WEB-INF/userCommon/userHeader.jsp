@@ -21,17 +21,8 @@ body {
     padding-top: 180px; /* pre-header와 header-area 높이 합과 일치하도록 설정 */
 }
 
-.pre-header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1001;
-}
-
-.header-area {
-    position: fixed;
-    top: 60px; /* pre-header 높이만큼 내림 */
-    z-index: 1000;
+.contact-us {
+    padding-top: 200px;
 }
 
 
