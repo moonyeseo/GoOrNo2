@@ -98,7 +98,9 @@
 	
 	<!-- woo 추가 : user_no에 따른 q&a list -->
 	<select id="getQnaByUser_no" resultType="qna.model.QnaBean">
-		select * from qna where user_no = #{user_no} order by regdate asc
+		select * from qna
+		where user_no = #{user_no} and qna_no = ref
+		order by regdate asc
 	</select>
 	
 	<!-- woo 추가 : 답변상태 업데이트 -->
