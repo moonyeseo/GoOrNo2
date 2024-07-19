@@ -109,11 +109,8 @@ span{
 									<div class="container" style="width: 80%; margin-top: 30px; margin-bottom:10px;">
 									<!-- 입력폼 시작 -->
 									<form:form commandName="event" action="insert.event" method="post" enctype="multipart/form-data" class="form-horizontal">
-<<<<<<< HEAD
-										<input type="hidden" name="isInsert" value="${isInsert }" id = "isInsert">
-=======
+
 										<input type="hidden" name=isSuccess value="${ isSuccess}" id = "isSuccess">
->>>>>>> refs/heads/moon
 										<input type="hidden" name="pageNumber" value="${ param.pageNumber }">
 										<input type="hidden" name="whatColumn" value="${ param.whatColumn }">
 										<input type="hidden" name="keyword" value="${ param.keyword }">
@@ -155,17 +152,6 @@ span{
 											<tr>
 												<td>
 													<font size="4px"><b> 사진</b></font>
-														<c:choose>
-										                     <c:when test="${not empty event.fimg}">
-										                         <!-- 업로드된 이미지가 있으면 해당 이미지를 사용 -->
-										                         <img src="${pageContext.request.contextPath}/resources/uploadImage/${event.fimg}"
-										                             width="100" height="100" alt="${event.title}" /><br>
-										                     </c:when>
-										                     <c:otherwise>
-										                         <!-- 업로드된 이미지가 없으면 API 이미지를 사용 -->
-										                         <img src="${event.img}" width="100" height="100" alt="${event.title}" /><br>
-										                     </c:otherwise>
-										                 </c:choose>
 														<input type="file" name="upload" value="${event.img }" class="form-control">
 										                 <%-- <input type = "text" name="upload2" value="${event.img }"> <!-- upload2:삭제할 파일명 --> --%>
 														<form:errors path="fimg" cssClass="err"/>

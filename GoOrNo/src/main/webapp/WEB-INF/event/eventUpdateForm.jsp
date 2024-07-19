@@ -110,11 +110,8 @@ span{
 									<div class="container" style="width: 80%; margin-top: 30px; margin-bottom:10px;">
 									<!-- 입력폼 시작 -->
 									<form:form commandName="event" action="update.event" method="post" enctype="multipart/form-data">
-<<<<<<< HEAD
-										<input type="hidden" id="isUpdate" value="${ isUpdate }" id = "isUpdate">
-=======
+
 										<input type="hidden" name="isSuccess" value="${isSuccess}" id = "isSuccess">
->>>>>>> refs/heads/moon
 										<input type="hidden" name="pageNumber" value="${ param.pageNumber }">
 										<input type="hidden" name="whatColumn" value="${ param.whatColumn }">
 										<input type="hidden" name="keyword" value="${ param.keyword }">
