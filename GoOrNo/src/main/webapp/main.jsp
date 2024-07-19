@@ -23,16 +23,16 @@
 
 <!-- 챗봇 -->
 <!-- 챗봇 대화 -->
-<div id="asideChatbot" class="asideChatbot " style="heigth: 80%">
+<div id="asideChatbot" class="asideChatbot ">
 	<%@include file="WEB-INF/chatbot/chatbot.jsp"%>
 </div>
 
 <!-- 캘린더 아이콘 -->
-<div id="calendarIcon" style="heigth: 20%; bottom : 100px">
+<div id="calendarIcon">
 	<%@include file="WEB-INF/event/calendarIcon.jsp"%>
 </div>
 <!-- 챗봇 대화 아이콘 -->
-<div id="chatbotIcon" style="heigth: 20%; bottom : 100px">
+<div id="chatbotIcon">
 	<%@include file="WEB-INF/chatbot/chatbotIcon.jsp"%>
 </div>
 

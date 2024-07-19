@@ -26,7 +26,7 @@ import users.model.UsersBean;
 
 @Controller
 public class EventInsertController {
-	private final String command = "insert.event";
+	private final String command = "/insert.event";
 	private final String getPage = "eventInsert";
 	private final String gotoPage = "redirect:/AdminList.event";
 
@@ -42,7 +42,7 @@ public class EventInsertController {
 			@RequestParam(value = "keyword", required = false) String keyword,
 			@RequestParam(value = "pageNumber", required = false) String pageNumber, HttpSession session, Model model) {
 		UsersBean mb = (UsersBean) session.getAttribute("loginInfo");
-
+		
 		// 로그인 x
 		if (mb == null) {
 			model.addAttribute("keyword", keyword);
