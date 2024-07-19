@@ -1,6 +1,72 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file = "../adminCommon/adminHeader.jsp" %> <!--  admin header 부분 -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=50L76VhFwD5nr7iApd9gS7yiECxEoMnd8y4QD4Vl"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#fullAddr").change(function() {
+        // 2. API 사용요청
+        var fullAddr = $("#fullAddr").val(); 
+        var headers = {};
+        headers["appKey"] = "50L76VhFwD5nr7iApd9gS7yiECxEoMnd8y4QD4Vl";
+        $.ajax({
+            method: "GET",
+            headers: headers,
+            url: "https://apis.openapi.sk.com/tmap/geo/fullAddrGeo?version=1&format=json&callback=result",
+            async: false,
+            data: {
+                "coordType": "WGS84GEO",
+                "fullAddr": fullAddr
+            },
+            success: function(response) {
+                var resultInfo = response.coordinateInfo;
+                console.log(resultInfo);
+                
+                // 검색 결과 정보가 없을 때 처리
+                if (resultInfo.coordinate.length == 0) {
+                    $("#result").text("요청 데이터가 올바르지 않습니다.");
+                } else {
+                    var slon, slat;
+
+                    var resultCoordinate = resultInfo.coordinate[0];
+                    if (resultCoordinate.lon.length > 0) {
+                        // 구주소
+                        slon = resultCoordinate.lon;
+                        slat = resultCoordinate.lat;
+                    } else {
+                        // 신주소
+                        slon = resultCoordinate.newLon;
+                        slat = resultCoordinate.newLat;
+                    }
+
+                    // 위도와 경도 필드를 업데이트
+                    $("#lot").val(slat);
+                    $("#lat").val(slon);
+
+                    var slonEntr, slatEntr;
+                    if (resultCoordinate.lonEntr == undefined && resultCoordinate.newLonEntr == undefined) {
+                        slonEntr = 0;
+                        slatEntr = 0;
+                    } else {
+                        if (resultCoordinate.lonEntr.length > 0) {
+                            slonEntr = resultCoordinate.lonEntr;
+                            slatEntr = resultCoordinate.latEntr;
+                        } else {
+                            slonEntr = resultCoordinate.newLonEntr;
+                            slatEntr = resultCoordinate.newLatEntr;
+                        }
+                    }
+                }
+            },
+            error: function(request, status, error) {
+                console.log(request);
+                console.log("code:" + request.status + "\n message:" + request.responseText + "\n error:" + error);
+            }
+        });
+    });
+});
+</script>
 <style type="text/css">
     .form-container {
         margin-top: 150px;
@@ -45,12 +111,12 @@
                 </div>
                 <div class="form-group">
                     <label for="place">장소</label>
-                    <input type="text" name="place" id="place" value="${event.place }" class="form-control">
+                    <input type="text" name="place" id="fullAddr" value="${event.place }" class="form-control">
                     <form:errors path="place" cssClass="text-danger"/>
                 </div>
                 <div class="form-group">
                     <label for="event_period">기간</label>
-                    <input type="text" name="event_period" id="event_period" value="${event.event_period}" class="form-control">
+                    <input type="text" name="event_period" value="${event.event_period}" class="form-control">
                     <form:errors path="event_period" cssClass="text-danger"/>
                 </div>
                 <div class="form-group">
@@ -76,4 +142,3 @@
     </div>
 </div>
 <%@include file = "../adminCommon/adminFooter.jsp" %> <!--  admin footer 부분 -->
-

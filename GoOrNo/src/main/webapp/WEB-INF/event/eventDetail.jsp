@@ -89,7 +89,6 @@
 .starR.on {
 	text-shadow: 0 0 0 #ffbc00;
 }
->>>>>>> refs/remotes/origin/master
 </style>
 
 <!-- 챗봇 -->
@@ -151,41 +150,6 @@
             </table>
         </div>
     </div>
-	<div class="event-title">
-		<h2>상세정보</h2>
-	</div>
-	<div style="display: flex; width: 100%;">
-		<img src="${event.img}" alt="${event.title}">
-		<div class="event-info">
-			<table>
-				<tr>
-					<th>분류</th>
-					<td>${event.performance_type}</td>
-				</tr>
-				<tr>
-					<th>행사/공연</th>
-					<td>${event.title}</td>
-				</tr>
-				<tr>
-					<th>기간</th>
-					<td>${event.event_period}</td>
-				</tr>
-				<tr>
-					<th>장소</th>
-					<td>${event.place}</td>
-				</tr>
-				<tr>
-					<td colspan="2"><input type="button"
-						class="btn btn-outline-primary btn-sm" value="목록보기"
-						onClick="location.href='list.event?eventNo=${event.event_no }&whatColumn=${param.whatColumn}&keyword=${param.keyword}&pageNumber=${param.pageNumber}'">
-						<input type="button" class="btn btn-outline-primary btn-sm"
-						value="길찾기"
-						onClick="location.href='search.bookmark?lat=${event.lat}&lot=${event.lot }&place=${event.place }'">
-					</td>
-				</tr>
-			</table>
-		</div>
-	</div>
 </section>
 
 <!-- 리뷰  -->
