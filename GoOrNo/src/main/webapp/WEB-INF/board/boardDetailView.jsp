@@ -94,14 +94,14 @@
 										<!-- 로그인 한 경우에만 댓글창 활성화 -->
 										<c:if test="${ loginInfo.id ne null }">
 											<table class="table table-borderless" style="width: 70%;">
-												<tr><td align="right"><textarea id="commentContents" class="form-control" placeholder="내용" style="resize:none; overflow:hidden; word-break:break-all;" maxlength="90"></textarea></td></tr>
+												<tr><td align="right"><textarea id="commentInput" class="form-control" placeholder="내용" style="resize:none; overflow:hidden; word-break:break-all;" maxlength="90"></textarea></td></tr>
 												<tr><td align="right"><button onclick="commentWrite()" class="btn btn-secondary">댓글작성</button></td></tr>
 											</table>
 										</c:if>
 										<!-- 비회원은 아예 댓글창이 막혀 있음 -->
 										<c:if test="${ loginInfo.id eq null }">
 											<table class="table table-borderless" style="width: 70%;">
-												<tr><td align="right"><textarea id="commentContents" class="form-control" placeholder="로그인한 회원만 댓글을 작성할 수 있습니다." disabled="disabled"  style="resize:none;"></textarea></td></tr>
+												<tr><td align="right"><textarea id="commentInput" class="form-control" placeholder="로그인한 회원만 댓글을 작성할 수 있습니다." disabled="disabled"  style="resize:none;"></textarea></td></tr>
 												<tr><td align="right"><button disabled="disabled" class="btn btn-secondary">댓글작성</button></td></tr>
 											</table>
 										</c:if>
@@ -118,7 +118,7 @@
 											</c:if>
 											<!-- 댓글 1개 이상 -->
 											<c:if test="${ fn:length(commentLists) > 0 }">
-												<c:forEach var="comment" items="${ commentLists }">
+												<c:forEach var="comment" items="${ commentLists }" varStatus="varStatus">
 													<tr>
 														<!-- 작성자 -->
 														<td width="15%" align="center">
@@ -130,12 +130,13 @@
 															</c:if>
 														</td>
 														<!-- 내용 -->
-														<td width="65%" align="left" style="overflow:hidden; word-break:break-all;">${ comment.content }</td>
+														<td id="contentSpace${ varStatus.count }" width="65%" align="left" style="overflow:hidden; word-break:break-all;">${ comment.content }</td>
 														<!-- 작성일 -->
 														<!-- 숫자폭을 일정하게 하기 위해 Noto Sans 글꼴 적용 -->
 														<td id="commentRegdate" width="20%" align="right" style="font-family:'Noto Sans';">
-															<!-- 내 댓글이면 삭제 링크 생성 -->
+															<!-- 내 댓글이면 삭제, 수정 링크 생성 -->
 															<c:if test="${ loginInfo.id eq comment.user_id }">
+																<a id="updateBtn" onClick="updateComment('${ comment.content }','${ varStatus.index }','${ comment.comment_no }')" style="cursor: pointer;"><font size="2px">수정</font></a>
 																<a onClick="return deleteComment('${comment.comment_no}')" style="cursor: pointer;"><font size="2px">삭제</font></a>
 															</c:if>
 															<!-- 작성 날짜 포맷 2000-12-12 12:12:00.0 에서 밀리초를 뺌(substring)-->
@@ -162,12 +163,12 @@
 <!-- 본문 끝 -->
 <%@include file = "../userCommon/userFooter.jsp" %> <!--  user header 부분 -->
 
-<script type="text/javascript" src="<%= request.getContextPath() %>/resources/js/jquery.js"></script>
+<script type="text/javascript" src="<%= request.getContextPath() %>/resources/vendor/jquery/jquery.js"></script>
 <script type="text/javascript">
 
 //댓글 작성&목록 불러오기
 function commentWrite(){ 
-	const content = document.getElementById("commentContents").value;
+	const content = document.getElementById("commentInput").value;
 	const board_no = '${board.board_no}';
 	const id = '${ loginInfo.id }';
 	//alert(board_no+"/"+contents);
@@ -190,20 +191,25 @@ function commentWrite(){
 			//alert("성공");
 			let output = "<table class='table table-borderless' style='width: 80%;'>";
 			for(let i in commentLists){
+				var count = Number(i)+1;
 				output += "<tr>";
 				output += "<td width='15%' align='center'>"+commentLists[i].user_id+"</td>";
-				output += "<td width='65%' align='left' style='overflow:hidden; word-break:break-all;'>"+commentLists[i].content+"</td>";
+				output += "<td id='contentSpace"+count+"' width='65%' align='left' style='overflow:hidden; word-break:break-all;'>"+commentLists[i].content+"</td>";
 				output += "<td id='commentRegdate' width='20%' align='right'><font size='2px' style='white-space: nowrap;'>";
+				//삭제, 수정 버튼
 				if(commentLists[i].user_id == id){
 					comment_no = commentLists[i].comment_no;
-					output += "<a onClick='return deleteComment("+comment_no+")' style='cursor: pointer;'><font size='2px'>삭제 </font></a>";
+					c = commentLists[i].content;
+					//<a id="updateBtn" onClick="updateComment('${comment.content}','${ varStatus.count }','${ comment.comment_no }')" style="cursor: pointer;"><font size="2px">수정</font></a>
+					output += "<a id='updateBtn' onClick='updateComment(\""+c+"\",\""+i+"\",\""+comment_no+"\")' style='cursor: pointer;'><font size='2px'>수정</font></a>";
+					output += "<a onClick='return deleteComment("+comment_no+")' style='cursor: pointer;'><font size='2px'> 삭제 </font></a>";
 				}
 				output += commentLists[i].regdate.substr(0,19)+"</font></td>";
 				output += "</tr>";
 			}
 			output += "</table>";
 			document.getElementById("commentView").innerHTML = output;
-			document.getElementById("commentContents").value = '';
+			document.getElementById("commentInput").value = '';
 			
 		},
 		error : function(request,status,error){
@@ -227,8 +233,68 @@ $(function(){
         			+ pageNumber+"&whatColumn=" + whatColumn + "&keyword=" + keyword;
         }
     });
-	
 });
+
+//댓글 수정폼 생성
+function updateComment(content, i, comment_no) {
+	var count = 1 + Number(i);
+    var contentSpace = document.getElementById("contentSpace"+count);
+	//alert(content+"/"+count+"/"+comment_no);
+    contentSpace.innerHTML = "<div><table><tr><td><input type='text' id='updatedContent' class='form-control' value='" + content + "'></td>"
+                + "<td><input type='button' class='form-control' value='수정' onClick='saveComment(\"" + comment_no + "\")'></td>"
+                + "<td><input type='button' class='form-control' value='취소' onClick='resetComment(\"" + content + "\",\"" + count + "\")'></td></tr></table></div>";
+}
+
+//댓글 수정
+function saveComment(comment_no) {
+	const board_no = '${board.board_no}';
+	const id = '${ loginInfo.id }';
+    var updatedContent = document.getElementById('updatedContent').value;
+
+    $.ajax({
+		type : "post",
+		url : "update.comments",
+		data : {
+			content : updatedContent,
+			comment_no : comment_no,
+			board_no : board_no,
+		},
+		dataType : "json",
+		success : function(commentLists){
+			//alert("성공");
+			let output = "<table class='table table-borderless' style='width: 80%;'>";
+			for(let i in commentLists){
+				var count = Number(i)+1;
+				output += "<tr>";
+				output += "<td width='15%' align='center'>"+commentLists[i].user_id+"</td>";
+				output += "<td id='contentSpace"+count+"' width='65%' align='left' style='overflow:hidden; word-break:break-all;'>"+commentLists[i].content+"</td>";
+				output += "<td id='commentRegdate' width='20%' align='right'><font size='2px' style='white-space: nowrap;'>";
+				//삭제, 수정 버튼
+				if(commentLists[i].user_id == id){
+					comment_no = commentLists[i].comment_no;
+					c = commentLists[i].content;
+					//<a id="updateBtn" onClick="updateComment('${comment.content}','${ varStatus.count }','${ comment.comment_no }')" style="cursor: pointer;"><font size="2px">수정</font></a>
+					output += "<a id='updateBtn' onClick='updateComment(\""+c+"\",\""+i+"\",\""+comment_no+"\")' style='cursor: pointer;'><font size='2px'>수정</font></a>";
+					output += "<a onClick='return deleteComment("+comment_no+")' style='cursor: pointer;'><font size='2px'> 삭제 </font></a>";
+				}
+				output += commentLists[i].regdate.substr(0,19)+"</font></td>";
+				output += "</tr>";
+			}
+			output += "</table>";
+			document.getElementById("commentView").innerHTML = output;
+			
+		},
+		error : function(request,status,error){
+			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		}
+	});
+}
+
+//댓글 수정 취소
+function resetComment(originalContent, count) {
+    var contentSpace = document.getElementById("contentSpace"+count);
+    contentSpace.innerHTML = originalContent;
+}
 
 //댓글 삭제
 function deleteComment(comment_no){
@@ -236,12 +302,47 @@ function deleteComment(comment_no){
          return false;
      }else{
     	const board_no = '${board.board_no}';
-		const pageNumber = '${ param.pageNumber }';
-		const whatColumn = '${ param.whatColumn }';
-		const keyword = '${ param.keyword }';
-    	location.href = "delete.comments?comment_no=" + comment_no + "&board_no=" + board_no 
-    			+ "&pageNumber=" + pageNumber + "&whatColumn=" + whatColumn + "&keyword=" + keyword;
-     }
+    	const id = '${ loginInfo.id }';
+    	
+		$.ajax({
+			type : "post",
+			url : "delete.comments",
+			data : {
+				board_no : board_no,
+				comment_no : comment_no,
+				id : id
+			},
+			dataType : "json",
+			success : function(commentLists){
+				//alert("성공");
+				let output = "<table class='table table-borderless' style='width: 80%;'>";
+				for(let i in commentLists){
+					var count = Number(i)+1;
+					output += "<tr>";
+					output += "<td width='15%' align='center'>"+commentLists[i].user_id+"</td>";
+					output += "<td id='contentSpace"+count+"' width='65%' align='left' style='overflow:hidden; word-break:break-all;'>"+commentLists[i].content+"</td>";
+					output += "<td id='commentRegdate' width='20%' align='right'><font size='2px' style='white-space: nowrap;'>";
+					//삭제, 수정 버튼
+					if(commentLists[i].user_id == id){
+						comment_no = commentLists[i].comment_no;
+						c = commentLists[i].content;
+						//<a id="updateBtn" onClick="updateComment('${comment.content}','${ varStatus.count }','${ comment.comment_no }')" style="cursor: pointer;"><font size="2px">수정</font></a>
+						output += "<a id='updateBtn' onClick='updateComment(\""+c+"\",\""+i+"\",\""+comment_no+"\")' style='cursor: pointer;'><font size='2px'>수정</font></a>";
+						output += "<a onClick='return deleteComment("+comment_no+")' style='cursor: pointer;'><font size='2px'> 삭제 </font></a>";
+					}
+					output += commentLists[i].regdate.substr(0,19)+"</font></td>";
+					output += "</tr>";
+				}
+				output += "</table>";
+				document.getElementById("commentView").innerHTML = output;
+				document.getElementById("commentInput").value = '';
+				
+			},
+			error : function(request,status,error){
+				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			}
+		});
+     }//else
 }
 
 $(document).ready(function() {
