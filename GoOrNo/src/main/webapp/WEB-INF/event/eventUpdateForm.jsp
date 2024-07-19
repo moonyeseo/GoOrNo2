@@ -67,6 +67,18 @@ span{
 }
 </style>
 
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	var isUpdate =  $("#isUpdate").val();
+	
+	if(isUpdate == 'yes'){
+		window.opener.parent.location.reload();
+		self.close();
+	}
+});
+</script>
+
 <%
 	String[] typeArray = {"축제-문화/예술","기타","국악","뮤지컬/오페라","교육/체험","전시/미술","무용","콘서트","클래식","영화","연극","독주/독창회","축제-기타"};
 %>
@@ -98,6 +110,7 @@ span{
 									<div class="container" style="width: 80%; margin-top: 30px; margin-bottom:10px;">
 									<!-- 입력폼 시작 -->
 									<form:form commandName="event" action="update.event" method="post" enctype="multipart/form-data">
+										<input type="hidden" id="isUpdate" value="${ isUpdate }" id = "isUpdate">
 										<input type="hidden" name="pageNumber" value="${ param.pageNumber }">
 										<input type="hidden" name="whatColumn" value="${ param.whatColumn }">
 										<input type="hidden" name="keyword" value="${ param.keyword }">
