@@ -24,9 +24,11 @@
 					<div class="card">
 						<div
 							class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-							<img src="<%=request.getContextPath()+"/resources/uploadImage/"%>${users.profile}" width="290" height="290" class="rounded-circle">
-							<h2>${users.name }</h2> 
-<!-- 							<div class="social-links mt-2">
+							<img
+								src="<%=request.getContextPath()+"/resources/uploadImage/"%>${users.profile}"
+								width="290" height="290" class="rounded-circle">
+							<h2>${users.name }</h2>
+							<!-- 							<div class="social-links mt-2">
 								<a href="#" class="twitter"><i class="bi bi-twitter"></i></a> <a
 									href="#" class="facebook"><i class="bi bi-facebook"></i></a> <a
 									href="#" class="instagram"><i class="bi bi-instagram"></i></a>
@@ -43,61 +45,67 @@
 						<div class="card-body pt-3">
 							<!-- Bordered Tabs -->
 
+
+
 							<div class="tab-content pt-2">
-
-								<div class="tab-pane fade show active profile-overview"
-									id="profile-overview">							
-
-									<h5 class="card-title"><b>개인정보</b></h5>
-
-									<div class="row">
-										<div class="col-lg-3 col-md-4 label ">아이디</div>
-										<div class="col-lg-9 col-md-8">${users.id }</div>
-									</div>
-
-									<div class="row">
-										<div class="col-lg-3 col-md-4 label">비밀번호</div>
-										<div class="col-lg-9 col-md-8">${users.pw }</div>
-									</div>
-
-									<div class="row">
-										<div class="col-lg-3 col-md-4 label">성별</div>
-										<div class="col-lg-9 col-md-8">${users.gender }</div>
-									</div>
-
-									<div class="row">
-										<div class="col-lg-3 col-md-4 label">이메일</div>
-										<div class="col-lg-9 col-md-8">${users.email }</div>
-									</div>
-
-									<div class="row">
-										<div class="col-lg-3 col-md-4 label">전화번호</div>
-										<div class="col-lg-9 col-md-8">${users.phoneNum }</div>
-									</div>
-
-									<div class="row">
-										<div class="col-lg-3 col-md-4 label">우편번호</div>
-										<div class="col-lg-9 col-md-8">${users.postcode }</div>
-									</div>
-
-									<div class="row">
-										<div class="col-lg-3 col-md-4 label">주소</div>
-										<div class="col-lg-9 col-md-8">${users.address }</div>
-									</div>
-
-								</div>
-
-								<div class="tab-pane fade profile-edit pt-3" id="profile-edit">
-
-									<!-- Profile Edit Form -->
-
+								<div align="right">
+									<input type="button" class="btn btn-secondary" value="글목록"
+										onClick="location.href='list.users?user_no=${users.user_no }&whatColumn=${param.whatColumn}&keyword=${param.keyword}&pageNumber=${param.pageNumber}'">
 								</div>
 							</div>
 
-						</div>
-					</div>
+							<div class="tab-pane fade show active profile-overview"
+								id="profile-overview">
 
+								<h5 class="card-title">Profile Details</h5>
+
+								<div class="row">
+									<div class="col-lg-3 col-md-4 label ">ID</div>
+									<div class="col-lg-9 col-md-8">${users.id }</div>
+								</div>
+
+								<div class="row">
+									<div class="col-lg-3 col-md-4 label">PassWord</div>
+									<div class="col-lg-9 col-md-8">${users.pw }</div>
+								</div>
+
+								<div class="row">
+									<div class="col-lg-3 col-md-4 label">Gender</div>
+									<div class="col-lg-9 col-md-8">${users.gender }</div>
+								</div>
+
+								<div class="row">
+									<div class="col-lg-3 col-md-4 label">Email</div>
+									<div class="col-lg-9 col-md-8">${users.email }</div>
+								</div>
+
+								<div class="row">
+									<div class="col-lg-3 col-md-4 label">Phone</div>
+									<div class="col-lg-9 col-md-8">${users.phoneNum }</div>
+								</div>
+
+								<div class="row">
+									<div class="col-lg-3 col-md-4 label">Postcode</div>
+									<div class="col-lg-9 col-md-8">${users.postcode }</div>
+								</div>
+
+								<div class="row">
+									<div class="col-lg-3 col-md-4 label">Address</div>
+									<div class="col-lg-9 col-md-8">${users.address }</div>
+								</div>
+
+							</div>
+
+							<div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+
+								<!-- Profile Edit Form -->
+
+							</div>
+						</div>
+
+					</div>
 				</div>
+
 			</div>
 		</section>
 
