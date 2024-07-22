@@ -44,7 +44,7 @@ public class EventListController {
 		int totalCount = edao.getTotalCount(map);
 
 		String url = request.getContextPath() + this.command;
-		Paging pageInfo = new Paging(pageNumber, "10", totalCount, url, whatColumn, keyword);
+		Paging pageInfo = new Paging(pageNumber, "12", totalCount, url, whatColumn, keyword);
 		pageInfo.setPageSize(10);
 		
 		/* ��� */
