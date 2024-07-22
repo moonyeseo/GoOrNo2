@@ -163,42 +163,42 @@ $(document).ready(function() {
 											<tr>
 												<td>
 													<font size="4px"><b> 카테고리 </b></font>
-										            <select name="performance_type" class="form-control" >
+										            <select name="performance_type" class="form-control" required>
 										                <option value="">선택</option>
 										                <c:forEach var="type" items="<%= typeArray %>">
 										                    <option value="${type}" <c:if test="${event.performance_type eq type}">selected</c:if>>${type}</option>
 										                </c:forEach>
 										            </select>
-										            <form:errors path="performance_type" cssClass="err"/>
+										            <%-- <form:errors path="performance_type" cssClass="err"/> --%>
 												</td>
 											</tr>
 											<tr>
 												<td>
 													<font size="4px"><b> 행사명</b></font>
-													<input type="text" name="title" value="${event.title }" class="form-control">
-													<form:errors path="title" cssClass="err"/>
+													<input type="text" name="title" value="${event.title }" class="form-control" required>
+													<%-- <form:errors path="title" cssClass="err"/> --%>
 												</td>	
 											</tr>
 											<tr>
 												<td>
 													<font size="4px"><b> 장소</b></font>
-														<input type="text" name="place" id="place" value="${event.place }" class="form-control">
-														<form:errors path="place" cssClass="err"/>
+														<input type="text" name="place" id="place" value="${event.place }" class="form-control" required>
+														<%-- <form:errors path="place" cssClass="err"/> --%>
 												</td>	
 											</tr>
 											<tr>
 												<td>
 													<font size="4px"><b>기간</b></font>
-													<input type="text" name="event_period" value="${event.event_period}" class="form-control" placeholder="예) 2024-09-10~2024-12-02">
-													<form:errors path="event_period" cssClass="err"/>
+													<input type="text" name="event_period" value="${event.event_period}" class="form-control" placeholder="예) 2024-09-10~2024-12-02" required>
+													<%-- <form:errors path="event_period" cssClass="err"/> --%>
 												</td>	
 											</tr>
 											<tr>
 												<td>
 													<font size="4px"><b> 사진</b></font>
-														<input type="file" name="upload" value="${event.img }" class="form-control">
+														<input type="file" name="upload" value="${event.img }" class="form-control" required>
 										                 <%-- <input type = "text" name="upload2" value="${event.img }"> <!-- upload2:삭제할 파일명 --> --%>
-														<form:errors path="fimg" cssClass="err"/>
+														<%-- <form:errors path="fimg" cssClass="err"/> --%>
 												</td>	
 											</tr>
 											<tr>
@@ -206,12 +206,12 @@ $(document).ready(function() {
 													<font size="4px"><b>주소</b></font>
 														<c:choose>
 										                     <c:when test = "${event.fullAddr != null }">
-															<input type="text" name="fullAddr" id="fullAddr" value="${event.fullAddr }" class="form-control">
-															<form:errors path="fullAddr" cssClass="err"/>
+															<input type="text" name="fullAddr" id="fullAddr" value="${event.fullAddr }" class="form-control" required>
+															<%-- <form:errors path="fullAddr" cssClass="err"/> --%>
 														</c:when>
 														<c:otherwise>
-															<input type="text" name="fullAddr" id="fullAddr" placeholder= "예) 판교역로 166" class ="form-control">
-															<form:errors path="fullAddr" cssClass="err"/>
+															<input type="text" name="fullAddr" id="fullAddr" placeholder= "예) 판교역로 166" class ="form-control" required>
+															<%-- <form:errors path="fullAddr" cssClass="err"/> --%>
 														</c:otherwise>
 														</c:choose>
 												</td>	

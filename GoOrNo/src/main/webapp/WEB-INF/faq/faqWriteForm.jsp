@@ -115,14 +115,14 @@ span{
 											<tr>
 												<td>
 													<font size="4px"><b> 질문 </b></font>
-													<input type="text" name="question" value="${ faq.question }" class="form-control" style="width:80%; diaply:inline;" maxlength="30">
-													<form:errors path="question" cssClass="err"></form:errors>
+													<input type="text" name="question" value="${ faq.question }" class="form-control" style="width:80%; diaply:inline;" maxlength="30" required>
+													<%-- <form:errors path="question" cssClass="err"></form:errors> --%>
 												</td>
 											</tr>
 											<tr>
 												<td>
-													<textarea class="form-control" placeholder="답변" style="resize:none;" name="answer" rows="10" maxlength="300">${ faq.answer }</textarea>
-													<form:errors path="answer" cssClass="err"></form:errors>
+													<textarea class="form-control" placeholder="답변" style="resize:none;" name="answer" rows="10" maxlength="300" required>${ faq.answer }</textarea>
+													<%-- <form:errors path="answer" cssClass="err"></form:errors> --%>
 												</td>	
 											</tr>
 											<tr>

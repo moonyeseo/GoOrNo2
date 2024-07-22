@@ -47,8 +47,8 @@
 											</tr>
 											<tr>
 												<td>
-													<textarea rows="10" style="resize:none;" name="content" class="form-control" maxlength="300">${ qna.content }</textarea>
-													<form:errors path="content" cssClass="err"></form:errors>
+													<textarea rows="10" style="resize:none;" name="content" class="form-control" maxlength="300" required>${ qna.content }</textarea>
+													<%-- <form:errors path="content" cssClass="err"></form:errors> --%>
 												</td>	
 											</tr>
 											<tr>

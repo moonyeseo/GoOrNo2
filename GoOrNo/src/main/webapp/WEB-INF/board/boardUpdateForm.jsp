@@ -41,14 +41,14 @@
 											<tr>
 												<td>
 													<font size="4px"><b> 제목 </b></font>
-													<input type="text" name="subject" value="${ board.subject }" class="form-control" style="width:80%; diaply:inline;" maxlength="30">
-													<form:errors path="subject" cssClass="err"></form:errors>
+													<input type="text" name="subject" value="${ board.subject }" class="form-control" style="width:80%; diaply:inline;" maxlength="30" required>
+													<%-- <form:errors path="subject" cssClass="err"></form:errors> --%>
 												</td>
 											</tr>
 											<tr>
 												<td>
-													<textarea rows="10" style="resize:none;" name="content" class="form-control" maxlength="300">${ board.content }</textarea>
-													<form:errors path="content" cssClass="err"></form:errors>
+													<textarea rows="10" style="resize:none;" name="content" class="form-control" maxlength="300" required>${ board.content }</textarea>
+													<%-- <form:errors path="content" cssClass="err"></form:errors> --%>
 												</td>	
 											</tr>
 											<tr>

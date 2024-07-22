@@ -120,8 +120,8 @@ span{
 											</tr>
 											<tr>
 												<td>
-													<textarea class="form-control" placeholder="내용" style="resize:none;" name="content" rows="10" maxlength="300">${ qna.content }</textarea>
-													<form:errors path="content" cssClass="err"></form:errors>
+													<textarea class="form-control" placeholder="내용" style="resize:none;" name="content" rows="10" maxlength="300" required>${ qna.content }</textarea>
+													<%-- <form:errors path="content" cssClass="err"></form:errors> --%>
 												</td>	
 											</tr>
 											<tr>
