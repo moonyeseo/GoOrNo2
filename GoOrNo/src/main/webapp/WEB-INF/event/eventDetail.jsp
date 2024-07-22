@@ -206,7 +206,7 @@ td>img {
 													value="글목록" style="background-color: white; color: black;">
 													<input type="button" class="btn btn-secondary" value="길찾기"
 													style="background-color: white; color: black;"
-													onClick="location.href='search.bookmark?lat=${event.lat}&lot=${event.lot }&place=${event.place }'">
+													onClick="location.href='search.bookmark?lat=${event.lot}&lot=${event.lat }&place=${event.place }'">
 												</td>
 											</tr>
 										</table>
