@@ -115,13 +115,13 @@ span{
 													<font size="4px"><b> 제목 </b></font>
 													<input type="text" name="subject" value="${ qna.subject }" class="form-control" style="width:80%; diaply:inline;" disabled="disabled">
 													<input type="hidden" name="subject" value="${ qna.subject }">
-													<form:errors path="subject" cssClass="err"></form:errors>
+													<%-- <form:errors path="subject" cssClass="err"></form:errors> --%>
 												</td>
 											</tr>
 											<tr>
 												<td>
-													<textarea class="form-control" placeholder="내용" style="resize:none;" name="content" rows="5" maxlength="300">${ qna.content }</textarea>
-													<form:errors path="content" cssClass="err"></form:errors>
+													<textarea class="form-control" placeholder="내용" style="resize:none;" name="content" rows="5" maxlength="300" required>${ qna.content }</textarea>
+													<%-- <form:errors path="content" cssClass="err"></form:errors> --%>
 												</td>	
 											</tr>
 											<tr>
