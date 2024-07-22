@@ -43,8 +43,8 @@ public class BoardDetailController {
 		BoardBean bb = boardDao.getBoardByNo(board_no);
 		model.addAttribute("board", bb);
 		
-		//��� ��� �ҷ�����
-		List<CommentBean> commentLists = commentDao.getAllComment(board_no); //�Խ��� ��ȣ�� ��� ��� ������
+		//get comment list
+		List<CommentBean> commentLists = commentDao.getAllComment(board_no);
 		
 		model.addAttribute("commentLists", commentLists);
 		

@@ -45,23 +45,23 @@ public class NoticeInsertController {
 			return getPage;
 		}
 		
-		//ì¤„ë°”ê¿ˆ í¬í•¨í•´ì„œ DBì— ì €ì¥ë˜ê²Œ ì„¤ì •
+		//ÁÙ¹Ù²Ş Æ÷ÇÔÇØ¼­ DB¿¡ ÀúÀåµÇ°Ô ¼³Á¤
 		String contents = notice.getContent().replace("\r\n", "<br>");
 		notice.setContent(contents);
 			
-		//ê¸€ë“±ë¡
+		//±Ûµî·Ï
 		int cnt = noticeDao.insertNotice(notice);
-		System.out.println("ï¿½ê¶«ï¿½ì—¯ ï¿½ê½¦æ€¨ï¿½ åª›ï¿½ï¿½ë‹” : "+cnt);
+		System.out.println("insertNotice cnt : "+cnt);
 		
-		//ì•„ì›ƒ ê°ì²´ ìƒì„±
+		//¾Æ¿ô °´Ã¼ »ı¼º
 		PrintWriter out = response.getWriter();
 		
 		if(cnt > 0) {
-			out.append("<script>alert('ë“±ë¡ë˜ì—ˆìŠµë‹ˆë‹¤.')</script>");
-			//ìˆ˜ì •ë˜ë©´ ë¶€ëª¨ì°½ ìƒˆë¡œê³ ì¹¨ë˜ë„ë¡ ë³€ìˆ˜ ì„¤ì •
+			out.append("<script>alert('µî·ÏµÇ¾ú½À´Ï´Ù.')</script>");
+			//¼öÁ¤µÇ¸é ºÎ¸ğÃ¢ »õ·Î°íÄ§µÇµµ·Ï º¯¼ö ¼³Á¤
 			model.addAttribute("isSuccess", "yes");
 		}else {
-			out.append("<script>alert('ë“±ë¡ì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤.')</script>");
+			out.append("<script>alert('µî·Ï¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù.')</script>");
 		}
 		
 		return getPage;

@@ -40,9 +40,9 @@ public class BoardDeleteController {
 		model.addAttribute("whatColumn", whatColumn);
 		
 		int cnt = boardDao.deleteBoard(board_no);
-		System.out.println("���� ���� : " + cnt);
+		System.out.println("deleteBoard cnt : " + cnt);
 		
-		//������ ��û�� ������ �������� �̵�
+		//goto admin page
 		if( isAdmin != null ) {
 			model.addAttribute("isAdmin","yes");
 		}

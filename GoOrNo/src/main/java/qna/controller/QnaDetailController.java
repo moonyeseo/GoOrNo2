@@ -38,7 +38,7 @@ public class QnaDetailController {
 			QnaBean qna = qnaDao.getQnaByNo(qna_no);
 			model.addAttribute("qna", qna);
 			
-			//woo ì¶”ê°€ : ë‹µê¸€ì´ ìˆëŠ” ê²½ìš° ë‹µê¸€ë¡œ ì´ë™
+			//woo Ãß°¡ : ´ä±ÛÀÌ ÀÖ´Â °æ¿ì ´ä±Û·Î ÀÌµ¿
             QnaBean reply = qnaDao.getReplyByOrgNo(qna_no);
             if (reply != null) {
                 model.addAttribute("reply", reply);

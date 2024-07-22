@@ -64,7 +64,7 @@ public class ChatListController {
 				String lastChat = mlists.get(mlists.size()-1).getContent();
 				clists.get(i).setLastChat(lastChat); //save lastChat
 			}else {// no messages
-				clists.get(i).setLastChat("no last message.");
+				clists.get(i).setLastChat("채팅이 존재하지 않습니다.");
 			}
 		}
 		
@@ -84,8 +84,8 @@ public class ChatListController {
 		return getPage;
 	}
 	
-	/* woo 異붽�占� */
-	//濡쒓렇�씤�븳 �쑀��媛� 李몄뿬 以묒씤 梨꾪똿諛� 媛쒖닔 異붽�
+	/* woo 추가 */
+	//로그인한 유저가 참여 중인 채팅방 개수 추가
 	@RequestMapping(value = "/chatCount.chat", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public int getChatCount(HttpSession session) {

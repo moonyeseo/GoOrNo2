@@ -74,7 +74,7 @@ public class ChatDeleteController {
 			
 			if(cnt2 > 0) {
 				//save exit message in DB
-				String content = id+" is exit.";
+				String content = id+"´ÔÀÌ ³ª°¬½À´Ï´Ù.";
 				ChatMessageBean message = new ChatMessageBean(0, chat_no, 1, "info", content, ""); //user_no, user_id, 'info'
 				chatMessageDao.writeMessage(message);
 			}

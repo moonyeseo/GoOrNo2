@@ -37,7 +37,7 @@ public class ChatMessageInsertController {
 		UsersBean user = (UsersBean)session.getAttribute("loginInfo");
 		String user_id = user.getId();
 		int user_no = user.getUser_no();
-		System.out.println("user 정보 : "+user_no+"/"+user_id);
+		System.out.println("user info : "+user_no+"/"+user_id);
 		
 		ChatMessageBean chatMessage = new ChatMessageBean(0, chat_no, user_no, user_id, content, "");
 		
