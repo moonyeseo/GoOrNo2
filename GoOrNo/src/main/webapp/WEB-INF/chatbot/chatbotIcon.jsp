@@ -16,7 +16,7 @@
 		<div class="col-lg-12">
 			<div class="border-first-button"> -->
 				<a id="chatbot" href='javascript:void(0);'><img
-					src="<%=request.getContextPath()%>/resources/image/chatbot2.png"
+					src="<%=request.getContextPath()%>/resources/image/chatbot.png"
 					width="40px" height="40px"></a>
 <!-- 			</div>
 		</div>

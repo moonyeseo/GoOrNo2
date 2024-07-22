@@ -4,6 +4,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,6 +14,7 @@ import favorite.model.FavoriteDao;
 import users.model.UsersBean;
 
 @Controller
+@ComponentScan(basePackages = {"review","users","favorite"})
 public class favoriteDeleteController {
 	
 	@Autowired
