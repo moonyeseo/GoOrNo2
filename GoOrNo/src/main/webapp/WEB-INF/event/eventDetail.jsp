@@ -90,7 +90,10 @@ td>img {
 	text-shadow: 0 0 0 #ffbc00;
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> refs/remotes/origin/jung
 /* 관심목록 */
 .icon-button {
 	border: none;
@@ -184,6 +187,7 @@ td>img {
 															<img src="${event.img}" width="100" height="100"
 																alt="${event.title}" />
 															<button type="button" onclick="favoriteInsert(${event.event_no}, ${sessionScope.loginInfo.user_no})" class="icon-button">
+
 																<i id="heart-f" style="${favoriteStatus ? 'display: inline-block;' : 'display: none;'}">
 																	<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
 																		<path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
@@ -224,7 +228,7 @@ td>img {
 													value="글목록" style="background-color: white; color: black;">
 													<input type="button" class="btn btn-secondary" value="길찾기"
 													style="background-color: white; color: black;"
-													onClick="location.href='search.bookmark?lat=${event.lat}&lot=${event.lot }&place=${event.place }'">
+													onClick="location.href='search.bookmark?lat=${event.lot}&lot=${event.lat }&place=${event.place }'">
 												</td>
 											</tr>
 										</table>
@@ -437,6 +441,7 @@ td>img {
 	}
 	
 	function favoriteInsert(event_no, user_no) {
+<<<<<<< HEAD
 	    $.ajax({
 	        type: "post",
 	        url: "${pageContext.request.contextPath}/favoriteInsert.favorite",
@@ -444,6 +449,29 @@ td>img {
 	        success: function(response) {
 	            const heartFilled = document.getElementById("heart-f");
 	            const heartOutline = document.getElementById("heart-o");
+=======
+		$.ajax({
+			type: "post",
+			url: "${pageContext.request.contextPath}/favoriteInsert.favorite",
+			data: { event_no: event_no, user_no: user_no },
+			success: function(response) {
+				if (response.status === 'added') {
+					$("#heart-f").show();
+					$("#heart-o").hide();
+					alert('관심행사로 등록합니다.');
+				} else if (response.status === 'removed') {
+					alert('관심행사에서 삭제합니다.');
+				}
+				location.reload();
+			},
+			error: function(request, status, error) {
+				alert("로그인이 필요한 서비스입니다.");
+			}
+		});
+	}
+	
+</script>
+>>>>>>> refs/remotes/origin/jung
 
 	            if (response.status === 'added') {
 	                alert('관심행사로 등록합니다.');

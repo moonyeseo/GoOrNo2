@@ -24,7 +24,7 @@ import event.model.EventDao;
 
 @Controller
 public class EventApiController {
-	// DB ����
+	// 행사 Api
 	private final String command = "api.event"; 
 	private final String gotoPage = "redirect:/list.event";
 
@@ -34,14 +34,14 @@ public class EventApiController {
 	@RequestMapping(command)
 	public String insert(EventBean event) {
 		StringBuilder urlBuilder = new StringBuilder("http://openapi.seoul.go.kr:8088");
-		urlBuilder.append("/").append(URLEncoder.encode("434472644d776a6435387a694c6e45", StandardCharsets.UTF_8)); // ����Ű
-		urlBuilder.append("/").append(URLEncoder.encode("json", StandardCharsets.UTF_8)); // ��û ���� Ÿ��
-		urlBuilder.append("/").append(URLEncoder.encode("culturalEventInfo", StandardCharsets.UTF_8)); // ���񽺸�
-		urlBuilder.append("/").append(URLEncoder.encode("1", StandardCharsets.UTF_8)); // ��û ���� ��ġ
-		urlBuilder.append("/").append(URLEncoder.encode("1000", StandardCharsets.UTF_8)); // ��û ���� ��ġ
-		urlBuilder.append("/").append(URLEncoder.encode(" ", StandardCharsets.UTF_8)); // �з�
-		urlBuilder.append("/").append(URLEncoder.encode(" ", StandardCharsets.UTF_8)); // ����/����
-		urlBuilder.append("/").append(URLEncoder.encode("2024-07", StandardCharsets.UTF_8)); // ��û ����
+		urlBuilder.append("/").append(URLEncoder.encode("434472644d776a6435387a694c6e45", StandardCharsets.UTF_8)); // 인증키
+		urlBuilder.append("/").append(URLEncoder.encode("json", StandardCharsets.UTF_8)); // 요청 파일 타입
+		urlBuilder.append("/").append(URLEncoder.encode("culturalEventInfo", StandardCharsets.UTF_8)); // 서비스명
+		urlBuilder.append("/").append(URLEncoder.encode("1", StandardCharsets.UTF_8)); // 요청 시작 위치
+		urlBuilder.append("/").append(URLEncoder.encode("1000", StandardCharsets.UTF_8)); // 요청 종료 위치
+		urlBuilder.append("/").append(URLEncoder.encode(" ", StandardCharsets.UTF_8)); // 분류
+		urlBuilder.append("/").append(URLEncoder.encode(" ", StandardCharsets.UTF_8)); // 지역/장소
+		urlBuilder.append("/").append(URLEncoder.encode("2024-07", StandardCharsets.UTF_8)); // 요청 날짜
 
 		URL url;
 
@@ -50,53 +50,53 @@ public class EventApiController {
 		try {
 			url = new URL(urlBuilder.toString());
 
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection(); // HTTP ���� ��ü ����
-			conn.setRequestMethod("GET"); // GET ������� ��û ����
-			conn.setRequestProperty("Content-type", "application/json"); // ��û �Ӽ� ����
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection(); // HTTP 연결 객체 생성
+			conn.setRequestMethod("GET"); // GET 방식으로 요청 설정
+			conn.setRequestProperty("Content-type", "application/json"); // 요청 속성 설정
 
 			BufferedReader rd;
-			// ���� �ڵ尡 200~300 ������ ��� ���� ó��
+			// 응답 코드가 200~300 범위이면 정상 처리
 			if (conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
 				rd = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8));
 			} else {
 				rd = new BufferedReader(new InputStreamReader(conn.getErrorStream(), StandardCharsets.UTF_8));
 			}
 			String line;
-			while ((line = rd.readLine()) != null) { // ���� ������ �� �پ� �о�ͼ� StringBuilder�� �߰�
+			while ((line = rd.readLine()) != null) { // 응답 결과를 한 줄씩 읽어 StringBuilder에 추가
 				sb.append(line);
 			}
-			rd.close(); // BufferedReader �ݱ�
-			conn.disconnect(); // HTTP ���� �ݱ�
+			rd.close(); // BufferedReader 닫기
+			conn.disconnect(); // HTTP 연결 닫기
 
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
-		} // �ϼ��� URL ����
+		} // 잘못된 URL 예외 처리
 		catch (ProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		String resultString = sb.toString(); // ���� ������ ���ڿ��� ��ȯ
+		String resultString = sb.toString(); // 응답 결과를 문자열로 변환
 		System.out.println("result : " + resultString);
 
-		JsonObject jsonObject = JsonParser.parseString(resultString).getAsJsonObject(); // ���ڿ��� JSON ��ü�� ��ȯ
-		JsonObject culturalEventInfo = jsonObject.getAsJsonObject("culturalEventInfo"); // Ư�� JSON ��ü ����
-		JsonArray row = culturalEventInfo.getAsJsonArray("row"); // JSON �迭 ����
+		JsonObject jsonObject = JsonParser.parseString(resultString).getAsJsonObject(); // 문자열을 JSON 객체로 변환
+		JsonObject culturalEventInfo = jsonObject.getAsJsonObject("culturalEventInfo"); // 특정 JSON 객체 추출
+		JsonArray row = culturalEventInfo.getAsJsonArray("row"); // JSON 배열 추출
 		
 		edao.truncateEvent();
 		
 		for (int i = 0; i < row.size(); i++) {
-			JsonObject eventJson = row.get(i).getAsJsonObject(); // �迭 �� �� JSON ��ü ����
+			JsonObject eventJson = row.get(i).getAsJsonObject(); // 배열 내의 각 JSON 객체 추출
 
 			event.setEvent_no(100);
-			event.setPerformance_type(eventJson.get("CODENAME").getAsString()); // ���� ���� ����
-			event.setTitle(eventJson.get("TITLE").getAsString()); // ���� ����
-			event.setPlace(eventJson.get("PLACE").getAsString()); // ��� ����
-			event.setEvent_period(eventJson.get("DATE").getAsString()); // �Ⱓ ����
-			event.setImg(eventJson.get("MAIN_IMG").getAsString()); // �̹��� ����
-			event.setLot(eventJson.get("LOT").getAsString()); // ���� ����
-			event.setLat(eventJson.get("LAT").getAsString()); // �浵 ����
+			event.setPerformance_type(eventJson.get("CODENAME").getAsString()); // 공연 종류 설정
+			event.setTitle(eventJson.get("TITLE").getAsString()); // 제목 설정
+			event.setPlace(eventJson.get("PLACE").getAsString()); // 장소 설정
+			event.setEvent_period(eventJson.get("DATE").getAsString()); // 기간 설정
+			event.setImg(eventJson.get("MAIN_IMG").getAsString()); // 이미지 설정
+			event.setLot(eventJson.get("LOT").getAsString()); // 경도 설정
+			event.setLat(eventJson.get("LAT").getAsString()); // 위도 설정
 
 			System.out.println("event()============================================");
 
@@ -110,16 +110,11 @@ public class EventApiController {
 			System.out.println("img : " + event.getImg());
 			System.out.println("lot : " + event.getLot());
 			System.out.println("lat : " + event.getLat());
-			System.out.println("���� : " + event.getLot());
-			System.out.println("�浵 : " + event.getLat());
 			System.out.println();
 
 			edao.insertEvent(event);
 
 		}
 		return gotoPage;
-
-		
-
 	}
 }
