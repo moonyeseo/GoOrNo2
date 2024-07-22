@@ -95,8 +95,8 @@ public class EventApiController {
 			event.setPlace(eventJson.get("PLACE").getAsString()); // 장소 설정
 			event.setEvent_period(eventJson.get("DATE").getAsString()); // 기간 설정
 			event.setImg(eventJson.get("MAIN_IMG").getAsString()); // 이미지 설정
-			event.setLot(eventJson.get("LOT").getAsString()); // 경도 설정
-			event.setLat(eventJson.get("LAT").getAsString()); // 위도 설정
+			event.setLot(eventJson.get("LAT").getAsString()); // 경도 설정
+			event.setLat(eventJson.get("LOT").getAsString()); // 위도 설정
 
 			System.out.println("event()============================================");
 
