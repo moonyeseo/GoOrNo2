@@ -70,16 +70,16 @@
 							<div class="blog-post">
 								<div class="thumb">
 									<a href="detail.event?eventNo=${event.event_no}"><span id="r_img">
-										<c:choose>
-										    <c:when test="${not empty event.fimg}">
-										        <!-- 업로드된 이미지가 있으면 해당 이미지를 사용 -->
-										        <img src="${pageContext.request.contextPath}/resources/uploadImage/${event.fimg}"  alt="${event.title}" />
-										    </c:when>
-										    <c:otherwise>
-										        <!-- 업로드된 이미지가 없으면 API 이미지를 사용 -->
-										        <img src="${event.img}"  alt="${event.title}" />
-										    </c:otherwise>
-										</c:choose>
+											<c:choose>
+												 <c:when test="${not empty event.fimg}">
+													 <!-- 업로드된 이미지가 있으면 해당 이미지를 사용 -->
+													<img src="${pageContext.request.contextPath}/resources/uploadImage/${event.fimg}" width = "70px" height = "300px" alt="${event.title}" />
+												 </c:when>
+											<c:otherwise>
+													 <!-- 업로드된 이미지가 없으면 API 이미지를 사용 -->
+													  <img src="${event.img }" width = "70px" height = "300px" alt="img">
+													</c:otherwise>
+											</c:choose>
 									</span></a>
 								</div>
 								<div class="down-content">
