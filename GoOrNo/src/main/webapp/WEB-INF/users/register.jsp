@@ -299,7 +299,7 @@
 										</div>
 										<br>
 										<div class="col-12">
-											<label class="form-label">name</label> <input type="text"
+											<label class="form-label">Name</label> <input type="text"
 												name="name" value="${users.name }" class="form-control"
 												maxlength="10" required>
 											<div class="invalid-feedback">Please enter your
