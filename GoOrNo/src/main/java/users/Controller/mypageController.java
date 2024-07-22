@@ -71,20 +71,20 @@ public class mypageController {
 		System.out.println("user_no: " + user_no);
 
 		
-		if(session.getAttribute("loginInfo") == null) { //ë¡œê·¸ì¸ ì•ˆ í–ˆì„ ë•Œ
+		if(session.getAttribute("loginInfo") == null) { //·Î±×ÀÎ ¾È ÇßÀ» ¶§
 			
 			session.setAttribute("destination", "redirect:/myPage.users?user_no=" + user_no);
 			
 			return "redirect:/loginForm.users";
 			
-		} else { //ë¡œê·¸ì¸ í–ˆì„ ë•Œ
+		} else { //·Î±×ÀÎ ÇßÀ» ¶§
 			
-			//íšŒì› ì •ë³´ ê°€ì ¸ì˜¤ê¸°
+			//È¸¿ø Á¤º¸ °¡Á®¿À±â
 			UsersBean usersBean = usersDao.getByUserId(user_no);
 			model.addAttribute("usersBean", usersBean);
 			
 			
-			//bookmark ê°€ì ¸ì˜¤ê¸°
+			//bookmark °¡Á®¿À±â
             List<BookmarkBean> bookmarkList = bookmarkDao.getSearchBookmark(user_no);
             Map<String, BookmarkBean> bookmarkMap = new HashMap<>();
             for (BookmarkBean bookmark : bookmarkList) {
@@ -93,7 +93,7 @@ public class mypageController {
             model.addAttribute("bookmarkList", bookmarkMap);
 			
             
-            //favoirte ê°€ì ¸ì˜¤ê¸°
+            //favoirte °¡Á®¿À±â
             List<FavoriteBean> favoriteList = favoriteDao.getFavoriteByUser_no(user_no);
             Map<Integer, Double> avgRatingMap = new HashMap<>();
             for (FavoriteBean favorite : favoriteList) {
@@ -104,22 +104,22 @@ public class mypageController {
             model.addAttribute("avgRatingMap", avgRatingMap);
             
             
-			//ë‚˜ì˜ qna ê°€ì ¸ì˜¤ê¸°
+			//³ªÀÇ qna °¡Á®¿À±â
 			List<QnaBean> myQnaList = qnaDao.getQnaByUser_no(user_no);
 			model.addAttribute("myQnaList", myQnaList);
 			
 			
-			//ë‚´ê°€ ì‘ì„±í•œ ê¸€ ê°€ì ¸ì˜¤ê¸°
+			//³»°¡ ÀÛ¼ºÇÑ ±Û °¡Á®¿À±â
             List<BoardBean> myBoardList = boardDao.getBoardByUser_no(user_no);
             model.addAttribute("myBoardList", myBoardList);
 			
             
-            //ë‚´ê°€ ì‘ì„±í•œ ëŒ“ê¸€ ê°€ì ¸ì˜¤ê¸°
+            //³»°¡ ÀÛ¼ºÇÑ ´ñ±Û °¡Á®¿À±â
             List<CommentBean> myCommentList = commentDao.getCommentsByUser_no(user_no);
             model.addAttribute("myCommentList", myCommentList);
             
             
-            //ë‚´ì±„íŒ… ê°€ì ¸ì˜¤ê¸°
+            //³»Ã¤ÆÃ °¡Á®¿À±â
             List<ChatBean> myChatList = chatDao.getChatByUser_no(user_no);
             model.addAttribute("myChatList", myChatList);
             

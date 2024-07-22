@@ -38,11 +38,11 @@ public class KaKaoController {
 			HttpServletResponse response) throws Exception {
 		response.setCharacterEncoding("UTF-8");
 		System.out.println("#########code:" + code);
-		// 1ë‹¨ê³„
-		// ì¸ê°€ì½”ë“œ ë°›ê¸°.
+		// 1´Ü°è
+		// ÀÎ°¡ÄÚµå ¹Ş±â.
 
-		// 2ë‹¨ê³„
-		// í† í° ë°›ê¸°.
+		// 2´Ü°è
+		// ÅäÅ« ¹Ş±â.
 		String access_Token = getAccessToken(code);
 		System.out.println("###access_Token#### : " + access_Token);
 
@@ -64,24 +64,24 @@ public class KaKaoController {
 			URL url = new URL(reqURL);
 
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			// POST ìš”ì²­ì„ ìœ„í•´ ê¸°ë³¸ê°’ì´ falseì¸ setDoOutputì„ trueë¡œ
+			// POST ¿äÃ»À» À§ÇØ ±âº»°ªÀÌ falseÀÎ setDoOutputÀ» true·Î
 			
 			conn.setRequestMethod("POST");
 			conn.setDoOutput(true);
-			// POST ìš”ì²­ì— í•„ìš”ë¡œ ìš”êµ¬í•˜ëŠ” íŒŒë¼ë¯¸í„° ìŠ¤íŠ¸ë¦¼ì„ í†µí•´ ì „ì†¡
+			// POST ¿äÃ»¿¡ ÇÊ¿ä·Î ¿ä±¸ÇÏ´Â ÆÄ¶ó¹ÌÅÍ ½ºÆ®¸²À» ÅëÇØ Àü¼Û
 			
 			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream(), "UTF-8"));
 			StringBuilder sb = new StringBuilder();
 			sb.append("grant_type=authorization_code");
-			sb.append("&client_id=REST KEY"); // ë³¸ì¸ì´ ë°œê¸‰ë°›ì€ key
-			sb.append("&redirect_uri=uri ì‘ì„±ìë¦¬"); // ë³¸ì¸ì´ ì„¤ì •í•œ ì£¼ì†Œ
+			sb.append("&client_id="); // º»ÀÎÀÌ ¹ß±Ş¹ŞÀº key
+			sb.append("&redirect_uri=http://localhost:8080/kakaoLogin.users"); // º»ÀÎÀÌ ¼³Á¤ÇÑ ÁÖ¼Ò
 			sb.append("&code=" + authorize_code);
 			bw.write(sb.toString());
 			bw.flush();
-			// ê²°ê³¼ ì½”ë“œê°€ 200ì´ë¼ë©´ ì„±ê³µ
+			// °á°ú ÄÚµå°¡ 200ÀÌ¶ó¸é ¼º°ø
 			int responseCode = conn.getResponseCode();
 			System.out.println("responseCode : " + responseCode);
-			// ìš”ì²­ì„ í†µí•´ ì–»ì€ JSONíƒ€ì…ì˜ Response ë©”ì„¸ì§€ ì½ì–´ì˜¤ê¸°
+			// ¿äÃ»À» ÅëÇØ ¾òÀº JSONÅ¸ÀÔÀÇ Response ¸Ş¼¼Áö ÀĞ¾î¿À±â
 			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
 			String line = "";
 			String result = "";
@@ -89,7 +89,7 @@ public class KaKaoController {
 				result += line;
 			}
 			System.out.println("response body : " + result);
-			// Gson ë¼ì´ë¸ŒëŸ¬ë¦¬ì— í¬í•¨ëœ í´ë˜ìŠ¤ë¡œ JSONíŒŒì‹± ê°ì²´ ìƒì„±
+			// Gson ¶óÀÌºê·¯¸®¿¡ Æ÷ÇÔµÈ Å¬·¡½º·Î JSONÆÄ½Ì °´Ã¼ »ı¼º
 			JsonParser parser = new JsonParser();
 			JsonElement element = parser.parse(result);
 			access_Token = element.getAsJsonObject().get("access_token").getAsString();
@@ -114,7 +114,7 @@ public class KaKaoController {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
 
-            // ìš”ì²­ì— í•„ìš”í•œ Headerì— í¬í•¨ë  ë‚´ìš©
+            // ¿äÃ»¿¡ ÇÊ¿äÇÑ Header¿¡ Æ÷ÇÔµÉ ³»¿ë
             conn.setRequestProperty("Authorization", "Bearer " + access_Token);
 
             int responseCode = conn.getResponseCode();
@@ -151,15 +151,15 @@ public class KaKaoController {
         System.out.println("S:" + result);
         
 		if(result==null) {
-		// resultê°€ nullì´ë©´ ì •ë³´ê°€ ì €ì¥ì´ ì•ˆë˜ìˆëŠ”ê±°ë¯€ë¡œ ì •ë³´ë¥¼ ì €ì¥.
+		// result°¡ nullÀÌ¸é Á¤º¸°¡ ÀúÀåÀÌ ¾ÈµÇÀÖ´Â°Å¹Ç·Î Á¤º¸¸¦ ÀúÀå.
 			usersDao.kakaoinsert(loginInfo);
-			// ìœ„ ì½”ë“œê°€ ì •ë³´ë¥¼ ì €ì¥í•˜ê¸° ìœ„í•´ Repositoryë¡œ ë³´ë‚´ëŠ” ì½”ë“œì„. [íšŒì›ê°€ì… ì²˜ë¦¬]
+			// À§ ÄÚµå°¡ Á¤º¸¸¦ ÀúÀåÇÏ±â À§ÇØ Repository·Î º¸³»´Â ÄÚµåÀÓ. [È¸¿ø°¡ÀÔ Ã³¸®]
 			return usersDao.findkakao(loginInfo);
-			// ìœ„ ì½”ë“œëŠ” ì •ë³´ ì €ì¥ í›„ ì»¨íŠ¸ë¡¤ëŸ¬ì— ì •ë³´ë¥¼ ë³´ë‚´ëŠ” ì½”ë“œì„.
-			//  resultë¥¼ ë¦¬í„´ìœ¼ë¡œ ë³´ë‚´ë©´ nullì´ ë¦¬í„´ë˜ë¯€ë¡œ ìœ„ ì½”ë“œë¥¼ ì‚¬ìš©.
+			// À§ ÄÚµå´Â Á¤º¸ ÀúÀå ÈÄ ÄÁÆ®·Ñ·¯¿¡ Á¤º¸¸¦ º¸³»´Â ÄÚµåÀÓ.
+			//  result¸¦ ¸®ÅÏÀ¸·Î º¸³»¸é nullÀÌ ¸®ÅÏµÇ¹Ç·Î À§ ÄÚµå¸¦ »ç¿ë.
 		} else {
-			return result; //ì´ë¯¸ íšŒì›ì´ê¸°ì— ë°”ë¡œ ë¡œê·¸ì¸ ì„±ê³µ.
-			// ì •ë³´ê°€ ì´ë¯¸ ìˆê¸° ë•Œë¬¸ì— resultë¥¼ ë¦¬í„´í•¨.
+			return result; //ÀÌ¹Ì È¸¿øÀÌ±â¿¡ ¹Ù·Î ·Î±×ÀÎ ¼º°ø.
+			// Á¤º¸°¡ ÀÌ¹Ì ÀÖ±â ¶§¹®¿¡ result¸¦ ¸®ÅÏÇÔ.
 		}
 	}
 }

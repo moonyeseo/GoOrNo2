@@ -51,14 +51,14 @@ public class FindPwController {
 			if (ub != null) {
 				
 				out.println("<script>");
-				out.println("alert('ë¹„ë°€ë²ˆí˜¸ëŠ”" + ub.getPw() + "ì…ë‹ˆë‹¤.')");
+				out.println("alert('ºñ¹Ğ¹øÈ£´Â" + ub.getPw() + "ÀÔ´Ï´Ù.')");
 				out.println("location.href='" + command + "';");
 				out.println("</script>");
 				out.flush();
 
 			} else {
 				out.println("<script>");
-				out.println("alert('ì—†ëŠ” íšŒì› ì…ë‹ˆë‹¤.');");
+				out.println("alert('¾ø´Â È¸¿ø ÀÔ´Ï´Ù.');");
 				out.println("location.href='" + command + "';");
 				out.println("</script>");
 				out.flush();

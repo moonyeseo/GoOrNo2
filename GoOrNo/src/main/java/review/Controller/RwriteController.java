@@ -35,7 +35,7 @@ public class RwriteController {
     public @ResponseBody List<ReviewBean> review(@RequestParam("rating") String rating, HttpSession session,
             Model model, @ModelAttribute("review") ReviewBean review) throws IOException {
 
-        System.out.println("RwriteController 입니다.");
+        System.out.println("RwriteController �Դϴ�.");
         System.out.println("RwriteController:" + review.getEvent_no() + review.getId() + review.getRating());
 
         UsersBean users = (UsersBean) session.getAttribute("loginInfo");

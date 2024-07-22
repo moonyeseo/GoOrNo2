@@ -66,7 +66,7 @@ public class mypageUpdateController {
             return mav;
         }
 		
-		// ë¹„ë°€ë²ˆí˜¸ê°€ ë¹„ì–´ ìˆìœ¼ë©´ ê¸°ì¡´ ë¹„ë°€ë²ˆí˜¸ ìœ ì§€
+		// ºñ¹Ğ¹øÈ£°¡ ºñ¾î ÀÖÀ¸¸é ±âÁ¸ ºñ¹Ğ¹øÈ£ À¯Áö
 	    if (usersBean.getPw() == null || usersBean.getPw().isEmpty()) {
 	        UsersBean users = usersDao.getByUserId(usersBean.getUser_no());
 	        usersBean.setPw(users.getPw());
@@ -125,14 +125,14 @@ public class mypageUpdateController {
         
         UsersBean usersBean = usersDao.getByUserId(user_no);
         
-        // ê¸°ì¡´ í”„ë¡œí•„ ì´ë¯¸ì§€ íŒŒì¼ ì‚­ì œ
+        // ±âÁ¸ ÇÁ·ÎÇÊ ÀÌ¹ÌÁö ÆÄÀÏ »èÁ¦
         String deletePath = servletContext.getRealPath("/resources/uploadImage/");
         File file = new File(deletePath + File.separator + usersBean.getProfile());
         if(file.exists()) {
             file.delete();
         }
         
-        // í”„ë¡œí•„ ì´ë¯¸ì§€ í•„ë“œ ë¹„ìš°ê¸°
+        // ÇÁ·ÎÇÊ ÀÌ¹ÌÁö ÇÊµå ºñ¿ì±â
         usersBean.setProfile(null);
         usersDao.updateUsers(usersBean);
         
@@ -162,19 +162,19 @@ public class mypageUpdateController {
         	PrintWriter out = response.getWriter();
         	
         	if(!usersBean.getPw().equals(currentPw)) {
-        		out.println("<script>alert('í˜„ì¬ ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.'); history.go(-1);</script>");
+        		out.println("<script>alert('ÇöÀç ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.'); history.go(-1);</script>");
         		out.flush();
         		return;
         	}
         	
         	if (newPw == null || newPw.isEmpty() || reNewPw == null || reNewPw.isEmpty()) {
-                out.println("<script>alert('ë³€ê²½í•  ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ ì£¼ì„¸ìš”.'); history.go(-1);</script>");
+                out.println("<script>alert('º¯°æÇÒ ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä.'); history.go(-1);</script>");
                 out.flush();
                 return;
             }
         	
         	if(!newPw.equals(reNewPw)) {
-        		out.println("<script>alert('ìƒˆë¡œìš´ ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.'); history.go(-1);</script>");
+        		out.println("<script>alert('»õ·Î¿î ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.'); history.go(-1);</script>");
         		out.flush();
         		return;
         	}
@@ -183,9 +183,9 @@ public class mypageUpdateController {
         	int cnt = usersDao.updatePw(usersBean);
         	
         	if(cnt != -1) {
-        		out.println("<script>alert('ë¹„ë°€ë²ˆí˜¸ê°€ ë³€ê²½ë˜ì—ˆìŠµë‹ˆë‹¤.'); location.href='myPage.users?user_no=" + user_no + "';</script>");
+        		out.println("<script>alert('ºñ¹Ğ¹øÈ£°¡ º¯°æµÇ¾ú½À´Ï´Ù.'); location.href='myPage.users?user_no=" + user_no + "';</script>");
         	} else {
-        		out.println("<script>alert('ë¹„ë°€ë²ˆí˜¸ ë³€ê²½ì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤.'); history.go(-1);</script>");
+        		out.println("<script>alert('ºñ¹Ğ¹øÈ£ º¯°æ¿¡ ½ÇÆĞÇß½À´Ï´Ù.'); history.go(-1);</script>");
         	}
         	out.flush();
         	

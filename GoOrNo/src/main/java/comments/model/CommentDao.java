@@ -32,7 +32,7 @@ public class CommentDao {
 		int cnt = -1;
 		cnt = sst.insert(namespace+".writeComment", comment);
 		
-		// �븣由� �깮�꽦
+		// 알림 생성
 		if (cnt > 0) {
             BoardBean board = boardDao.getBoardByNo(comment.getBoard_no());
             
@@ -40,7 +40,7 @@ public class CommentDao {
                 AlarmBean alarm = new AlarmBean();
                 alarm.setUser_no(board.getUser_no());
                 alarm.setUser_id(comment.getUser_id());
-                alarm.setMessage("'" + board.getSubject() + "' �뿉 �뙎湲��쓣 �떖�븯�뒿�땲�떎.");
+                alarm.setMessage("'" + board.getSubject() + "' 에 댓글을 달았습니다.");
                 alarm.setAlarm_type("board");
                 alarm.setType_id(comment.getBoard_no());
                 alarm.setRead(0);
@@ -64,7 +64,7 @@ public class CommentDao {
 		return cnt;
 	}
 	
-	//woo 異붽� : user_no�뿉 �뵲瑜� �뙎湲� list
+	//woo 추가 : user_no에 따른 댓글 list
 	public List<CommentBean> getCommentsByUser_no(int user_no){
 		List<CommentBean> commentsLists = new ArrayList<CommentBean>();
 		commentsLists = sst.selectList(namespace + ".getCommentsByUser_no", user_no);

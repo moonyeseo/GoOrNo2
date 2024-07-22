@@ -74,6 +74,7 @@ span{
 		var isSuccess = document.getElementById("isSuccess").value;
 		if(isSuccess == 'yes'){
 			window.opener.parent.location.reload();
+			window.close();
 		}
 	});
 </script>

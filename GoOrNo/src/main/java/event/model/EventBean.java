@@ -7,22 +7,22 @@ import org.springframework.web.multipart.MultipartFile;
 public class EventBean {
     private int event_no;
     
-    @NotBlank(message="ìœ í˜•ì„ ì„ íƒí•˜ì„¸ìš”.")
+    @NotBlank(message="À¯ÇüÀ» ¼±ÅÃÇÏ¼¼¿ä.")
     private String performance_type;
     
-    @NotEmpty(message="ì œëª©ì„ ì…ë ¥í•˜ì„¸ìš”.")
+    @NotEmpty(message="Á¦¸ñÀ» ÀÔ·ÂÇÏ¼¼¿ä.")
     private String title;
     
-    @NotEmpty(message="ì¥ì†Œë¥¼ ì…ë ¥í•˜ì„¸ìš”.")
+    @NotEmpty(message="Àå¼Ò¸¦ ÀÔ·ÂÇÏ¼¼¿ä.")
     private String place;
     
-    @NotEmpty(message="ë‚ ì§œë¥¼ ì„ íƒí•˜ì„¸ìš”.")
+    @NotEmpty(message="³¯Â¥¸¦ ¼±ÅÃÇÏ¼¼¿ä.")
     private String event_period;
     
-    private String img; // Api ì´ë¯¸ì§€
+    private String img; // Api ÀÌ¹ÌÁö
     
-    @NotEmpty(message = "íŒŒì¼ ì„ íƒ ì•ˆí•¨")
-    private String fimg; // ì—…ë¡œë“œ íŒŒì¼ ì´ë¯¸ì§€
+    @NotEmpty(message = "ÆÄÀÏ ¼±ÅÃ ¾ÈÇÔ")
+    private String fimg; // ¾÷·Îµå ÆÄÀÏ ÀÌ¹ÌÁö
     
     public String getFimg() {
 		return fimg;
@@ -32,14 +32,14 @@ public class EventBean {
 		this.fimg = fimag;
 	}
 
-	@NotEmpty(message="ìœ„ë„ë¥¼ ì…ë ¥í•˜ì„¸ìš”.")
+	@NotEmpty(message="À§µµ¸¦ ÀÔ·ÂÇÏ¼¼¿ä.")
     private String lot;
     
-    @NotEmpty(message="ê²½ë„ë¥¼ ì…ë ¥í•˜ì„¸ìš”.")
+    @NotEmpty(message="°æµµ¸¦ ÀÔ·ÂÇÏ¼¼¿ä.")
     private String lat;
     
-    // moonyeseo ì¶”ê°€
-    @NotEmpty(message="ì£¼ì†Œë¥¼ ì…ë ¥í•˜ì„¸ìš”.")
+    // moonyeseo Ãß°¡
+    @NotEmpty(message="ÁÖ¼Ò¸¦ ÀÔ·ÂÇÏ¼¼¿ä.")
     private String fullAddr;
     
     public String getFullAddr() {
@@ -50,12 +50,12 @@ public class EventBean {
 		this.fullAddr = fullAddr;
 	}
 
-	// ì¶”ê°€
+	// Ãß°¡
  	private MultipartFile upload;
- 	private String upload2; // ìˆ˜ì •í• ë•Œ ì‚­ì œí•˜ë ¤ëŠ” íŒŒì¼ëª…
+ 	private String upload2; // ¼öÁ¤ÇÒ¶§ »èÁ¦ÇÏ·Á´Â ÆÄÀÏ¸í
     
 	public EventBean() {
-        System.out.println("EventBean ìƒì„±ì");
+        System.out.println("EventBean »ı¼ºÀÚ");
     }
     
     public MultipartFile getUpload() {

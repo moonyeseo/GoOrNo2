@@ -18,7 +18,7 @@ public class EventDao {
     private final String namespace = "event.model.Event";
     
     public EventDao() {
-        System.out.println("EventDao ������"); 
+        System.out.println("EventDao 생성자"); 
     }
     
     // 행사 테이블 비우기
@@ -35,8 +35,8 @@ public class EventDao {
         
     	System.out.println("insertEvent()=======================");
         System.out.println("img : " + event.getImg());
-        System.out.println("���� : " + event.getLot());
-        System.out.println("�浵 : " + event.getLat());
+        System.out.println("위도 : " + event.getLot());
+        System.out.println("경도 : " + event.getLat());
         
     	cnt = sqlSessionTemplate.insert(namespace + ".insertEvent", event);
     	System.out.println("test2");

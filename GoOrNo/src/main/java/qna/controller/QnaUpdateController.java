@@ -38,7 +38,7 @@ public class QnaUpdateController {
 			@RequestParam(value = "keyword", required = false) String keyword) {
 		if(isAdmin == null) {
 			UsersBean mb = (UsersBean) session.getAttribute("loginInfo");
-			if (mb == null) { // �α���x
+			if (mb == null) { // login x
 				model.addAttribute("keyword", keyword);
 				model.addAttribute("pageNumber", pageNumber);
 				model.addAttribute("whatColumn", whatColumn);

@@ -45,9 +45,9 @@ public class LoginController {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
 
-			if (ub == null) { //ì—†ëŠ” íšŒì›ì¼ë•Œ.
+			if (ub == null) { //¾ø´Â È¸¿øÀÏ¶§.
 				out.println("<script>");
-				out.println("alert('ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ì•„ì´ë”” ì…ë‹ˆë‹¤.');");
+				out.println("alert('Á¸ÀçÇÏÁö ¾Ê´Â ¾ÆÀÌµğ ÀÔ´Ï´Ù.');");
 				out.println("</script>");
 				out.flush();
 				return new ModelAndView(getPage);
@@ -58,20 +58,20 @@ public class LoginController {
 					session.setAttribute("loginInfo", ub);
 					session.setAttribute("id", ub.getId());
 
-					if (ub.getId().equals("admin")) { //ê´€ë¦¬ì ë¡œê·¸ì¸ í• ë•Œ.
+					if (ub.getId().equals("admin")) { //°ü¸®ÀÚ ·Î±×ÀÎ ÇÒ¶§.
 						out.println("<script>");
-						out.println("alert('ê´€ë¦¬ìí˜ì´ì§€ë¡œ ì´ë™í•©ë‹ˆë‹¤.');");
+						out.println("alert('°ü¸®ÀÚÆäÀÌÁö·Î ÀÌµ¿ÇÕ´Ï´Ù.');");
 						out.println("</script>");
 						out.flush();
 						return new ModelAndView(goPage2);
 
-					} else { // ë¡œê·¸ì¸ ì„±ê³µ
+					} else { // ·Î±×ÀÎ ¼º°ø
 						return new ModelAndView(goPage1);
 					}
 
-				} else { //ë¹„ë°€ë²ˆí˜¸ê°€ í‹€ë ¸ì„ ë•Œ
+				} else { //ºñ¹Ğ¹øÈ£°¡ Æ²·ÈÀ» ¶§
 					out.println("<script>");
-					out.println("alert('ë¹„ë°€ë²ˆí˜¸ë¥¼ ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”.');");
+					out.println("alert('ºñ¹Ğ¹øÈ£¸¦ ´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä.');");
 					out.println("</script>");
 					out.flush();
 					return new ModelAndView(getPage);

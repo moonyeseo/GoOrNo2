@@ -89,7 +89,7 @@ a:hover{
 									<!-- REST API 방식 -->
 									<div class="text-center">
 										<a
-											href="https://kauth.kakao.com/oauth/authorize?client_id=REST KEY&redirect_uri=http://localhost:8080/ex/kakaoLogin.users&response_type=code&prompt=login">
+											href="https://kauth.kakao.com/oauth/authorize?client_id=&redirect_uri=http://localhost:8080/kakaoLogin.users&response_type=code&prompt=login">
 											<img
 											src="<%=request.getContextPath()%>/resources/image/kakao_login.png">
 

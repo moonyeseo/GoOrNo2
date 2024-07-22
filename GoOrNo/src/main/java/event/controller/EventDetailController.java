@@ -23,7 +23,7 @@ import users.model.UsersDao;
 @Controller
 @ComponentScan(basePackages = {"review","users","favorite"})
 public class EventDetailController {
-	// ìƒì„¸ë³´ê¸°
+	// »ó¼¼º¸±â
 	private final String command = "detail.event"; 
 	private final String admincmd = "AdminDetail.event"; 
 	private final String getPage = "eventDetail";
@@ -56,14 +56,14 @@ public class EventDetailController {
 			model.addAttribute("whatColumn", whatColumn);
 			model.addAttribute("pageNumber", pageNumber);
 			
-			/* review ì¶”ê°€ */			
+			/* review Ãß°¡ */			
 			List<ReviewBean> reviewLists = reviewDao.getAllReview(eventNo);
             double averageRating = reviewDao.getAverageRating(eventNo);
            
             model.addAttribute("averageRating", averageRating);
             model.addAttribute("reviewLists", reviewLists);
             
-            //favorite(ê´€ì‹¬ëª©ë¡) ì—¬ë¶€ í™•ì¸
+            //favorite(°ü½É¸ñ·Ï) ¿©ºÎ È®ÀÎ
             UsersBean loginInfo = (UsersBean) session.getAttribute("loginInfo");
             if (loginInfo != null) {
                 FavoriteBean favorite = favoriteDao.getFavorite(eventNo, loginInfo.getUser_no());
@@ -74,7 +74,7 @@ public class EventDetailController {
 			return getPage;
 	}
 	
-	// ê´€ë¦¬ì
+	// °ü¸®ÀÚ
 	@RequestMapping(admincmd)
 	public String Admindetail(
 			@RequestParam("eventNo") int eventNo,

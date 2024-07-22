@@ -19,7 +19,7 @@ import utility.Paging;
 
 @Controller
 public class EventAdminListController {
-	// ê´€ë¦¬ì ë¦¬ìŠ¤íŠ¸
+	// °ü¸®ÀÚ ¸®½ºÆ®
 	private final String command = "/AdminList.event";
 	private final String getPage = "../../mainAdmin";
 
@@ -46,10 +46,10 @@ public class EventAdminListController {
 		String url = request.getContextPath() + this.command;
 		Paging pageInfo = new Paging(pageNumber, null, totalCount, url, whatColumn, keyword);
 		
-		// ëª©ë¡ ì¡°íšŒ
+		// ¸ñ·Ï Á¶È¸
 		List<EventBean> lists = edao.getAllEvents(map, pageInfo);
 		
-		// ìœ í˜•
+		// À¯Çü
 		List<String> performanceTypeList = edao.getPerformanceType();
 		model.addAttribute("whatColumn", whatColumn);
 		model.addAttribute("keyword", keyword);

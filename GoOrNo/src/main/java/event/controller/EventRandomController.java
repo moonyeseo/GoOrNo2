@@ -34,7 +34,7 @@ public class EventRandomController {
 
 		Map<String, String> map = new HashMap<String, String>();
 		
-		// ëœë¤ìœ¼ë¡œ í–‰ì‚¬ ì•„ë¬´ê±°ë‚˜ í•˜ë‚˜ ê°€ì ¸ì˜¤ê¸°
+		// ·£´ıÀ¸·Î Çà»ç ¾Æ¹«°Å³ª ÇÏ³ª °¡Á®¿À±â
 		int totalCount = eventDao.getTotalCount(map);
 
 		int random = (int)(Math.random() * totalCount) + 1;

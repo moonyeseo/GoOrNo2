@@ -85,7 +85,7 @@ body {
 	if ("${sessionScope.loginInfo}" != "") {
         fetchUnreadAlarms();
         fetchChatCount();
-        //setInterval(fetchUnreadAlarms, 5000);
+        setInterval(fetchUnreadAlarms, 5000);
         //setInterval(fetchChatCount, 5000);
     }
 	

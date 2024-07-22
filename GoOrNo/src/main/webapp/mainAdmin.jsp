@@ -75,7 +75,7 @@ function update(eventNo, whatColumn, keyword, pageNumber) {
 										<form action="AdminList.event">
 											<!-- 글작성 및 바로가기 버튼 -->
 											<button class="btn btn-secondary" style="float: left;"
-												onClick="insertEvent()">글작성</button>
+												onClick="insertEvent()">등록</button>
 
 											<select name="whatColumn" class="form-select"
 												style="width: 15%; display: inline;">

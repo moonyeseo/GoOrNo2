@@ -24,7 +24,7 @@ import event.model.EventDao;
 
 @Controller
 public class EventApiController {
-	// í–‰ì‚¬ Api
+	// Çà»ç Api
 	private final String command = "api.event"; 
 	private final String gotoPage = "redirect:/list.event";
 
@@ -34,14 +34,14 @@ public class EventApiController {
 	@RequestMapping(command)
 	public String insert(EventBean event) {
 		StringBuilder urlBuilder = new StringBuilder("http://openapi.seoul.go.kr:8088");
-		urlBuilder.append("/").append(URLEncoder.encode("434472644d776a6435387a694c6e45", StandardCharsets.UTF_8)); // ì¸ì¦í‚¤
-		urlBuilder.append("/").append(URLEncoder.encode("json", StandardCharsets.UTF_8)); // ìš”ì²­ íŒŒì¼ íƒ€ìž…
-		urlBuilder.append("/").append(URLEncoder.encode("culturalEventInfo", StandardCharsets.UTF_8)); // ì„œë¹„ìŠ¤ëª…
-		urlBuilder.append("/").append(URLEncoder.encode("1", StandardCharsets.UTF_8)); // ìš”ì²­ ì‹œìž‘ ìœ„ì¹˜
-		urlBuilder.append("/").append(URLEncoder.encode("1000", StandardCharsets.UTF_8)); // ìš”ì²­ ì¢…ë£Œ ìœ„ì¹˜
-		urlBuilder.append("/").append(URLEncoder.encode(" ", StandardCharsets.UTF_8)); // ë¶„ë¥˜
-		urlBuilder.append("/").append(URLEncoder.encode(" ", StandardCharsets.UTF_8)); // ì§€ì—­/ìž¥ì†Œ
-		urlBuilder.append("/").append(URLEncoder.encode("2024-07", StandardCharsets.UTF_8)); // ìš”ì²­ ë‚ ì§œ
+		urlBuilder.append("/").append(URLEncoder.encode("434472644d776a6435387a694c6e45", StandardCharsets.UTF_8)); // ÀÎÁõÅ°
+		urlBuilder.append("/").append(URLEncoder.encode("json", StandardCharsets.UTF_8)); // ¿äÃ» ÆÄÀÏ Å¸ÀÔ
+		urlBuilder.append("/").append(URLEncoder.encode("culturalEventInfo", StandardCharsets.UTF_8)); // ¼­ºñ½º¸í
+		urlBuilder.append("/").append(URLEncoder.encode("1", StandardCharsets.UTF_8)); // ¿äÃ» ½ÃÀÛ À§Ä¡
+		urlBuilder.append("/").append(URLEncoder.encode("1000", StandardCharsets.UTF_8)); // ¿äÃ» Á¾·á À§Ä¡
+		urlBuilder.append("/").append(URLEncoder.encode(" ", StandardCharsets.UTF_8)); // ºÐ·ù
+		urlBuilder.append("/").append(URLEncoder.encode(" ", StandardCharsets.UTF_8)); // Áö¿ª/Àå¼Ò
+		urlBuilder.append("/").append(URLEncoder.encode("2024-07", StandardCharsets.UTF_8)); // ¿äÃ» ³¯Â¥
 
 		URL url;
 
@@ -50,53 +50,53 @@ public class EventApiController {
 		try {
 			url = new URL(urlBuilder.toString());
 
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection(); // HTTP ì—°ê²° ê°ì²´ ìƒì„±
-			conn.setRequestMethod("GET"); // GET ë°©ì‹ìœ¼ë¡œ ìš”ì²­ ì„¤ì •
-			conn.setRequestProperty("Content-type", "application/json"); // ìš”ì²­ ì†ì„± ì„¤ì •
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection(); // HTTP ¿¬°á °´Ã¼ »ý¼º
+			conn.setRequestMethod("GET"); // GET ¹æ½ÄÀ¸·Î ¿äÃ» ¼³Á¤
+			conn.setRequestProperty("Content-type", "application/json"); // ¿äÃ» ¼Ó¼º ¼³Á¤
 
 			BufferedReader rd;
-			// ì‘ë‹µ ì½”ë“œê°€ 200~300 ë²”ìœ„ì´ë©´ ì •ìƒ ì²˜ë¦¬
+			// ÀÀ´ä ÄÚµå°¡ 200~300 ¹üÀ§ÀÌ¸é Á¤»ó Ã³¸®
 			if (conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
 				rd = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8));
 			} else {
 				rd = new BufferedReader(new InputStreamReader(conn.getErrorStream(), StandardCharsets.UTF_8));
 			}
 			String line;
-			while ((line = rd.readLine()) != null) { // ì‘ë‹µ ê²°ê³¼ë¥¼ í•œ ì¤„ì”© ì½ì–´ StringBuilderì— ì¶”ê°€
+			while ((line = rd.readLine()) != null) { // ÀÀ´ä °á°ú¸¦ ÇÑ ÁÙ¾¿ ÀÐ¾î StringBuilder¿¡ Ãß°¡
 				sb.append(line);
 			}
-			rd.close(); // BufferedReader ë‹«ê¸°
-			conn.disconnect(); // HTTP ì—°ê²° ë‹«ê¸°
+			rd.close(); // BufferedReader ´Ý±â
+			conn.disconnect(); // HTTP ¿¬°á ´Ý±â
 
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
-		} // ìž˜ëª»ëœ URL ì˜ˆì™¸ ì²˜ë¦¬
+		} // Àß¸øµÈ URL ¿¹¿Ü Ã³¸®
 		catch (ProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		String resultString = sb.toString(); // ì‘ë‹µ ê²°ê³¼ë¥¼ ë¬¸ìžì—´ë¡œ ë³€í™˜
+		String resultString = sb.toString(); // ÀÀ´ä °á°ú¸¦ ¹®ÀÚ¿­·Î º¯È¯
 		System.out.println("result : " + resultString);
 
-		JsonObject jsonObject = JsonParser.parseString(resultString).getAsJsonObject(); // ë¬¸ìžì—´ì„ JSON ê°ì²´ë¡œ ë³€í™˜
-		JsonObject culturalEventInfo = jsonObject.getAsJsonObject("culturalEventInfo"); // íŠ¹ì • JSON ê°ì²´ ì¶”ì¶œ
-		JsonArray row = culturalEventInfo.getAsJsonArray("row"); // JSON ë°°ì—´ ì¶”ì¶œ
+		JsonObject jsonObject = JsonParser.parseString(resultString).getAsJsonObject(); // ¹®ÀÚ¿­À» JSON °´Ã¼·Î º¯È¯
+		JsonObject culturalEventInfo = jsonObject.getAsJsonObject("culturalEventInfo"); // Æ¯Á¤ JSON °´Ã¼ ÃßÃâ
+		JsonArray row = culturalEventInfo.getAsJsonArray("row"); // JSON ¹è¿­ ÃßÃâ
 		
 		edao.truncateEvent();
 		
 		for (int i = 0; i < row.size(); i++) {
-			JsonObject eventJson = row.get(i).getAsJsonObject(); // ë°°ì—´ ë‚´ì˜ ê° JSON ê°ì²´ ì¶”ì¶œ
+			JsonObject eventJson = row.get(i).getAsJsonObject(); // ¹è¿­ ³»ÀÇ °¢ JSON °´Ã¼ ÃßÃâ
 
 			event.setEvent_no(100);
-			event.setPerformance_type(eventJson.get("CODENAME").getAsString()); // ê³µì—° ì¢…ë¥˜ ì„¤ì •
-			event.setTitle(eventJson.get("TITLE").getAsString()); // ì œëª© ì„¤ì •
-			event.setPlace(eventJson.get("PLACE").getAsString()); // ìž¥ì†Œ ì„¤ì •
-			event.setEvent_period(eventJson.get("DATE").getAsString()); // ê¸°ê°„ ì„¤ì •
-			event.setImg(eventJson.get("MAIN_IMG").getAsString()); // ì´ë¯¸ì§€ ì„¤ì •
-			event.setLot(eventJson.get("LAT").getAsString()); // ê²½ë„ ì„¤ì •
-			event.setLat(eventJson.get("LOT").getAsString()); // ìœ„ë„ ì„¤ì •
+			event.setPerformance_type(eventJson.get("CODENAME").getAsString()); // °ø¿¬ Á¾·ù ¼³Á¤
+			event.setTitle(eventJson.get("TITLE").getAsString()); // Á¦¸ñ ¼³Á¤
+			event.setPlace(eventJson.get("PLACE").getAsString()); // Àå¼Ò ¼³Á¤
+			event.setEvent_period(eventJson.get("DATE").getAsString()); // ±â°£ ¼³Á¤
+			event.setImg(eventJson.get("MAIN_IMG").getAsString()); // ÀÌ¹ÌÁö ¼³Á¤
+			event.setLot(eventJson.get("LAT").getAsString()); // °æµµ ¼³Á¤
+			event.setLat(eventJson.get("LOT").getAsString()); // À§µµ ¼³Á¤
 
 			System.out.println("event()============================================");
 

@@ -65,7 +65,7 @@ public class RegisterController {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			
-			if (cnt != -1) {//íšŒì›ê°€ì… ì„±ê³µ
+			if (cnt != -1) {//È¸¿ø°¡ÀÔ ¼º°ø
 				mav.setViewName(gotoPage);
 				
 				File destination = new File(uploadPath + File.separator + multi.getOriginalFilename());
@@ -78,9 +78,9 @@ public class RegisterController {
 					e.printStackTrace();
 				}
 				
-			} else {//íšŒì›ê°€ì… ì‹¤íŒ¨
+			} else {//È¸¿ø°¡ÀÔ ½ÇÆĞ
 				out.println("<script>");
-				out.println("alert('íšŒì›ê°€ì… ì‹¤íŒ¨.');");
+				out.println("alert('È¸¿ø°¡ÀÔ ½ÇÆĞ.');");
 				out.println("</script>");
 				out.flush();
 				mav.setViewName(getPage);
