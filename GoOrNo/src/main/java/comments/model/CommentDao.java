@@ -40,7 +40,7 @@ public class CommentDao {
                 AlarmBean alarm = new AlarmBean();
                 alarm.setUser_no(board.getUser_no());
                 alarm.setUser_id(comment.getUser_id());
-                alarm.setMessage("'" + board.getSubject() + "' �뿉 �뙎湲��쓣 �떖�븯�뒿�땲�떎.");
+                alarm.setMessage("'" + board.getSubject() + "' 에 댓글을 달았습니다.");
                 alarm.setAlarm_type("board");
                 alarm.setType_id(comment.getBoard_no());
                 alarm.setRead(0);

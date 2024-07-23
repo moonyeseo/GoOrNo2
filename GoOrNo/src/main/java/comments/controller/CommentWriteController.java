@@ -35,20 +35,20 @@ public class CommentWriteController {
 			@ModelAttribute("comment") CommentBean comment
 			) throws IOException{
 		
-		//board/detailView.jsp¿¡¼­ ´ñ±Û ÀÛ¼º Å¬¸¯ => ajax¿¡¼­ 3°¡Áö Á¤º¸ °¡Áö°í ¿äÃ»/*id´Â °¡Á®¿Ã ÇÊ¿ä ¾øÀ½
-		System.out.println("³Ñ¾î¿Â °Ô½Ã±Û¹øÈ£/´ñÀÛ¼ºÀÚ/´ñ³»¿ë : "+comment.getBoard_no()+"/"+comment.getId()+"/"+comment.getContent());
+		//board/detailView.jspì—ì„œ ëŒ“ê¸€ ìž‘ì„± í´ë¦­ => ajaxì—ì„œ 3ê°€ì§€ ì •ë³´ ê°€ì§€ê³  ìš”ì²­/*idëŠ” ê°€ì ¸ì˜¬ í•„ìš” ì—†ìŒ
+		System.out.println("ë„˜ì–´ì˜¨ ê²Œì‹œê¸€ë²ˆí˜¸/ëŒ“ìž‘ì„±ìž/ëŒ“ë‚´ìš© : "+comment.getBoard_no()+"/"+comment.getId()+"/"+comment.getContent());
 		
-		//ÇöÀç ·Î±×ÀÎÇÑ À¯Àú Á¤º¸·Î user_no, user_id °¡Á®¿Í¼­ ´ñ±Û Á¤º¸¿¡ set
+		//í˜„ìž¬ ë¡œê·¸ì¸í•œ ìœ ì € ì •ë³´ë¡œ user_no, user_id ê°€ì ¸ì™€ì„œ ëŒ“ê¸€ ì •ë³´ì— set
 		UsersBean mb = (UsersBean)session.getAttribute("loginInfo");
 		comment.setUser_no(mb.getUser_no());
 		comment.setUser_id(mb.getId());
 		System.out.println("user_id : "+comment.getUser_id());
 		
-		//´ñ±Û »ðÀÔ ¸Þ¼­µå È£Ãâ
+		//ëŒ“ê¸€ ì‚½ìž… ë©”ì„œë“œ í˜¸ì¶œ
 		int cnt = commentDao.writeComment(comment);
-		System.out.println("´ñ±Û »ðÀÔ ¼º°ø °¹¼ö : "+cnt);
+		System.out.println("ëŒ“ê¸€ ì‚½ìž… ì„±ê³µ ê°¯ìˆ˜ : "+cnt);
 		
-		//´ñ±Û »ðÀÔ¿¡ ¼º°ø
+		//ëŒ“ê¸€ ì‚½ìž…ì— ì„±ê³µ
 		if(cnt > 0) {
 			List<CommentBean> commentLists = commentDao.getAllComment(comment.getBoard_no());
 			System.out.println("commentLists.get(0).getContent() : "+commentLists.get(0).getContent());
