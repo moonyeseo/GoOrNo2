@@ -621,7 +621,7 @@ body {
 					<td rowspan="4">
 						<div class="image-container">
 							<a href="${pageContext.request.contextPath}/detail.event?eventNo=${favorite.event_no}">
-								<img src="${favorite.img}" alt="이미지">
+								<img src="${favorite.img}"  style = "width :100px; height : 160px"  alt="이미지">
 							</a>
 							<button type="button" onclick="favoriteDelete(${favorite.favorite_no}, ${favorite.event_no}, ${usersBean.user_no})" class="icon-button">
 								<i class="bi bi-heart-fill"></i>
