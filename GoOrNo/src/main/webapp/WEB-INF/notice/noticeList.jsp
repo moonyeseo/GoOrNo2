@@ -24,7 +24,7 @@
 				<div class="section-heading wow fadeIn" data-wow-duration="1s"
 					data-wow-delay="0.5s">
 					<br>
-					<h6>community</h6>
+					<h6>NOTICE</h6>
 					<h4>
 						<a href="list.notice" style="color:inherit;"><em>공지</em>사항</a>
 					</h4>

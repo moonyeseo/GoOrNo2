@@ -52,7 +52,7 @@ public class ChatListController {
 		
 		int totalCount = chatDao.getTotalCount(map);
 		String url = request.getContextPath()+this.command;
-		Paging pageInfo = new Paging(pageNumber,"12",totalCount,url,null,keyword);
+		Paging pageInfo = new Paging(pageNumber,"9",totalCount,url,null,keyword);
 		
 		//chatList
 		List<ChatBean> clists = chatDao.getChatList(map, pageInfo);

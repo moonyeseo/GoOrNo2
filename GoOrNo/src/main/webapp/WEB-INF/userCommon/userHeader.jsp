@@ -159,7 +159,7 @@ body {
 	            if (alarm_type === "board") {
 	                detailUrl = "${pageContext.request.contextPath}/detail.board?board_no=" + type_id;
 	            } else if (alarm_type === "qna") {
-	                detailUrl = "${pageContext.request.contextPath}/detail.qna?qna_no=" + type_id;
+	                detailUrl = "${pageContext.request.contextPath}/detail.qna?qna_no=" + type_id + "&isMypage=yes";
 	            }
 	            window.location.href = detailUrl;
 	        },

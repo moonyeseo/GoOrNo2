@@ -725,7 +725,7 @@ body {
 					<c:forEach var="qna" items="${myQnaList}" varStatus="status">
 					<tr>
 						<td>${status.count}</td>
-						<td><a href="${pageContext.request.contextPath}/detail.qna?qna_no=${qna.qna_no}">${qna.subject}</a></td>
+						<td><a href="${pageContext.request.contextPath}/detail.qna?qna_no=${qna.qna_no}&isMypage=yes">${qna.subject}</a></td>
 						<td>
 							<fmt:parseDate value="${qna.regdate}" var="dayFmt" pattern="yyyy-MM-dd"/>
 							<fmt:formatDate value="${dayFmt}" pattern="yyyy-MM-dd"/>
