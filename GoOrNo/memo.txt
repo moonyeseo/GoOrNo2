@@ -1,0 +1,19 @@
+[프로젝트 기본 설정]
+
+0. 포트번호를 8080으로 설정하고 프로젝트는 main.jsp 파일을 실행합니다.
+
+1. 실시간 채팅을 위한 설정
+- 프로젝트 우클릭 > Properties > Java Build Path > Libraries탭에서 JRE System Library [JavaSE - 1.6] 클릭 > Execution environment를 JavaSE-1.8 로 변경 후 적용
+- 프로젝트 우클릭 > Properties > Project Facets > Dynamic Web Module을 2.5에서 3.0으로, Java를 1.6에서 1.8로 변경 후 적용
+- 처음에 프로젝트를 실행합니다.
+- url이 "localhost:8080/ex/random.event"라고 되어 있으면 아래의 내용을 따릅니다.
+- Servers에서 톰캣을 더블 클릭합니다.
+- 하단 탭에서 Modules로 간 뒤 Edit을 눌러서 Path를 "/ex"에서 "/"로 수정합니다.
+- 저장하고 다시 프로젝트를 실행합니다.
+- url이 "localhost:8080/random.event"로 뜨면 됩니다!
+
+2. 이벤트 데이터 불러오기
+- 프로젝트 실행 후 "localhost:8080/api.event" 요청하면 데이터가 들어갑니다.
+
+3. 회원가입 본인 인증은 인증 횟수가 정해져 있어서 실행 영상에만 넣었고 코드에서는 key값을 뺐습니다. 
+대신 콘솔창의 "randomNumber:0000"에서 숫자를 입력하면 인증됩니다.

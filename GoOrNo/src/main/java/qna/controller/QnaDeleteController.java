@@ -35,6 +35,7 @@ public class QnaDeleteController {
 			HttpServletResponse response,
 			@RequestParam(value = "qna_no", required = true) int qna_no,
 			@RequestParam(value="isAdmin", required = false) String isAdmin,
+			@RequestParam(value="isList", required = false) String isList,
 			@RequestParam(value = "pageNumber", required = false) String pageNumber,
 			@RequestParam(value = "whatColumn", required = false) String whatColumn,
 			@RequestParam(value = "keyword", required = false) String keyword
@@ -45,14 +46,18 @@ public class QnaDeleteController {
 		model.addAttribute("whatColumn", whatColumn);
 		
 		int cnt = QnaDao.deleteQna(qna_no);
-		System.out.println("삭제 갯수 : " + cnt);
+		System.out.println("삭제 개수: " + cnt);
 		
 		if(isAdmin == null) {
 			return gotoPage;
 		}else {
 			model.addAttribute("isAdmin", "yes");
 			model.addAttribute("isSuccess", "yes");
-			return "qnaAdminDetailView";
+			if(isList == null) {
+				return "qnaAdminDetailView";
+			}else {
+				return gotoPage;
+			}
 		}
 	}
 
