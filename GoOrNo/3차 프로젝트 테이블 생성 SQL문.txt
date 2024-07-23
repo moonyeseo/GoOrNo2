@@ -1,0 +1,403 @@
+------------------------------------------------
+-------이벤트-----------
+drop sequence event_seq;
+create sequence event_seq
+   increment by 1
+   start with 1 
+   minvalue 1
+   maxvalue 10000
+   nocache;
+
+drop table event cascade constraints;
+create table event(
+ event_no number primary key,
+ performance_type varchar2(500),
+ title varchar2(500),
+ place varchar2(500),
+ event_period varchar2(500),
+ fimg varchar2(500), -- 파일 업로드 이미지
+ img varchar2(500), -- api 이미지
+ lot varchar2(500),
+ lat varchar2(500)
+);
+
+ 
+------------------------------------------------
+-------회원-----------
+drop sequence users_seq;
+
+create sequence users_seq
+increment by 1
+start with 1 
+minvalue 1
+maxvalue 10000
+nocache;
+
+
+drop table users cascade constraints;
+
+CREATE TABLE users (
+    user_no NUMBER PRIMARY KEY,
+    id VARCHAR2(30),
+    pw VARCHAR2(30),
+    name VARCHAR2(30),
+    gender VARCHAR2(30),
+    email VARCHAR2(50),
+    profile VARCHAR2(50),
+    phoneNum VARCHAR2(30),
+    postcode VARCHAR2(30),
+    address VARCHAR2(50)
+);
+
+insert into users values(1, 'admin', '1234', '관리자', '', 'admin@google.com', 'admin.jpg', '010-0000-0000', '00000', '서울시 마포구 동교동 21-21');
+
+
+------------------------------------------------
+-------북마크-----------
+drop sequence bookmark_seq;
+create sequence bookmark_seq
+start with 1
+increment by 1
+nocache
+;
+
+drop table bookmark cascade constraints;
+create table bookmark(
+book_no number primary key,
+user_no number references users(user_no) on delete cascade,
+type varchar2(30),
+b_addr varchar2(100),
+b_post varchar2(50)
+);
+
+
+------------------------------------------------
+-------즐겨찾기-----------
+drop sequence favorite_seq;
+create sequence favorite_seq
+start with 1
+increment by 1
+nocache
+;
+
+drop table favorite cascade constraints;
+create table favorite(
+favorite_no number primary key,
+event_no number references event(event_no) on delete cascade,
+user_no number references users(user_no) on delete cascade
+);
+
+
+------------------------------------------------
+-------리뷰-----------
+drop sequence review_seq;
+
+create sequence review_seq
+increment by 1
+start with 1 
+minvalue 1
+maxvalue 10000
+nocache;
+
+
+drop table review cascade constraints;
+
+CREATE TABLE review (
+    review_no NUMBER PRIMARY KEY,
+    event_no NUMBER references event(event_no) on delete cascade,
+    user_no NUMBER references users(user_no) on delete cascade,
+    user_id VARCHAR2(30),
+    comments VARCHAR2(200),
+    rating number
+);
+
+
+------------------------------------------------
+-------알람-----------
+drop sequence alarm_seq;
+create sequence alarm_seq
+start with 1
+increment by 1
+nocache
+;
+
+drop table alarm cascade constraints;
+create table alarm(
+alarm_no number primary key,
+user_no number references users(user_no) on delete cascade,
+user_id varchar2(30),
+message varchar2(300),
+alarm_type varchar2(30),
+type_id number,
+read number default 0
+);
+
+------------------------------------------------
+-------자유게시판-----------
+drop sequence board_seq;
+create sequence board_seq
+start with 1
+increment by 1
+nocache
+;
+
+drop table board cascade constraints;
+create table board(
+	board_no number primary key,
+	user_no number references users(user_no) on delete set null,
+	user_id varchar2(30),
+	subject varchar2(100),
+	content varchar2(1000),
+	readcount number default 0,
+	regdate date default sysdate
+);
+
+col board_no for 99
+col user_no for 99
+col user_id for a10
+col subject for a10
+col content for a20
+col readcount for 99
+col regdate for a10
+
+insert into board(board_no,user_no,user_id,subject,content,regdate)
+values(board_seq.nextval,1,'admin','제목1','내용1','2024-1-1');
+insert into board(board_no,user_no,user_id,subject,content,regdate)
+values(board_seq.nextval,1,'admin','제목2','내용2','2024-1-3');
+
+commit;
+
+select * from board order by regdate desc;
+
+
+
+------------------------------------------------
+-------신고-----------
+drop table report cascade constraints ;
+drop sequence report_seq;
+
+create table report(
+   re_no number primary key,
+   board_no number references board(board_no) on delete cascade,
+   subject varchar2(30) not null,
+   user_no references users(user_no)on delete cascade,
+   why varchar2(300) not null,
+   reportdate date default sysdate,
+   re_check number default 0
+);
+
+create sequence report_seq
+   increment by 1
+   start with 1 
+   minvalue 1
+   maxvalue 10000
+   nocache;
+   
+   
+--------------------------------------
+---댓글------------
+drop sequence cmt_seq;
+create sequence cmt_seq
+start with 1
+increment by 1
+nocache
+;
+
+drop table comments cascade constraints;
+create table comments(
+	comment_no number primary key,
+	board_no number references board(board_no) on delete cascade,
+	user_no number references users(user_no) on delete set null,
+	user_id varchar2(30),
+	content varchar2(300),
+	regdate date default sysdate
+);
+
+col comment_no for 99
+col board_no for 99
+col user_no for 99
+col content for a20
+col regdate for a10
+col ref for 99
+col re_level for 99
+col re_step for 99
+
+insert into comments(comment_no,board_no,user_no,user_id,content,regdate)
+values(cmt_seq.nextval,2,1,'admin','댓글 내용1','2024-1-4');
+
+
+commit;
+
+select * from comments order by board_no;
+
+------------------------------------------------
+-------공지사항-----------
+drop sequence notice_seq;
+create sequence notice_seq
+start with 1
+increment by 1
+nocache
+;
+
+drop table notice cascade constraints;
+create table notice(
+	notice_no number primary key,
+	subject varchar2(100),
+	content varchar2(1000),
+	readcount number default 0,
+	regdate date default sysdate
+);
+
+col notice_no for 99
+
+insert into notice(notice_no,subject,content,regdate)
+values(notice_seq.nextval,'데이터센터 작업관련 서비스 간헐적 중단 안내','데이터센터 작업관련하여 아래와 같이 갈까말까 서비스가 간헐적 중단되오니 이용에 참고하여 주시기 바랍니다. <br>- 작업일시 : 2024. 6. 5.(수) 18:00~18:40<br>- 작업내용 : 데이터센터 보호시스템 작업(긴급)<br>- 중단서비스 : 작업 시간내 간헐적 서비스 순단 발생(약 1분이내)<br><br>* 서비스 이용시 잠시 중단될 수 있으며 잠시후에 다시 시도하여 주시기 바랍니다.','2024-1-1');
+insert into notice(notice_no,subject,content,regdate)
+values(notice_seq.nextval,' 7월 특별 프로그램 안내','<h3>7월 특별프로그램 안내</h3><br><br>서울의 대표 시립문화시설의 야간 개방 및 시설별 특성에 맞는 다양한 야간 문화  프로그램을 제공합니다.<br>□ 특별프로그램<br>- 재즈공연 [은하수밴드] : 7월 5일(금) 19:00-20:00 / 서울역사박물관 로비<br>□ 상설전시: 매주 금요일 09:00-21:00<br>- 조선시대의 서울(1존), 개항 대한제국기의 서울(2존),   일제 강점기의 서울(3존), 대한민국 수도 서울(4존), 도시모형영상관','2024-7-22');
+
+commit;
+
+select * from notice order by regdate desc;
+
+
+------------------------------------------------
+-------FAQ-----------
+drop sequence faq_seq;
+create sequence faq_seq
+start with 1
+increment by 1
+nocache
+;
+
+drop table faq cascade constraints;
+create table faq(
+	faq_no number primary key,
+	question varchar2(100),
+	answer varchar2(1000),
+	readcount number default 0,
+	regdate date default sysdate
+);
+
+col faq_no for 99
+col question for a10
+col answer for a10
+
+insert into faq(faq_no,question,answer,regdate)
+values(faq_seq.nextval,'카카오 아이디로 가입은 어떻게 하나요?','로그인 화면에서 [카카오 로그인] 클릭한 뒤 아이디, 비밀번호를 입력하면 회원가입이 완료됩니다.','2023-11-12');
+
+insert into faq(faq_no,question,answer,regdate)
+values(faq_seq.nextval,'비밀번호를 잊어버렸어요','회원 로그인 화면에서 [비밀번호 찾기]를 클릭하여 아이디를 입력하면 비밀번호 확인이 가능합니다.','2024-3-27');
+
+insert into faq(faq_no,question,answer,regdate)
+values(faq_seq.nextval,'비밀번호는 어떻게 변경하나요?','마이페이지 > 비밀번호 변경 > 현재 비밀번호&새 비밀번호 입력 후 변경이 가능합니다.', '2024-3-27');
+
+insert into faq(faq_no,question,answer,regdate)
+values(faq_seq.nextval,'부적절한 게시물을 발견했어요','자유게시판의 경우 게시글 클릭 후 신고 버튼을 누르시면 담당자가 확인 후 운영 정책에 따라 조치하겠습니다.','2024-3-27');
+
+insert into faq(faq_no,question,answer,regdate)
+values(faq_seq.nextval,'리뷰는 어떻게 작성하나요?','로그인 후 [EVENT]에서 각 이벤트 클릭 시 페이지 하단의 리뷰 작성창이 활성화됩니다.<br> 비회원은 리뷰를 작성하실 수 없습니다.','2024-3-27');
+
+insert into faq(faq_no,question,answer,regdate)
+values(faq_seq.nextval,'회원가입/탈퇴는 어떻게 하나요?','회원가입과 회원탈퇴 절차는 다음과 같습니다.<br>● 회원가입<br>화면 좌측 상단의 [JOIN]을 클릭한 후, 본인인증 -> 고객정보입력 -> 가입완료의 단계를 거치면 회원가입이 가능합니다.<br>● 회원탈퇴<br>로그인 후 우측 상단의 [MY PAGE]를 클릭한 후 Profile -> 프로필 수정 -> 회원탈퇴 버튼 클릭 시 탈퇴가 가능합니다.','2023-1-1');
+
+insert into faq(faq_no,question,answer,regdate)
+values(faq_seq.nextval,'본인인증 꼭 해야 하나요?','회원가입 시 입력한 정보가 가입 고객의 정보와 일치하는지 검증하는 과정으로 두 정보의 불일치 시 인증이 불가하며, 실제 본인 여부를 확인하는 중요한 절차입니다.','2023-1-1');
+
+
+commit;
+
+select * from faq order by faq_no desc;
+
+
+------------------------------------------------
+-------Q&A-----------
+drop sequence qna_seq;
+create sequence qna_seq
+start with 1
+increment by 1
+nocache
+;
+
+drop table qna cascade constraints;
+create table qna(
+	qna_no number primary key,
+	user_no number references users(user_no) on delete set null,
+	user_id varchar2(30),
+	subject varchar2(100),
+	content varchar2(1000),
+	readcount number default 0,
+	regdate date default sysdate,
+	ref number,
+	state number default 0
+);
+
+col qna_no for 99
+
+
+insert into qna(qna_no,user_no, user_id, subject, content, regdate, ref, state)
+values(qna_seq.nextval,1,'admin','내년 2월 행사 목록은 없나요?','올해까지 밖에 없네요..','2023-1-1',1,1);
+insert into qna(qna_no,user_no, user_id, subject, content, regdate, ref)
+values(qna_seq.nextval,1,'admin','[답변] 업데이트 예정입니다.','1년 주기로 업데이트됩니다.<br>내년 1월 1일까지 기다려주세요.','2023-1-1',1);
+insert into qna(qna_no,user_no, user_id, subject, content, regdate, ref)
+values(qna_seq.nextval,1,'admin','카카오 로그인이 안돼요','왜 이런가요?','2023-1-1',3);
+
+commit;
+
+select * from qna order by ref desc, qna_no;
+
+-------------------------------------
+----------------------채팅 테이블
+-------------------------------------
+drop sequence chat_seq;
+create sequence chat_seq
+increment by 1
+start with 1
+nocache;
+
+drop table chat  cascade constraints;
+create table chat (
+	chat_no number primary key,
+	alias varchar2(100),
+	headcount number default 1,
+	maxcount number,
+	createdate date default sysdate
+);
+
+-------------------------------------
+----------------------채팅 멤버 테이블
+-------------------------------------
+drop sequence chatMember_seq;
+create sequence chatMember_seq
+increment by 1
+start with 1
+nocache;
+
+drop table chatMember cascade constraints;
+create table chatMember(
+	member_no number primary key,
+	chat_no number references chat (chat_no) on delete cascade,
+	user_no number references users(user_no) on delete cascade,
+	user_id varchar2(30),
+	owner number(1) default 0
+);
+
+
+-------------------------------------
+----------------------채팅 메세지 테이블
+-------------------------------------
+
+drop sequence chatMessage_seq;
+create sequence chatMessage_seq
+increment by 1
+start with 1
+nocache;
+
+drop table chatMessage  cascade constraints;
+create table chatMessage (
+	message_no number primary key,
+	chat_no number references chat (chat_no) on delete cascade,
+	user_no number references users(user_no) on delete set null,
+	user_id varchar2(30),
+	content varchar2(200),
+	sendTime date default sysdate
+);

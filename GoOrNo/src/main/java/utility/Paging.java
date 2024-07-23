@@ -1,24 +1,24 @@
 package utility;
 
 public class Paging {
-	//����¡ ���� ����	
-	private int totalCount = 0 ; //�� ���ڵ� �Ǽ�
-	private int totalPage = 0 ; //��ü ������ ��
-	private int pageNumber = 0 ; //������ ������ ��ȣ
-	private int pageSize = 0 ; //�� �������� ������ �Ǽ�
-	private int beginRow = 0 ; //���� �������� ���� ��
-	private int endRow = 0 ; //���� �������� �� ��
-	private int pageCount = 2 ; // �� ȭ�鿡 ������ ������ ��ũ �� (������ ����)
-	private int beginPage = 0 ; //����¡ ó�� ���� ������ ��ȣ
-	private int endPage = 0 ; //����¡ ó�� �� ������ ��ȣ
-	private int offset = 0 ; //240603 6����
-	private int limit = 0 ; //pageSize�� ����
+	//페이징 관련 변수	
+	private int totalCount = 0 ; //총 레코드 건수
+	private int totalPage = 0 ; //전체 페이지 수
+	private int pageNumber = 0 ; //보여줄 페이지 번호
+	private int pageSize = 0 ; //한 페이지에 보여줄 건수
+	private int beginRow = 0 ; //현재 페이지의 시작 행
+	private int endRow = 0 ; //현재 페이지의 끝 행
+	private int pageCount = 2 ; // 한 화면에 보여줄 페이지 링크 수 (페이지 갯수)
+	private int beginPage = 0 ; //페이징 처리 시작 페이지 번호
+	private int endPage = 0 ; //페이징 처리 끝 페이지 번호
+	private int offset = 0 ; //240603 6교시
+	private int limit = 0 ; //pageSize와 같음
 	private String url = "" ;
-	private String pagingHtml = "";//�ϴ��� ���� ������ ��ũ
+	private String pagingHtml = "";//하단의 숫자 페이지 링크
 	
-	//�˻��� ���� ���� �߰�
-	private String whatColumn = "" ; //�˻� ���(�ۼ���, ������, ��ü �˻��� all) ���
-	private String keyword = "" ; //�˻��� �ܾ� 
+	//검색을 위한 변수 추가
+	private String whatColumn = "" ; //검색 모드(작성자, 글제목, 전체 검색은 all) 등등
+	private String keyword = "" ; //검색할 단어 
 
 	public int getTotalCount() {
 		return totalCount;
@@ -145,7 +145,7 @@ public class Paging {
 		
 		return pagingHtml;
 //		pagingHtml:
-//			&nbsp;<font color='red'>1</font>&nbsp;&nbsp;<a href='/ex/list.ab?pageNumber=2&pageSize=2&whatColumn=null&keyword=null'>2</a>&nbsp;&nbsp;<a href='/ex/list.ab?pageNumber=3&pageSize=2&whatColumn=null&keyword=null'>3</a>&nbsp;&nbsp;<a href='/ex/list.ab?pageNumber=4&pageSize=2&whatColumn=null&keyword=null'>4</a>&nbsp;&nbsp;<a href='/ex/list.ab?pageNumber=5&pageSize=2&whatColumn=null&keyword=null'>5</a>&nbsp;&nbsp;<a href='/ex/list.ab?pageNumber=6&pageSize=2&whatColumn=null&keyword=null'>6</a>&nbsp;&nbsp;<a href='/ex/list.ab?pageNumber=7&pageSize=2&whatColumn=null&keyword=null'>7</a>&nbsp;&nbsp;<a href='/ex/list.ab?pageNumber=8&pageSize=2&whatColumn=null&keyword=null'>8</a>&nbsp;&nbsp;<a href='/ex/list.ab?pageNumber=9&pageSize=2&whatColumn=null&keyword=null'>9</a>&nbsp;&nbsp;<a href='/ex/list.ab?pageNumber=10&pageSize=2&whatColumn=null&keyword=null'>10</a>&nbsp;&nbsp;<a href='/ex/list.ab?pageNumber=11&pageSize=2&whatColumn=null&keyword=null'>����</a>&nbsp;&nbsp;<a href='/ex/list.ab?pageNumber=22&pageSize=2&whatColumn=null&keyword=null'>�� ��</a>&nbsp;
+//			&nbsp;<font color='red'>1</font>&nbsp;&nbsp;<a href='/ex/list.ab?pageNumber=2&pageSize=2&whatColumn=null&keyword=null'>2</a>&nbsp;&nbsp;<a href='/ex/list.ab?pageNumber=3&pageSize=2&whatColumn=null&keyword=null'>3</a>&nbsp;&nbsp;<a href='/ex/list.ab?pageNumber=4&pageSize=2&whatColumn=null&keyword=null'>4</a>&nbsp;&nbsp;<a href='/ex/list.ab?pageNumber=5&pageSize=2&whatColumn=null&keyword=null'>5</a>&nbsp;&nbsp;<a href='/ex/list.ab?pageNumber=6&pageSize=2&whatColumn=null&keyword=null'>6</a>&nbsp;&nbsp;<a href='/ex/list.ab?pageNumber=7&pageSize=2&whatColumn=null&keyword=null'>7</a>&nbsp;&nbsp;<a href='/ex/list.ab?pageNumber=8&pageSize=2&whatColumn=null&keyword=null'>8</a>&nbsp;&nbsp;<a href='/ex/list.ab?pageNumber=9&pageSize=2&whatColumn=null&keyword=null'>9</a>&nbsp;&nbsp;<a href='/ex/list.ab?pageNumber=10&pageSize=2&whatColumn=null&keyword=null'>10</a>&nbsp;&nbsp;<a href='/ex/list.ab?pageNumber=11&pageSize=2&whatColumn=null&keyword=null'>占쏙옙占쏙옙</a>&nbsp;&nbsp;<a href='/ex/list.ab?pageNumber=22&pageSize=2&whatColumn=null&keyword=null'>占쏙옙 占쏙옙</a>&nbsp;
 
 	}
 
@@ -190,40 +190,40 @@ public class Paging {
 		this.pageNumber = Integer.parseInt( _pageNumber ) ; 
 
 		if( _pageSize == null || _pageSize.equals("null") || _pageSize.equals("") ){
-			_pageSize = "5" ; // �� �������� ������ ���ڵ� ����
+			_pageSize = "5" ; // 한 페이지에 보여줄 레코드 갯수
 		}		
 		this.pageSize = Integer.parseInt( _pageSize ) ;
 		
-		this.limit = pageSize ; // �� �������� ������ ���ڵ� ����
+		this.limit = pageSize ; // 한 페이지에 보여줄 레코드 갯수
 
 		this.totalCount = totalCount ; 
 
 		this.totalPage = (int)Math.ceil((double)this.totalCount / this.pageSize) ;
-		//���ڵ� 17���� 17.0/2 = 8.5 =>�ø��ؼ� 9 = �������� ����
+		//레코드 17개면 17.0/2 = 8.5 =>올림해서 9 = 총페이지 갯수
 		this.beginRow = ( this.pageNumber - 1 )  * this.pageSize  + 1 ;
 		this.endRow =  this.pageNumber * this.pageSize ;
-		// pageNumber�� 2�̸� beginRow=3, endRow=4
+		// pageNumber가 2이면 beginRow=3, endRow=4
 		
 		
 		if( this.pageNumber > this.totalPage ){
-			//8�������� ������ ���ڵ��� 15�� ���ڵ� �����ϸ� �������� ������ �޶��� 
+			//8페이지의 마지막 레코드인 15번 레코드 삭제하면 총페이지 갯수가 달라짐  
 			this.pageNumber = this.totalPage ;
 		}
 		
 		this.offset = ( pageNumber - 1 ) * pageSize ; 
 		/*offset : 
-			�� �������� 2���� ����� ��,
-			3������ Ŭ���ϸ� �տ� 4�� �ǳʶٰ� 5��° ���� ���;� �Ѵ�. 
-			���� offset = (3-1)*2 => 4(�ǳʶ� ������ �ȴ�.)
-		*/	
+		한 페이지에 2개씩 출력할 때,
+		3페이지 클릭하면 앞에 4개 건너뛰고 5번째 부터 나와야 한다. 
+		위의 offset = (3-1)*2 => 4(건너뛸 갯수가 된다.)
+		 */	
 		if( this.endRow > this.totalCount ){
 			this.endRow = this.totalCount  ;
 		}
 
 		this.beginPage = ( this.pageNumber - 1 ) / this.pageCount * this.pageCount + 1  ;
 		this.endPage = this.beginPage + this.pageCount - 1 ;
-		/*pageCount=10 : �� ȭ�鿡 ���� ������ ��,
-		pageNumber(���� Ŭ���� ������ ��)�� 12�̸� beginPage = 11�� �ǰ�, endPage=20�� �ȴ�. */
+		/*pageCount=10 : 한 화면에 보일 페이지 수,
+		pageNumber(현재 클릭한 페이지 수)가 12이면 beginPage = 11이 되고, endPage=20이 된다. */
 		
 		System.out.println("pageNumber:"+pageNumber+"/totalPage:"+totalPage);	
 		
@@ -242,17 +242,17 @@ public class Paging {
 	
 	}
 	
-	private String getPagingHtml( String url ){ //����¡ ���ڿ��� �����.
+	private String getPagingHtml( String url ){ //페이징 문자열을 만든다.
 		System.out.println("getPagingHtml url:"+url); 
 	
 		
 		String result = "" ;
-		//added_param ���� : �˻� �����Ͽ� �߰��Ǵ� �Ķ���� ����Ʈ
-		String added_param = "&whatColumn=" + whatColumn + "&keyword=" + keyword ; // &whatColumn=singer&keyword=��
+		//added_param 변수 : 검색 관련하여 추가되는 파라미터 리스트
+		String added_param = "&whatColumn=" + whatColumn + "&keyword=" + keyword ; // &whatColumn=singer&keyword=占쏙옙
 		
 		
-		if (this.beginPage != 1) { // ����, pageSize:�� ȭ�鿡 ���̴� ���ڵ� ��
-			// ó�� ��Ϻ��⸦ �ϸ� pageNumber�� 1�� �ǰ� beginPage�� 1�� �ȴ�. 
+		if (this.beginPage != 1) { // 앞쪽, pageSize:한 화면에 보이는 레코드 수
+			// 처음 목록보기를 하면 pageNumber는 1이 되고 beginPage도 1이 된다.  
 			result += "&nbsp;<a href='" + url  
 					+ "?pageNumber=" + ( 1 ) + "&pageSize=" + this.pageSize 
 					+ added_param + "'><font color='black'> << </font></a>&nbsp;" ;
@@ -261,7 +261,7 @@ public class Paging {
 					+ added_param + "'><font color='black'>이전</font></a>&nbsp;" ;
 		}
 		
-		//���
+		//占쏙옙占쏘데
 		for (int i = this.beginPage; i <= this.endPage ; i++) {
 			if ( i == this.pageNumber ) {
 				result += "&nbsp;<font color='red'>" + i + "</font>&nbsp;"	;
@@ -277,8 +277,8 @@ public class Paging {
 		System.out.println();
 		// result:&nbsp;<a href='/ex/list.ab?pageNumber=1&pageSize=2&whatColumn=null&keyword=null'>1</a>&nbsp;&nbsp;<font color='red'>2</font>&nbsp;&nbsp;<a href='/ex/list.ab?pageNumber=3&pageSize=2&whatColumn=null&keyword=null'>3</a>&nbsp;
 		
-		if ( this.endPage != this.totalPage) { // ����
-			// endPage:���� ���� �������� ��(���� ���� �������� 13�̶�� endPage�� 20), totalPage:��ü ��������
+		if ( this.endPage != this.totalPage) { // 뒤쪽
+			// endPage:지금 보는 페이지의 끝(지금 보는 페이지가 13이라면 endPage는 20), totalPage:전체 페이지수
 			
 			result += "&nbsp;<a href='" + url  
 					+ "?pageNumber=" + (this.endPage + 1 ) + "&pageSize=" + this.pageSize 
@@ -290,13 +290,7 @@ public class Paging {
 		}		
 		System.out.println("result2:"+result);
 		System.out.println("----------------------------------------");
-		// result2 : <a href='/ex/list.ab?pageNumber=1&pageSize=2'>�� ó��</a>&nbsp;&nbsp;<a href='/ex/list.ab?pageNumber=3&pageSize=2&whatColumn=null&keyword=null'>����</a>&nbsp;&nbsp;<font color='red'>4</font>&nbsp;&nbsp;<a href='/ex/list.ab?pageNumber=5&pageSize=2&whatColumn=null&keyword=null'>5</a>&nbsp;
-		
-		
-		
-		
-		
-		
+		// result2 : <a href='/ex/list.ab?pageNumber=1&pageSize=2'>맨 처음</a>&nbsp;&nbsp;<a href='/ex/list.ab?pageNumber=3&pageSize=2&whatColumn=null&keyword=null'>占쏙옙占쏙옙</a>&nbsp;&nbsp;<font color='red'>4</font>&nbsp;&nbsp;<a href='/ex/list.ab?pageNumber=5&pageSize=2&whatColumn=null&keyword=null'>5</a>&nbsp;
 		
 		return result ;
 	}	

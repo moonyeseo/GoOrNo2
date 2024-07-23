@@ -25,6 +25,7 @@ public class QnaDetailController {
 			HttpSession session,
 			@RequestParam(value="qna_no", required = true) int qna_no,
 			@RequestParam(value="isAdmin", required = false) String isAdmin,
+			@RequestParam(value="isMypage", required = false) String isMypage,
 			@RequestParam(value="pageNumber", required = false) String pageNumber,
 			@RequestParam(value="whatColumn", required = false) String whatColumn,
 			@RequestParam(value="keyword", required = false) String keyword,
@@ -40,7 +41,7 @@ public class QnaDetailController {
 			
 			//woo 추가 : 답글이 있는 경우 답글로 이동
             QnaBean reply = qnaDao.getReplyByOrgNo(qna_no);
-            if (reply != null) {
+            if (reply != null && isMypage != null) {
                 model.addAttribute("reply", reply);
                 model.addAttribute("qna", reply);
             }

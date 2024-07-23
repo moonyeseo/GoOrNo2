@@ -46,10 +46,10 @@ public class BookmarkInsertController {
 		
 		ModelAndView mav = new ModelAndView();
 		
-		//ê¸°ì¡´ ë¶ë§ˆí¬ ìˆëŠ”ì§€ í™•ì¸
+		//±âÁ¸ ºÏ¸¶Å© ÀÖ´ÂÁö È®ÀÎ
 		BookmarkBean existBookmark = bookmarkDao.getBookmarkByUserNoAndType(bookmarkBean.getUser_no(), bookmarkBean.getType());
 		
-		//ìˆìœ¼ë©´ ì‚­ì œ
+		//ÀÖÀ¸¸é »èÁ¦
 		if(existBookmark != null) {
 			bookmarkDao.deleteBookmark(existBookmark.getBook_no() , bookmarkBean.getUser_no(), bookmarkBean.getType());
 		}

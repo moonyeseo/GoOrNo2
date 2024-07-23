@@ -77,8 +77,8 @@ public class UsersDao {
 		return count;
 	}
 	
-	/* woo ì¶”ê°€ */
-	//ìœ ì € ìˆ˜ì •
+	/* woo Ãß°¡ */
+	//À¯Àú ¼öÁ¤
 	public int updateUsers(UsersBean usersBean) {
 //		System.out.println("-----updateUsers()-----");
 		
@@ -91,7 +91,7 @@ public class UsersDao {
 	}//updateUsers
 	
 	
-	//ë¹„ë°€ë²ˆí˜¸ ìˆ˜ì •
+	//ºñ¹Ð¹øÈ£ ¼öÁ¤
 	public int updatePw(UsersBean usersBean) {
 //		System.out.println("-----updatePw()-----");
 		
@@ -101,7 +101,7 @@ public class UsersDao {
 		return cnt;
 	}
 	
-	//ìœ ì € ì‚­ì œ
+	//À¯Àú »èÁ¦
 	public int deleteUsers(int user_no) {
 //		System.out.println("-----deleteUsers()-----");
 		

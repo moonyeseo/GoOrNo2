@@ -2,8 +2,8 @@ package alarm.model;
 
 public class AlarmBean {
 	private int alarm_no;
-	private int user_no; //ì›ê¸€ ì‘ì„±ì(ë¡œê·¸ì¸í•œ ìœ ì €)
-	private String user_id; //ëŒ“ê¸€orë‹µê¸€ ë‹¨ ìœ ì €ì˜ id
+	private int user_no; //¿ø±Û ÀÛ¼ºÀÚ(·Î±×ÀÎÇÑ À¯Àú)
+	private String user_id; //´ñ±Ûor´ä±Û ´Ü À¯ÀúÀÇ id
 	private String message;
 	private String alarm_type;
 	private int type_id;

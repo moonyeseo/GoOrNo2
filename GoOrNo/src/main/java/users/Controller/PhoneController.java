@@ -30,10 +30,10 @@ public class PhoneController {
 
 		HashMap<String, String> params = new HashMap<String, String>();
 
-		params.put("to", phoneNum); // ìˆ˜ì‹ ì „í™”ë²ˆí˜¸
-		params.put("from", "ì „í™”ë²ˆí˜¸ ì…ë ¥"); // ë°œì‹ ì „í™”ë²ˆí˜¸. í…ŒìŠ¤íŠ¸ì‹œì—ëŠ” ë°œì‹ ,ìˆ˜ì‹  ë‘˜ë‹¤ ë³¸ì¸ ë²ˆí˜¸ë¡œ í•˜ë©´ ëœë‹¤.
+		params.put("to", phoneNum); // ¼ö½ÅÀüÈ­¹øÈ£
+		params.put("from", ""); // ¹ß½ÅÀüÈ­¹øÈ£. Å×½ºÆ®½Ã¿¡´Â ¹ß½Å,¼ö½Å µÑ´Ù º»ÀÎ ¹øÈ£·Î ÇÏ¸é µÈ´Ù.
 		params.put("type", "SMS");
-		params.put("text", "ì¸ì¦ë²ˆí˜¸ëŠ”" + "[" + randomNumber + "]" + "ì…ë‹ˆë‹¤."); // ë¬¸ì ë‚´ìš© ì…ë ¥
+		params.put("text", "ÀÎÁõ¹øÈ£´Â" + "[" + randomNumber + "]" + "ÀÔ´Ï´Ù."); // ¹®ÀÚ ³»¿ë ÀÔ·Â
 		params.put("app_version", "test app 1.2"); // application name and version
 		
 		System.out.println("phoneNum: " + phoneNum);
@@ -45,7 +45,7 @@ public class PhoneController {
 		} catch (CoolsmsException e) {
 			System.out.println("getMessage:" + e.getMessage());
 			System.out.println("getCode:" + e.getCode());
-			// ì˜ˆì™¸ ì²˜ë¦¬ - ì—¬ê¸°ì„œ ì˜ˆì™¸ê°€ ë°œìƒí•˜ë©´ í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ì–´ë–¤ ë©”ì‹œì§€ë¥¼ ë³´ë‚¼ì§€ ê²°ì •í•  ìˆ˜ ìˆìŒ
+			// ¿¹¿Ü Ã³¸® - ¿©±â¼­ ¿¹¿Ü°¡ ¹ß»ıÇÏ¸é Å¬¶óÀÌ¾ğÆ®¿¡°Ô ¾î¶² ¸Ş½ÃÁö¸¦ º¸³¾Áö °áÁ¤ÇÒ ¼ö ÀÖÀ½
 		}
 
 		return Integer.toString(randomNumber);

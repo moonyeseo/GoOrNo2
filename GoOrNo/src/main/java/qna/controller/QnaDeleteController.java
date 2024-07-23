@@ -52,7 +52,7 @@ public class QnaDeleteController {
 		}else {
 			model.addAttribute("isAdmin", "yes");
 			model.addAttribute("isSuccess", "yes");
-			return gotoPage;
+			return "qnaAdminDetailView";
 		}
 	}
 

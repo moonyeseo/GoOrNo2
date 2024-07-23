@@ -193,7 +193,11 @@ function commentWrite(){
 			for(let i in commentLists){
 				var count = Number(i)+1;
 				output += "<tr>";
-				output += "<td width='15%' align='center'>"+commentLists[i].user_id+"</td>";
+				if(commentLists[i].user_no == ''){
+					output += "<td width='15%' align='center'><font color='gray'>탈퇴한 회원</font></td>";
+				}else{
+					output += "<td width='15%' align='center'>"+commentLists[i].user_id+"</td>";
+				}
 				output += "<td id='contentSpace"+count+"' width='65%' align='left' style='overflow:hidden; word-break:break-all;'>"+commentLists[i].content+"</td>";
 				output += "<td id='commentRegdate' width='20%' align='right'><font size='2px' style='white-space: nowrap;'>";
 				//삭제, 수정 버튼
@@ -250,7 +254,10 @@ function saveComment(comment_no) {
 	const board_no = '${board.board_no}';
 	const id = '${ loginInfo.id }';
     var updatedContent = document.getElementById('updatedContent').value;
-
+	if(updatedContent.trim() == ""){
+		alert("내용을 입력하세요.");
+		return;
+	}
     $.ajax({
 		type : "post",
 		url : "update.comments",
@@ -266,7 +273,11 @@ function saveComment(comment_no) {
 			for(let i in commentLists){
 				var count = Number(i)+1;
 				output += "<tr>";
-				output += "<td width='15%' align='center'>"+commentLists[i].user_id+"</td>";
+				if(commentLists[i].user_no == ''){
+					output += "<td width='15%' align='center'><font color='gray'>탈퇴한 회원</font></td>";
+				}else{
+					output += "<td width='15%' align='center'>"+commentLists[i].user_id+"</td>";
+				}
 				output += "<td id='contentSpace"+count+"' width='65%' align='left' style='overflow:hidden; word-break:break-all;'>"+commentLists[i].content+"</td>";
 				output += "<td id='commentRegdate' width='20%' align='right'><font size='2px' style='white-space: nowrap;'>";
 				//삭제, 수정 버튼
@@ -319,7 +330,11 @@ function deleteComment(comment_no){
 				for(let i in commentLists){
 					var count = Number(i)+1;
 					output += "<tr>";
-					output += "<td width='15%' align='center'>"+commentLists[i].user_id+"</td>";
+					if(commentLists[i].user_no == ''){
+						output += "<td width='15%' align='center'><font color='gray'>탈퇴한 회원</font></td>";
+					}else{
+						output += "<td width='15%' align='center'>"+commentLists[i].user_id+"</td>";
+					}
 					output += "<td id='contentSpace"+count+"' width='65%' align='left' style='overflow:hidden; word-break:break-all;'>"+commentLists[i].content+"</td>";
 					output += "<td id='commentRegdate' width='20%' align='right'><font size='2px' style='white-space: nowrap;'>";
 					//삭제, 수정 버튼

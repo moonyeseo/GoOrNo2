@@ -31,7 +31,7 @@ public class BookmarkSearchController {
 		 
 		UsersBean users = (UsersBean)session.getAttribute("loginInfo"); 
 		 
-			if(users != null) { // ë¡œê·¸ì¸ëœ ìƒíƒœì¼ ë•Œë§Œ bookmark ê°€ì ¸ì˜¤ê¸°
+			if(users != null) { // ·Î±×ÀÎµÈ »óÅÂÀÏ ¶§¸¸ bookmark °¡Á®¿À±â
 				 int user_no = users.getUser_no();
 				
 				List<BookmarkBean> bookmarkLists = bookmarkDao.getSearchBookmark(user_no); 

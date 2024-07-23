@@ -32,7 +32,7 @@ public class CommentDao {
 		int cnt = -1;
 		cnt = sst.insert(namespace+".writeComment", comment);
 		
-		// �븣由� �깮�꽦
+		// 알림 생성
 		if (cnt > 0) {
             BoardBean board = boardDao.getBoardByNo(comment.getBoard_no());
             
@@ -64,7 +64,7 @@ public class CommentDao {
 		return cnt;
 	}
 	
-	//woo 異붽� : user_no�뿉 �뵲瑜� �뙎湲� list
+	//woo 추가 : user_no에 따른 댓글 list
 	public List<CommentBean> getCommentsByUser_no(int user_no){
 		List<CommentBean> commentsLists = new ArrayList<CommentBean>();
 		commentsLists = sst.selectList(namespace + ".getCommentsByUser_no", user_no);

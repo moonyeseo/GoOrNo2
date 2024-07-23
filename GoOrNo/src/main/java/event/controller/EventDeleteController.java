@@ -19,10 +19,6 @@ public class EventDeleteController {
 	
 	@RequestMapping(command)
 	public String delete(@RequestParam("eventNo") int eventNo) {
-		
-		
-		
-		
 		int cnt = -1;
 		cnt = edao.deleteEvent(eventNo);
 		return gotoPage;

@@ -69,26 +69,26 @@ public class QnaDao {
 	}
 	
 	public int insertReply(QnaBean qna, int orgNo) {
-		//��� �߰� ���� ref
-		QnaBean bb = getQnaByNo(orgNo); //�������� ��ȣ�� ������ ���� ��������
-		int ref = bb.getRef(); //�������� ref ������
-		qna.setRef(ref); //�������� ref�� ����
+		//답글 추가 설정 ref
+		QnaBean bb = getQnaByNo(orgNo); //참조글의 번호로 참조글 정보 가져오기
+		int ref = bb.getRef(); //참조글의 ref 가져옴
+		qna.setRef(ref); //참조글의 ref와 같음
 		
-		//�����ڸ� ��� �ۼ� ����
+		//관리자만 답글 작성 가능
 		qna.setUser_id("admin");
 		qna.setUser_no(1);
 		
-		//��� ����
+		//답글 삽입
 		int cnt = sst.insert(namespace+".insertReply", qna);
 		
-		//��� �ۼ��� �亯 ������ state = 1�� ����
+		//답글 작성시 답변 원글의 state = 1로 수정
 		if(cnt > 0) {
 			Map<String,Integer> map = new HashMap<String,Integer>();
 			map.put("state", 1);
 			map.put("no", orgNo);
 			
 			int cnt2 = sst.update(namespace+".updateState", map);
-			System.out.println("state 1�� ������ ���� : "+cnt2);
+			System.out.println("state 1로 수정한 갯수 : "+cnt2);
 			
 			
 			//woo 수정 : 알림 기능
@@ -111,21 +111,21 @@ public class QnaDao {
 	}
 
 	public int deleteQna(int qna_no) {
-		//�� ���� ������
+		//글 정보 가져옴
 		QnaBean qb = getQnaByNo(qna_no);
 		
 		int cnt = sst.delete(namespace+".deleteQna",qna_no);
 
-		if(cnt > 0) {// ���� ����
-			//��� ������ ������ state = 0���� ����
+		if(cnt > 0) {// 삭제 성공
+			//답글 삭제시 질문글 state = 0으로 변경
 			if(qb.getQna_no() != qb.getRef()) {
 				Map<String,Integer> map = new HashMap<String,Integer>();
 				map.put("state", 0);
 				map.put("no", qb.getRef());
 				
 				int cnt2 = sst.update(namespace+".updateState", map);
-				System.out.println("state 0�� ������ ���� : "+cnt2);
-			}else { //������ ������ �亯�� ���� ����
+				System.out.println("state 0로 수정한 갯수 : "+cnt2);
+			}else { //질문글 삭제시 답변도 같이 삭제
 				int ref = qna_no;
 				sst.delete(namespace+".deleteReply",ref);
 			}

@@ -43,7 +43,7 @@ public class AlarmDao {
 		return cnt;
 	}
 	
-	//checkRead _ì½ìŒ ì—¬ë¶€ ì—…ë°ì´íŠ¸
+	//checkRead _ÀĞÀ½ ¿©ºÎ ¾÷µ¥ÀÌÆ®
 	public int checkRead(int alarm_no) {
 		System.out.println("-----AlarmDao _checkRead()-----");
 		
@@ -53,7 +53,7 @@ public class AlarmDao {
 		return cnt;
 	}
 	
-	//deleteAlarm _ì•Œë¦¼ ì‚­ì œ
+	//deleteAlarm _¾Ë¸² »èÁ¦
 	public int deleteAlarm(int alarm_no) {
         System.out.println("-----AlarmDao _deleteAlarm()-----");
         

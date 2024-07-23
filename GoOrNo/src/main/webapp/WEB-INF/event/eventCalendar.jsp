@@ -430,8 +430,17 @@ https://templatemo.com/tm-568-digimedia
 									<div class="col-lg-12">
 										<div class="post-item">
 											<div class="thumb">
-												<a href="javascript:void(0);" onClick = "goParent(${eventLists.get(i).event_no})"><img
-													src="${eventLists.get(i).img }" alt="img"></a>
+												<a href="javascript:void(0);" onClick = "goParent(${eventLists.get(i).event_no})">
+													<c:choose>
+													    <c:when test="${not empty event.fimg}">
+													        <!-- 업로드된 이미지가 있으면 해당 이미지를 사용 -->
+													        <img src="${pageContext.request.contextPath}/resources/uploadImage/${event.fimg}" width = "100px" height = "200px" alt="${event.title}" />
+													    </c:when>
+													    <c:otherwise>
+													        <!-- 업로드된 이미지가 없으면 API 이미지를 사용 -->
+													        <img src="${eventLists.get(i).img }" width = "100px" height = "200px" alt="img">
+													    </c:otherwise>
+													</c:choose></a>
 											</div>
 											<div class="right-content">
 												<span class="category">${eventLists.get(i).performance_type }</span>

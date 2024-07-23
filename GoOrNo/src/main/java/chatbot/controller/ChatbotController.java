@@ -166,32 +166,32 @@ public class ChatbotController {
  //       msg = main( "postback text of welcome action");
         msg = main(inputText);
         
-     // JSON �Ľ�
+     // json
         JSONParser parser = new JSONParser();
         String description = null;
         try {
-        	//bubbles ����
+        	//bubbles
 			JSONObject json = (JSONObject)parser.parse(msg);
 			String bubbles = json.get("bubbles").toString();
 			
 			bubbles = bubbles.substring(1, bubbles.length()-1);
 			System.out.println("bubbles : " + bubbles);
 			
-			// data ����
+			// data
 			json = (JSONObject)parser.parse(bubbles);
 			String data = json.get("data").toString();
 			
 			System.out.println("data : " + data);
 			
-			// description ����
+			// description
 			json = (JSONObject)parser.parse(data);
 			description = json.get("description").toString();
 			
 			System.out.println("description : " + description);
 			
-			if(description.equals("��ü ��� ����� Ȯ���Ͻðڽ��ϱ�?" ) ) {
-				return description;
-			}
+//			if(description.equals("��ü ��� ����� Ȯ���Ͻðڽ��ϱ�?" ) ) {
+//				return description;
+//			}
 			
 		} catch (ParseException e) {
 			e.printStackTrace();

@@ -119,10 +119,10 @@
 
 						<div class="tab-content pt-2">
 							<div align="right">
-								<input type="button" class="btn btn-secondary" value="글목록"
+								<input type="button" class="btn btn-secondary" value="목록"
 									onClick="location.href='AdminList.event?eventNo=${event.event_no }&whatColumn=${param.whatColumn}&keyword=${param.keyword}&pageNumber=${param.pageNumber}'">
-								<input type="button" class="btn btn-secondary" value="글수정" onClick="updateEvent(${event.event_no })">
-								<input type="button" class="btn btn-secondary" value="글삭제" onClick="deleteEvent(${event.event_no})">
+								<input type="button" class="btn btn-secondary" value="수정" onClick="updateEvent(${event.event_no })">
+								<input type="button" class="btn btn-secondary" value="삭제" onClick="deleteEvent(${event.event_no})">
 							</div>
 						</div>
 

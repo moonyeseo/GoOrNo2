@@ -36,14 +36,14 @@ public class EventInsertController {
 	@Autowired
 	ServletContext servletContext;
 
-	// AdminList ë“±ë¡ í´ë¦­ ì‹œ
+	// AdminList µî·Ï Å¬¸¯ ½Ã
 	@RequestMapping(value = command, method = RequestMethod.GET)
 	public String insertForm(@RequestParam(value = "whatColumn", required = false) String whatColumn,
 			@RequestParam(value = "keyword", required = false) String keyword,
 			@RequestParam(value = "pageNumber", required = false) String pageNumber, HttpSession session, Model model) {
 		UsersBean mb = (UsersBean) session.getAttribute("loginInfo");
 		
-		// ë¡œê·¸ì¸ x
+		// ·Î±×ÀÎ x
 		if (mb == null) {
 			model.addAttribute("keyword", keyword);
 			model.addAttribute("pageNumber", pageNumber);
@@ -59,7 +59,7 @@ public class EventInsertController {
 		return getPage;
 	}
 
-	// ë ˆì½”ë“œ ë“±ë¡
+	// ·¹ÄÚµå µî·Ï
 	@RequestMapping(value = command, method = RequestMethod.POST)
 	public ModelAndView insert(@ModelAttribute("event") @Valid EventBean event, BindingResult result,
 			@RequestParam(value = "whatColumn", required = false) String whatColumn,
@@ -69,7 +69,7 @@ public class EventInsertController {
 		System.out.println("event.getFimg():" + event.getFimg()); // null
 		System.out.println("event.getUpload():" + event.getUpload());
 		System.out.println("event.getTitle():" + event.getTitle());
-		System.out.println("ì¥ì†Œ : " + event.getPerformance_type());
+		System.out.println("Àå¼Ò : " + event.getPerformance_type());
 
 		MultipartFile multi = event.getUpload();
 
@@ -124,7 +124,7 @@ public class EventInsertController {
 			mav.addObject("isSuccess", "yes");
 			mav.setViewName(getPage);
 		}else {
-			out.append("<script>alert('í–‰ì‚¬ ì •ë³´ ë“±ë¡ ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤.')</script>");
+			out.append("<script>alert('Çà»ç Á¤º¸ µî·Ï ½ÇÆĞÇß½À´Ï´Ù.')</script>");
 		}
 		
 		out.flush();

@@ -14,10 +14,10 @@
 	</select>
 	
 	<select id="getFavoriteByUser_no" resultType="favorite.model.FavoriteBean">
-		select f.favorite_no, e.event_no, e.performance_type, e.title, e.place, e.event_period, e.img, NVL(AVG(r.rating), 0) as rating
+		select f.favorite_no, e.event_no, e.performance_type, e.title, e.place, e.event_period, e.img, NVL(AVG(er.rating), 0) as rating
 		from favorite f
 		join event e on f.event_no = e.event_no
-		left join review r on e.event_no = r.event_no
+		left join review er on e.event_no = er.event_no
 		where f.user_no = #{user_no}
 		group by f.favorite_no, e.event_no, e.performance_type, e.title, e.place, e.event_period, e.img
 	</select>

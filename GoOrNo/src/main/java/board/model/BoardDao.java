@@ -55,17 +55,17 @@ public class BoardDao {
 	}
 
 	public int deleteBoard(int board_no) {
-		System.out.println("ï¿½ï¿½ï¿½ï¿½ : "+board_no);
+		System.out.println("deleteBoard : "+board_no);
 		int cnt = sst.delete(namespace+".deleteBoard",board_no);
 		return cnt;
 	}
 	
-	//woo ì¶”ê°€ : user_noì— ë”°ë¥¸ ê²Œì‹œíŒ list
-	public List<BoardBean> getBoardByUser_no(int user_no){
-		List<BoardBean> boardLists = new ArrayList<BoardBean>();
-		boardLists = sst.selectList(namespace + ".getBoardByUser_no", user_no);
-		
-		return boardLists;
-	}//getBoardByUser_no
+	//woo Ãß°¡ : user_no¿¡ µû¸¥ °Ô½ÃÆÇ list
+		public List<BoardBean> getBoardByUser_no(int user_no){
+			List<BoardBean> boardLists = new ArrayList<BoardBean>();
+			boardLists = sst.selectList(namespace + ".getBoardByUser_no", user_no);
+			
+			return boardLists;
+		}//getBoardByUser_no
 
 }

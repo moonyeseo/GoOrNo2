@@ -26,7 +26,7 @@ import users.model.UsersBean;
 
 @Controller
 public class EventUpdateController {
-	// ê´€ë¦¬ì
+	// °ü¸®ÀÚ
     private final String command = "update.event";
     private final String getPage = "eventUpdateForm";
     private final String gotoPage = "redirect:/AdminList.event";
@@ -38,7 +38,7 @@ public class EventUpdateController {
     @Autowired
 	ServletContext servletContext;
 
-    // ê´€ë¦¬ì ìƒì„¸ë³´ê¸° ìˆ˜ì • í´ë¦­ ì‹œ, GET
+    // °ü¸®ÀÚ »ó¼¼º¸±â ¼öÁ¤ Å¬¸¯ ½Ã, GET
     @RequestMapping(value = command, method = RequestMethod.GET)
     public String updateForm(@RequestParam("eventNo") int eventNo,
             @RequestParam(value = "whatColumn", required = false) String whatColumn,
@@ -47,7 +47,7 @@ public class EventUpdateController {
 
         UsersBean mb = (UsersBean) session.getAttribute("loginInfo");
 
-       // ë¡œê·¸ì¸ x
+       // ·Î±×ÀÎ x
         if (mb == null) {
             String destination = "redirect:/update.event?eventNo=" + eventNo + "&pageNumber=" + pageNumber
                     + "&whatColumn=" + whatColumn + "&keyword=" + keyword;
@@ -67,7 +67,7 @@ public class EventUpdateController {
         return getPage;
     }
 
-    // ì—…ëƒí¼ ìˆ˜ì • í´ë¦­ ì‹œ, POST 
+    // ¾÷µ«Æû ¼öÁ¤ Å¬¸¯ ½Ã, POST 
     @RequestMapping(value = command, method = RequestMethod.POST)
     public ModelAndView update(
     		@ModelAttribute("event")
@@ -141,7 +141,7 @@ public class EventUpdateController {
 			mav.addObject("isSuccess", "yes");
 			mav.setViewName(getPage);
 		}else {
-			out.append("<script>alert('í–‰ì‚¬ ì •ë³´ ìˆ˜ì • ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤.')</script>");
+			out.append("<script>alert('Çà»ç Á¤º¸ ¼öÁ¤ ½ÇÆĞÇß½À´Ï´Ù.')</script>");
 		}
 		
 		out.flush();

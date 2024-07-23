@@ -7,9 +7,9 @@ public class QnaBean {
 	private int qna_no;
 	private int user_no;
 	private String user_id;
-	@NotBlank(message = "������ �����Ǿ����ϴ�.")
+	@NotBlank(message = "no content.")
 	private String subject;
-	@NotBlank(message = "������ �����Ǿ����ϴ�.")
+	@NotBlank(message = "no content.")
 	private String content;
 	private int readcount;
 	private String regdate;

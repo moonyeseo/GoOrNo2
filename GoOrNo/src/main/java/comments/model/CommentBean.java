@@ -7,10 +7,10 @@ public class CommentBean {
 	String user_id;
 	String content;
 	String regdate;
-	/* woo ì¶”ê°€ */
+	/* woo Ãß°¡ */
 	String board_subject;
 	
-	//ëŒ“ê¸€ ì‘ì„±ì = íšŒì› ì•„ì´ë”” ì¶”ê°€
+	//´ñ±Û ÀÛ¼ºÀÚ = È¸¿ø ¾ÆÀÌµğ Ãß°¡
 	String id;
 	
 	public int getComment_no() {
