@@ -36,7 +36,7 @@ public class CommentsDeleteController {
 		//댓글 삭제 성공
 		if(cnt > 0) {
 			List<CommentBean> commentLists = commentDao.getAllComment(board_no);
-			System.out.println("commentLists.get(0).getContent() : "+commentLists.get(0).getContent());
+			System.out.println("commentLists.size() : "+commentLists.size());
 			return commentLists;
 		}else {
 			return null;
