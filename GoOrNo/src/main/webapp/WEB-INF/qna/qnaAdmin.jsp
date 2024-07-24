@@ -110,6 +110,7 @@
 				<div class="card-body">
 					<form action="delete.qna">
 						<input type="hidden" name="qna_no" id="qna_no">
+						<input type="hidden" name="isList" value="yes">
 						<input type="hidden" name="isAdmin" id="isAdmin" value="yes">
 						<input type="hidden" name="pageNumber" value="${ pageInfo.pageNumber }">
 						<input type="hidden" name="whatColumn" value="${ pageInfo.whatColumn }">
